@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+
+  postgres:
+    build:
+      context: ${PWD}/docker/postgres
+    env_file: ${PWD}/docker/postgres/.env
+    container_name: postgres
+
+  astromodel:
+    build:
+      context: ${PWD}/docker/astromodel
+    container_name: astromodel
+
+  wsserver:
+    build:
+      context: ${PWD}/docker/wsserver
+    container_name: wsserver
+
+  wsclient:
+    build:
+      # context: ${PWD}/docker/wsclient
+      context: ${PWD}

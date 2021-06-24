@@ -1,0 +1,460 @@
+{
+	"UNITS": {
+		"distance": {
+			"микрометры": "1e-6",
+			"милиметры": "1e-3",
+			"метры": "1e+0",
+			"километры": "1e+3",
+			"aстрономические единицы": "1495978707e+2",
+			"световые года": "94607304725808e+2",
+			"парсеки": "30856776e+9",
+			"мегапарсеки": "30856776e+15"
+		},
+		"time": {
+			"микросекунды": "1e-6",
+			"милисекунды": "1e-3",
+			"секунды": "1e+0",
+			"минуты": "6e+1",
+			"часы": "36e+2",
+			"дни": "864e+2",
+			"годы": "31536e+3",
+			"столетя": "31536e+5",
+			"тысячилетия": "31536e+6"
+		},
+		"velosity": {
+			"мкм / c": "1e-6",
+			"мм / с": "1e-3",
+			"м / с": "1e+0",
+			"км / с": "1e+3",
+			"скорости света": "299792458e+0"
+		},
+		"charge": {
+			"микрокулон": "1e-6",
+			"миликулон": "1e-3",
+			"кулон": "1e+0",
+			"килокулон": "1e+3"
+		},
+		"mass": {
+			"микрограммы": "1e-9",
+			"милиграммы": "1e-6",
+			"граммы": "1e-3",
+			"килограммы": "1e+0",
+			"тонны": "1e+3",
+			"массы Солнца": "1e+30"
+		},
+		"electricity": {
+			"мкВ / см": "1e-4",
+			"мВ / см": "1e-1"
+		},
+		"magnetic": {
+			"мкT": "1e-6",
+			"мT": "1e-3",
+			"T": "1e+0"
+		},
+		"angle": {
+			"градусы": "0.017453292519943295",
+			"радианы": "1"
+		}
+	},
+	"CASES": {
+		"dimensions": {
+			"title": "Размерность пространства моделирования",
+			"default": "2",
+			"type": "int",
+			"class": "dropdown",
+			"cases": {
+				"Двумерное пространство": "2",
+				"Трехмерное пространство": "3"
+			},
+			"dementional": false
+		},
+		"K": {
+			"title": "Коэффициент восстановления (для столкновений)",
+			"default": "1",
+			"type": "int",
+			"class": "dropdown",
+			"cases": {
+				"Упругие столкновения": "1",
+				"Неупругие столкновения": "0"
+			},
+			"dementional": false
+		},
+		"output_graphis": {
+			"title": "Графический вид анимации",
+			"default": "matplotlib",
+			"type": "str",
+			"class": "dropdown",
+			"cases": {
+				"Сырые данные": "json",
+				"Научный": "matplotlib",
+				"Визуальный": "vispy"
+			},
+			"dementional": false
+		},
+		"gravity_point_interaction": {
+			"title": "Гравитационное взаимодействие точечных объектов",
+			"default": "True",
+			"type": "bool",
+			"class": "checkbox",
+			"dementional": false
+		},
+		"gravity_extended_interaction": {
+			"title": "Внешнее гравитационное поле",
+			"default": "False",
+			"type": "bool",
+			"class": "checkbox",
+			"dementional": false
+		},
+		"electricity_point_interaction": {
+			"title": "Кулоновское взаимодействие",
+			"default": "False",
+			"type": "bool",
+			"class": "checkbox",
+			"dementional": false
+		},
+		"electricity_extended_interaction": {
+			"title": "Внешнее электромагнитное поле",
+			"default": "False",
+			"type": "bool",
+			"class": "checkbox",
+			"dementional": false
+		},
+		"trajectory": {
+			"title": "Отображать траектории частиц",
+			"default": "True",
+			"type": "bool",
+			"class": "checkbox",
+			"dementional": false
+		},
+		"step": {
+			"title": "Шаг по времени моделирования",
+			"default": "1",
+			"type": "float",
+			"class": "number",
+			"minimum": "0",
+			"units": "time",
+			"dementional": false
+		},
+		"steps_number": {
+			"title": "Количество шагов / временной интервал",
+			"default": "10",
+			"type": "int",
+			"class": "number",
+			"minimum": "1",
+			"dementional": false
+		},
+		"fps": {
+			"title": "Количество кадров в секунду анимации / FPS",
+			"default": "30",
+			"type": "int",
+			"class": "number",
+			"minimum": "1",
+			"dementional": false
+		},
+		"frames_gap": {
+			"title": "Кадровый прыжок",
+			"default": "1",
+			"type": "int",
+			"class": "number",
+			"minimum": "1",
+			"dementional": false
+		},
+		"edge": {
+			"title": "Границы пространства моделирования",
+			"default": "1",
+			"type": "float",
+			"class": "number",
+			"minimum": "0",
+			"units": "distance",
+			"dementional": false
+		},
+		"scale_faktor": {
+			"title": "Масштабный фактор",
+			"default": "1",
+			"type": "float",
+			"class": "number",
+			"minimum": "0",
+			"dementional": false
+		},
+		"coords": {
+			"title": "Координаты центра",
+			"default": "0",
+			"type": "float",
+			"class": "number",
+			"units": "distance",
+			"dementional": true
+		},
+		"speed": {
+			"title": "Начальная скорость",
+			"default": "0",
+			"type": "float",
+			"class": "number",
+			"units": "velosity",
+			"dementional": true
+		},
+		"electricity": {
+			"title": "Компоненты электрического поля",
+			"default": "0",
+			"type": "expr",
+			"class": "text",
+			"units": "electricity",
+			"dementional": true
+		},
+		"magnetic": {
+			"title": "Компоненты магнитного поля",
+			"default": "0",
+			"type": "expr",
+			"class": "text",
+			"units": "magnetic",
+			"dementional": true
+		},
+		"charge": {
+			"title": "Заряд",
+			"default": "0",
+			"type": "float",
+			"class": "number",
+			"units": "charge",
+			"dementional": false
+		},
+		"mass": {
+			"title": "Масса",
+			"default": "0",
+			"type": "float",
+			"class": "number",
+			"units": "mass",
+			"dementional": false
+		},
+		"radius": {
+			"title": "Радиус",
+			"default": "0",
+			"type": "float",
+			"class": "number",
+			"units": "distance",
+			"dementional": false
+		},
+		"delay": {
+			"title": "Время появления",
+			"default": "0",
+			"type": "float",
+			"class": "number",
+			"units": "time",
+			"dementional": false
+		},
+		"gravity": {
+			"title": "Потенциал гравитационного поля",
+			"default": "0",
+			"type": "expr",
+			"class": "text",
+			"dementional": false
+		},
+		"radius_scale": {
+			"title": "Масштабы радиусов точек",
+			"default": "1",
+			"type": "float",
+			"class": "number",
+			"units": "distance",
+			"dementional": false
+		},
+		"coordinate_scale": {
+			"title": "Масштаб координат точек",
+			"default": "1",
+			"type": "float",
+			"class": "number",
+			"units": "distance",
+			"dementional": false
+		},
+		"velocity_scale": {
+			"title": "Масштаб скоростей точек",
+			"default": "1",
+			"type": "float",
+			"class": "number",
+			"units": "velosity",
+			"dementional": false
+		},
+		"mass_scale": {
+			"title": "Масштаб масс точек",
+			"default": "1",
+			"type": "float",
+			"class": "number",
+			"units": "mass",
+			"dementional": false
+		},
+		"charge_scale": {
+			"title": "Масштаб зарядов точек",
+			"default": "1",
+			"type": "float",
+			"class": "number",
+			"units": "charge",
+			"dementional": false
+		},
+		"delay_scale": {
+			"title": "Масштаб задержки возникновения точек",
+			"default": "1",
+			"type": "float",
+			"class": "number",
+			"units": "time",
+			"dementional": false
+		},
+		"particals_number": {
+			"title": "Количество точек",
+			"default": "0",
+			"type": "int",
+			"class": "number",
+			"dementional": false
+		},
+		"ring_radius": {
+			"title": "Радиус кольца",
+			"default": "0",
+			"type": "float",
+			"class": "number",
+			"units": "distance",
+			"dementional": false
+		},
+		"point_velocity": {
+			"title": "Модуль скорости точек",
+			"default": "0",
+			"type": "float",
+			"class": "number",
+			"units": "velosity",
+			"dementional": false
+		},
+		"coords_center": {
+			"title": "Координаты центрального тела",
+			"default": "0",
+			"type": "float",
+			"class": "number",
+			"units": "distance",
+			"dementional": true
+		},
+		"speed_center": {
+			"title": "Компоненты скорости центрального тела",
+			"default": "0",
+			"type": "float",
+			"class": "number",
+			"units": "velosity",
+			"dementional": true
+		},
+		"mass_center": {
+			"title": "Масса центрального тела",
+			"default": "0",
+			"type": "float",
+			"class": "number",
+			"units": "mass",
+			"dementional": false
+		},
+		"major_axis": {
+			"title": "Большая полуось эллипса",
+			"default": "0",
+			"type": "float",
+			"class": "number",
+			"units": "distance",
+			"dementional": false
+		},
+		"exentricity": {
+			"title": "Эксцентриситет",
+			"default": "0",
+			"type": "float",
+			"class": "number",
+			"dementional": false
+		},
+		"focus": {
+			"title": "Положение фокуса",
+			"default": "0",
+			"type": "int",
+			"class": "dropdown",
+			"cases": {
+				"Правый": "0",
+				"Левый": "1"
+			},
+			"dementional": false
+		},
+		"apside_angle": {
+			"title": "Угол поворота линии апсид эллипса относительно оси Ох",
+			"default": "0",
+			"type": "float",
+			"class": "number",
+			"units": "angle",
+			"dementional": false
+		}
+	},
+	"GENERAL": [
+		"dimensions",
+		"K",
+		"output_graphis",
+		"gravity_point_interaction",
+		"gravity_extended_interaction",
+		"electricity_point_interaction",
+		"electricity_extended_interaction",
+		"trajectory",
+		"step",
+		"steps_number",
+		"fps",
+		"frames_gap",
+		"edge",
+		"scale_faktor"
+	],
+	"OBJECTS": {
+		"point_objects": {
+			"title": "Единичный объект",
+			"cases": [
+				"coords",
+				"speed",
+				"charge",
+				"mass",
+				"radius",
+				"delay"
+			]
+		},
+		"random_generators": {
+			"title": "Генератор произвольного распределения объектов",
+			"cases": [
+				"radius_scale",
+				"coordinate_scale",
+				"velocity_scale",
+				"mass_scale",
+				"charge_scale",
+				"delay_scale"
+			]
+		},
+		"ring_generator": {
+			"title": "Генератор кругового распределения объектов",
+			"cases": [
+				"particals_number",
+				"coords_center",
+				"speed_center",
+				"ring_radius",
+				"radius_scale",
+				"mass_scale",
+				"point_velocity"
+			]
+		},
+		"ellipse_generators": {
+			"title": "Генератор эллиптического распределения объектов",
+			"cases": [
+				"particals_number",
+				"mass_center",
+				"coords_center",
+				"speed_center",
+				"major_axis",
+				"exentricity",
+				"focus",
+				"apside_angle",
+				"radius_scale",
+				"mass_scale"
+			]
+		},
+		"EM_fields": {
+			"title": "Электромагнитное поле",
+			"cases": [
+				"electricity",
+				"magnetic"
+			]
+		},
+		"G_fields": {
+			"title": "Гравитационное поле",
+			"cases": [
+				"gravity"
+			]
+		}
+	}
+}

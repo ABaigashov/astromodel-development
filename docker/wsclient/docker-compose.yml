@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+  wsclient:
+    build:
+      context: .
+      dockerfile: ${PWD}/docker/wsclient/Dockerfile
+    depends_on:
+      - wsserver
+#    ports:
+#      - "8007:8080"
+    volumes:
+      - /var/astromodel:/var/astromodel
+    environment:
+       - RUN_MODE=docker
+       - WORKON_HOME=${PWD}/enviroments
+    # healthcheck:
+    #   test: ["CMD-SHELL", "curl -m 1 -i -N \
+    #     -H \"Connection: Upgrade\" \
+    #     -H \"Upgrade: websocket\" \
+    #     -H \"Sec-WebSocket-Version: 13\" \
+    #     -H \"Sec-WebSocket-Key: eGjlIHFhbKBsAABub11jZQ==\" \
+    #     -X GET http://localhost:8080 | grep Sec-WebSocket-Accept || exit 1"]
+    #   interval: 10s
+    #   timeout: 10s
+    #   retries: 5
+
+    deploy:
+      replicas: 4
+      restart_policy:
+        condition: on-failure
+
+networks:
+  default:
+    external:
+      name: astro-net
