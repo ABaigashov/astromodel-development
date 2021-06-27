@@ -1,5 +1,4 @@
 *.pyc
+*/__pycache__
 /configurator/configs
 /modeling_module/requirements
-*/__pycache__
-modeling_module/physical_problems/*/results

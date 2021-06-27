@@ -95,7 +95,7 @@ class PlotModel(BaseModel):
 		plt.title(self.config.name)
 		plt.minorticks_on()
 		self.all_trajectory = []
-		self.render = kw['path_generator']('gif', self.render)
+		self.render = kw['path_generator']('mp4', self.render)
 
 	def get_frame(self, i):
 		self.astro_object.update_dynamic_parametrs(self.config.step, i * self.config.frames_gap * self.config.step)
@@ -106,7 +106,7 @@ class PlotModel(BaseModel):
 
 	def render(self, path):
 		animation = VideoClip(self.get_frame, duration=(self.config.steps_number // self.config.frames_gap) / self.config.fps)
-		animation.write_gif(path, fps=self.config.fps)
+		animation.write_videofile(path, fps=self.config.fps)
 
 	def counting(self):
 		pass
@@ -195,7 +195,7 @@ class Plot3DModel(PlotModel):
 				)
 
 def _model_from_config(path_generator, astro_object, config):
-	if config.output_graphis == "matplotlib":
+	if config.output_graphics == 'matplotlib':
 		if config.dimensions == 3:
 			model = Plot3DModel
 		else:

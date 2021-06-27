@@ -1,4 +1,3 @@
-
 from interaction_creator import GlobalInteraction
 from models import _model_from_config
 
@@ -12,4 +11,4 @@ configuration = Configurator(sys.argv[1])
 astro_object = GlobalInteraction(configuration)
 model = _model_from_config(path_generator, astro_object, configuration)
 
-print(model.render(sys.argv[2]))
+print(sys.argv[3], model.render(sys.argv[2]))

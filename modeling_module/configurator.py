@@ -18,7 +18,7 @@ def _to_int(value):
 
 def path_generator(_format, function):
 	def wrapper(path):
-		path = os.path.join(path, random_hash().hex + '.' + _format)
+		path = os.path.join(path, random_hash().hex[:16] + '.' + _format)
 		function(path)
 		return path
 	return wrapper
