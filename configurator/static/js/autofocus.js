@@ -10,7 +10,7 @@ function autofocus() {
 			} else {
 				elements.push(div.children[1])
 			}
-		} else if (div.children[0].className) {
+		} else {
 			elements.push(div.children[0])
 		}
 	})
