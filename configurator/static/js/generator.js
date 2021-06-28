@@ -19,21 +19,41 @@ const defaultNumereticInputCases = {
 // ------------------------------------------ //
 
 function show404() {
-    document.body.innerHTML = '<h1>Error 404: Page not found</h1>'
+	document.body.innerHTML = '<h1>Error 404: Page not found</h1>'
+}
+
+function localhost(htmlForm) {
+	let fileToLoad = Array.from(document.getElementById('filedrop').files).filter((file) => (file.name == 'config.json'))[0]
+	let fileReader = new FileReader()
+	let problemName = fileToLoad.webkitRelativePath.split('/')[0]
+	fileReader.onload = (event) => {
+		let config = JSON.parse(event.target.result)
+		document.body.removeChild(document.body.lastElementChild)
+		document.getElementById('problem-form').removeAttribute('style')
+		generateAllProblemForm(problemName, config)
+	}
+	fileReader.readAsText(fileToLoad, 'UTF-8')
 }
 
 function callGenerate() {
-	let problemName = window.location.search.substring(1)
-    $.ajax({
-        url: window.location.protocol + '//' + window.location.host + '/construct/configs/' + problemName + '.json',
-        type: 'GET',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function(config) {
-            generateAllProblemForm(problemName, config)
-        },
-        error: show404
-    })
+	if (window.location.protocol === 'file:') {
+		let div = document.createElement('div')
+		document.body.appendChild(div)
+		document.getElementById('problem-form').setAttribute('style', 'display:none;')
+		div.innerHTML = '<input type="file" onchange="localhost()" style="display:none;" id="filedrop" webkitdirectory multiple /><label for="filedrop" style="position:absolute;width:200px;height:100px;margin:auto;left:0;top:0;right:0;bottom:0;display:flex;justify-content:center;align-items:center;background-color:#bbb;border-style:dashed">Drop problem directory</label>'
+	} else {
+		let problemName = window.location.search.substring(1)
+		$.ajax({
+			url: window.location.protocol + '//' + window.location.host + '/construct/configs/' + problemName + '.json',
+			type: 'GET',
+			dataType: 'json',
+			contentType: 'application/json; charset=utf-8',
+			success: function(config) {
+				generateAllProblemForm(problemName, config)
+			},
+			error: show404
+		})
+	}
 }
 
 // ------------------------------------------ //
