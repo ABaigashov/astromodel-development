@@ -31,7 +31,6 @@ function localhost(htmlForm) {
 		document.body.removeChild(document.body.lastElementChild)
 		document.getElementById('problem-form').removeAttribute('style')
 		generateAllProblemForm(problemName, config)
-		autofocusInit()
 	}
 	fileReader.readAsText(fileToLoad, 'UTF-8')
 }
@@ -158,6 +157,7 @@ function generateCheckbox(name, slots) {
 	let checkbox = document.createElement('input')
 	checkbox.type = 'checkbox'
 	checkbox.setAttribute('data-config-key', name)
+	checkbox.checked = (slots.default == 'True')
 
 	label.appendChild(checkbox)
 	label.appendChild(document.createTextNode(slots.title))
@@ -313,4 +313,6 @@ function generateAllProblemForm(problemName, config) {
 			objectsForm.append(generateClassParameters(key, config))
 		}
 	}
+
+	autofocus()
 }
