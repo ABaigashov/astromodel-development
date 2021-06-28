@@ -31,6 +31,7 @@ function localhost(htmlForm) {
 		document.body.removeChild(document.body.lastElementChild)
 		document.getElementById('problem-form').removeAttribute('style')
 		generateAllProblemForm(problemName, config)
+		autofocusInit()
 	}
 	fileReader.readAsText(fileToLoad, 'UTF-8')
 }
