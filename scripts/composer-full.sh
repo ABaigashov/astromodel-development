@@ -1,17 +1,13 @@
 #!/bin/bash
 
-result=${PWD##*/}
-selfname=${0##*/}
-
-if [[ "astro-model" != "$result" ]]; then
-  echo "Oh no... You should run this script from repository root: ./scripts/$selfname [ARGS]"
+if [[ ./scripts/composer-full.sh != $BASH_SOURCE ]]; then
+  echo "Oh no... You should run this script from repository root: ./scripts/composer-full.sh [ARGS]"
   exit 1
 fi
 
-#ln -sf ${PWD}/modeling_module/particle_simulator/requirements.txt ./docker/wsclient/requirements.txt
-#cp ./modeling_module/particle_simulator/requirements.txt ./docker/wsclient/requirements.txt
-
 ./scripts/boot.sh
+
+docker system prune -f
 
 docker-compose \
   -p astromodel \
