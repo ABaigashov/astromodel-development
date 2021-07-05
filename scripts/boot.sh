@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 server=$PWD/modeling_module/physical_problems
 web=$PWD/configurator/configs
@@ -23,3 +23,5 @@ for problem in $(ls $server); do
 		cp -v $server/$problem/requirements.txt $req/$problem.txt
 	fi
 done
+
+./scripts/deploy.sh

@@ -7,7 +7,7 @@ fi
 
 ./scripts/boot.sh
 
-docker system prune -f
+# docker system prune -f
 
 docker-compose \
   -p astromodel \

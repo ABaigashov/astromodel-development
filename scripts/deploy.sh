@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 network_name="astro-net"
 db_filename="astromodel.db"

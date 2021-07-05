@@ -4,13 +4,9 @@ WORKDIR /usr/src/
 RUN apt update
 RUN apt upgrade -y
 
-RUN apt install python3 -y
-RUN apt install curl -y
-RUN apt install git -y
-RUN apt install python3-pip -y
-RUN apt install python3-venv -y
+RUN  apt-get install python3-dev python3-pip python3-venv python3-wheel -y
+RUN pip3 install virtualenv websockets sympy numpy
 
-RUN pip3 install websockets sympy numpy
 
 COPY ${PWD}/modeling_module/requirements ./requirements
 COPY ${PWD}/scripts/virtualenvs.sh .
