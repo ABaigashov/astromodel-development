@@ -15,6 +15,5 @@ docker-compose \
   -f ./docker/astromodel/docker-compose.yml \
   -f ./docker/wsserver/docker-compose.yml \
   -f ./docker/wsclient/docker-compose.yml \
-  -f ./docker/nginx/docker-compose.yml \
   -f docker-compose.yml \
   "$@"
