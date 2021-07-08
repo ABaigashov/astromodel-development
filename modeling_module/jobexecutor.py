@@ -22,7 +22,10 @@ class Dispatcher:
 		self.load_backcall()
 
 	def load_backcall(self):
-		sys.path.append(os.path.join(os.path.dirname(__file__), 'modeling_module', 'physical_problems', self.problem))
+		if IS_SERVER:
+			sys.path.append(os.path.join('.', 'modeling_module', 'physical_problems', self.problem))
+		else:
+			sys.path.append(os.path.join(os.path.dirname(__file__), 'modeling_module', 'physical_problems', self.problem))
 		try:
 			from backcall import value
 			self.backcall_count = value(Configurator(self.configuration))
@@ -40,7 +43,10 @@ class Dispatcher:
 		)
 		self.exitkey = '[exitkey:' + uuid4().hex + ']'
 		if IS_SERVER:
-			self.command = f'{python} -u -B modeling_module/physical_problems/{self.problem}/main.py {pickle.dumps(self.configuration).hex()} {self.output} {self.exitkey}\n'
+			venv = os.path.join('.', 'enviroments', self.problem, 'bin', 'python3')
+			self.command = f'{venv if os.path.exists(venv) else python} \
+				-u -B modeling_module/physical_problems/{self.problem}/main.py \
+				{pickle.dumps(self.configuration).hex()} {self.output} {self.exitkey}\n'
 		else:
 			self.command = f'{python} -u -B main.py {pickle.dumps(self.configuration).hex()} {self.output} {self.exitkey}\n'
 		self.process.stdin.write(self.command.encode())
@@ -58,7 +64,7 @@ class Dispatcher:
 				try:
 					if symbol == b'\b':
 						if IS_SERVER:
-							self.job.progress = min(0.9999, counter / self.backcall_count)
+							self.job.progress = min(0.9999, counter / abs(self.backcall_count))
 							counter += 1
 						continue
 					SYMBOLS_STACK += symbol
@@ -75,7 +81,8 @@ class Dispatcher:
 					flag = True
 					self.command = self.command[1:]
 				if not IS_WINDOWS or (flag and not len(self.command)):
-					print(end=symbol)
+					if not IS_SERVER:
+						print(end=symbol)
 					output += symbol
 					self.process.stdout.flush()
 					if output.endswith(self.exitkey):
