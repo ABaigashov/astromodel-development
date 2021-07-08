@@ -11,6 +11,10 @@ services:
       - /var/astromodel:/var/astromodel
     environment:
        - RUN_MODE=docker
+    deploy:
+      replicas: 4
+      restart_policy:
+        condition: on-failure
     # healthcheck:
     #   test: ["CMD-SHELL", "curl -m 1 -i -N \
     #     -H \"Connection: Upgrade\" \
