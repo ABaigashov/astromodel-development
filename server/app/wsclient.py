@@ -9,7 +9,7 @@ from threading import Thread
 from database.Job import Job
 from database.JobNode import JobNode
 
-if 'docker' == os.environ.get('RUN_MODE'):
+if os.getcwd() == '/usr/src':
     sys.path.append('./modeling_module/')
     host = "ws://wsserver:8080"
 else:

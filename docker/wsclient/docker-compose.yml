@@ -7,13 +7,10 @@ services:
       dockerfile: ${PWD}/docker/wsclient/Dockerfile
     depends_on:
       - wsserver
-#    ports:
-#      - "8007:8080"
     volumes:
       - /var/astromodel:/var/astromodel
     environment:
        - RUN_MODE=docker
-       - WORKON_HOME=${PWD}/enviroments
     # healthcheck:
     #   test: ["CMD-SHELL", "curl -m 1 -i -N \
     #     -H \"Connection: Upgrade\" \
@@ -24,11 +21,6 @@ services:
     #   interval: 10s
     #   timeout: 10s
     #   retries: 5
-
-    deploy:
-      replicas: 4
-      restart_policy:
-        condition: on-failure
 
 networks:
   default:

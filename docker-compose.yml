@@ -20,6 +20,10 @@ services:
   wsclient:
     build:
       context: ${PWD}
+    deploy:
+      replicas: 4
+      restart_policy:
+        condition: on-failure
 
   nginx:
     image: nginx
