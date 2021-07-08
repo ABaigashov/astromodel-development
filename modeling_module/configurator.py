@@ -52,9 +52,15 @@ class ABS_RecursiveContainer:
 
 class Configurator:
 
-	def __init__(self, pickled_data, output):
-		self._CFG_RAW_DATA = pickle.loads(bytes.fromhex(pickled_data))
+	def __init__(self, data):
+		self._CFG_RAW_DATA = data
+		
+
+	@classmethod
+	def _decompress(cls, pickled_data, output):
+		self = cls(pickle.loads(bytes.fromhex(pickled_data)))
 		self.OUTPUT = os.path.join(output, random_hash().hex[:16])
+		return self
 
 	@staticmethod
 	def to_type(value, case):

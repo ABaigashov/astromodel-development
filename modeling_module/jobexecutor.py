@@ -15,17 +15,20 @@ class Dispatcher:
 		with open(config, 'rb') as f:
 			parameters = json.load(f)
 		problem, configuration = Configurator.parse_parameters(parameters)
-
-		try:
-			import backcall
-			self.backcall_count = backcall.value(configuration)
-		except:
-			self.backcall_count = 1
-
 		self.configuration = configuration
 		self.problem = problem
 		self.output = output
 		self.job = job
+		self.load_backcall()
+
+	def load_backcall(self):
+		sys.path.append(os.path.join(os.path.dirname(__file__), 'modeling_module', 'physical_problems', self.problem))
+		try:
+			from backcall import value
+			self.backcall_count = value(Configurator(self.configuration))
+		except Exception as e:
+			self.backcall_count = 1
+		sys.path.pop()
 
 	def init(self):
 		self.process = subprocess.Popen(command,
