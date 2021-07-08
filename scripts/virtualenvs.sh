@@ -1,4 +1,5 @@
 #!/bin/bash
+
 for requirement in $(ls ./requirements); do
 	venvname=${requirement%%.*}
 	python3 -m venv $pwd/enviroments/$venvname --system-site-packages

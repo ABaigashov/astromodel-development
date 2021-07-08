@@ -1,27 +1,53 @@
 #!/bin/bash
 
-server=$PWD/modeling_module/physical_problems
-web=$PWD/configurator/configs
-req=$PWD/modeling_module/requirements
+problems=$PWD/modeling_module/physical_problems
+configurations=$PWD/configurator/configs
+requirements=$PWD/modeling_module/requirements
+network_name=astro-net
+db_filename=astromodel.db
+pgdata_host_path=/var/astromodel/pgdata
 
-if [ ! -d $web ]; then
-	mkdir "$web"
+docker network ls | grep [[:blank:]]$network_name[[:blank:]]
+
+if [ ! -d $configurations ]; then
+	mkdir $configurations
 fi
-rm -rf $web/*
+rm -rf $configurations/*
 
-if [ ! -d $req ]; then
-	mkdir $req
+if [ ! -d $requirements ]; then
+	mkdir $requirements
 fi
-rm -rf $req/*
+rm -rf $requirements/*
 
 
-for problem in $(ls $server); do
-	if [ -f $server/$problem/config.json ]; then
-		ln -sv $server/$problem/config.json $web/$problem.json
+for problem in $(ls $problems); do
+	if [ -f $problems/$problem/config.json ]; then
+		ln -sv $problems/$problem/config.json $configurations/$problem.json
 	fi
-	if [ -f $server/$problem/requirements.txt ]; then
-		cp -v $server/$problem/requirements.txt $req/$problem.txt
+	if [ -f $problems/$problem/requirements.txt ]; then
+		cp -v $problems/$problem/requirements.txt $requirements/$problem.txt
+	fi
+	if [ -f $problems/$problemsetup.sh ]; then
+		cp -v $problems/$problemsetup.sh $requirements/$problem
 	fi
 done
 
-./scripts/deploy.sh
+
+if [[ 1 == $? ]]; then
+  echo Creating network $network_name ...
+  docker network create $network_name
+  if [[ 0 == $? ]]; then
+    echo "Network created"
+  else
+    echo "Can't create network $network_name"
+  fi
+else
+  echo "Network exists $network_name"
+fi
+
+
+if [[ -e $pgdata_host_path/$db_filename ]]; then
+  echo "file exists"
+else
+  echo "no db file"
+fi
