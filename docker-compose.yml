@@ -19,5 +19,8 @@ services:
 
   wsclient:
     build:
-      # context: ${PWD}/docker/wsclient
+      context: ${PWD}
+
+  nginx:
+    build:
       context: ${PWD}

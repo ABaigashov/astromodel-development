@@ -2,11 +2,11 @@ from traceback import format_exc as _traceback, format_exception as error_text
 import json, os, pickle, subprocess, sys
 from configurator import Configurator
 from threading import Thread
-from blessed import Terminal
 from uuid import uuid4
 
-python = 'python' if os.name == 'nt' else 'python3'
-command = 'cmd' if os.name == 'nt' else '/bin/bash'
+IS_WINDOWS = os.name == 'nt'
+python = 'python' if IS_WINDOWS else 'python3'
+command = 'cmd' if IS_WINDOWS else '/bin/bash'
 IS_SERVER = os.getcwd() == '/usr/src'
 
 class Dispatcher:
@@ -14,8 +14,14 @@ class Dispatcher:
 	def __init__(self, config, output, job=None):
 		with open(config, 'rb') as f:
 			parameters = json.load(f)
-		problem, configuration, animation_length = Configurator.parse_parameters(parameters)
-		self.animation_length = animation_length
+		problem, configuration = Configurator.parse_parameters(parameters)
+
+		try:
+			import backcall
+			self.backcall_count = backcall.value(configuration)
+		except:
+			self.backcall_count = 1
+
 		self.configuration = configuration
 		self.problem = problem
 		self.output = output
@@ -27,60 +33,56 @@ class Dispatcher:
 			stdout=subprocess.PIPE,
 			stdin=subprocess.PIPE,
 			env=os.environ.copy(),
-			encoding='utf-8',
 			shell=True
 		)
 		self.exitkey = '[exitkey:' + uuid4().hex + ']'
 		if IS_SERVER:
-			self.process.stdin.write('export WORKON_HOME=$pwd/enviroments\n')
-			self.process.stdin.write('source /usr/local/bin/virtualenvwrapper.sh\n')
-			self.process.stdin.write(f'workon {self.problem}\n')
-			self.command = f'{python} -u -B modeling_module/physical_problems/{self.problem}/main.py {self.configuration} {self.output} {self.exitkey}\n'
+			self.command = f'{python} -u -B modeling_module/physical_problems/{self.problem}/main.py {pickle.dumps(self.configuration).hex()} {self.output} {self.exitkey}\n'
 		else:
-			self.command = f'{python} -u -B main.py {self.configuration} {self.output} {self.exitkey}\n'
-		self.process.stdin.write(self.command)
-		self.process.stdin.write('exit\n')
+			self.command = f'{python} -u -B main.py {pickle.dumps(self.configuration).hex()} {self.output} {self.exitkey}\n'
+		self.process.stdin.write(self.command.encode())
+		self.process.stdin.write(b'exit\n')
 		self.process.stdin.flush()
 
 	def run(self):
 		output = ''
 		counter = 0
+		SYMBOLS_STACK = b''
 		flag = end = False
-		if not IS_SERVER:
-			term = Terminal()
-		while True:
-			try:
+		try:
+			while True:
+				symbol = self.process.stdout.read(1)
 				try:
-					symbol = self.process.stdout.read(1)
+					if symbol == b'\b':
+						if IS_SERVER:
+							self.job.progress = min(0.9999, counter / self.backcall_count)
+							counter += 1
+						continue
+					SYMBOLS_STACK += symbol
+					symbol = SYMBOLS_STACK.decode()
+					SYMBOLS_STACK = b''
 				except:
-					output = ''
-				if self.command and symbol == self.command[0]:
-					flag = True
-					self.command = self.command[1:]
+					if IS_WINDOWS:
+						output = ''
+						SYMBOLS_STACK = b''
+					continue
 				if not symbol and self.process.poll() is not None:
 					break
-				if flag and not len(self.command):
-					if IS_SERVER:
-						if ']' in output[-1:] and symbol == '\n':
-							self.job.progress = min(0.99, counter / self.animation_length)
-							counter += 1
-					else:
-						if ']' in output[-1:] and symbol == '\n':
-							print(end=symbol + term.move_up(1))
-						elif output and '\n' in output[-1:] and symbol != 't':
-							print(end=term.move_down(1) + symbol)
-						else:
-							print(end=symbol)
+				if IS_WINDOWS and self.command and symbol == self.command[0]:
+					flag = True
+					self.command = self.command[1:]
+				if not IS_WINDOWS or (flag and not len(self.command)):
+					print(end=symbol)
 					output += symbol
 					self.process.stdout.flush()
 					if output.endswith(self.exitkey):
 						end = True
 					if end and symbol == '\n':
 						break
-			except KeyboardInterrupt:
-				exit()
-			except Exception:
-				return sys.exc_info()
+		except KeyboardInterrupt:
+			exit()
+		except Exception:
+			return sys.exc_info()
 		return output.split('\n')[-2].split(self.exitkey)[1][1:]
 
 class JobExecutor(Thread):
