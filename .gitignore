@@ -2,3 +2,4 @@
 */__pycache__
 configurator/configs/*
 modeling_module/requirements/*
+modeling_module/setups/*

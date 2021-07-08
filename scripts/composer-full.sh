@@ -17,6 +17,7 @@ setups=$PWD/modeling_module/setups
 
 
 for trashdir in $configs $requirements $setups; do
+  echo Creating $trashdir
   if [ ! -d $trashdir ]; then
     mkdir $trashdir
   fi
@@ -30,8 +31,8 @@ for problem in $(ls $problems); do
   if [ -f $problems/$problem/requirements.txt ]; then
     cp $problems/$problem/requirements.txt $requirements/$problem.txt
   fi
-  if [ -f $problems/$problemsetup.sh ]; then
-    cp $problems/$problemsetup.sh $requirements/$problem
+  if [ -f $problems/$problem/setup.sh ]; then
+    cp $problems/$problem/setup.sh $setups/$problem
   fi
 done
 

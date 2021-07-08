@@ -1,5 +1,5 @@
 #!/bin/bash
 
 for setup in $(ls ./setups); do
-	bash setup
+	bash ./setups/$setup
 done
