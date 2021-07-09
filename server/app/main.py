@@ -190,7 +190,7 @@ async def job_list(request):
         return Response(json.dumps({"error": str(e)}), 200, headers)
 
 @app.route("/api/job_remove", methods=["POST"])
-async def job_list(request):
+async def job_remove(request):
     await dbconnect()
     headers = {
         "Access-Control-Allow-Origin": "*",
@@ -223,7 +223,7 @@ async def job_list(request):
         return Response(json.dumps({"error": str(e)}), 200, headers)
 
 @app.route("/api/server_status", methods=["GET"])
-async def job_list(request):
+async def server_status(request):
     await dbconnect()
     headers = {
         "Access-Control-Allow-Origin": "*",
