@@ -93,7 +93,10 @@ class Dispatcher:
 			exit()
 		except Exception:
 			return sys.exc_info()
-		return output.split('\n')[-2].split(self.exitkey)[1][1:]
+		try:
+			return output.split('\n')[-2].split(self.exitkey)[1][1:]
+		except:
+			return
 
 class JobExecutor(Thread):
 

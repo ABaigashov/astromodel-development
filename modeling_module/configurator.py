@@ -114,6 +114,8 @@ class Configurator:
 	@classmethod
 	def parse_objects(cls, defaults, parameters, config):
 		raw = {}
+		if 'OBJECTS' not in config:
+			return raw
 		for name in config['OBJECTS']:
 			raw[name] = []
 		for name, objects in parameters['OBJECTS'].items():
