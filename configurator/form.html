@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta name="description" content="Astromodel wizard"/>
+		<link rel="shortcut icon" href="favicon.ico"/>
+		<title>Astromodel</title>
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.4.5/jscolor.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+		<script type="text/javascript" src="static/js/base64.js"></script>
+		<script type="text/javascript" src="static/js/astromodel.js"></script>
+		<script type="text/javascript" src="static/js/generator.js"></script>
+		<script type="text/javascript" src="static/js/autofocus.js"></script>
+	</head>
+	<body>
+		<div id="problem-form">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12">
+						<h4 align="center" class="form-check-label">Загрузите существующий или создайте новый конфигурационный файл</h4>
+					</div>
+					<form class="col-sm-6 form-inline">
+						<div class="form-group">
+							<input type="file" id="file-import" class="form-control">
+						</div>
+					</form>
+				</div>
+				<div class="row config-general">
+					<label class="form-check-label" for="check-basic-collision">Создайте файл</label>
+					<div class="form-group">
+						<input id="config-file" type="text" class="form-control" autocomplete="off" placeholder="Название сценария / файла" data-config-key="GENERAL.name">
+					</div>
+				</div>
+				<div class="row config-objects">
+					<div id="config-objects" class="col-sm-12" style="display: none;">
+						<table width="100%" class="table table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th width="40px"></th>
+									<th width="50%">Название объекта</th>
+									<th width="50%">Тип объекта</th>
+									<th width="40px;"></th>
+								</tr>
+							</thead>
+							<tbody id="objects-list">
+								<tr>
+									<td><button class="btn btn-xs btn-primary action-edit" title="Изменить настройки"><i class="fa fa-edit"></i></button></td>
+									<td>
+										Точечный объект
+										<button class="btn btn-xs btn-primary action-list" title="Список объектов" style="float: right;"><i class="fa fa-list"></i></button>
+									</td>
+								</tr>
+								<tr>
+									<td><button class="btn btn-xs btn-success action-add" title="Добавить объект"><i class="fa fa-plus"></i></button></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<button id="btn-export" type="submit" class="btn btn-astro" style="float: left;">Сохранить</button>
+							<a href="https://astromodel.ru/test/" class="btn btn-astro" style="float: right;">Смоделировать</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade" id="modal-options" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" style="float: left;">Настройки объекта</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-sm-12">
+									<form id="objects-form" class="form" role="form">
+										<div class="form-group">
+											<div class="row">
+												<div class="col-sm-9">
+													<input type="text" class="form-control" autocomplete="off" placeholder="Название" data-config-key="name">
+												</div>
+												<div class="col-sm-3">
+													<input class="form-control" data-config-key="color">
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<select class="form-control" id="select-object-type" data-config-key="type.value">
+												<option value="">Укажите тип объекта</option>
+											</select>
+										</div>
+									</form>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-astro" data-dismiss="modal">Отмена</button>
+								<button id="btn-update" type="button" class="btn btn-astro">Сохранить</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">callGenerate()</script>
+	</body>
+</html>

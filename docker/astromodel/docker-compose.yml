@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  astromodel:
+    container_name: astromodel
+    build: .
+    restart: always
+    ports:
+      - 8080:80
+    volumes:
+      - ${PWD}/server/app:/app
+      - /var/astromodel:/var/astromodel
+    environment:
+      - MODULE_NAME=main
+    healthcheck:
+      test: ['CMD-SHELL', 'wget -O /dev/null http://localhost:80/api/ || exit 1']
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+networks:
+  default:
+    external:
+      name: astro-net

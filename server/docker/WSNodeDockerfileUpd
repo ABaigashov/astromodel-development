@@ -1,0 +1,5 @@
+FROM wsnode:latest
+
+WORKDIR /usr/src/
+
+RUN pip3 install --no-cache-dir sympy
