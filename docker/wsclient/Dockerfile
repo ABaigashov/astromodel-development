@@ -6,6 +6,7 @@ RUN apt upgrade -y
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get install python3-dev python3-pip python3-venv python3-wheel -y
+RUN pip3 install --upgrade pip
 RUN pip3 install virtualenv websockets sympy numpy
 
 COPY ${PWD}/modeling_module/setups ./setups
