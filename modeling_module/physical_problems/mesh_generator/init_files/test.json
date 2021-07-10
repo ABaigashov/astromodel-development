@@ -1,0 +1,67 @@
+{
+  "OBJECTS":{
+    "domains":[
+      {
+        "id": "wxk-xfo",
+        "index": 1,
+        "name": "Rectangle_1",
+        "domain": "Rectangle",
+        "value": "+",
+        "start_point": {"units":"1e0", "value":["0","0"]},
+        "end_point": {"units":"1e0", "value":["1","1"]},
+        "segments": "32",
+        "type": {"value":"point_objects", "description":"Единичный объект"}
+      },
+      {
+        "id": "wxk-xfo",
+        "index": 2,
+        "name": "Circle_1",
+        "domain": "Circle",
+        "value": "-",
+        "centre_point": {"units":"1e0", "value":["0.5","0.5"]},
+        "radius": {"units":"1e0", "value":"0.4"},
+        "segments": "32",
+        "type": {"value":"point_objects", "description":"Единичный объект"}
+      }
+    ],
+    "subdomains":[
+      {
+        "id": "wxk-xfo",
+        "index": 1,
+        "name": "Sub_Rectangle_1",
+        "dependense": "Rectangle_1",
+        "domain": "Rectangle",
+        "value": "+",
+        "start_point": {"units":"1e0", "value":["0","0"]},
+        "end_point": {"units":"1e0", "value":["1","1"]},
+        "segments": "32",
+        "type": {"value":"point_objects", "description":"Единичный объект"}
+      },
+      {
+        "id": "wxk-xfo",
+        "index": 2,
+        "name": "Rectangle_1",
+        "domain": "Rectangle",
+        "dependense": "Rectangle_1",
+        "value": "+",
+        "start_point": {"units":"1e0", "value":["0","0"]},
+        "end_point": {"units":"1e0", "value":["1","1"]},
+        "segments": "32",
+        "type": {"value":"point_objects", "description":"Единичный объект"}
+      }
+    ],
+    "generator":[
+      {
+        "id": "wxk-xfo",
+        "index": 1,
+        "name": "Interval Mesh",
+        "mesh_type": "UnitIntervalMesh",
+        "key_word": "right",
+        "point": {"units":"1e0", "value":["0"]},
+        "type": {"value":"point_objects", "description":"Единичный объект"}
+      }
+    ]
+    },
+    "GENERAL": {"name":"test"},
+    "PROBLEM": "mesh_generator"
+  }
