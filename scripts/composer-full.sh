@@ -26,7 +26,7 @@ done
 
 for problem in $(ls $problems); do
   if [ -f $problems/$problem/config.json ]; then
-    ln -s $problems/$problem/config.json $configs/$problem.json
+    cp $problems/$problem/config.json $configs/$problem.json
   fi
   if [ -f $problems/$problem/requirements.txt ]; then
     cp $problems/$problem/requirements.txt $requirements/$problem.txt

@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: ${PWD}/docker/wsclient/Dockerfile
     depends_on:
-      - nginx
+      - wsserver
     volumes:
       - /var/astromodel:/var/astromodel
     deploy:
