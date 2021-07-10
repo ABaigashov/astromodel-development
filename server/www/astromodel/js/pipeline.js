@@ -109,7 +109,7 @@ function updateJobList() {
       else if(answer[i].progress == 1) {
         var user = $(this).data('user');
         var job = $(this).data('job');
-        var resultUrl = apiUrl + 'static/job/' + answer[i].user_uid + '/' + answer[i].uid + '/result.gif';
+        var resultUrl = apiUrl + 'static/job/' + answer[i].user_uid + '/' + answer[i].uid + '/result' + answer[i].extention;
         row += '<td><a href="' + resultUrl + '" target="_blank" class="get-result">Показать результат</a></td>';
       }
       else if(answer[i].progress > 0) {
