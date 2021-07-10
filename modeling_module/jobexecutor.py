@@ -121,7 +121,6 @@ class JobExecutor(Thread):
 	def run(self):
 		try:
 			result = self.dispatcher.run()
-			self.path_to_result = result
 			if isinstance(result, tuple):
 				error = ''.join(error_text(*result))
 				print(error)
@@ -129,6 +128,7 @@ class JobExecutor(Thread):
 					logfile.write(error.encode())
 				self.job.progress = -1
 				return
+			self.path_to_result = result
 			self.job.progress = 1
 		except:
 			print(_traceback())

@@ -7,7 +7,6 @@ class JobNode:
         self.uniq = kwargs['uniq']
         self.name = kwargs['name']
         self.state = kwargs['state']
-        self.extention = kwargs['extention']
         self.priority = kwargs['priority']
         self.job_uid = kwargs['job_uid']
         self.progress = kwargs['progress']
