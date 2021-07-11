@@ -28,7 +28,7 @@ services:
     depends_on:
       - wsserver
     volumes:
-      - ${PWD}/astromodel.conf:/etc/nginx/conf.d/default.conf
+      - ${PWD}/docker/nginx.conf:/etc/nginx/conf.d/default.conf
       - /var/astromodel/data:/data
       - ${PWD}/configurator:/configurator
       - ${PWD}/server/www:/www
