@@ -4,10 +4,6 @@ from configurator import Configurator
 from threading import Thread
 from uuid import uuid4
 
-IS_WINDOWS = os.name == 'nt'
-python = 'python' if IS_WINDOWS else 'python3'
-command = 'cmd' if IS_WINDOWS else '/bin/bash'
-IS_SERVER = os.getcwd() == '/usr/src'
 
 class Dispatcher:
 
@@ -22,10 +18,7 @@ class Dispatcher:
 		self.load_backcall()
 
 	def load_backcall(self):
-		if IS_SERVER:
-			sys.path.append(os.path.join('.', 'modeling_module', 'physical_problems', self.problem))
-		else:
-			sys.path.append(os.path.join(os.path.dirname(__file__), 'modeling_module', 'physical_problems', self.problem))
+		sys.path.append(os.path.join('.', 'modeling_module', 'physical_problems', self.problem))
 		try:
 			from backcall import value
 			self.backcall_count = value(Configurator(self.configuration))
@@ -34,7 +27,7 @@ class Dispatcher:
 		sys.path.pop()
 
 	def init(self):
-		self.process = subprocess.Popen(command,
+		self.process = subprocess.Popen('/bin/bash',
 			stderr=subprocess.STDOUT,
 			stdout=subprocess.PIPE,
 			stdin=subprocess.PIPE,
@@ -42,13 +35,10 @@ class Dispatcher:
 			shell=True
 		)
 		self.exitkey = '[exitkey:' + uuid4().hex + ']'
-		if IS_SERVER:
-			venv = os.path.join('.', 'enviroments', self.problem, 'bin', 'python3')
-			self.command = f'{venv if os.path.exists(venv) else python} \
-				-u -B modeling_module/physical_problems/{self.problem}/main.py \
-				{pickle.dumps(self.configuration).hex()} {self.output} {self.exitkey}\n'
-		else:
-			self.command = f'{python} -u -B main.py {pickle.dumps(self.configuration).hex()} {self.output} {self.exitkey}\n'
+		venv = os.path.join('.', 'enviroments', self.problem, 'bin', '')
+		self.command = f'{venv if os.path.exists(venv) else ''}python3 -u -B \
+			modeling_module/physical_problems/{self.problem}/main.py \
+			{pickle.dumps(self.configuration).hex()} {self.output} {self.exitkey}\n'
 		self.process.stdin.write(self.command.encode())
 		self.process.stdin.write(b'exit\n')
 		self.process.stdin.flush()
@@ -57,38 +47,28 @@ class Dispatcher:
 		output = ''
 		counter = 0
 		SYMBOLS_STACK = b''
-		flag = end = False
+		end = False
 		try:
 			while True:
 				symbol = self.process.stdout.read(1)
+				if symbol == b'\b':
+					self.job.progress = min(0.9999, counter / self.backcall_count)
+					counter += 1
+					continue
 				try:
-					if symbol == b'\b':
-						if IS_SERVER:
-							self.job.progress = min(0.9999, counter / abs(self.backcall_count))
-							counter += 1
-						continue
 					SYMBOLS_STACK += symbol
 					symbol = SYMBOLS_STACK.decode()
 					SYMBOLS_STACK = b''
 				except:
-					if IS_WINDOWS:
-						output = ''
-						SYMBOLS_STACK = b''
 					continue
 				if not symbol and self.process.poll() is not None:
 					break
-				if IS_WINDOWS and self.command and symbol == self.command[0]:
-					flag = True
-					self.command = self.command[1:]
-				if not IS_WINDOWS or (flag and not len(self.command)):
-					if not IS_SERVER:
-						print(end=symbol)
-					output += symbol
-					self.process.stdout.flush()
-					if output.endswith(self.exitkey):
-						end = True
-					if end and symbol == '\n':
-						break
+				output += symbol
+				self.process.stdout.flush()
+				if output.endswith(self.exitkey):
+					end = True
+				if end and symbol == '\n':
+					break
 		except KeyboardInterrupt:
 			exit()
 		except Exception:

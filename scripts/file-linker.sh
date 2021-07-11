@@ -5,23 +5,32 @@ configs=$PWD/configurator/configs
 requirements=$PWD/modeling_module/requirements
 setups=$PWD/modeling_module/setups
 
+link(){
+	if [ -f $problems/$1/config.json ]; then
+		cp -v $problems/$1/config.json $configs/$1.json
+	fi
+	if [ -f $problems/$1/requirements.txt ]; then
+		cp -v $problems/$1/requirements.txt $requirements/$1.txt
+	fi
+	if [ -f $problems/$1/setup.sh ]; then
+		cp -v $problems/$1/setup.sh $setups/$1.sh
+	fi
+	if [ ! -d $problems/$1/results ]; then
+		mkdir $problems/$1/results
+	fi
+}
 
-for trashdir in $configs $requirements $setups; do
-  echo Creating $trashdir
-  if [ ! -d $trashdir ]; then
-    mkdir $trashdir
-  fi
-  rm -rf $trashdir/*
+for check in $configs $requirements $setups; do
+	echo Creating $trashdir
+	if [ ! -d $check ]; then
+		mkdir $check
+	fi
 done
 
-for problem in $(ls $problems); do
-  if [ -f $problems/$problem/config.json ]; then
-    cp $problems/$problem/config.json $configs/$problem.json
-  fi
-  if [ -f $problems/$problem/requirements.txt ]; then
-    cp $problems/$problem/requirements.txt $requirements/$problem.txt
-  fi
-  if [ -f $problems/$problem/setup.sh ]; then
-    cp $problems/$problem/setup.sh $setups/$problem
-  fi
-done
+if [ "$1" == "" ]; then
+	for problem in $(ls $problems); do
+		link $problem
+	done
+else
+	link $1
+fi
