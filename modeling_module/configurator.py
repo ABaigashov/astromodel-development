@@ -16,12 +16,6 @@ def _parse_expr(value):
 def _to_int(value):
 	return int(_to_float(value))
 
-def path_generator(_format, function):
-	def wrapper(path):
-		path = os.path.join(path, random_hash().hex + '.' + _format)
-		function(path)
-		return path
-	return wrapper
 
 class ABS_RecursiveContainer:
 
@@ -58,8 +52,15 @@ class ABS_RecursiveContainer:
 
 class Configurator:
 
-	def __init__(self, pickled_data):
-		self._CFG_RAW_DATA = pickle.loads(bytes.fromhex(pickled_data))
+	def __init__(self, data):
+		self._CFG_RAW_DATA = data
+		
+
+	@classmethod
+	def _decompress(cls, pickled_data, output):
+		self = cls(pickle.loads(bytes.fromhex(pickled_data)))
+		self.OUTPUT = os.path.join(output, random_hash().hex[:16])
+		return self
 
 	@staticmethod
 	def to_type(value, case):
@@ -113,6 +114,8 @@ class Configurator:
 	@classmethod
 	def parse_objects(cls, defaults, parameters, config):
 		raw = {}
+		if 'OBJECTS' not in config:
+			return raw
 		for name in config['OBJECTS']:
 			raw[name] = []
 		for name, objects in parameters['OBJECTS'].items():
@@ -145,13 +148,10 @@ class Configurator:
 		defaults = cls.generate_defaults(parameters, config)
 		general = cls.parse_general(defaults, parameters, config)
 		objects = cls.parse_objects(defaults, parameters, config)
-		return (problem,
-			pickle.dumps(dict(general=general, objects=objects)).hex(),
-			general['steps_number'] / general['frames_gap']
-		)
+		return problem, dict(general=general, objects=objects)
 
 	def __getattr__(self, key):
-		if key == '_CFG_RAW_DATA':
+		if key in {'_CFG_RAW_DATA', 'OUTPUT'}:
 			return object.__getattribute__(self, key)
 		if key in self._CFG_RAW_DATA['general']:
 			return self._CFG_RAW_DATA['general'][key]

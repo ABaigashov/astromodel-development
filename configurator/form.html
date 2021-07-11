@@ -10,17 +10,18 @@
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
 		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.4.5/jscolor.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="static/css/style.css"/>
-		<script type="text/javascript" src="static/js/jscolor.js"></script>
 		<script type="text/javascript" src="static/js/base64.js"></script>
-		<script type="text/javascript" src="static/js/filesaver.js"></script>
 		<script type="text/javascript" src="static/js/astromodel.js"></script>
 		<script type="text/javascript" src="static/js/generator.js"></script>
+		<script type="text/javascript" src="static/js/autofocus.js"></script>
 	</head>
 	<body>
 		<div id="problem-form">
 			<div class="container">
-				<div class="row" style="">
+				<div class="row">
 					<div class="col-sm-12">
 						<h4 align="center" class="form-check-label">Загрузите существующий или создайте новый конфигурационный файл</h4>
 					</div>
@@ -30,14 +31,11 @@
 						</div>
 					</form>
 				</div>
-				<div class="row config-general" style="margin-top: 10px;">
+				<div class="row config-general">
 					<label class="form-check-label" for="check-basic-collision">Создайте файл</label>
 					<div class="form-group">
 						<input id="config-file" type="text" class="form-control" autocomplete="off" placeholder="Название сценария / файла" data-config-key="GENERAL.name">
 					</div>
-
-					<!-- GENERAL -->
-
 				</div>
 				<div class="row config-objects">
 					<div id="config-objects" class="col-sm-12" style="display: none;">
@@ -101,14 +99,8 @@
 										<div class="form-group">
 											<select class="form-control" id="select-object-type" data-config-key="type.value">
 												<option value="">Укажите тип объекта</option>
-
-												<!-- OBJECTS LIST -->
-
 											</select>
 										</div>
-
-										<!-- OBJECTS PARAMETRS -->
-
 									</form>
 								</div>
 							</div>

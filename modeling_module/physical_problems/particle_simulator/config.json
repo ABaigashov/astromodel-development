@@ -79,7 +79,7 @@
 			},
 			"dementional": false
 		},
-		"output_graphis": {
+		"output_graphics": {
 			"title": "Графический вид анимации",
 			"default": "matplotlib",
 			"type": "str",
@@ -380,7 +380,7 @@
 	"GENERAL": [
 		"dimensions",
 		"K",
-		"output_graphis",
+		"output_graphics",
 		"gravity_point_interaction",
 		"gravity_extended_interaction",
 		"electricity_point_interaction",

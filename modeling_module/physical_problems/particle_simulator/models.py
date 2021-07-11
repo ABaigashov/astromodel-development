@@ -4,27 +4,8 @@ from mpl_toolkits.mplot3d.axes3d import Axes3D
 from progress.bar import ChargingBar as Bar
 from moviepy.editor import VideoClip
 import matplotlib.pyplot as plt
-import os, json, utils
+import json, utils
 import numpy as np
-
-IS_SERVER = os.getcwd() == '/usr/src'
-
-
-class SlowBar(Bar):
-	suffix = ', remaining: %(remaining_hours)s'
-
-	@property
-	def remaining_hours(self):
-		if self.eta > 3600:
-			time = round(self.eta / 3600, 2)
-			ut = 'hours'
-		elif (self.eta < 3600) and (self.eta > 60):
-			time = round(self.eta / 60, 2)
-			ut = 'minutes'
-		else:
-			time = round(self.eta, 3)
-			ut = 'seconds'
-		return '{} '.format(time) + '{}'.format(ut)
 
 
 class BaseModel:
@@ -37,7 +18,6 @@ class BaseModel:
 		utils.load_fields(config, astro_object)
 
 		self.edge, self.scaling, self.label = utils.load_label(self.config.edge)
-		self.bar = SlowBar('Processing', max=self.config.steps_number + 1)
 
 	@property
 	def colors(self):
@@ -64,27 +44,28 @@ class JsonModel(BaseModel):
 
 	def __init__(self, *args, **kw):
 		super().__init__(*args, **kw)
-		self.render = kw['path_generator']('json', self.render)
 
 	def render(self, path):
 		data = {
 			"name": str(self.config.name),
 			"step": str(self.config.step),
 			"steps_number": str(self.config.steps_number),
+			"frames_gap": str(self.config.frames_gap),
 			"fps": str(self.config.fps),
 			"edge": str(self.edge),
-			"frames_gap": str(self.config.frames_gap),
 			"trajectory": str(self.config.trajectory),
 		}
-		for i in range(self.config.steps_number):
+		for i in range((self.config.steps_number // self.config.frames_gap)):
+			print(end='\b')
 			self.astro_object.update_dynamic_parametrs(self.config.step, i * self.config.frames_gap * self.config.step)
 			data[f"frame_{i}"] = [{
 				"coords": list(self.coords),
 				"colors": list(self.colors),
 				"radius": list(self.radius)
 			}]
-		with open(path, 'w') as f:
+		with open(self.config.OUTPUT + '.json', 'w') as f:
 			json.dump(data, f, indent=4)
+		return self.config.OUTPUT + '.json'
 
 
 class PlotModel(BaseModel):
@@ -95,26 +76,25 @@ class PlotModel(BaseModel):
 		plt.title(self.config.name)
 		plt.minorticks_on()
 		self.all_trajectory = []
-		self.render = kw['path_generator']('gif', self.render)
 
 	def get_frame(self, i):
 		self.astro_object.update_dynamic_parametrs(self.config.step, i * self.config.frames_gap * self.config.step)
 		self.counting()
-		if not IS_SERVER:
-			self.bar.next()
 		return mplfig_to_npimage(plt.gcf())
 
-	def render(self, path):
+	def render(self):
 		animation = VideoClip(self.get_frame, duration=(self.config.steps_number // self.config.frames_gap) / self.config.fps)
-		animation.write_gif(path, fps=self.config.fps)
+		animation.write_videofile(self.config.OUTPUT + '.mp4', fps=self.config.fps)
+		return self.config.OUTPUT + '.mp4'
 
 	def counting(self):
-		pass
+		print(end='\b')
 
 
 class Plot2DModel(PlotModel):
 
 	def counting(self):
+		super().counting()
 		plt.cla()
 
 		plt.xlabel(self.label)
@@ -153,6 +133,7 @@ class Plot3DModel(PlotModel):
 		self.ax = Axes3D(plt.gcf())
 
 	def counting(self):
+		super().counting()
 		self.ax.cla()
 
 		self.ax.set_xlabel(self.label)
@@ -194,12 +175,12 @@ class Plot3DModel(PlotModel):
 					'.', ms=1, c=self.colors[i]
 				)
 
-def _model_from_config(path_generator, astro_object, config):
-	if config.output_graphis == "matplotlib":
+def _model_from_config(astro_object, config):
+	if config.output_graphics == 'matplotlib':
 		if config.dimensions == 3:
 			model = Plot3DModel
 		else:
 			model = Plot2DModel
 	else:
 		model = JsonModel
-	return model(astro_object, config, path_generator=path_generator)
+	return model(astro_object, config)

@@ -1,5 +1,6 @@
 *.pyc
-/configurator/configs
-/modeling_module/requirements
 */__pycache__
-modeling_module/physical_problems/*/results
+configurator/configs/*
+modeling_module/requirements/*
+modeling_module/setups/*
+*.DS_Store
