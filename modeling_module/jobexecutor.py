@@ -36,7 +36,7 @@ class Dispatcher:
 		)
 		self.exitkey = '[exitkey:' + uuid4().hex + ']'
 		venv = os.path.join('.', 'enviroments', self.problem, 'bin', '')
-		self.command = f'{venv if os.path.exists(venv) else ''}python3 -u -B \
+		self.command = f'{venv if os.path.exists(venv) else ""}python3 -u -B \
 			modeling_module/physical_problems/{self.problem}/main.py \
 			{pickle.dumps(self.configuration).hex()} {self.output} {self.exitkey}\n'
 		self.process.stdin.write(self.command.encode())
