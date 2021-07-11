@@ -12,13 +12,13 @@ ARG problem_name
 ENV problem_name=$problem_name
 ENV problem_dir=./modeling_module/physical_problems/$problem_name
 
-COPY ${PWD}/modeling_module/setups ./setups
+COPY ${PWD}/modeling_module/setups/$problem_name.sh ./setups/$problem_name.sh
 COPY ${PWD}/scripts/dockersetup.sh .
-CMD ./dockersetup.sh $problem_name
+CMD ./dockersetup.sh
 
-COPY ${PWD}/modeling_module/requirements ./requirements
+COPY ${PWD}/modeling_module/requirements/$problem_name.txt ./requirements/problem_name.txt
 COPY ${PWD}/scripts/virtualenvs.sh .
-RUN ./virtualenvs.sh $problem_name
+RUN ./virtualenvs.sh
 
 COPY ${PWD}/modeling_module ./modeling_module
 

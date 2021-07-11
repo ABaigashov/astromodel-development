@@ -5,24 +5,6 @@ configs=$PWD/configurator/configs
 requirements=$PWD/modeling_module/requirements
 setups=$PWD/modeling_module/setups
 
-link(){
-	if [ -f $problems/$1/config.json ]; then
-		cp -v $problems/$1/config.json $configs/$1.json
-		chmod 666 $configs/$1.json
-	fi
-	if [ -f $problems/$1/requirements.txt ]; then
-		cp -v $problems/$1/requirements.txt $requirements/$1.txt
-		chmod 666 $requirements/$1.txt
-	fi
-	if [ -f $problems/$1/setup.sh ]; then
-		cp -v $problems/$1/setup.sh $setups/$1.sh
-		chmod 666 $setups/$1.sh
-	fi
-	if [ ! -d $problems/$1/results ]; then
-		mkdir $problems/$1/results
-		chmod 777 $problems/$1/results
-	fi
-}
 
 for check in $configs $requirements $setups; do
 	echo Creating $trashdir
@@ -32,10 +14,21 @@ for check in $configs $requirements $setups; do
 	fi
 done
 
-if [ "$1" == "" ]; then
-	for problem in $(ls $problems); do
-		link $problem
-	done
-else
-	link $1
-fi
+for problem in $(ls $problems); do
+	if [ -f $problems/$problem/config.json ]; then
+		cp -v $problems/$problem/config.json $configs/$problem.json
+		chmod 666 $configs/$problem.json
+	fi
+	if [ -f $problems/$problem/requirements.txt ]; then
+		cp -v $problems/$problem/requirements.txt $requirements/$problem.txt
+		chmod 666 $requirements/$problem.txt
+	fi
+	if [ -f $problems/$problem/setup.sh ]; then
+		cp -v $problems/$problem/setup.sh $setups/$problem.sh
+		chmod 666 $setups/$problem.sh
+	fi
+	if [ ! -d $problems/$problem/results ]; then
+		mkdir $problems/$problem/results
+		chmod 777 $problems/$problem/results
+	fi
+done
