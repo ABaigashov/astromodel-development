@@ -4,6 +4,10 @@
 
 ✔
 
+|        OS       | Сompatibility |
+|:---------------:|:-------------:|
+| Ubuntu / Debian |      ✔       |
+| Windows  x86-64 |      ✔       |
 
 
 
