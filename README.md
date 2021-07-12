@@ -6,15 +6,15 @@ t
 
 -----------------------------------------
 
-|        OS       | compatibility |
-|:---------------:|:-------------:|
-| Ubuntu / Debian |       ✔      |
-|   Arch  linux   |       ✔      |
-|       Mint      |       ✔      |
-|      Fedora     |       ✔      |
-|      MacOS      |       ✔      |
-|   Windows  NT   |       ❌      |
-|    ChromeOS     |       ❔      |
+|        **OS**       | **compatibility** |
+|:-------------------:|:-----------------:|
+|   Ubuntu / Debian   |         ✔        |
+|     Arch  linux     |         ✔        |
+|         Mint        |         ✔        |
+|        Fedora       |         ✔        |
+|        MacOS        |         ✔        |
+|     Windows  NT     |         ❌        |
+|      ChromeOS       |         ❔        |
 
 -----------------------------------------
 
