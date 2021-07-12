@@ -3,7 +3,6 @@
 # code stuff #
 
 ```bash
-
 #Install Docker and docker-compose on Ubuntu:
 $ sudo apt update
 $ sudo apt isntall curl
@@ -13,8 +12,9 @@ $ rm get-docker.sh
 $ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 $ sudo chmod +x /usr/local/bin/docker-compose
 $ docker --version && docker-compose --version
+```
 
-
+```bash
 #Run local solver:
 $ ./scripts/boot-local.sh <problem-mame> <init fle>.json
 #For example:
