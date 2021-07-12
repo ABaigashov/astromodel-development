@@ -3,7 +3,16 @@
 # code stuff #
 
 ```bash
-$ ./scripts/boot-local.sh <problem name> <init file>.json
+#Run solver:
+./scripts/boot-local.sh <problem-mame> <init fle>.json
+#For example:
+./scripts/boot-local.sh particle_simulator 3d.json
+
+
+#Clean useless containers:
+docker system prune -f
+#Clean all containers:
+docker system prune -af
 ```
 
 
