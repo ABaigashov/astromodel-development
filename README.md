@@ -1,4 +1,1 @@
-![Logo](./configurator/static/images/logo.svg)
-
-Astromodel
----
+# <a href="https://astromodel.ru"><img alt="NumPy" src="./configurator/static/images/logo.jpg"></a>
