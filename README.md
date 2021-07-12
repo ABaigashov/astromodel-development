@@ -4,7 +4,7 @@
 
 t
 
-## &nbsp; ##
+-----------------------------------------
 
 |        OS       | compatibility |
 |:---------------:|:-------------:|
@@ -16,7 +16,7 @@ t
 |   Windows  NT   |       ❌      |
 |    ChromeOS     |       ❔      |
 
-## &nbsp; ##
+-----------------------------------------
 
 > Toxicity doesn't lose games, <br>
 > bad players do. <br>
