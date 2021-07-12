@@ -4,7 +4,7 @@
 
 ```bash
 #Run solver:
-./scripts/boot-local.sh <problem-mame> <init fle>.json
+bash ./scripts/boot-local.sh <problem-mame> <init fle>.json
 #For example:
 ./scripts/boot-local.sh particle_simulator 3d.json
 
