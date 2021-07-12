@@ -16,9 +16,9 @@ COPY ${PWD}/modeling_module/setups/$problem_name.sh ./setups/$problem_name.sh
 COPY ${PWD}/scripts/dockersetup.sh .
 CMD ./dockersetup.sh
 
-COPY ${PWD}/modeling_module/requirements/$problem_name.txt ./requirements/problem_name.txt
+COPY ${PWD}/modeling_module/requirements/$problem_name.txt ./requirements/$problem_name.txt
 COPY ${PWD}/scripts/virtualenvs.sh .
-RUN ./virtualenvs.sh
+RUN ./virtualenvs.sh $problem_name
 
 COPY ${PWD}/modeling_module ./modeling_module
 

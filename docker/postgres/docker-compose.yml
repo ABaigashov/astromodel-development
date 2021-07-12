@@ -17,6 +17,6 @@ services:
       retries: 5
 
 networks:
- default:
-   external:
-     name: astro-net
+  default:
+    external:
+      name: astro-net
