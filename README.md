@@ -1,1 +1,4 @@
-![Logo](./configurator/static/images/logo.svg)
+<a style="display:flex;align-items:center;text-decoration:none;" href="https://astromodel.ru">
+	<img src="./configurator/static/images/logo.svg">
+	<span style="font-family:'Times New Roman',sans-serif;font-size:18px;">Астрономическое<br>сообщество<br>БФУ им. И. Канта</span>
+</a>
