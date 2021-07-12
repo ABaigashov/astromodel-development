@@ -3,8 +3,8 @@
 
 ## compatibility ##
 
-|        OS       | Local | Server |
-|:---------------:|:-----:|:------:|
+|        OS       | compatibility |
+|:---------------:|:-------------:|
 | Ubuntu / Debian |  ✔   |   ✔  |
 |   Arch  linux   |   ❔   |   ❔   |
 | Windows  x86-64 |  ❌   |   ❌  |
