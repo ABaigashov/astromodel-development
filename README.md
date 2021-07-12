@@ -5,10 +5,13 @@
 
 |        OS       | compatibility |
 |:---------------:|:-------------:|
-| Ubuntu / Debian |  ✔   |   ✔  |
-|   Arch  linux   |   ❔   |   ❔   |
-| Windows  x86-64 |  ❌   |   ❌  |
-|      MacOS      |  ✔   |   ✔  |
+| Ubuntu / Debian |       ✔      |
+|   Arch  linux   |       ✔      |
+|       Mint      |       ✔      |
+|      Fedora     |       ✔      |
+|      MacOS      |       ✔      |
+|   Windows  NT   |       ❌      |
+|    ChromeOS     |       ❔      |
 
 ## &nbsp; ##
 
