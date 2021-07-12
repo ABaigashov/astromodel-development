@@ -4,7 +4,3 @@
 
 > Toxicity doesn't lose games,
 > bad players do.
-
----
-
-test
