@@ -10,7 +10,7 @@
 | Windows  x86-64 |  ❌   |   ❌  |
 |      MacOS      |  ✔   |   ✔  |
 
-
+## &nbsp; ##
 
 > Toxicity doesn't lose games, <br>
 > bad players do. <br>
