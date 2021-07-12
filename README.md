@@ -2,7 +2,10 @@
 
 # code stuff #
 
-t
+```bash
+$ ./scripts/boot-local.sh <problem name> <init file>.json
+```
+
 
 -----------------------------------------
 
