@@ -1,8 +1,8 @@
 <p align="center"><a href="https://astromodel.ru"><img alt="Astromodel" src="./configurator/static/images/logo.svg"></a></p>
 
-This is very long text and i don't know what to write here.
-I think it must to be some information about this project there,
-but the repo is private and no one can read this
+This is very long text and i don't know what to write here. <br>
+I think it must to be some information about this project there, <br>
+but the repo is private and no one can read this <br>
 
 ## Installation on empty Ubuntu 20.04.2.0 LTS ##
 
