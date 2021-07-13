@@ -1,11 +1,11 @@
 <p align="center"><a href="https://astromodel.ru"><img alt="Astromodel" src="./configurator/static/images/logo.svg"></a></p>
 
-# code stuff #
+# Installation on empty Ubuntu 20.04.2.0 LTS #
 
 ```bash
-#Install Docker and docker-compose on Ubuntu:
 $ sudo apt update
-$ sudo apt isntall curl
+$ sudo apt upgrage -y
+$ sudo apt isntall curl -y
 $ curl -fsSL https://get.docker.com -o get-docker.sh
 $ sudo sh get-docker.sh
 $ rm get-docker.sh
@@ -13,6 +13,8 @@ $ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docke
 $ sudo chmod +x /usr/local/bin/docker-compose
 $ docker --version && docker-compose --version
 ```
+
+# Some code tips #
 
 ```bash
 #Run local solver:
@@ -33,6 +35,8 @@ $ docker system prune -af
 
 
 -----------------------------------------
+
+Compatibility of our project
 
 | **Operating system** | **Compatibility** |
 |:--------------------:|:-----------------:|
