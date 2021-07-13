@@ -47,5 +47,5 @@ $ docker system prune -af
 -----------------------------------------
 
 > Toxicity doesn't lose games, <br>
-> bad players do. <br>
+> &nbsp;&nbsp;&nbsp;bad players do. <br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\- Bruno "BCko" Bančić
