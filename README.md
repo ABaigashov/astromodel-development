@@ -1,6 +1,6 @@
 <p align="center"><a href="https://astromodel.ru"><img alt="Astromodel" src="./configurator/static/images/logo.svg"></a></p>
 
-# Installation on empty Ubuntu 20.04.2.0 LTS #
+### Installation on empty Ubuntu 20.04.2.0 LTS ###
 
 ```bash
 $ sudo apt update
@@ -14,7 +14,7 @@ $ sudo chmod +x /usr/local/bin/docker-compose
 $ docker --version && docker-compose --version
 ```
 
-# Some code tips #
+## Some code tips ##
 
 ```bash
 #Run local solver:
