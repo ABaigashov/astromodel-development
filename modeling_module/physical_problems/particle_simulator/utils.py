@@ -1,11 +1,20 @@
 
-from sympy import symbols, sympify
+# This is hand-maded file. It calls in some
+# files while solving the problem
+
+# Import LOCAL python dict with some physical constants
 from physics import constants
+
+# Import some needed libraries
+from sympy import sympify
 import numpy as np
-import random
 
-
+# Function to scale calculating area
+# Argument :edge: size (in meters)
+# Returns (scaled, scaling, units)
 def load_label(edge):
+
+	# some 'if' constructions....
 
 	if edge < 1:
 		scaling = 1e-2
@@ -28,7 +37,7 @@ def load_label(edge):
 		label = 'millions km'
 
 	if edge >= 1e11 and edge < 3e15:
-		scaling = constants['ae']
+		scaling = constants['au']
 		label = 'au'
 
 	if edge >= 3e15 and edge < 3e18:
@@ -43,15 +52,21 @@ def load_label(edge):
 		scaling = 1e6 * constants['pc']
 		label = 'Mpc'
 
+	# Return created values
 	return edge / scaling, scaling, label
 
 
+# Function to load fields to the astro_object
+# Arguments :config: instance of 'Configuration' object
+#     :astro_object: instance of 'GlobalInteraction' object
 def load_fields(config, astro_object):
 
+	# Creating start empty values
 	Emx = Emy = Emz = Hmx = Hmy = Hmz = PhiG = 0
 
 	for field in config.EM_fields:
 
+		# Adding electro-magnetic field parameters
 		Emx += sympify(field.electricity[0])
 		Emy += sympify(field.electricity[1])
 		Emz += sympify(field.electricity[2])
@@ -60,23 +75,32 @@ def load_fields(config, astro_object):
 		Hmz += sympify(field.magnetic[2])
 
 	for field in config.G_fields:
+
+		# Adding gravitation field parameters
 		PhiG += sympify(field.gravity)
 
+	# Load by 'append_fields' procedure
 	astro_object.append_fields(Emx, Emy, Emz, Hmx, Hmy, Hmz, PhiG)
-	return Emx, Emy, Emz, Hmx, Hmy, Hmz, PhiG
 
 
+
+# Function to load point objects to the astro_object
+# Arguments :config: instance of 'Configuration' object
+#     :astro_object: instance of 'GlobalInteraction' object
 def load_point_objects(config, astro_object):
 
 	for point in config.point_objects:
 
+		# Creation empty arrays with specific dimension
 		coordinates = np.ndarray(shape=(1, config.dimensions))
 		velocities = np.ndarray(shape=(1, config.dimensions))
 
+		# Filling arrays by incomming values
 		for i in range(config.dimensions):
 			coordinates[0, i] = point.coords[i]
 			velocities[0, i] = point.speed[i]
 
+		# Load by 'append' procedure
 		astro_object.append(
 			*coordinates, *velocities, charge=point.charge, delay=point.delay,
 			color=point.color, mass=point.mass, radius=point.radius, id=point.id

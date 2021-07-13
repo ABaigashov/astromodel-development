@@ -1,5 +1,5 @@
-from sympy.parsing.sympy_parser import parse_expr
 from uuid import uuid4 as random_hash
+from sympy import sympify
 import json, os, pickle
 import numpy as np
 
@@ -10,8 +10,7 @@ def _to_float(value):
 	return float(eval(value))
 
 def _parse_expr(value):
-	parse_expr(value)
-	return value
+	return sympify(value)
 
 def _to_int(value):
 	return int(_to_float(value))

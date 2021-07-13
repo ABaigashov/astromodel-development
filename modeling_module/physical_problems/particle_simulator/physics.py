@@ -1,11 +1,14 @@
 
+# Just file with some constants.
+# Nothing special here.
+
 constants = {
 	"c": 299792458,
 	"G": 6.67408e-11,
 	"sigma_steff_bolc": 5.67036713e-8,
 	"k": 9e9,
 
-	"ae": 1495978707e2,
+	"au": 1495978707e2,
 	"pc": 3.0856776e16,
 
 	"sun_mass": 1.989e30,
@@ -34,7 +37,7 @@ constants = {
 	"earth_axis": 1495978707e2,
 	"earth_period": 365.256363004,
 	"earth_trop_year": 365.2421896698,
-	"earth__days": 23.934472222222222,
+	"earth_days": 23.934472222222222,
 	"earth_exentricity": 0.01671123,
 
 	"moon_mass": 7.3477e22,

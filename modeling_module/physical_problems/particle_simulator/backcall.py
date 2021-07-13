@@ -12,7 +12,7 @@
 
 # Define special function
 # Argument :configuration: is 'Configurator' class object
-# Returns :int: count of EXACT amount 'backcall' callings
+# Returns count of EXACT amount 'backcall' calls
 def value(configuration):
 	# In our case 'moviepy.editor.VideoClip' object
 	# calls 'render' function 'steps_number / frames_gap' times
