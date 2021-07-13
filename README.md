@@ -44,13 +44,13 @@ Compatibility of our project
 
 | **Operating system** | **Compatibility** |
 |:--------------------:|:-----------------:|
-|    Ubuntu / Debian   |          ✔        |
-|      Arch linux      |          ✔        |
-|         Mint         |          ✔        |
-|        Fedora        |          ✔        |
-|         MacOS        |          ✔        |
-|      Windows NT      |          ❌        |
-|       ChromeOS       |          ❔        |
+|    Ubuntu / Debian   |          ✔       |
+|      Arch linux      |          ✔       |
+|         Mint         |          ✔       |
+|        Fedora        |          ✔       |
+|         MacOS        |          ✔       |
+|      Windows NT      |          ❌       |
+|       ChromeOS       |          ❔       |
 
 -----------------------------------------
 
