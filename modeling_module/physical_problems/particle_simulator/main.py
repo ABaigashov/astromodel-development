@@ -28,7 +28,7 @@ configuration = Configurator._decompress(sys.argv[1], sys.argv[2])
 ##  /                                             \  ##
 ##  |   If you can see there is no calculation.   |  ##
 ##  |  I RECOMMENDED to create some special help  |  ##
-##  |  files, witch can help you to create basic  |  ##
+##  |  files, which can help you to create basic  |  ##
 ##  |   manamgent and READABILITY of your code.   |  ##
 ##  \_____________________________________________/  ##
 ##                                                   ##

@@ -1,14 +1,12 @@
 
-##==================< INFORMATION >==================##
-##                                                   ##
-##     This file has special name 'backcall' and     ##
-##   shows how many backcalls did your code prints.  ##
-##   The 'backcall' is the step on a progress line   ##
-##   witch calls like'print(end="\b")'. If problem   ##
-##   doesn't need any progress line, you can IGNORE  ##
-##  this file and DON'T ADD it to problem directory  ##
-##                                                   ##
-##===================================================##
+# This file has special name 'backcall.py' and
+# you SHOULDN'T RENAME it. This file needs to
+# show how many backcalls did your code prints.
+# The 'backcall' is the step on a progress line
+# which calls like'print(end="\b")'. If problem
+# doesn't need any progress line, you can IGNORE
+# this file and DON'T ADD it to problem directory
+
 
 # Define special function
 # Argument :configuration: is 'Configurator' class object

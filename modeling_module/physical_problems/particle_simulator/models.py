@@ -115,7 +115,7 @@ class PlotModel(BaseModel):
 		# Creating trajectory array
 		self.all_trajectory = []
 
-	# Method to render single frame, witch calls by
+	# Method to render single frame, which calls by
 	# 'moviepy.editor.VideoClip.write_videofile' object.
 	# Argument :i: frame number
 	def get_frame(self, i):

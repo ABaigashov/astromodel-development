@@ -2,8 +2,14 @@
 # This is just the list of all 'pip' requirements
 # Most of this is dependencies of other libraries, but
 # it doesn't matter. You can write this file by yourself
-# to control all of the requirements & you no need to write
-# exact version of library (check the official docs).
+# to have more control around requirements.
+# 
+# [Hint]:
+#     You no need to write exact version of library.
+#     You can write just the name of library or
+#     the comparable version with other version or
+#     the version older/newer then some version.
+#     (check the official documentation).
 # 
 # But...
 # If you are lazy (like me) you can just type

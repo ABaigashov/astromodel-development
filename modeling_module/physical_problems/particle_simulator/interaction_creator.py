@@ -39,7 +39,7 @@ class GlobalInteraction:
 		self.fields = []
 
 
-	# Method witch calculating force for one point object
+	# Method which calculating force for one point object
 	# Argument :point: instance of 'Point' object 
 	# Returns 'result_force' vector
 	def force_calculation(self, point):
@@ -92,7 +92,7 @@ class GlobalInteraction:
 		# Return result force
 		return result_force
 
-	# Procedure witch calculating updating dynamic parametrs
+	# Procedure which calculating updating dynamic parametrs
 	# Arguments :dt: delta time
 	#         :time: time passed from start
 	def update_dynamic_parametrs(self, dt, time):
@@ -399,7 +399,7 @@ class GlobalInteraction:
 								p1.charge = 0
 								p1.radius = 0
 
-	# Procedure witch cleaning acceleration
+	# Procedure which cleaning acceleration
 	# The name speaks for itself
 	def clean_acceleration(self):
 		for p in self.points:
@@ -435,7 +435,7 @@ class GlobalInteraction:
 
 
 
-# Ow shit! Some more physical code witch i can't
+# Ow shit! Some more physical code which i can't
 # recognize what happends in it. Ok. I'm done
 # Comment this by yourself
 
