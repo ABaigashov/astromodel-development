@@ -18,7 +18,7 @@ const defaultNumereticInputCases = {
 
 // ------------------------------------------ //
 
-function show404() {
+function show404(a) {
 	document.body.innerHTML = '<h1>Error 404: Page not found</h1>'
 }
 
@@ -46,10 +46,9 @@ function callGenerate() {
 		$.ajax({
 			url: window.location.protocol + '//' + window.location.host + '/construct/configs/' + problemName + '.yml',
 			type: 'GET',
-			dataType: 'json',
 			contentType: 'application/yml; charset=utf-8',
 			success: function(config) {
-				generateAllProblemForm(problemName, config)
+				generateAllProblemForm(problemName, jsyaml.load(config))
 			},
 			error: show404
 		})

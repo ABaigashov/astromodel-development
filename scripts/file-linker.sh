@@ -15,7 +15,7 @@ for check in $configs $requirements $setups; do
 done
 
 for problem in $(ls $problems); do
-	if [ -f $problems/$problem/config.json ]; then
+	if [ -f $problems/$problem/config.yml ]; then
 		if [ -f $problems/$problem/requirements.txt ]; then
 			cp -v $problems/$problem/requirements.txt $requirements/$problem.txt
 		else
