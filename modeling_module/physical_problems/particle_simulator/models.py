@@ -257,7 +257,7 @@ class Plot3DModel(PlotModel):
 # Arguments :config: instance of 'Configuration' object
 #     :astro_object: instance of 'GlobalInteraction' object
 # Returns: specified model class object
-def _model_from_config(astro_object, config):
+def _model_from_config(config, astro_object):
 
 	# some 'if' constructions....
 	if config.output_graphics == 'matplotlib':
