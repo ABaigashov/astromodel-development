@@ -44,10 +44,10 @@ function callGenerate() {
 	} else {
 		let problemName = window.location.search.substring(1)
 		$.ajax({
-			url: window.location.protocol + '//' + window.location.host + '/construct/configs/' + problemName + '.json',
+			url: window.location.protocol + '//' + window.location.host + '/construct/configs/' + problemName + '.yml',
 			type: 'GET',
 			dataType: 'json',
-			contentType: 'application/json; charset=utf-8',
+			contentType: 'application/yml; charset=utf-8',
 			success: function(config) {
 				generateAllProblemForm(problemName, config)
 			},

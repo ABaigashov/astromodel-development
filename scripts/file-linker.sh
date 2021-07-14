@@ -32,7 +32,7 @@ for problem in $(ls $problems); do
 			chmod 777 $problems/$problem/results
 		fi
 
-		cp -v $problems/$problem/config.json $configs/$problem.json
+		cp -v $problems/$problem/config.yml $configs/$problem.yml
 		chmod 666 $configs/$problem.json $requirements/$problem.txt
 	fi
 done

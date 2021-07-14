@@ -1,6 +1,6 @@
 from uuid import uuid4 as random_hash
 from sympy import sympify
-import json, os, pickle
+import yaml, os, pickle
 import numpy as np
 
 
@@ -138,12 +138,9 @@ class Configurator:
 	@classmethod
 	def parse_parameters(cls, parameters):
 		problem = parameters['PROBLEM']
-		if os.getcwd() == '/usr/src':
-			config_path = os.path.join('.', 'modeling_module', 'physical_problems', problem, 'config.json')
-		else:
-			config_path = 'config.json'
+		config_path = os.path.join('.', 'modeling_module', 'physical_problems', problem, 'config.yml')
 		with open(config_path, 'rb') as f:
-			config = json.load(f)
+			config = yaml.load(f)
 		defaults = cls.generate_defaults(parameters, config)
 		general = cls.parse_general(defaults, parameters, config)
 		objects = cls.parse_objects(defaults, parameters, config)
