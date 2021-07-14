@@ -77,7 +77,7 @@ def load_fields(config, astro_object):
 
 	for field in config.G_fields:
 
-		# Adding gravitation field parameters
+		# Adding gravitational field parameters
 		PhiG += sympify(field.gravity)
 
 	# Load by 'append_fields' procedure
@@ -92,7 +92,7 @@ def load_point_objects(config, astro_object):
 
 	for point in config.point_objects:
 
-		# Creation empty arrays with specific dimension
+		# Creating empty arrays with specific dimension
 		coordinates = np.ndarray(shape=(1, config.dimensions))
 		velocities = np.ndarray(shape=(1, config.dimensions))
 

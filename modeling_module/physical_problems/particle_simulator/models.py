@@ -19,6 +19,7 @@ import json
 # Crating base model representation
 class BaseModel:
 
+	# Some inicialization
 	def __init__(self, astro_object, config, *args, **kw):
 
 		# Keep incomming parameters inside 'self'
@@ -33,9 +34,8 @@ class BaseModel:
 		# Saving the scale of current calculation area
 		self.edge, self.scaling, self.label = utils.load_label(self.config.edge)
 
-
 	# some properties...
-
+	
 	@property
 	def colors(self):
 		return np.array(self.astro_object.get_colors()) / 255
@@ -129,10 +129,18 @@ class PlotModel(BaseModel):
 		# Returning frame 'numpy.ndarray' representation
 		return mplfig_to_npimage(plt.gcf())
 
-	# 
+	# Render method to render current problem
+	# Returns: Full path to rendered file
 	def render(self):
+
+		# Creating 'moviepy.editor.VideoClip' object
+		# with callback 'self.get_frame' and duration parameter
 		animation = VideoClip(self.get_frame, duration=(self.config.steps_number // self.config.frames_gap) / self.config.fps)
+		
+		# Writing all created frames to 'animation'
 		animation.write_videofile(self.config.OUTPUT + '.mp4', fps=self.config.fps)
+		
+		# Return path to file
 		return self.config.OUTPUT + '.mp4'
 
 
@@ -193,13 +201,14 @@ class Plot2DModel(PlotModel):
 
 # Creating 3D version of 'PlotModel'
 class Plot3DModel(PlotModel):
-
+	
+	# Some inicialization
 	def __init__(self, *args, **kw):
 		
 		# Basic init of parent class
 		super().__init__(*args, **kw)
 
-		# Creation 3D version of 'matplotlib.axis'
+		# Creating 3D version of 'matplotlib.axis'
 		self.ax = Axes3D(plt.gcf())
 
 	def counting(self):
