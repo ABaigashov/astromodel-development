@@ -1,4 +1,22 @@
 
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!#
+#!!                                                      !!#
+#!!    ! ! !  I M P O R T A N T  R E Q U E S T  ! ! !    !!#
+#!!                                                      !!#
+#!!    This file was written by physicists and i don't   !!#
+#!!     really fully understand what happends in most    !!#
+#!!   parts of this code. Pleale, don't blame on me if   !!#
+#!!   something commented wrong or not commented at all  !!#
+#!!                                                      !!#
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!#
+
+
+# This is hand-maded file. It contains main solver object
+# for this problem. You DON'T NEED to create exatcly
+# this file. It's YOUR CHOICE to create help files like this
+
+
+
 # Import LOCAL python dict with some physical constants
 from physics import constants
 

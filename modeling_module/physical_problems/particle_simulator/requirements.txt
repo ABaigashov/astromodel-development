@@ -1,3 +1,15 @@
+
+# This is just the list of all 'pip' requirements
+# Most of this is dependencies of other libraries, but
+# it doesn't matter. You can write this file by yourself
+# to control all of the requirements & you no need to write
+# exact version of library (check the official docs).
+# 
+# But...
+# If you are lazy (like me) you can just type
+# in command line "pip freeze > requirements.txt"
+# and have a nice day!
+
 certifi==2020.6.20
 chardet==3.0.4
 cycler==0.10.0
