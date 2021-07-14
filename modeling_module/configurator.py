@@ -140,7 +140,7 @@ class Configurator:
 		problem = parameters['PROBLEM']
 		config_path = os.path.join('.', 'modeling_module', 'physical_problems', problem, 'config.yml')
 		with open(config_path, 'rb') as f:
-			config = yaml.load(f)
+			config = yaml.safe_load(f)
 		defaults = cls.generate_defaults(parameters, config)
 		general = cls.parse_general(defaults, parameters, config)
 		objects = cls.parse_objects(defaults, parameters, config)
