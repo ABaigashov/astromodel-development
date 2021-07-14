@@ -1,6 +1,7 @@
 
-# This is hand-maded file. It calls in some
-# files while solving the problem
+# This is hand-maded file. It calls in some files while
+# solving the problem. You DON'T NEED to create exatcly
+# this file. It's YOUR CHOICE to create help files like this
 
 # Import LOCAL python dict with some physical constants
 from physics import constants

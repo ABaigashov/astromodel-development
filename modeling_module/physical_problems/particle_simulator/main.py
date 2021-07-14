@@ -20,11 +20,17 @@ from configurator import Configurator
 configuration = Configurator._decompress(sys.argv[1], sys.argv[2])
 
 
-
 ##===============< CALCULATING BLOCK >===============##
 ##                                                   ##
 ##   This block contains YOUR calculing parameters   ##
 ##        and you need to write all stuff here       ##
+##   _____________________________________________   ##
+##  /                                             \  ##
+##  |   If you can see there is no calculation.   |  ##
+##  |  I RECOMMENDED to create some special help  |  ##
+##  |  files, witch can help you to create basic  |  ##
+##  |   manamgent and READABILITY of your code.   |  ##
+##  \_____________________________________________/  ##
 ##                                                   ##
 ##===================================================##
 
@@ -42,11 +48,10 @@ astro_object = GlobalInteraction(configuration)
 
 # Getting specific render model for
 # current configuration parameters
-model = _model_from_config(astro_object, configuration)
+model = _model_from_config(configuration, astro_object)
 
 # Render the model
 result_path = model.render()
-
 
 
 ##===================< END BLOCK >===================##
