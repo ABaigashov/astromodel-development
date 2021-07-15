@@ -6,7 +6,7 @@
 # Import LOCAL python dict with some physical constants
 from physics import constants
 
-# Import some needed libraries
+# Import some required libraries
 from sympy import sympify
 import numpy as np
 

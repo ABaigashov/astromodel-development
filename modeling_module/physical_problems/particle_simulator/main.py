@@ -1,12 +1,12 @@
 
-##=================< DEFAULT BLOCK >=================##
-##                                                   ##
-##     This block is specified for configurating     ##
-##      and constructing some spcial parameters      ##
-##                                                   ##
-##===================================================##
+##=================< DEFAULT BLOCK >==================##
+##                                                    ##
+##     This block is specified for configurating      ##
+##      and constructing some spcial parameters       ##
+##                                                    ##
+##====================================================##
 
-# Import some needed libraries
+# Import some required libraries
 import os, sys
 
 # Adding 'modeling_module' directory from upper folders
@@ -20,19 +20,19 @@ from configurator import Configurator
 configuration = Configurator._decompress(sys.argv[1], sys.argv[2])
 
 
-##===============< CALCULATING BLOCK >===============##
-##                                                   ##
-##   This block contains YOUR calculing parameters   ##
-##        and you need to write all stuff here       ##
-##   _____________________________________________   ##
-##  /                                             \  ##
-##  |   If you can see there is no calculation.   |  ##
-##  |  I RECOMMENDED to create some special help  |  ##
-##  |  files, which can help you to create basic  |  ##
-##  |   manamgent and READABILITY of your code.   |  ##
-##  \_____________________________________________/  ##
-##                                                   ##
-##===================================================##
+##============+===< CALCULATING BLOCK >===============##
+##                                                    ##
+##   This block contains YOUR calculing parameters    ##
+##        and you need to write all stuff here        ##
+##   ______________________________________________   ##
+##  /                                              \  ##
+##  |    If you can see there is no calculation.   |  ##
+##  | IT'S RECOMMENDED to create some special help |  ##
+##  |   files, which can help you to create basic  |  ##
+##  |    manamgent and READABILITY of your code.   |  ##
+##  \______________________________________________/  ##
+##                                                    ##
+##====================================================##
 
 # Importing 'GlobalInteraction' object from 'interaction_creator.py'
 # and '_model_from_config' function from 'models.py'
@@ -54,13 +54,13 @@ model = _model_from_config(configuration, astro_object)
 result_path = model.render()
 
 
-##===================< END BLOCK >===================##
-##                                                   ##
-##      You ALWAYS need to write a 'return-key'      ##
-##         and result path. It needs to get          ##
-##           file format and split output            ##
-##                                                   ##
-##===================================================##
+##===================< END BLOCK >====================##
+##                                                    ##
+##      You ALWAYS need to write a 'return-key'       ##
+##         and result path. It needs to get           ##
+##           file format and split output             ##
+##                                                    ##
+##====================================================##
 
 # Printing the 'return-key' (here it is 'sys.argv[3]')
 # and path to result of your calculation

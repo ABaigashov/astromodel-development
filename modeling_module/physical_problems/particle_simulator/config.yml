@@ -1,5 +1,45 @@
 
-# AHAHHAHAAHAH
+# This is main problem configuration file. It has special
+# name 'config.yml' and you SHOULDN'T RENAME it. File contains
+# all information about variables, which will be used in
+# current problem. This file needs to create web form
+# of this problem, where user can put his parameters and 
+# run your problem solver. This file also needs to parse
+# incomming parameters from web form. You can specify all
+# web fields to make problem parameters more flexable
+
+# This file has special structure. You have four special
+# keywords: ('UNITS', 'CASES', 'GENERAL', 'OBJECTS'). You
+# can write this keywords in any order, but IT'S RECOMMENDED
+# to use it in order as shown above.
+#
+#
+# keyword 'UNITS':
+#  Description:
+#      This group contains all types of units you need. If you
+#      don't need any units, just skip this keyword. This keyword
+#      uses to CASES.{name}.units value (check 'CASES' keyword example)
+#      Name of units must have ONLY lowercase latin letters
+#      Names {unit} and {subunit} names can have any characters like
+#      russian, spaces, slashes, dashes and other... And this names
+#      will be displayed in web form
+#      {number} must be like '(m)e±(n)', where 'm' and 'n' are mantissa
+#      and exponent respectively (where 'm' and 'n' belongs to 'Z').
+#      Base is always 10, ecause structure of '(m)e±(n)' means m * 10^n
+#      Often subunit {number} is 3*k more/less than base unit exponent
+#      (where 'k' belongs to 'Z'), BUT subunit value CAN be ANY number,
+#      with structure '(m)e±(n)' ('time' unit can't have megaseconds, use
+#      hours or minutes, or other non-SI units like megaparsec and other...)
+#      Or you can write number WITHOUT structure '(m)e±(n)'.
+#      If you need this one, just add single quotes like '3.14159'
+#  Example:
+#
+# UNITS:
+#   {name}:
+#     {unit}: {number}
+#     {subunit}: {number}
+#     {subunit}: {number}
+#     ...
 
 UNITS:
 

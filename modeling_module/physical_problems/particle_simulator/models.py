@@ -7,7 +7,7 @@
 import utils
 
 
-# Import some needed libraries
+# Import some required libraries
 from moviepy.video.io.bindings import mplfig_to_npimage
 from mpl_toolkits.mplot3d.axes3d import Axes3D
 from moviepy.editor import VideoClip

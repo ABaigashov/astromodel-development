@@ -2,7 +2,7 @@
 
 # This file has special name 'setup.sh' and
 # you SHOULDN'T RENAME it. This file setup file
-# and it will calls on the start of problem
+# and it will be called on the start of problem
 # calculation. It's written in bash language
 # and contains all installation information
 # of some non-pip libraries like 'fenics',

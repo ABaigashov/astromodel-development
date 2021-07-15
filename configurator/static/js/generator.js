@@ -23,14 +23,13 @@ function show404(a) {
 }
 
 function localhost(htmlForm) {
-	let fileToLoad = Array.from(document.getElementById('filedrop').files).filter((file) => (file.name == 'config.json'))[0]
+	let fileToLoad = Array.from(document.getElementById('filedrop').files).filter((file) => (file.name == 'config.yml'))[0]
 	let fileReader = new FileReader()
 	let problemName = fileToLoad.webkitRelativePath.split('/')[0]
 	fileReader.onload = (event) => {
-		let config = JSON.parse(event.target.result)
 		document.body.removeChild(document.body.lastElementChild)
 		document.getElementById('problem-form').removeAttribute('style')
-		generateAllProblemForm(problemName, config)
+		generateAllProblemForm(problemName, jsyaml.load(event.target.result))
 	}
 	fileReader.readAsText(fileToLoad, 'UTF-8')
 }
