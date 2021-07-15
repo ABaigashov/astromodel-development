@@ -88,7 +88,39 @@
 #       {title}: {value}
 #       ...
 #   ...
-
+#
+# keyword 'GENERAL':
+#  Description:
+#      This group contains some of the cases, which was written to general
+#      parameters like time step or size of calculating area. Every {case}
+#      parameter is the one of 'CASES' names. You can get parsed case value
+#      in code by calling it by its name like 'print(config.{name})'
+#  Example:
+#
+# GENERAL:
+#  - {case}
+#  - {case}
+#  - {case}
+# ...
+#
+# keyword 'OBJECTS':
+#  Description:
+#      This group contains object types, which you will use in your problem
+#      Every object must have 'title' key and 'cases' key. Key 'title' will be
+#      displayed in web form as name of current object. Key 'cases' contains
+#      names of 'CASES' exactly as in 'GENERAL' group. You can call any of this
+#      case in code like 'print([obj.{case} for obj in config.{name}])'
+#  Example:
+#
+# OBJECTS:
+#   {name}:
+#     title: {title}
+#     cases:
+#       - {case}
+#       - {case}
+#       - {case}
+#      ...
+#   ...
 
 UNITS:
 
