@@ -1,9 +1,5 @@
 <p align="center"><a href="https://astromodel.ru"><img alt="Astromodel" src="./configurator/static/images/logo.svg"></a></p>
 
-This is very long text and i don't know what to write here. <br>
-I think it must to be some information about this project there, <br>
-but the repo is private and no one can read this <br>
-
 ## Installation of Docker and docker-compose on Ubuntu ##
 
 ```bash
@@ -20,8 +16,10 @@ $ docker --version && docker-compose --version
 ## Installation of Docker and docker-compose on Mac ##
 To install Docker and docker-compose on MacOS, you need<br>
 to go [this page](https://docs.docker.com/docker-for-mac/install/)
-and install docker as normal Mac application.<br>
-After that, you need to run this app and keep in tray<br>
+, choice intel/apple processor version, download and install<br>
+docker as normal Mac application. After that, you need to run<br>
+this app, close all docker windows and keep this in tray<br>
+the icon of docker will be shown in topbar menu<br>
 
 ## Some code tips ##
 
