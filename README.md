@@ -50,9 +50,13 @@ $ sudo ./scripts/boot-server.sh up --build
 # ATTENTION !!!!
 # If you are running server on your computer
 # you need to close it CORRECTLY. When you need
-# to stop server, precc 'CTRL' + 'C' ONLY ONSE
-# (or '' + 'C' on MAC)
-
+# to stop server, press 'CTRL' + 'C' ONLY ONSE.
+# (or 'control' + 'C' on MAC). This will take some
+# time, but it's ok. If you press this keys one,
+# Docker will close faster, but INCORRECTLY.
+# !!! PRESS THIS KEYS COMBINATION ONES AND WAIT !!!
+# If you accidentally press this keys twice, you
+# need to run server again and close it CORRECTLY.
 
 # Clean useless containers:
 $ [sudo] docker system prune -f
