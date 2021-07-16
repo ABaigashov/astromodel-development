@@ -30,13 +30,13 @@ $ sudo ./scripts/boot-local.sh <problem-mame> <init file>.json
 $ sudo ./scripts/boot-local.sh particle_simulator 3d.json
 
 
-# Run web from configyration:
+# Run web from configuration:
 $ sudo ./scripts/boot-config.sh <problem-mame>
 # For example:
 $ sudo ./scripts/boot-config.sh particle_simulator
 
 
-# Run web from configyration:
+# Run interractive console mode:
 $ sudo ./scripts/boot-console.sh <problem-mame>
 # For example:
 $ sudo ./scripts/boot_console.sh particle_simulator
@@ -46,6 +46,12 @@ $ sudo ./scripts/boot_console.sh particle_simulator
 $ sudo ./scripts/boot-server.sh [args]
 # Acshelly we use this:
 $ sudo ./scripts/boot-server.sh up --build
+
+# ATTENTION !!!!
+# If you are running server on your computer
+# you need to close it CORRECTLY. When you need
+# to stop server, precc 'CTRL' + 'C' ONLY ONSE
+# (or '' + 'C' on MAC)
 
 
 # Clean useless containers:
