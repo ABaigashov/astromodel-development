@@ -1,3 +1,5 @@
+import sys; sys.dont_write_bytecode = True
+
 from starlette.applications import Starlette
 from starlette.responses import JSONResponse
 from starlette.responses import Response
@@ -6,7 +8,7 @@ from handler.UserHandler import UserHandler
 from handler.JobHandler import JobHandler
 from handler.JobNodeHandler import JobNodeHandler
 import codecs, json, asyncio, requests, base64, shutil
-import os, sys
+import os
 
 SESSION_DURATION = 3600
 app = Starlette(debug=True)
@@ -245,3 +247,4 @@ async def server_status(request):
         return Response(json.dumps({"answer": response}), 200, headers)
     except Exception as e:
         return Response(json.dumps({"error": str(e)}), 200, headers)
+'''
