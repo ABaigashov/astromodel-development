@@ -33,6 +33,6 @@ for problem in $(ls $problems); do
 		fi
 
 		cp -v $problems/$problem/config.yml $configs/$problem.yml
-		chmod 666 $configs/$problem.json $requirements/$problem.txt
+		chmod 666 $configs/$problem.yml $requirements/$problem.txt
 	fi
 done
