@@ -1,11 +1,13 @@
 #!/bin/bash
-export WORKON_HOME=$pwd/enviroments
-mkdir -p $WORKON_HOME
 
-source /usr/local/bin/virtualenvwrapper.sh
-
-for requirement in $(ls "./requirements"); do
-	mkvirtualenv "${requirement%%.*}" -r ./requirements/$requirement
-done
-
-mkvirtualenv wsclient -i websockets -i sympy -i numpy -i blessed -i virtualenvwrapper
+if [ "$1" == "" ]; then
+	for requirement in $(ls ./requirements); do
+		venvname=${requirement%%.*}
+		python3 -m venv ${PWD}/enviroments/$venvname --system-site-packages
+		source ${PWD}/enviroments/$venvname/bin/activate
+		pip3 install -r ./requirements/$requirement
+		deactivate
+	done
+else
+	pip3 install -r ./requirements/$1.txt
+fi

@@ -1,9 +1,0 @@
-sudo docker build -f docker/WSServerDockerfile .
-sudo docker tag <image_id> wsserver:latest
-
-sudo docker build -f docker/ASGIDockerfile .
-sudo docker tag <image_id> astromodel:latest
-
-sudo docker run -d --name astromodel -v /home/master/astromodel/astro-model/server/app:/app -v /var/astromodel:/var/astromodel -p 8080:80 -e MODULE_NAME='main' --network astro-net astromodel:latest
-
-sudo docker run -d --name wsserver -v /home/master/astromodel/astro-model/server/app:/usr/src/app -v /var/astromodel:/var/astromodel -p 8007:8080 --network astro-net wsserver:latest

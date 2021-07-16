@@ -1,214 +1,59 @@
-# astro-model-v2
-#  Типы данных файлов JSON
-### Описание общих полей данных:
-`"name": "name_scene"` - Название сценария (отображается в заголовке анимации и именует графический файл name_scene.gif)  
+<p align="center"><a href="https://astromodel.ru"><img alt="Astromodel" src="./configurator/static/images/logo.svg"></a></p>
 
-`"dimensions":` - Размерность пространства  
->`string:` "";   
->`default:` **"2"**;  
->`range:` **"2"**, **"3"**  
+This is very long text and i don't know what to write here. <br>
+I think it must to be some information about this project there, <br>
+but the repo is private and no one can read this <br>
 
-`"K":` - Коэффициент столкновений: **"1"** - абсолютно упругие, **"0"** - абсолютно не упругие  
->`string:` **""**;  
->`default:` **"1"**;  
->`range:` **"0"** - **"1"**   
+## Installation on empty Ubuntu 20.04.2.0 LTS ##
 
-`"output_graphis":` - Движок графического вывода  
->`string:` **""**;  
->`default:` **"matplotlib"**;  
->`range:` **"matplotlib"** - научный, **"vispy"** - визуальный, **"json_for_player"** - интерактивный    
+```bash
+$ sudo apt update
+$ sudo apt upgrade -y
+$ sudo apt isntall curl -y
+$ curl -fsSL https://get.docker.com -o get-docker.sh
+$ sudo sh get-docker.sh
+$ rm get-docker.sh
+$ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+$ sudo chmod +x /usr/local/bin/docker-compose
+$ docker --version && docker-compose --version
+```
 
-`"units_step":` - Единицы измерения шага по времени  
->`string:` **""**;  
->`default:` **"s"** - секунды;  
->`range:` **"mks"** - микросекунды, **"ms"** - миллисекунды, **"s"** - секунды, **"m"** - минуты, **"h"** - часы, **"d"** - дни, **"y"** - годы, **"century"** - столетия, **"millenium"** - тысячилетия  
+## Some code tips ##
 
-`"units_edge":` - Единицы измерения пространства  
->`string:` **""**;  
->`default:` **"m"** - метры;  
->`range:` **"mkm"** - микрометры, **"mm"** - миллиметры, **"m"** - метры, **"km"** - километры, **"ae"** - астрономические единицы, **"ly"** - световые годы, **"pc"** - парсеки, **"Mpc"** - Мегопарсеки  
+```bash
+#Run local solver:
+$ [sudo] ./scripts/boot-local.sh <problem-mame> <init fle>.json
+#For example:
+$ [sudo] ./scripts/boot-local.sh particle_simulator 3d.json
 
-`"step"` - Шаг по времени моделирования в выбранных единицах измерения  
->`string:` **""**;  
->`default:` **"1"**;  
->`range:` без ограничений  
+#Run server:
+$ [sudo] ./scripts/boot-server.sh [args]
+#Acshelly we use this:
+$ [sudo] ./scripts/boot-server.sh up --build
 
-`"steps_number":` - Количество шагов по времени  
->`string:` **""**;  
->`default:` **"10"**;  
->`range:` без ограничений  
+#Clean useless containers:
+$ [sudo] docker system prune -f
+#Clean all containers:
+$ [sudo] docker system prune -af
+```
 
-`"fps":` - Количество кадров в секунду - параметр анимации  
->`string:` **""**;  
->`default:` **"30"**;  
->`range:` без ограничений  
 
-`"frames_gap":` - 'Кадровый прыжок' - параметр, определяющий шаг выборки кадров для анимации  
->`string:` **""**;  
->`default:` **"1"**;  
->`range:` **"1"** - **"steps_number"**  
+-----------------------------------------
 
-`"edge":` - Границы пространства моделирования, указанные в выбранных единицах измерения  
->`string:` **""**;  
->`default:` **"1"**;  
->`range:` без ограничений  
+Compatibility of our project
 
-`"scale_faktor":` - 'Масштабной фактор' - параметр изменяющий размеры объектов моделирования  
->`string:` **""**;  
->`default:` **"1"**;  
->`range:` без ограничений  
+| **Operating system** | **Compatibility** |
+|:--------------------:|:-----------------:|
+|    Ubuntu / Debian   |          ✔       |
+|      Arch linux      |          ✔       |
+|         Mint         |          ✔       |
+|        Fedora        |          ✔       |
+|         MacOS        |          ✔       |
+|      Windows NT      |          ❌       |
+|       ChromeOS       |          ❔       |
 
-`"trajectory":` - Параметр для отрисовки траектории объекта (на данном этапе работает только в научном выводе анимации)  
->`string:` **""**;  
->`default:` **"n"**;  
->`range:` **"y"** or **"n"**  
+-----------------------------------------
 
-`"models":` - Определение параметров моделирования:  
->`"gravity":` - Гравитационное взаимодействие  
->>`"point_interaction"` - Учет масс точек  
->>`"extended_interaction"` - Учет внешних гравитационных полей  
->
->`"electricity":` - Электромагнитное взаимодействие  
->>`"point_interaction"` - Учет зарядов точек  
->>`"extended_interaction"` - Учет внешних электромагнитных полей  
-
-***
-### Описание полей данных единичного объекта "point_objects": 
-`"point_objects":` - Единичный объект, с параметрами:  
->`"id": "oak-hal"` - индекс объекта, используемый для рассчетов
->>`string:` **""**;   
->>`range:` **random**  
->
->`"index": 2` - индекс объекта, используемый для ...  
->>`string:` **""**;   
->>`range:` **random**  
->  
->`"units_coords":` - Единиицы измерения координат  
->>`string:` **""**;  
->>`default:` **"m"** - метры;  
->>`range:` **"mkm"** - микрометры, **"mm"** - миллиметры, **"m"** - метры, **"km"** - километры, **"ae"** - астрономические единицы, **"ly"** - световые годы, **"pc"** - парсеки, **"Mpc"** - Мегопарсеки   
->  
->`"coords":` - Значения координат  
->>`list:` **["", "", ""]**;   
->>`default:` **["0", "0", "0"]**;  
->>`range:` **random**    
->  
->`"units_velosity":` - Единиицы измерения компнент скоростей  
->>`list:` **[", ", "]**;   
->>`default:` **"m_per_s"** - метры в секунду;  
->>`range:` **"mkm_per_s"** - микрометры в секунду, **"mm_per_s"** - миллиметры в секунду, **"m_per_s"** - метры в секунду, **"km_per_s"** - километры в секунду, **"ly"** - скорость света   
->  
->`"velosity":` - Значения компонент скоростей  
->>`list:` **["", "", ""]**;   
->>`default:` **["0", "0", "0"]**;  
->>`range:` **random**    
->  
->`"units_charge":` - Единицы измерения заряда единичного объекта  
->>`list:` **["]**;   
->>`default:` **"coulomb"** - Кулон;  
->>`range:` **"mkcoulomb"** - микрокулон, **"mcoulomb"** - милликулон, **"coulomb"** - Кулон, **"kcoulomb"** - килокулон   
->  
->`"charge":` - Значение заряда  
->>`list:` **[""]**;   
->>`default:` **["0"]**;  
->>`range:` **random**    
->  
->`"units_mass":` - Единицы измерения массы единичного объекта  
->>`list:` **["]**;   
->>`default:` **"kg"** - килограмм;  
->>`range:` **"mkg"** - микрограмм, **"mg"** - миллиграмм, **"g"** - грамм, **"kg"** - килограмм, **"tonn"** - тонны, **"meteoroid_mass"** - 10е15 кг, **"asteroid_mass"** - 10е20 кг, **"moon_mass"** - 10е22 кг, **"earth_mass"** - 10е24 кг, **"jupiter_mass"** - 10е7 кг, **"sun_mass"** - 10е30 кг   
->  
->`"mass":` - Значение массы  
->>`list:` **[""]**;   
->>`default:` **["0"]**;  
->>`range:` **random**    
->  
->`"units_radius":` - Единицы измерения радиуса единичного объекта  
->>`list:` **["]**;   
->>`default:` **"m"** - метр;  
->>`range:` **"mkm"** - микрометры, **"mm"** - миллиметры, **"m"** - метры, **"km"** - километры, **"ae"** - астрономические единицы   
->  
->`"radius":` - Значение радиуса  
->>`list:` **[""]**;   
->>`default:` **["0"]**;  
->>`range:` **random**    
->  
->`"units_delay":` - Единицы измерения задержки времени появления единичного объекта  
->>`list:` **["]**;   
->>`default:` **"s"** - секунды;  
->>`range:` **"mks"** - микросекунды, **"ms"** - миллисекунды, **"s"** - секунды, **"m"** - минуты, **"h"** - часы, **"d"** - дни, **"y"** - годы, **"century"** - столетия, **"millenium"** - тысячилетия  
->  
->`"delay":` - Значение задержки по времени появления  
->>`list:` **[""]**;   
->>`default:` **["0"]**;  
->>`range:` **random**    
-
-***
-### Описание полей генератора произвольного распределения объектов "random_generator_func":  
-`"random_generator"` - Генератор произвольного распределения объектов, с параметрами:  
->`"particals_number":` - Количество точек  
->>`list:` **["]**;   
->>`default:` **"0"**;  
->>`range:` физические ограничения, завязанные на расчетное время (по умолчанию не более 1000 объектов)   
->  
->`"units_radius_scale":` - Единицы измерения радиусов генерируемых точек  
->>`list:` **["]**;   
->>`default:` **"m"** - метр;  
->>`range:` **"mkm"** - микрометры, **"mm"** - миллиметры, **"m"** - метры, **"km"** - километры, **"ae"** - астрономические единицы   
->  
->`"radius_scale":` - Масштабы радиусов генерируемых точек  
->>`list:` **[""]**;   
->>`default:` **["0"]**;  
->>`range:` **random**    
->  
->`"units_coords":` - Единицы измерения координат генерируемых точек  
->>`list:` **["]**;   
->>`default:` **"m"** - метр;  
->>`range:` **"mkm"** - микрометры, **"mm"** - миллиметры, **"m"** - метры, **"km"** - километры, **"ae"** - астрономические единицы, **"ly"** - световые годы, **"pc"** - парсеки, **"Mpc"** - Мегопарсеки   
->  
->`"coords":` - Масштабы координат генерируемых точек  
->>`list:` **[""]**;   
->>`default:` **["0"]**;  
->>`range:` **random**   
->  
->`"units_velosity":` - Единицы измерения компонент скоростей генерируемых точек  
->>`list:` **["]**;   
->>`default:` **"m_per_s"** - метры в секунду;  
->>`range:` **"mkm_per_s"** - микрометры в секунду, **"mm_per_s"** - миллиметры в секунду, **"m_per_s"** - метры в секунду, **"km_per_s"** - километры в секунду, **"ly"** - скорость света   
->  
->`"velosity":` - Масштабы координат генерируемых точек  
->>`list:` **[""]**;   
->>`default:` **["0"]**;  
->>`range:` **random**   
->  
->`"units_mass_scale":` - Единицы измерения масс генерируемых точек  
->>`list:` **["]**;   
->>`default:` **"kg"** - килограмм;  
->>`range:` **"mkg"** - микрограмм, **"mg"** - миллиграмм, **"g"** - грамм, **"kg"** - килограмм, **"tonn"** - тонны, **"meteoroid_mass"** - 10е15 кг, **"asteroid_mass"** - 10е20 кг, **"moon_mass"** - 10е22 кг, **"earth_mass"** - 10е24 кг, **"jupiter_mass"** - 10е7 кг, **"sun_mass"** - 10е30 кг   
->  
->`"mass_scale":` - Масштабы масс генерируемых точек  
->>`list:` **[""]**;   
->>`default:` **["0"]**;  
->>`range:` **random**    
->  
->`"units_charge_scale":` - Единицы измерения зарядов генерируемых точек  
->>`list:` **["]**;   
->>`default:` **"coulomb"** - Кулон;  
->>`range:` **"mkcoulomb"** - микрокулон, **"mcoulomb"** - милликулон, **"coulomb"** - Кулон, **"kcoulomb"** - килокулон   
->  
->`"charge_scale":` - Масштабы зарядов генерируемых точек  
->>`list:` **[""]**;   
->>`default:` **["0"]**;  
->>`range:` **random**    
->  
->`"units_delay_scale":` - Единицы измерения задержки по времени появления генерируемых точек  
->>`list:` **["]**;   
->>`default:` **"s"** - секунды;  
->>`range:` **"mks"** - микросекунды, **"ms"** - миллисекунды, **"s"** - секунды, **"m"** - минуты, **"h"** - часы, **"d"** - дни, **"y"** - годы, **"century"** - столетия, **"millenium"** - тысячилетия  
->  
->`"delay_scale":` - Масштабы задержки по времени появления генерируемых точек  
->>`list:` **[""]**;   
->>`default:` **["0"]**;  
->>`range:` **random**    
->  
-
+> Toxicity doesn't lose games, <br>
+> &nbsp;&nbsp;&nbsp;bad players do. <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\- Bruno "BCko" Bančić

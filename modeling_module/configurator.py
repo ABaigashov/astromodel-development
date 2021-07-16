@@ -1,6 +1,6 @@
-from sympy.parsing.sympy_parser import parse_expr
 from uuid import uuid4 as random_hash
-import json, os, pickle
+from sympy import sympify
+import yaml, os, pickle
 import numpy as np
 
 
@@ -10,18 +10,11 @@ def _to_float(value):
 	return float(eval(value))
 
 def _parse_expr(value):
-	parse_expr(value)
-	return value
+	return sympify(value)
 
 def _to_int(value):
 	return int(_to_float(value))
 
-def path_generator(_format, function):
-	def wrapper(path):
-		path = os.path.join(path, random_hash().hex[:16] + '.' + _format)
-		function(path)
-		return path
-	return wrapper
 
 class ABS_RecursiveContainer:
 
@@ -58,8 +51,15 @@ class ABS_RecursiveContainer:
 
 class Configurator:
 
-	def __init__(self, pickled_data):
-		self._CFG_RAW_DATA = pickle.loads(bytes.fromhex(pickled_data))
+	def __init__(self, data):
+		self._CFG_RAW_DATA = data
+		
+
+	@classmethod
+	def _decompress(cls, pickled_data, output):
+		self = cls(pickle.loads(bytes.fromhex(pickled_data)))
+		self.OUTPUT = os.path.join(output, random_hash().hex[:16])
+		return self
 
 	@staticmethod
 	def to_type(value, case):
@@ -113,6 +113,8 @@ class Configurator:
 	@classmethod
 	def parse_objects(cls, defaults, parameters, config):
 		raw = {}
+		if 'OBJECTS' not in config:
+			return raw
 		for name in config['OBJECTS']:
 			raw[name] = []
 		for name, objects in parameters['OBJECTS'].items():
@@ -136,22 +138,16 @@ class Configurator:
 	@classmethod
 	def parse_parameters(cls, parameters):
 		problem = parameters['PROBLEM']
-		if os.getcwd() == '/usr/src':
-			config_path = os.path.join('.', 'modeling_module', 'physical_problems', problem, 'config.json')
-		else:
-			config_path = 'config.json'
+		config_path = os.path.join('.', 'modeling_module', 'physical_problems', problem, 'config.yml')
 		with open(config_path, 'rb') as f:
-			config = json.load(f)
+			config = yaml.safe_load(f)
 		defaults = cls.generate_defaults(parameters, config)
 		general = cls.parse_general(defaults, parameters, config)
 		objects = cls.parse_objects(defaults, parameters, config)
-		return (problem,
-			pickle.dumps(dict(general=general, objects=objects)).hex(),
-			general['steps_number'] / general['frames_gap']
-		)
+		return problem, dict(general=general, objects=objects)
 
 	def __getattr__(self, key):
-		if key == '_CFG_RAW_DATA':
+		if key in {'_CFG_RAW_DATA', 'OUTPUT'}:
 			return object.__getattribute__(self, key)
 		if key in self._CFG_RAW_DATA['general']:
 			return self._CFG_RAW_DATA['general'][key]
