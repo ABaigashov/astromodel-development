@@ -22,15 +22,16 @@
 #      Names {unit} and {subunit} names can have ANY characters like
 #      russian, spaces, slashes, dashes and other... And this names
 #      will be displayed in web form as name of derived unit
-#      {number} must be like '(m)e±(n)', where 'm' and 'n' are mantissa
-#      and exponent respectively (where 'm' and 'n' belongs to 'Z')
-#      Base is always 10, ecause structure of '(m)e±(n)' means m * 10^n
-#      Often subunit {number} is 3*k more/less than base unit exponent
-#      (where 'k' belongs to 'Z'), BUT subunit value CAN be ANY number,
+#      {number} must have special numeric sturcure like '(m)e±(n)',
+#      where 'm' and 'n' are mantissa and exponent respectively
+#      ('m' and 'n' belongs to 'Z'). Base is always 10, because structure
+#      of '(m)e±(n)' means m * 10^n. Often subunit {number} is 3*k more/less
+#      than base unit exponent as derived unit, like kilo-, mega-, milli- and
+#      other... ('k' belongs to 'Z'), BUT subunit value CAN be ANY number,
 #      with structure '(m)e±(n)' ('time' unit can't have megaseconds, use
-#      hours or minutes, or other non-SI units like megaparsec and other...)
+#      hours or minutes, or other non-SI units like parsec and other...)
 #      Or you can write number WITHOUT structure '(m)e±(n)'
-#      If you need this one, just add  like "3.14159"
+#      If you need this, add double quotes like "3.14159"
 #  Example:
 #
 # UNITS:
@@ -52,22 +53,22 @@
 #      Cases can also have optional keys: ('units', 'minimum', 'maximum', 'cases')
 #      Key 'title' is string and can have ANY characters like russian, spaces,
 #      slashes, dashes and other... Key 'title' will be displayed in web form
-#      as name of current variable. Key 'default' is string with default value,
-#      if something goes wrong while parsing. If 'default' value is number you
-#      MUST to add double quotes like "2.71828".  Key 'type' must to be in types
+#      as name of current case. Key 'default' is string with default value, which
+#      needs if something goes wrong while parsing. If 'default' value is number
+#      you MUST to add double quotes like "2.71828". Key 'type' must to be in types
 #      list ('str', 'bool', 'float', 'int', 'expr'). This type tells to parser,
 #      which type of python object this variable must to be. Key 'class' must
-#      to be in casses list ('dropdown', 'checkbox', 'number', 'text'). This
-#      key needs to automaticly generate web form & means how user will enter
+#      to be in cases list ('dropdown', 'checkbox', 'number', 'text'). This
+#      key needs to automaticly generate web form and means how user will enter
 #      currnet parameter. Key 'dementional' is boolean value which shows is
 #      this variable vector or scalar ('true' or 'false' respectively)
 #      Optional keys 'minimum' and 'maximum' uses only when 'class: number',
 #      Keys 'minimum' is the lowerbound and 'maximum' is the lowerbound
-#      Optional key 'units' uses only when 'class: number' and msut to be
+#      Optional key 'units' uses only when 'class: number' and must to be
 #      one of the 'UNITS' varuables. If you use some unit system. you need
 #      define this units in 'UNITS' gruop. (check 'UNITS' description)
 #      Optional key 'cases' uses only when 'class: dropdown'. This key needs
-#      to create all possible options, which can this parameter beю The
+#      to create all possible options, which can this parameter be. The
 #      {title} parameter inside of 'cases' key is the name, which will be
 #      displayed in web form as name of the current option. Parameter {value}
 #      is the option (state), which current case can be.
