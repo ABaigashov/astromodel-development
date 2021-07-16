@@ -8,7 +8,7 @@ but the repo is private and no one can read this <br>
 
 ```bash
 $ sudo apt update
-$ sudo apt upgrage -y
+$ sudo apt upgrade -y
 $ sudo apt isntall curl -y
 $ curl -fsSL https://get.docker.com -o get-docker.sh
 $ sudo sh get-docker.sh
@@ -22,19 +22,19 @@ $ docker --version && docker-compose --version
 
 ```bash
 #Run local solver:
-$ ./scripts/boot-local.sh <problem-mame> <init fle>.json
+$ [sudo] ./scripts/boot-local.sh <problem-mame> <init fle>.json
 #For example:
-$ ./scripts/boot-local.sh particle_simulator 3d.json
+$ [sudo] ./scripts/boot-local.sh particle_simulator 3d.json
 
 #Run server:
-$ ./scripts/boot-server.sh [args]
+$ [sudo] ./scripts/boot-server.sh [args]
 #Acshelly we use this:
-$ ./scripts/boot-server.sh up --build
+$ [sudo] ./scripts/boot-server.sh up --build
 
 #Clean useless containers:
-$ docker system prune -f
+$ [sudo] docker system prune -f
 #Clean all containers:
-$ docker system prune -af
+$ [sudo] docker system prune -af
 ```
 
 
