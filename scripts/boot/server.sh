@@ -1,11 +1,12 @@
 #!/bin/bash
 
-if [[ ./scripts/boot-server.sh != $BASH_SOURCE ]]; then
-	echo "Oh no... You should run this script from repository root: ./scripts/boot-server.sh [ARGS]"
+if [[ ./scripts/boot/server.sh != $BASH_SOURCE ]]; then
+	echo "Oh no... You should run this script from repository root: ./scripts/boot/server.sh [args]"
 	exit 1
 fi
 
 
+docker container prune -f --filter "until=12h"
 bash ./scripts/file-linker.sh
 
 

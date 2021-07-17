@@ -20,7 +20,7 @@ log('Testing started\n')
 if configuration.fenics:
 	try:
 		log(end='Testing "fenics"... ')
-		sleep(0.5)
+		sleep(5)
 		print(end='\b')
 		import fenics
 		log('Done')
@@ -31,7 +31,7 @@ if configuration.fenics:
 if configuration.dolfin:
 	try:
 		log(end='Testing "dolfin"... ')
-		sleep(0.5)
+		sleep(5)
 		print(end='\b')
 		import dolfin
 		log('Done')
@@ -42,7 +42,7 @@ if configuration.dolfin:
 if configuration.mshr:
 	try:
 		log(end='Testing "mshr"... ')
-		sleep(0.5)
+		sleep(5)
 		print(end='\b')
 		import mshr
 		log('Done')
@@ -53,7 +53,7 @@ if configuration.mshr:
 if configuration.leopart:
 	try:
 		log(end='Testing "leopart"... ')
-		sleep(0.5)
+		sleep(5)
 		print(end='\b')
 		import leopart
 		log('Done')

@@ -25,27 +25,29 @@ the icon of docker will be shown in topbar menu<br>
 
 ```bash
 # Run local solver:
-$ sudo ./scripts/boot-local.sh <problem-mame> <init file>.json
+$ sudo ./scripts/boot/solver.sh <problem-name> <init-file>.json
 # For example:
-$ sudo ./scripts/boot-local.sh particle_simulator 3d.json
+$ sudo ./scripts/boot/solver.sh particle_simulator 3d.json
 
 
 # Run web from configuration:
-$ sudo ./scripts/boot-config.sh <problem-mame>
+$ sudo ./scripts/boot/config.sh <problem-name>
 # For example:
-$ sudo ./scripts/boot-config.sh particle_simulator
+$ sudo ./scripts/boot/config.sh particle_simulator
 
 
 # Run interractive console mode:
-$ sudo ./scripts/boot-console.sh <problem-mame>
+$ sudo ./scripts/boot/console.sh <problem-name>
 # For example:
-$ sudo ./scripts/boot_console.sh particle_simulator
+$ sudo ./scripts/boot/console.sh testing_libs
+# To close interractive console mode, write in terminal 
+# >>> exit()
 
 
 # Run server:
-$ sudo ./scripts/boot-server.sh [args]
+$ sudo ./scripts/boot/server.sh [args]
 # Acshelly we use this:
-$ sudo ./scripts/boot-server.sh up --build
+$ sudo ./scripts/boot/server.sh up --build
 
 # ATTENTION !!!!
 # If you are running server on your computer
@@ -59,10 +61,11 @@ $ sudo ./scripts/boot-server.sh up --build
 # need to run server again and close it CORRECTLY.
 
 # Clean useless containers:
-$ [sudo] docker system prune -f
+$ sudo docker system prune -f
+$ sudo docker container kill $(docker ps -q)
 
 # Clean all containers:
-$ [sudo] docker system prune -af
+$ sudo docker system prune -af
 ```
 
 
