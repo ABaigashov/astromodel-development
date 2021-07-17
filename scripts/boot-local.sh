@@ -13,8 +13,6 @@ if [ ! -f ./modeling_module/physical_problems/$1/init_files/$2 ]; then
 	exit 1
 fi
 
-
-
 bash ./scripts/file-linker.sh $1
 
 export PROBLEM=$1
@@ -27,10 +25,10 @@ docker-compose \
 	--build-arg problem_name="$1" \
 	--build-arg configuration="$2"
 
+unset PROBLEM
+unset USERVOLUME
+
 docker-compose \
 	-p astromodel \
 	-f ./docker/localrun/docker-compose.yml \
 	up --no-log-prefix
-
-unset PROBLEM
-unset USERVOLUME
