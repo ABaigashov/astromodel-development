@@ -35,11 +35,10 @@ else
 	echo "no db file"
 fi
 
+# -f ./docker/wsclient/docker-compose.yml \
 docker-compose \
 	-p astromodel \
-	-f ./docker/postgres/docker-compose.yml \
 	-f ./docker/astromodel/docker-compose.yml \
 	-f ./docker/wsserver/docker-compose.yml \
-	-f ./docker/wsclient/docker-compose.yml \
 	-f ./docker/docker-compose.yml \
 	"$@"

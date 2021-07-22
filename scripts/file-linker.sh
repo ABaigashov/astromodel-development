@@ -36,3 +36,5 @@ for problem in $(ls $problems); do
 		chmod 666 $configs/$problem.yml $requirements/$problem.txt
 	fi
 done
+
+cp -v $PWD/docker/docker-compose.template $PWD/docker/docker-compose.yml

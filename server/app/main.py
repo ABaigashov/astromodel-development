@@ -247,4 +247,3 @@ async def server_status(request):
         return Response(json.dumps({"answer": response}), 200, headers)
     except Exception as e:
         return Response(json.dumps({"error": str(e)}), 200, headers)
-'''
