@@ -9,12 +9,7 @@ from threading import Thread
 from database.Job import Job
 from database.JobNode import JobNode
 
-if os.getcwd() == '/usr/src':
-	sys.path.append('./modeling_module/')
-	host = "ws://wsserver:8080"
-else:
-	sys.path.append('../../modeling_module/')
-	host = "ws://localhost:8007"
+sys.path.append(os.path.join(os.getcwd(), 'modeling_module'))
 
 from jobexecutor import JobExecutor
 
@@ -172,7 +167,7 @@ def random_string(length):
 	return ''.join((random.choice(alphabet) for i in range(length)))
 
 try:
-	client = AstroNode(host, random_uniq(3))
+	client = AstroNode('ws://wsserver:8080', random_uniq(3))
 	loop = asyncio.get_event_loop()
 	loop.run_until_complete(client.wsstart())
 	loop.run_forever()

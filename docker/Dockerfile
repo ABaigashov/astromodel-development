@@ -1,5 +1,5 @@
 
-FROM ubuntu:20.04 as init
+FROM ubuntu:20.04 as base
 WORKDIR /usr/src/
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -12,24 +12,17 @@ RUN pip3 install websockets sympy numpy pyyaml
 ARG PROBLEM
 ENV PROBLEM=$PROBLEM
 
-COPY ${PWD}/modeling_module/setups/${PROBLEM}.sh setup.sh
-RUN /bin/bash -c setup.sh
+COPY ${PWD}/modeling_module/setups/$PROBLEM.sh setup.sh
+RUN bash setup.sh
 
-COPY ${PWD}/modeling_module/requirements/${PROBLEM}.txt requirements.txt
+COPY ${PWD}/modeling_module/requirements/$PROBLEM.txt requirements.txt
 RUN pip3 install -r requirements.txt
 
-
-FROM init as console
-CMD python3
-
-
-FROM init as base
-
-COPY ${PWD}/modeling_module/physical_problems/${PROBLEM} ./modeling_module/physical_problems/${PROBLEM}
+COPY ${PWD}/modeling_module/physical_problems/$PROBLEM ./modeling_module/physical_problems/$PROBLEM
 COPY ${PWD}/modeling_module/configurator.py ./modeling_module/
 
 
-FROM base as ws_client
+FROM base as client
 
 COPY ${PWD}/modeling_module/jobexecutor.py ./modeling_module/
 COPY ${PWD}/server/app ./app

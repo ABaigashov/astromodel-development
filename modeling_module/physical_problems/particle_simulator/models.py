@@ -20,11 +20,13 @@ import json
 class BaseModel:
 
 	# Some inicialization
-	def __init__(self, astro_object, config, *args, **kw):
+	def __init__(self, config, astro_object, output, job):
 
 		# Keep incomming parameters inside 'self'
 		self.astro_object = astro_object
 		self.config = config
+		self.output = output
+		self.job = job
 
 		# Loading point objects and fields by
 		# functions in 'utils' help file
@@ -84,18 +86,15 @@ class JsonModel(BaseModel):
 				"radius": list(self.radius)
 			}]
 
-			# Calling 'backcall'
-			print(end='\b')
-			#  /\
-			# THIS SPECIAL PRINT MEANS THE STEP ON A
-			# PROGRESS LINE. READ MORE IN 'backcall.py'
+			# Changing value on progressbar
+			self.job.progress = i / (self.config.steps_number // self.config.frames_gap)
 
 		# Write all created data to file
-		with open(self.config.OUTPUT + '.json', 'w') as f:
+		with open(self.output + '.json', 'w') as f:
 			json.dump(data, f, indent=4)
 
 		# Return path to file
-		return self.config.OUTPUT + '.json'
+		return self.output + '.json'
 
 
 # Expanding base model with 'matplotlib' render
@@ -120,6 +119,9 @@ class PlotModel(BaseModel):
 	# Argument :i: frame number
 	def get_frame(self, i):
 
+		# Changing value on progressbar
+		self.job.progress = i / (self.config.steps_number // self.config.frames_gap)
+
 		# Update paremeters in 'astro_object'
 		self.astro_object.update_dynamic_parametrs(self.config.step, i * self.config.frames_gap * self.config.step)
 
@@ -138,20 +140,14 @@ class PlotModel(BaseModel):
 		animation = VideoClip(self.get_frame, duration=(self.config.steps_number // self.config.frames_gap) / self.config.fps)
 		
 		# Writing all created frames to 'animation'
-		animation.write_videofile(self.config.OUTPUT + '.mp4', fps=self.config.fps)
+		animation.write_videofile(self.output + '.mp4', fps=self.config.fps)
 		
 		# Return path to file
-		return self.config.OUTPUT + '.mp4'
+		return self.output + '.mp4'
 
-
-	# Basic plug, but with benefit
+	# Basic plug
 	def counting(self):
-
-		# Calling 'backcall'
-		print(end='\b')
-		#  /\
-		# THIS SPECIAL PRINT MEANS THE STEP ON A
-		# PROGRESS LINE. READ MORE IN 'backcall.py'
+		pass
 
 
 # Creating 2D version of 'PlotModel'
@@ -266,7 +262,7 @@ class Plot3DModel(PlotModel):
 # Arguments :config: instance of 'Configuration' object
 #     :astro_object: instance of 'GlobalInteraction' object
 # Returns: specified model class object
-def _model_from_config(config, astro_object):
+def _model_from_config(config, astro_object, output, job):
 
 	# some 'if' constructions....
 	if config.output_graphics == 'matplotlib':
@@ -278,4 +274,4 @@ def _model_from_config(config, astro_object):
 		model = JsonModel
 
 	# Returning specified model
-	return model(astro_object, config)
+	return model(config, astro_object, output, job)
