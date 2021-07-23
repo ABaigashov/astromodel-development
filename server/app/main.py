@@ -123,7 +123,7 @@ async def job_execute(request):
         if ('session' not in data) or ('config' not in data) or ('filename' not in data):
             raise Exception("Request is incorrect!")
 
-        job = await JobHandler.Create(data['session'], 0, data['filename'])
+        job = await JobHandler.Create(data['session'], 0, data['filename'], data['config']['PROBLEM'])
         try:
             if not os.path.exists(job.path):
                 os.makedirs(job.path)

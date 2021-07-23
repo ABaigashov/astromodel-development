@@ -127,7 +127,7 @@ class AstroServer:
 							print("Job result has been retrieved")
 							await websocket.send(request.toJSON())
 						elif node.jobnode.state == 'idle':
-							job_awaits = await Database.JobLoadAwaiting()
+							job_awaits = await Database.JobLoadAwaiting(node.jobnode.problem)
 							if job_awaits is not None:
 								config = None
 								try:

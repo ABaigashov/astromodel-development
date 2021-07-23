@@ -10,6 +10,7 @@ class Job:
 		self.priority = kwargs['priority']
 		self.path = kwargs['path']
 		self.extention = kwargs['extention']
+		self.problem = kwargs['problem']
 		self.state = kwargs['state']
 		self.progress = kwargs['progress']
 		self.date_created = kwargs['date_created']
@@ -40,7 +41,10 @@ class Job:
 				''')
 				try:
 					await cur.execute('''
-						ALTER TABLE jobs ADD COLUMN extention VARCHAR(8)
+						ALTER TABLE jobs ADD COLUMN IF NOT EXISTS extention VARCHAR(8)
+					''')
+					await cur.execute('''
+						ALTER TABLE jobs ADD COLUMN IF NOT EXISTS problem VARCHAR(32)
 					''')
 				except:
 					pass
@@ -65,6 +69,7 @@ class Job:
 		job.name = name
 		job.path = ''
 		job.extention = ''
+		job.problem = ''
 		job.state = 'await'
 		job.progress = 0
 		job.date_created = int(time.time())
@@ -80,13 +85,14 @@ class Job:
 						priority,
 						path,
 						extention,
+						problem,
 						state,
 						progress,
 						date_created,
 						date_started,
 						date_finished
 					)
-					VALUES ('{}','{}',{},'{}','{}','{}',{},{},{},{})
+					VALUES ('{}','{}',{},'{}','{}','{}','{}',{},{},{},{})
 					RETURNING uid
 				'''.format
 					(
@@ -95,6 +101,7 @@ class Job:
 					job.priority,
 					job.path,
 					job.extention,
+					job.problem,
 					job.state,
 					job.progress,
 					job.date_created,
@@ -117,6 +124,7 @@ class Job:
 						priority={},
 						path='{}',
 						extention='{}',
+						problem='{}',
 						state='{}',
 						progress={},
 						date_created={},
@@ -129,6 +137,7 @@ class Job:
 					job.priority,
 					job.path,
 					job.extention,
+					job.problem,
 					job.state,
 					job.progress,
 					job.date_created,
@@ -151,6 +160,7 @@ class Job:
 						priority,
 						path,
 						extention,
+						problem,
 						state,
 						progress,
 						date_created,
@@ -163,8 +173,8 @@ class Job:
 					result = await cur.fetchone()
 					job = Job()
 					job.uid, job.user_uid, job.name, \
-					job.priority, job.path, job.extention, job.state, \
-					job.progress, job.date_created, \
+					job.priority, job.path, job.extention, job.problem, \
+					job.state, job.progress, job.date_created, \
 					job.date_started, job.date_finished = result
 					return job
 				except Exception as e:
@@ -185,7 +195,7 @@ class Job:
 					return None
 
 	@staticmethod
-	async def LoadAwaiting():
+	async def LoadAwaiting(problem):
 		async with Job.pool.acquire() as conn:
 			async with conn.cursor() as cur:
 				await cur.execute('''
@@ -197,6 +207,7 @@ class Job:
 							priority,
 							path,
 							extention,
+							problem,
 							state,
 							progress,
 							date_created,
@@ -204,15 +215,16 @@ class Job:
 							date_finished
 						 FROM jobs
 						 WHERE state='await'
-						 AND priority=(SELECT MAX(priority) FROM jobs WHERE state='await')
+						 AND problem='{0}'
+						 AND priority=(SELECT MAX(priority) FROM jobs WHERE state='await' AND problem='{0}')
 					 ) jb
-					 ORDER BY jb.date_created ASC LIMIT 1''')
+					 ORDER BY jb.date_created ASC LIMIT 1'''.format(problem))
 				try:
 					result = await cur.fetchone()
 					job = Job()
 					job.uid, job.user_uid, job.name, \
-					job.priority, job.path, job.extention, job.state, \
-					job.progress, job.date_created, \
+					job.priority, job.path, job.extention, job.problem, \
+					job.state, job.progress, job.date_created, \
 					job.date_started, job.date_finished = result
 					return job
 				except Exception as e:
@@ -231,6 +243,7 @@ class Job:
 						 priority,
 						 path,
 						 extention,
+						 problem,
 						 state,
 						 progress,
 						 date_created,
@@ -243,16 +256,17 @@ class Job:
 				async for row in cur:
 					job = Job()
 					job.uid, job.user_uid, job.name, \
-					job.priority, job.path, job.extention, job.state, \
-					job.progress, job.date_created, \
+					job.priority, job.path, job.extention, job.problem, \
+					job.state, job.progress, job.date_created, \
 					job.date_started, job.date_finished = row
 					job_list.append(job)
 
 		return job_list
 
-	async def Prepare(self, path, priority):
+	async def Prepare(self, path, priority, problem):
 		self.path = path
 		self.priority = priority
+		self.problem = problem
 		await Job.Update(self)
 
 	async def Start(self):

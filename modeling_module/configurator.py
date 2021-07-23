@@ -1,7 +1,6 @@
-from uuid import uuid4 as random_hash
 from sympy import sympify
-import yaml, os, pickle
 import numpy as np
+import yaml, os
 
 
 def _to_float(value):
@@ -51,15 +50,15 @@ class ABS_RecursiveContainer:
 
 class Configurator:
 
-	def __init__(self, data):
-		self._CFG_RAW_DATA = data
-		
-
-	@classmethod
-	def _decompress(cls, pickled_data, output):
-		self = cls(pickle.loads(bytes.fromhex(pickled_data)))
-		self.OUTPUT = os.path.join(output, random_hash().hex[:16])
-		return self
+	def __init__(self, parameters):
+		problem = parameters['PROBLEM']
+		config_path = os.path.join('.', 'modeling_module', 'physical_problems', problem, 'config.yml')
+		with open(config_path, 'rb') as f:
+			config = yaml.safe_load(f)
+		defaults = self.generate_defaults(parameters, config)
+		general = self.parse_general(defaults, parameters, config)
+		objects = self.parse_objects(defaults, parameters, config)
+		self._CFG_RAW_DATA = dict(general=general, objects=objects)
 
 	@staticmethod
 	def to_type(value, case):
