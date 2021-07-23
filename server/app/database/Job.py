@@ -41,10 +41,10 @@ class Job:
 				''')
 				try:
 					await cur.execute('''
-						ALTER TABLE jobs ADD COLUMN IF NOT EXISTS extention VARCHAR(8) SET DEFAULT ''
+						ALTER TABLE jobs ADD COLUMN IF NOT EXISTS extention VARCHAR(8)
 					''')
 					await cur.execute('''
-						ALTER TABLE jobs ADD COLUMN IF NOT EXISTS problem VARCHAR(32) SET DEFAULT ''
+						ALTER TABLE jobs ADD COLUMN IF NOT EXISTS problem VARCHAR(32)
 					''')
 				except:
 					pass

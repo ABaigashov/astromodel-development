@@ -20,8 +20,6 @@ class JobNodeClient:
 		self.jobnode.extention = ''
 		self.jobnode.job_uid = 0
 		self.jobnode.progress = 0
-		self.jobnode.problem = ''
-
 
 	async def update(self, **kwargs):
 		self.jobnode.__dict__.update(kwargs)

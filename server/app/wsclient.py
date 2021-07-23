@@ -130,6 +130,7 @@ class AstroNode:
 						if response["command"] == "register":
 							self.jobnode = JobNode()
 							self.jobnode.FromData(**response["args"])
+							self.jobnode.problem = os.environ['PROBLEM']
 							print("JobNode has been registered")
 						elif response["command"] == "execute":
 							if 'job' in response['args']:

@@ -8,6 +8,7 @@ class JobNode:
         self.name = kwargs['name']
         self.state = kwargs['state']
         self.extention = kwargs['extention']
+        self.problem = kwargs['problem']
         self.priority = kwargs['priority']
         self.job_uid = kwargs['job_uid']
         self.progress = kwargs['progress']
@@ -33,6 +34,12 @@ class JobNode:
                         date_updated BIGINT
                     )
                 ''')
+                try:
+                    await cur.execute('''
+                        ALTER TABLE job_nodes ADD COLUMN IF NOT EXISTS problem VARCHAR(32)
+                    ''')
+                except:
+                    pass
 
     @staticmethod
     async def Restart():
@@ -48,6 +55,7 @@ class JobNode:
         node.uniq = uniq
         node.name = name
         node.state = 'offline'
+        node.problem = ''
         node.priority = priority
         node.job_uid = 0
         node.progress = 0
@@ -60,18 +68,20 @@ class JobNode:
                         uniq,
                         name,
                         state,
+                        problem,
                         priority,
                         job_uid,
                         progress,
                         date_updated
                     )
-                    VALUES ('{}','{}','{}',{},{},{},{})
+                    VALUES ('{}','{}','{}','{}',{},{},{},{})
                     RETURNING uid
                     '''.format
                     (
                         node.uniq,
                         node.name,
                         node.state,
+                        node.problem,
                         node.priority,
                         node.job_uid,
                         node.progress,
@@ -90,6 +100,7 @@ class JobNode:
                     UPDATE job_nodes SET
                         name='{}',
                         state='{}',
+                        problem='{}',
                         priority={},
                         job_uid={},
                         progress={},
@@ -99,6 +110,7 @@ class JobNode:
                     (
                     node.name,
                     node.state,
+                    node.problem,
                     node.priority,
                     node.job_uid,
                     node.progress,
@@ -118,14 +130,9 @@ class JobNode:
                 async for row in cur:
                     try:
                         node = JobNode()
-                        node.uid = row[0]
-                        node.uniq = row[1]
-                        node.name = row[2]
-                        node.state = row[3]
-                        node.priority = row[4]
-                        node.job_uid = row[5]
-                        node.progress = row[6]
-                        node.date_updated = row[7]
+                        node.uid, node.uniq, node.name, \
+                        node.state, node.problem, node.priority, \
+                        node.job_uid, node.progress, node.date_updated = row
                         return node
                     except Exception as e:
                         return None
@@ -140,14 +147,9 @@ class JobNode:
                 async for row in cur:
                     try:
                         node = JobNode()
-                        node.uid = row[0]
-                        node.uniq = row[1]
-                        node.name = row[2]
-                        node.state = row[3]
-                        node.priority = row[4]
-                        node.job_uid = row[5]
-                        node.progress = row[6]
-                        node.date_updated = row[7]
+                        node.uid, node.uniq, node.name, \
+                        node.state, node.problem, node.priority, \
+                        node.job_uid, node.progress, node.date_updated = row
                         return node
                     except Exception as e:
                         return None
@@ -163,14 +165,9 @@ class JobNode:
                 ''')
                 async for row in cur:
                     node = JobNode()
-                    node.uniq = row[0]
-                    node.uniq = row[1]
-                    node.name = row[2]
-                    node.state = row[3]
-                    node.priority = row[4]
-                    node.job_uid = row[5]
-                    node.progress = row[6]
-                    node.date_updated = row[7]
+                    node.uid, node.uniq, node.name, \
+                    node.state, node.problem, node.priority, \
+                    node.job_uid, node.progress, node.date_updated = row
                     node_list.append(node)
 
         return node_list
