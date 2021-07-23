@@ -71,7 +71,7 @@ class Model:
 				import leopart
 				log('Done')
 				leopart = True
-			cexcept ImportError:
+			except ImportError:
 				log('Fail')
 		else:
 			leopart = True

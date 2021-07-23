@@ -120,7 +120,7 @@ class PlotModel(BaseModel):
 	def get_frame(self, i):
 
 		# Changing value on progressbar
-		self.job.progress = i / (self.config.steps_number // self.config.frames_gap)
+		self.job.progress += 1 / (self.config.steps_number // self.config.frames_gap)
 
 		# Update paremeters in 'astro_object'
 		self.astro_object.update_dynamic_parametrs(self.config.step, i * self.config.frames_gap * self.config.step)

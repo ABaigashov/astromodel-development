@@ -40,7 +40,7 @@ for problem in $(ls $problems); do
 		chmod 666 $configs/$problem.yml $requirements/$problem.txt
 
 		echo ""                                            >> $PWD/docker/docker-compose.yml
-		echo "  ws_client-$problem:"                       >> $PWD/docker/docker-compose.yml
+		echo "  wsclient-$problem:"                       >> $PWD/docker/docker-compose.yml
 		echo "    depends_on:"                             >> $PWD/docker/docker-compose.yml
 		echo "      - wsserver"                            >> $PWD/docker/docker-compose.yml
 		echo "    volumes:"                                >> $PWD/docker/docker-compose.yml
