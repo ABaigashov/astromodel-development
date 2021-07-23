@@ -40,8 +40,8 @@ class Database:
         return await Job.LoadAllByUser(user_uid)
 
     @staticmethod
-    async def JobLoadAwaiting():
-        return await Job.LoadAwaiting()
+    async def JobLoadAwaiting(problem):
+        return await Job.LoadAwaiting(problem)
 
     @staticmethod
     async def UserCreate(external_uid, login, name):

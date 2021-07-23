@@ -99,6 +99,7 @@ function updateJobList() {
       var row = '<tr>';
       row += '<td>' + answer[i].uid + '</td>';
       row += '<td>' + answer[i].name + '</td>';
+      row += '<td>' + answer[i].problem + '</td>';
 
       if(answer[i].progress == -1) {
         var user = $(this).data('user');

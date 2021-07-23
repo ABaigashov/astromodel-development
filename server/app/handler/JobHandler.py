@@ -3,7 +3,7 @@ from database.Database import Database
 class JobHandler:
 
     @staticmethod
-    async def Create(session, priority, name):
+    async def Create(session, priority, name, problem):
         user = await Database.UserLoadBySession(session)
         if user is None:
             raise Exception('User not found')
@@ -13,7 +13,7 @@ class JobHandler:
         path_root = "/var/astromodel/data/"
         job = await Database.JobCreate(user.uid, name)
         path = path_root + str(user.uid) + "/" + str(job.uid) + "/"
-        await job.Prepare(path, priority)
+        await job.Prepare(path, priority, problem)
         return job
 
     @staticmethod

@@ -50,6 +50,7 @@ class AstroNode:
 			self.jobnode.state = 'idle'
 			self.jobnode.job_uid = 0
 			self.jobnode.progress = 0
+			self.jobnode.problem = os.environ['PROBLEM']
 			# self.jobnode.extention = ''
 		else:
 			self.jobnode.job_uid = self.job.uid
