@@ -14,7 +14,7 @@ for check in $configs $requirements $setups; do
 	fi
 done
 
-cp -v $PWD/docker/docker-compose.template $PWD/docker/docker-compose.yml
+cp -v $PWD/docker/server.template $PWD/docker/docker-compose.yml
 chmod 666 $PWD/docker/docker-compose.yml
 
 
