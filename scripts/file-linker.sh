@@ -7,12 +7,16 @@ setups=$PWD/modeling_module/setups
 
 
 for check in $configs $requirements $setups; do
-	echo Creating $trashdir
+	echo Creating $check
 	if [ ! -d $check ]; then
 		mkdir $check
 		chmod 777 $check
 	fi
 done
+
+cp -v $PWD/docker/server.template $PWD/docker/docker-compose.yml
+chmod 666 $PWD/docker/docker-compose.yml
+
 
 for problem in $(ls $problems); do
 	if [ -f $problems/$problem/config.yml ]; then
@@ -34,5 +38,22 @@ for problem in $(ls $problems); do
 
 		cp -v $problems/$problem/config.yml $configs/$problem.yml
 		chmod 666 $configs/$problem.yml $requirements/$problem.txt
+
+		echo ""                                            >> $PWD/docker/docker-compose.yml
+		echo "  wsclient-$problem:"                       >> $PWD/docker/docker-compose.yml
+		echo "    depends_on:"                             >> $PWD/docker/docker-compose.yml
+		echo "      - wsserver"                            >> $PWD/docker/docker-compose.yml
+		echo "    volumes:"                                >> $PWD/docker/docker-compose.yml
+		echo "      - /var/astromodel:/var/astromodel"     >> $PWD/docker/docker-compose.yml
+		echo "    deploy:"                                 >> $PWD/docker/docker-compose.yml
+		echo "      replicas: 4"                           >> $PWD/docker/docker-compose.yml
+		echo "      restart_policy:"                       >> $PWD/docker/docker-compose.yml
+		echo "        condition: on-failure"               >> $PWD/docker/docker-compose.yml
+		echo "    build:"                                  >> $PWD/docker/docker-compose.yml
+		echo "      context: \${PWD}"                      >> $PWD/docker/docker-compose.yml
+		echo "      dockerfile: \${PWD}/docker/Dockerfile" >> $PWD/docker/docker-compose.yml
+		echo "      target: client"                        >> $PWD/docker/docker-compose.yml
+		echo "      args:"                                 >> $PWD/docker/docker-compose.yml
+		echo "        - PROBLEM=$problem"                  >> $PWD/docker/docker-compose.yml
 	fi
 done

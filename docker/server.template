@@ -1,10 +1,29 @@
 version: '3.8'
+
+networks:
+  default:
+    external:
+      name: astro-net
+
 services:
 
   postgres:
-    build:
-      context: ${PWD}/docker/postgres
-    env_file: ${PWD}/docker/postgres/.env
+    image: postgres:11.7
+    restart: always
+    ports:
+      - 5434:5432
+    volumes:
+      - /var/astromodel/pgdata:/var/lib/postgresql/data/pgdata
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_USER=astromodel
+      - POSTGRES_PASSWORD=astromodel
+      - POSTGRES_DB=astromodel
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U astromodel']
+      interval: 10s
+      timeout: 10s
+      retries: 5
     container_name: postgres
 
   astromodel:
@@ -16,10 +35,6 @@ services:
     build:
       context: ${PWD}/docker/wsserver
     container_name: wsserver
-
-  wsclient:
-    build:
-      context: ${PWD}
 
   nginx:
     image: nginx

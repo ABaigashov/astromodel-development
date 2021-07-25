@@ -1,15 +1,11 @@
 <p align="center"><a href="https://astromodel.ru"><img alt="Astromodel" src="./configurator/static/images/logo.svg"></a></p>
 
-This is very long text and i don't know what to write here. <br>
-I think it must to be some information about this project there, <br>
-but the repo is private and no one can read this <br>
-
-## Installation on empty Ubuntu 20.04.2.0 LTS ##
+## Installation of Docker and docker-compose on Ubuntu ##
 
 ```bash
 $ sudo apt update
 $ sudo apt upgrade -y
-$ sudo apt isntall curl -y
+$ sudo apt install curl -y
 $ curl -fsSL https://get.docker.com -o get-docker.sh
 $ sudo sh get-docker.sh
 $ rm get-docker.sh
@@ -17,24 +13,59 @@ $ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docke
 $ sudo chmod +x /usr/local/bin/docker-compose
 $ docker --version && docker-compose --version
 ```
+## Installation of Docker and docker-compose on Mac ##
+To install Docker and docker-compose on MacOS, you need<br>
+to go [this page](https://docs.docker.com/docker-for-mac/install/)
+, choice intel/apple processor version, download and install<br>
+docker as normal Mac application. After that, you need to run<br>
+this app, close all docker windows and keep this in tray<br>
+the icon of docker will be shown in topbar menu<br>
 
 ## Some code tips ##
 
 ```bash
-#Run local solver:
-$ [sudo] ./scripts/boot-local.sh <problem-mame> <init fle>.json
-#For example:
-$ [sudo] ./scripts/boot-local.sh particle_simulator 3d.json
+# Run local solver:
+$ sudo ./scripts/boot/solver.sh <problem-name> <init-file>.json
+# For example:
+$ sudo ./scripts/boot/solver.sh particle_simulator 3d.json
 
-#Run server:
-$ [sudo] ./scripts/boot-server.sh [args]
-#Acshelly we use this:
-$ [sudo] ./scripts/boot-server.sh up --build
 
-#Clean useless containers:
-$ [sudo] docker system prune -f
-#Clean all containers:
-$ [sudo] docker system prune -af
+# Run web from configuration:
+$ sudo ./scripts/boot/config.sh <problem-name>
+# For example:
+$ sudo ./scripts/boot/config.sh particle_simulator
+
+
+# Run interractive console mode:
+$ sudo ./scripts/boot/console.sh <problem-name>
+# For example:
+$ sudo ./scripts/boot/console.sh testing_libs
+# To close interractive console mode, write in terminal 
+# >>> exit()
+
+
+# Run server:
+$ sudo ./scripts/boot/server.sh [args]
+# Acshelly we use this:
+$ sudo ./scripts/boot/server.sh up --build
+
+# ATTENTION !!!!
+# If you are running server on your computer
+# you need to close it CORRECTLY. When you need
+# to stop server, press 'CTRL' + 'C' ONLY ONSE.
+# (or 'control' + 'C' on MAC). This will take some
+# time, but it's ok. If you press this keys one,
+# Docker will close faster, but INCORRECTLY.
+# !!! PRESS THIS KEYS COMBINATION ONES AND WAIT !!!
+# If you accidentally press this keys twice, you
+# need to run server again and close it CORRECTLY.
+
+# Clean useless containers:
+$ sudo docker system prune -f
+$ sudo docker container kill $(docker ps -q)
+
+# Clean all containers:
+$ sudo docker system prune -af
 ```
 
 
