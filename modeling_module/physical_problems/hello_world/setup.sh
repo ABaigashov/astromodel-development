@@ -20,3 +20,7 @@
 #    in this file. Otherwise error  will be raised
 
 echo '"Hello World!" is installing now!'
+
+
+# nothing more needed
+# check "testing_libs" problem
