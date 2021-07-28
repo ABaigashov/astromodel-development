@@ -94,8 +94,13 @@ function generateAndApplyOptions(object, placeholder, cases) {
 
 
 function generateTextInput(name, units, slots, data) {
+
 	let wrap = document.createElement('div')
 	wrap.className = 'form-group'
+
+	let label = document.createElement('label')
+	label.appendChild(document.createTextNode(slots.title))
+	wrap.appendChild(label)
 
 	if (String(slots.dementional) === 'true') {
 		let span = document.createElement('div')
@@ -260,7 +265,7 @@ function generateClassParameters(key, config) {
 			let numericInput = generateNumereticInput(name, config.UNITS, slots)
 			wrap.appendChild(numericInput)
 		} else if (slots.class === 'text') {
-			let textInput = generateTextInput(name, config.UNITS, slots, {'data-config-key': 'PROBLEM'})
+			let textInput = generateTextInput(name, config.UNITS, slots, {'data-config-key': name})
 			wrap.appendChild(textInput)
 		}
 	}
@@ -293,7 +298,7 @@ function generateAllProblemForm(problemName, config) {
 			let numericInput = generateNumereticInput(name, config.UNITS, slots)
 			generalDiv.appendChild(numericInput)
 		} else if (slots.class === 'text') {
-			let textInput = generateTextInput(name, config.UNITS, slots, {'data-config-key': 'PROBLEM'})
+			let textInput = generateTextInput(name, config.UNITS, slots, {'data-config-key': name})
 			generalDiv.appendChild(textInput)
 		}
 	}

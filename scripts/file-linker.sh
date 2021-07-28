@@ -4,6 +4,7 @@ problems=$PWD/modeling_module/physical_problems
 configs=$PWD/configurator/configs
 requirements=$PWD/modeling_module/requirements
 setups=$PWD/modeling_module/setups
+server=$PWD/docker/server_config.yml
 
 
 for check in $configs $requirements $setups; do
@@ -18,7 +19,16 @@ cp -v $PWD/docker/server.template $PWD/docker/docker-compose.yml
 chmod 666 $PWD/docker/docker-compose.yml
 
 
-for problem in $(ls $problems); do
+tmp_IFS=$IFS
+IFS=$'\n'
+
+for j in $(cat $server); do
+
+	IFS=": "
+	q=($j)
+	problem=${q[0]}
+	size=${q[1]}
+
 	if [ -f $problems/$problem/config.yml ]; then
 		if [ -f $problems/$problem/requirements.txt ]; then
 			cp -v $problems/$problem/requirements.txt $requirements/$problem.txt
@@ -46,7 +56,7 @@ for problem in $(ls $problems); do
 		echo "    volumes:"                                >> $PWD/docker/docker-compose.yml
 		echo "      - /var/astromodel:/var/astromodel"     >> $PWD/docker/docker-compose.yml
 		echo "    deploy:"                                 >> $PWD/docker/docker-compose.yml
-		echo "      replicas: 4"                           >> $PWD/docker/docker-compose.yml
+		echo "      replicas: $size"                       >> $PWD/docker/docker-compose.yml
 		echo "      restart_policy:"                       >> $PWD/docker/docker-compose.yml
 		echo "        condition: on-failure"               >> $PWD/docker/docker-compose.yml
 		echo "    build:"                                  >> $PWD/docker/docker-compose.yml
@@ -57,3 +67,6 @@ for problem in $(ls $problems); do
 		echo "        - PROBLEM=$problem"                  >> $PWD/docker/docker-compose.yml
 	fi
 done
+
+IFS=$tmp_IFS
+unset tmp_IFS
