@@ -6,7 +6,6 @@ if [[ ./scripts/boot/server.sh != $BASH_SOURCE ]]; then
 fi
 
 
-docker container prune -f --filter "until=12h"
 bash ./scripts/file-linker.sh
 
 

@@ -18,11 +18,24 @@ RUN bash setup.sh
 COPY ${PWD}/modeling_module/requirements/$PROBLEM.txt requirements.txt
 RUN pip3 install -r requirements.txt
 
+
+FROM base as console
+
+CMD sleep infinity
+
+
+FROM base as solver
+
+CMD cd folder && python3 -u -B __init__.py
+
+
+FROM base as problem
+
 COPY ${PWD}/modeling_module/physical_problems/$PROBLEM ./modeling_module/physical_problems/$PROBLEM
 COPY ${PWD}/modeling_module/configurator.py ./modeling_module/
 
 
-FROM base as client
+FROM problem as client
 
 COPY ${PWD}/modeling_module/jobexecutor.py ./modeling_module/
 COPY ${PWD}/server/app ./app

@@ -25,21 +25,21 @@ the icon of docker will be shown in topbar menu<br>
 
 ```bash
 # Run local solver:
-$ sudo ./scripts/boot/solver.sh <problem-name> <init-file>.json
+$ ./scripts/boot/solver.sh <problem-name> <your-directory>
 # For example:
-$ sudo ./scripts/boot/solver.sh particle_simulator 3d.json
+$ ./scripts/boot/solver.sh testing_libs /path/to/leopart/tests
 
 
 # Run web from configuration:
-$ sudo ./scripts/boot/config.sh <problem-name>
+$ ./scripts/boot/config.sh <problem-name>
 # For example:
-$ sudo ./scripts/boot/config.sh particle_simulator
+$ ./scripts/boot/config.sh particle_simulator
 
 
 # Run interractive console mode:
-$ sudo ./scripts/boot/console.sh <problem-name>
+$ ./scripts/boot/console.sh <problem-name>
 # For example:
-$ sudo ./scripts/boot/console.sh testing_libs
+$ ./scripts/boot/console.sh testing_libs
 # To close interractive console mode, write in terminal 
 # >>> exit()
 
