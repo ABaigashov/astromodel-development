@@ -18,9 +18,6 @@ const defaultNumereticInputCases = {
 
 // ------------------------------------------ //
 
-function show404(a) {
-	document.body.innerHTML = '<h1>Error 404: Page not found</h1>'
-}
 
 function localhost(htmlForm) {
 	let fileToLoad = Array.from(document.getElementById('filedrop').files).filter((file) => (file.name == 'config.yml'))[0]
@@ -49,7 +46,9 @@ function callGenerate() {
 			success: function(config) {
 				generateAllProblemForm(problemName, jsyaml.load(config))
 			},
-			error: show404
+			error: (error) => {
+				document.body.innerHTML = error.responseText
+			}
 		})
 	}
 }
