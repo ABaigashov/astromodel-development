@@ -98,9 +98,11 @@ function generateTextInput(name, units, slots, data) {
 	let wrap = document.createElement('div')
 	wrap.className = 'form-group'
 
-	let label = document.createElement('label')
-	label.appendChild(document.createTextNode(slots.title))
-	wrap.appendChild(label)
+	if (name !== null) {
+		let label = document.createElement('label')
+		label.appendChild(document.createTextNode(slots.title))
+		wrap.appendChild(label)
+	}
 
 	if (String(slots.dementional) === 'true') {
 		let span = document.createElement('div')
