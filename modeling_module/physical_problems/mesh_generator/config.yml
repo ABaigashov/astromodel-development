@@ -14,12 +14,12 @@ CASES:
 
   dimensions:
     title: Размерность пространства моделирования
-    default: 2
+    default: "2"
     type: int
     class: dropdown
     cases:
-      Двумерное пространство: 2
-      Трехмерное пространство: 3
+      Двумерное пространство: "2"
+      Трехмерное пространство: "3"
     dementional: false
 
   mesh:
@@ -45,21 +45,21 @@ CASES:
 
   x:
     title: x
-    default: 0
+    default: "0"
     type: str
     class: text
     units: distance
 
   y:
     title: y
-    default: 0
+    default: "0"
     type: str
     class: text
     units: distance
 
   z:
     title: z
-    default: 0
+    default: "0"
     type: str
     class: text
     units: distance
@@ -73,67 +73,57 @@ CASES:
 
   radius:
     title: Радиус
-    default: 1
+    default: "1"
     type: str
     class: text
     units: distance
 
   vertex:
     title: Количество вершин
-    default: 10
+    default: "10"
     type: int
     class: text
 
   segments:
     title: Сегменты
-    default: 32
+    default: "32"
     type: int
     class: text
 
   a:
     title: Большая полуось
-    default: 1
+    default: "1"
     type: str
     class: text
     units: distance
 
   b:
     title: Малая полуось
-    default: 1
+    default: "1"
     type: str
     class: text
     units: distance
 
   h:
     title: Высота
-    default: 1
+    default: "1"
     type: str
     class: text
     units: distance
 
   d:
     title: Диаметр основания
-    default: 1
+    default: "1"
     type: str
     class: text
     units: distance
 
   param_for_csg:
     title: Хер его знает, что за параметр?
-    default: 1
+    default: "1"
     type: str
     class: text
     units: distance
-
-  symbol:
-    title: Способ задания сетки
-    default: +
-    type: str
-    class: dropdown
-    cases:
-      Выколотая область: +
-      Добавленная область: -
-    dementional: false
 
   options:
     title: Опции генератора сеток
@@ -149,20 +139,20 @@ CASES:
 
   start:
     title: Начало
-    default: 0
+    default: "0"
     type: str
     class: text
     units: distance
 
   stop:
     title: Конец
-    default: 10
+    default: "10"
     type: str
     class: text
     units: distance
 
 GENERAL:
-  
+
   - dimensions
   - output_files
   - mesh
@@ -231,6 +221,8 @@ OBJECTS:
       - options
 
   UnitCubeMesh:
-    - x
-    - y
-    - z
+    title: Генератор прямоугольной сетки
+    cases:
+      - x
+      - y
+      - z
