@@ -1,7 +1,5 @@
 var config = {
-	OBJECTS: {
-		point_objects: [],
-	}
+	OBJECTS: {}
 };
 
 const rgbToHex = (r, g, b) => '#' + [r, g, b]
@@ -113,24 +111,38 @@ function UpdateTable() {
 	$('#objects-list').html(table_html);
 
 	$('.action-add').on('click', function(e){
+		var object_id = GetNewObjectId(3);
 		var object = {
-			id: GetNewObjectId(3),
+			id: object_id,
 			name: 'Новый объект',
 			index: GetNewObjectIndex()
 		}
-
-		var objects_lists = GetListsOfObjects();
-		var config_objects = config.OBJECTS;
-		for(var i in objects_lists) {
-			var list_name = objects_lists[i];
-			if(!config_objects[list_name]) {
-				config_objects[list_name] = [];
-			}
+		editing_object_id = object_id;
+		editing_object_index = object.index;
+		if(!editing_object_index) {
+			editing_object_index = GetNewObjectIndex();
 		}
+		ApplyModalOptions(object);
+		UpdateModalOptions(object.type ? object.type.value : '');
+		$('#modal-options').modal();
+		// var object = {
+		// 	id: GetNewObjectId(3),
+		// 	name: 'Новый объект',
+		// 	index: GetNewObjectIndex()
+		// }
 
-		config_objects.point_objects.push(object);
-		config.OBJECTS = config_objects;
-		UpdateTable();
+		// var objects_lists = GetListsOfObjects();
+		// var config_objects = config.OBJECTS;
+		// for(var i in objects_lists) {
+		// 	var list_name = objects_lists[i];
+		// 	if(!config_objects[list_name]) {
+		// 		config_objects[list_name] = [];
+		// 	}
+		// }
+
+		// config_objects.point_objects.push(object);
+		// config.OBJECTS = config_objects;
+		// UpdateTable();
 	});
 
 	$('.action-list').on('click', function(e){
@@ -327,9 +339,13 @@ function ConfigureObject(object_id, object_index) {
 		index: object_index
 	}
 	var object_type = $('#select-object-type').val();
+	if (object_type == '') {
+		alert('Укажите тип объекта');
+		return
+	}
 	ApplyInputData(new_object, $('#' + object_type));
 
-	var color = HexToRGB('#' + $('#modal-options [data-config-key="color"]').val());
+	var color = HexToRGB($('#modal-options [data-config-key="color"]').val());
 	new_object.name = $('#modal-options [data-config-key="name"]').val();
 	new_object.color = color;
 	new_object.type = {
@@ -500,6 +516,7 @@ function GetRandomColor() {
 }
 
 function HexToRGB(hex){
+	console.log(hex)
     var c;
     if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
         c= hex.substring(1).split('');
