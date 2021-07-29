@@ -22,41 +22,113 @@ CASES:
       Трехмерное пространство: 3
     dementional: false
 
-  K:
-    title: Коэффициент восстановления (для столкновений)
-    default: 1
-    type: int
+  mesh:
+    title: Способ задания сетки
+    default: generator
+    type: str
     class: dropdown
     cases:
-      Упругие столкновения: 1
-        Неупругие столкновения: 0
+      Генератор сетки: generator
+      Указание областей: domains
     dementional: false
 
-  output_graphics:
-    title: Графический вид анимации
+  output_files:
+    title: Результат
     default: matplotlib
     type: str
     class: dropdown
     cases:
-      Сырые данные: json
-      Научный: matplotlib
-      Визуальный: vispy
+      Таблица (xmls): xmls
+      Графический (png): matplotlib
+      Векторный (vtk and pvd): vtk
     dementional: false
 
+  x:
+    title: x
+    default: 0
+    type: str
+    class: text
+    units: distance
+
+  y:
+    title: y
+    default: 0
+    type: str
+    class: text
+    units: distance
+
+  z:
+    title: z
+    default: 0
+    type: str
+    class: text
+    units: distance
+
+  point:
+    title: Точка
+    default: (0, 0)
+    type: str
+    class: text
+    units: distance
+
+  radius:
+    title: Радиус
+    default: 1
+    type: str
+    class: text
+    units: distance
+
+  vertex:
+    title: Количество вершин
+    default: 10
+    type: int
+    class: text
+
+  segments:
+    title: Сегменты
+    default: 32
+    type: int
+    class: text
+
+  a:
+    title: Большая полуось
+    default: 1
+    type: str
+    class: text
+    units: distance
+
+  b:
+    title: Малая полуось
+    default: 1
+    type: str
+    class: text
+    units: distance
+
+  param_for_csg:
+    title: Хер его знает, что за параметр?
+    default: 1
+    type: str
+    class: text
+    units: distance
+
+  symbol:
+    title: Способ задания сетки
+    default: +
+    type: str
+    class: dropdown
+    cases:
+      Выколотая область: +
+      Добавленная область: -
+    dementional: false
 
 GENERAL:
-  - rocket_name
-  - rocket_time
-  - jet_count
-  - post_in_news
-
+  - dimensions
+  - output_files
+  - mesh
 
 OBJECTS:
 
-  astronauts:
-    title: Астронафт
+  Rectangle:
+    title: Прямоугольник
     cases:
-      - astronaut_name
-      - astronaut_weight
-      - astronaut_age
-      - astronaut_sex
+      - point
