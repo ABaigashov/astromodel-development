@@ -104,6 +104,20 @@ CASES:
     class: text
     units: distance
 
+  h:
+    title: Высота
+    default: 1
+    type: str
+    class: text
+    units: distance
+
+  d:
+    title: Диаметр основания
+    default: 1
+    type: str
+    class: text
+    units: distance
+
   param_for_csg:
     title: Хер его знает, что за параметр?
     default: 1
@@ -121,7 +135,34 @@ CASES:
       Добавленная область: -
     dementional: false
 
+  options:
+    title: Опции генератора сеток
+    default: None
+    type: str
+    class: dropdown
+    cases:
+      left: left
+      right: right
+      right/left: right/left
+      crossed: crossed
+    dementional: false
+
+  start:
+    title: Начало
+    default: 0
+    type: str
+    class: text
+    units: distance
+
+  stop:
+    title: Конец
+    default: 10
+    type: str
+    class: text
+    units: distance
+
 GENERAL:
+  
   - dimensions
   - output_files
   - mesh
@@ -132,3 +173,64 @@ OBJECTS:
     title: Прямоугольник
     cases:
       - point
+      - point
+
+  Circle:
+    title: Круг
+    cases:
+      - point
+      - radius
+
+  Ellipse:
+    title: Эллипс
+    cases:
+      - point
+      - a
+      - b
+      - segments
+
+  Cylinder:
+    title: Цилиндр
+    cases:
+      - point
+      - point
+      - h
+      - d
+      - vertex
+
+  Cone:
+    title: Диск
+    cases:
+      - point
+      - point
+      - h
+      - d
+      - vertex
+
+  Ellipsoid:
+    title: Эллипсоид
+    cases:
+      - point
+      - a
+      - b
+      - h
+      - vertex
+
+  UnitIntervalMesh:
+    title: Генератор интервала
+    cases:
+      - start
+      - stop
+      - options
+
+  RectangleMesh:
+    title: Генератор прямоугольной сетки
+    cases:
+      - point
+      - point
+      - options
+
+  UnitCubeMesh:
+    - x
+    - y
+    - z
