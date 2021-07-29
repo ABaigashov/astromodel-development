@@ -16,6 +16,6 @@
 # in command line "pip freeze > requirements.txt"
 # and have a nice day!
 
-logging==0.4.9.6
-unix-time==2.0.0
-rocket==1.2.8
+
+# nothing needed
+# check "particle_simulator" problem

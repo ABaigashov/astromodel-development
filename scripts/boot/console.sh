@@ -9,22 +9,17 @@ if [ ! -d ./modeling_module/physical_problems/$1 ]; then
 	exit 1
 fi
 
-docker container prune -f --filter "until=12h"
 bash ./scripts/file-linker.sh $1
 
-export PROBLEM=$1
-
 docker-compose \
 	-p astromodel \
-	-f ./docker/console/docker-compose.yml \
+	-f ./docker/console.yml \
 	build \
-	--build-arg problem_name="$1" 
-
-unset PROBLEM
+	--build-arg PROBLEM="$1" 
 
 docker-compose \
 	-p astromodel \
-	-f ./docker/console/docker-compose.yml \
+	-f ./docker/console.yml \
 	up -d --no-log-prefix
 
 docker exec -it console python3

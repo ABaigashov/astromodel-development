@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  console:
+    build:
+      context: ${PWD}
+      dockerfile: ${PWD}/docker/Dockerfile
+      target: console
+    container_name: console

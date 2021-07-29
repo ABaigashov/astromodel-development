@@ -185,14 +185,14 @@ CASES:
 
   rocket_name:
     title: Название рокеты
-    default: "Starship"
+    default: Starship
     type: str
     class: text
     dementional: false
 
   name:
     title: Имя астронафта
-    default: "Пётр"
+    default: Пётр
     type: str
     class: text
     dementional: false
@@ -218,8 +218,8 @@ CASES:
     type: int
     class: dropdown
     cases:
-      Мужской: "man"
-      Женский: "woman"
+      Мужской: man
+      Женский: woman
       Чёрт его знает: "?"
     dementional: false
 
@@ -258,7 +258,7 @@ OBJECTS:
   astronauts:
     title: Астронафт
     cases:
-      - astronaut_name
-      - astronaut_weight
-      - astronaut_age
-      - astronaut_sex
+      - name
+      - weight
+      - age
+      - sex

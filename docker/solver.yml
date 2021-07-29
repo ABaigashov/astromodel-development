@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  solver:
+    build:
+      context: ${PWD}
+      dockerfile: ${PWD}/docker/Dockerfile
+      target: solver
+    container_name: solver
+    user: ${USERMODE}
+    volumes:
+      - ${FOLDER}/:/usr/src/folder/
