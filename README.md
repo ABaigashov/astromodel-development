@@ -1,5 +1,5 @@
 <p align="center"><a href="https://astromodel.ru"><img alt="Astromodel" src="./configurator/static/images/logo.svg"></a></p>
-<p align="center"><a href="https://astromodel.ru"><img alt="Astromodel" src="./configurator/static/images/logo_fond.svg"></a></p>
+<p align="center"><a href="https://astromodel.ru"><img alt="Astromodel" src="./configurator/static/images/logo_fond.png"></a></p>
 
 ## Installation of Docker and docker-compose on Ubuntu ##
 
