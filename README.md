@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://astromodel.ru"><img alt="Astromodel" src="./configurator/static/images/logo.svg"></a>
-  <a href="https://astromodel.ru"><img alt="Astromodel" src="./configurator/static/images/logo_fond.png"></a>
+  <a href="https://astromodel.ru"><img alt="Astromodel" src="./configurator/static/images/fond.svg"></a>
 </p>
 
 ```bash
