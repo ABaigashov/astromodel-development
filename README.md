@@ -68,6 +68,8 @@ $ sudo ./scripts/boot/server.sh [args]
 $ sudo ./scripts/boot/server.sh up --build
 # Reference to local host:
 http://localhost:8888/construct/form.html?{PROBLEM}
+# For example:
+http://localhost:8888/construct/form.html?hello_world
 
 # ATTENTION !!!!
 # If you are running server on your computer
