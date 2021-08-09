@@ -66,6 +66,8 @@ $ ./scripts/boot/console.sh testing_libs
 $ sudo ./scripts/boot/server.sh [args]
 # Acshelly we use this:
 $ sudo ./scripts/boot/server.sh up --build
+# Reference to local host:
+http://localhost:8888/construct/form.html?{PROBLEM}
 
 # ATTENTION !!!!
 # If you are running server on your computer
