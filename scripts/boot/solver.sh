@@ -20,13 +20,13 @@ export USERMODE=$(id -u $USER):$(id -g $USER)
 
 docker-compose \
 	-p astromodel \
-	-f ./docker/solver.yml \
+	-f ./docker/boot/solver.yml \
 	build \
 	--build-arg PROBLEM="$1"
 
 docker-compose \
 	-p astromodel \
-	-f ./docker/solver.yml \
+	-f ./docker/boot/solver.yml \
 	up --no-log-prefix
 
 unset FOLDER
