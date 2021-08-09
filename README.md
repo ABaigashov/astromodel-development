@@ -1,4 +1,4 @@
-<div style="align-items: center;">
+<div style="align-items: center; background-color: white;">
   <a href="https://astromodel.ru"><img alt="Astromodel" src="./configurator/static/images/logo.svg"></a>
   <a href="https://astromodel.ru"><img alt="Astromodel" src="./configurator/static/images/fond.svg"></a>
 </div>
