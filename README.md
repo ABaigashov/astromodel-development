@@ -1,7 +1,7 @@
-<p align="center">
+<div style="align-items: center;">
   <a href="https://astromodel.ru"><img alt="Astromodel" src="./configurator/static/images/logo.svg"></a>
   <a href="https://astromodel.ru"><img alt="Astromodel" src="./configurator/static/images/fond.svg"></a>
-</p>
+</div>
 
 ```bash
 Среда AstroModel – проект автоматизации хранения, развёртывания, 
