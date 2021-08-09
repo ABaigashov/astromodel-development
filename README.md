@@ -1,5 +1,5 @@
 <p align="center"><a href="https://astromodel.ru"><img alt="Astromodel" src="./configurator/static/images/logo.svg"></a></p>
-<p align="center"><a href="https://astromodel.ru"><img alt="Astromodel" src="./configurator/static/images/logo_fond.png"></a></p>
+<p align="center"><a href="https://astromodel.ru"><img alt="Astromodel" src="./configurator/static/images/fond.svg"></a></p>
 
 ## Installation of Docker and docker-compose on Ubuntu ##
 
@@ -41,7 +41,7 @@ $ ./scripts/boot/config.sh particle_simulator
 $ ./scripts/boot/console.sh <problem-name>
 # For example:
 $ ./scripts/boot/console.sh testing_libs
-# To close interractive console mode, write in terminal 
+# To close interractive console mode, write in terminal
 # >>> exit()
 
 
