@@ -1,9 +1,7 @@
-<span style="color:blue">some *blue* text</span>.
-
-<div style="align-items: center; background-color: white;">
+<p align="center">
   <a href="https://astromodel.ru"><img alt="Astromodel" src="./configurator/static/images/logo.svg"></a>
   <a href="https://astromodel.ru"><img alt="Astromodel" src="./configurator/static/images/fond.svg"></a>
-</div>
+</p>
 
 ```bash
 Среда AstroModel – проект автоматизации хранения, развёртывания, 
