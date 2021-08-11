@@ -110,6 +110,7 @@ $ sudo ./scripts/boot/console.sh testing_libs
 > some time, but it's ok. If you press this keys one more time, Docker will close faster,<br>
 > but INCORRECTLY. You need to press this keys ONLY ONCE and WAIT a little bit. If you<br>
 > accidentally press this keys twice, you need to run server again and close it CORRECTLY.<br>
+
 If you need to run server like in our site, you need to use<br>
 this command. It makes all things he need to be exactly like<br>
 on our server.<br>
