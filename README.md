@@ -42,7 +42,7 @@ the icon of docker will be shown in topbar menu<br>
 
 # Some code tips #
 
-<h3><ins>test local files using problem enviroment</ins></h3>
+###local files using problem enviroment###
 If you need to test some code, but you have no generated <br>
 problem parameters you can run `tester.sh`. This utility <br>
 is created to run some files with special libraries you have <br>
