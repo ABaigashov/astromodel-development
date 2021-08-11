@@ -1,15 +1,19 @@
 <p align="center">
-  <a href="https://astromodel.ru"><img alt="Astromodel" src="./configurator/static/images/logo.svg"></a>
-  <a href="https://astromodel.ru"><img alt="Astromodel" src="./configurator/static/images/fond.svg"></a>
+  <a href="https://astromodel.ru">
+    <img alt="Astromodel logo" src="./configurator/static/images/logo.svg">
+    <img alt="Presidential grand" src="./configurator/static/images/fond.svg">
+  </a>
 </p>
 
 ------------------------------------------
 
-AstroModel project is astronomical development environment created for automatic storage,
+**AstroModel** project is astronomical development environment created for automatic storage,
 deployment, processing and modification of different physical, astronomical and astrophysical
 problems containerized by the `Docker`. The main goal of this project is simplification and
 automatization of user interaction with program code. It covers a wide range of calculus such as
-numerical modeling, statistical analysis, optical instrument control, etc. AstroModel user can easily
+numerical modeling, statistical analysis, optical instrument control, etc.
+
+**AstroModel** user can easily
 use, adapt and reformulate any of the existing problems. Also user can suggest his own problem solver
 without the long process of setting up and configuring the software provision. This allows our project
 to be universal environment for exchanging software products in astrophysical computing scope.
