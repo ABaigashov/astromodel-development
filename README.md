@@ -45,6 +45,7 @@ to be universal environment for exchanging software products in astrophysical co
 # Our code utilities #
 
 <br>
+
 ### *test local files using problem enviroment* ###
 If you need to test some code, but you have no generated<br>
 problem parameters you can run `tester.sh`. This utility<br>
@@ -60,6 +61,7 @@ $ sudo ./scripts/boot/tester.sh testing_libs /path/to/leopart/tests
 ```
 
 <br>
+
 ### *create configuration file by web page* ###
 If you need to create parameters for your problem, just run this<br>
 command. It opens your browser and shows you configuration web page,<br>
@@ -72,6 +74,7 @@ $ sudo ./scripts/boot/config.sh particle_simulator
 ```
 
 <br>
+
 ### *test configuration file without server* ###
 If you need to test your config without booting full server<br>
 you can use this utility. Solver can run your problem code<br>
@@ -84,6 +87,7 @@ $ sudo ./scripts/boot/solver.sh particle_simulator 3d.json
 ```
 
 <br>
+
 ### *fast check some enviroment tips by console* ###
 If you need to have a console of your porblem, like typing<br>
 in command line `python` or `python3` you need to use this<br>
@@ -98,6 +102,7 @@ $ sudo ./scripts/boot/console.sh testing_libs
 ```
 
 <br>
+
 ### *run your own local server* ###
 > *!!! ATTENTION !!!* <br>
 > If you are running server on your computer you need to close it CORRECTLY. When you need<br>
@@ -116,6 +121,7 @@ $ sudo ./scripts/boot/server.sh up --build
 ```
 
 <br>
+
 ### *other code tips when something goes wrong* ###
 ```bash
 # Look inside the container:
