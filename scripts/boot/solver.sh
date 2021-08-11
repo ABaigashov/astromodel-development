@@ -8,7 +8,7 @@ if [ ! -d ./modeling_module/physical_problems/$1 ]; then
 	echo "Oh no... No such problem \"$1\", check the spelling"
 	exit 1
 fi
-if [ ! -f ./modeling_module/physical_problems/$1/results/$2 ]; then
+if [ ! -f ./modeling_module/physical_problems/$1/init_files/$2 ]; then
 	echo "Oh no... No such configuration file \"$2\", check the spelling"
 	exit 1
 fi
@@ -16,7 +16,6 @@ fi
 bash ./scripts/file-linker.sh $1
 
 export PROBLEM=$1
-export USERMODE=$(id -u $USER):$(id -g $USER)
 
 docker-compose \
 	-p astromodel \
@@ -31,4 +30,3 @@ docker-compose \
 	up --no-log-prefix
 
 unset PROBLEM
-unset USERMODE

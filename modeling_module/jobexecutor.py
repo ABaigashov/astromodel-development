@@ -4,7 +4,7 @@ from configurator import Configurator
 from traceback import format_exc
 from threading import Thread
 from uuid import uuid4
-import json, os, sys
+import os, sys
 
 
 class JobExecutor(Thread):
@@ -34,7 +34,8 @@ class JobExecutor(Thread):
 			with open(os.devnull, 'w') as devnull:
 				with redirect_stdout(devnull):
 					self.path_to_result = self.model.run()
-				self.job.progress = 1
+			self.job.progress = 1
+			os.chmod(self.path_to_result, 0o666)
 		except:
 			print(format_exc())
 			with open(self.path_to_result, 'wb') as logfile:

@@ -7,6 +7,6 @@ services:
       dockerfile: ${PWD}/docker/Dockerfile
       target: solver
     container_name: solver
-    user: ${USERMODE}
+    user: nobody
     volumes:
       -  ${PWD}/modeling_module/physical_problems/${PROBLEM}/results:/usr/src/modeling_module/physical_problems/${PROBLEM}/results

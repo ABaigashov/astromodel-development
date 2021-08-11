@@ -15,8 +15,7 @@ fi
 
 bash ./scripts/file-linker.sh $1
 
-export FOLDER=$2
-export USERMODE=$(id -u $USER):$(id -g $USER)
+export FOLDER=$(realpath $2)
 
 docker-compose \
 	-p astromodel \
@@ -30,4 +29,3 @@ docker-compose \
 	up --no-log-prefix
 
 unset FOLDER
-unset USERMODE

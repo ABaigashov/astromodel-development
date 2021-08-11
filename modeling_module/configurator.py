@@ -1,6 +1,6 @@
 from sympy import sympify
+import yaml, os, json
 import numpy as np
-import yaml, os
 
 
 def _to_float(value):
