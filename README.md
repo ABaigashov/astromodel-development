@@ -18,7 +18,6 @@ numerical modeling, statistical analysis, optical instrument control, etc.
 use, adapt and reformulate any of the existing problems. Also user can suggest his own problem solver
 without the long process of setting up and configuring the software provision. This allows our project
 to be universal environment for exchanging software products in astrophysical computing scope.
-
 <br>
 
 ------------------------------------------
