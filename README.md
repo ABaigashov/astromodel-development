@@ -42,7 +42,7 @@ docker as normal Mac application. After that, you need to run<br>
 this app, close all docker windows and keep this in tray<br>
 the icon of docker will be shown in topbar menu<br>
 
-# Some code tips #
+# Our code utilities #
 
 ### *test local files using problem enviroment* ###
 If you need to test some code, but you have no generated <br>
@@ -95,10 +95,10 @@ $ sudo ./scripts/boot/console.sh testing_libs
 
 ### *run your own local server* ###
 > *!!! ATTENTION !!!* <br>
-> If you are running server on your computer  you need to close it CORRECTLY. When you need <br>
-> to stop server, press 'CTRL' + 'C' ONLY ONSE.  or 'control' + 'C' on MAC). This will take <br>
+> If you are running server on your computer you need to close it CORRECTLY. When you need <br>
+> to stop server, press 'CTRL' + 'C' ONLY ONCE. (or 'control' + 'C' on Mac). This will take <br>
 > some time, but it's ok. If you press this keys one more time, Docker will close faster, <br>
->  but INCORRECTLY. You need to press this keys ONLY ONES and WAIT a little bit. If you <br>
+> but INCORRECTLY. You need to press this keys ONLY ONCE and WAIT a little bit. If you <br>
 > accidentally press this keys twice, you need to run server again and close it CORRECTLY. <br>
 
 If you need to run server like in our site, you need to use <br>
@@ -112,7 +112,12 @@ $ sudo ./scripts/boot/server.sh [args]
 $ sudo ./scripts/boot/server.sh up --build
 ```
 
+### *other code tips when something goes wrong* ###
+
 ```bash
+# Look inside the container:
+$ sudo docker exec -it <container-name> bash
+
 # Clean useless containers:
 $ sudo docker system prune -f
 $ sudo docker container kill $(docker ps -q)
