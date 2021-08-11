@@ -3,20 +3,16 @@
   <a href="https://astromodel.ru"><img alt="Astromodel" src="./configurator/static/images/fond.svg"></a>
 </p>
 
-```bash
-Среда AstroModel – проект автоматизации хранения, развёртывания, 
-обработки и модификации различных физических, 
-астрономических и астрофизических задач с использованием контейнеризатора 
-приложений Docker. Проект ориентирован на максимальное упрощение и 
-автоматизацию взаимодействия пользователя с программным кодом, 
-решающим ту или иную задачу – численное моделирование, 
-статистический анализ, управление оптическими инструментами и т.д. 
-Любой пользователь среды AstroModel может с лёгкостью использовать, 
-адаптировать и переформулировать любую из имеющихся задач или предложить 
-свою задачу без долгого процесса настройки и конфигурирования программного 
-обеспечения. Это позволяет AstroModel выступать в качестве универсальной 
-среды обмена собственными программными продуктами в области астрофизических вычислений.
-```
+> ***AstroModel*** project - an astronomical development environment created for automatic storage, deployment, processing and modification of different physical,
+> astronomical and astrophysical problems containerized by the `Docker`. The project is focused on maximum simplification and
+> automatization of user interaction with program code, covering a wide range of tasks - numerical modeling,
+> statistical analysis, optical instrument control, etc.
+> Any ***AstroModel*** user can easily use,
+> adapt and reformulate any of the existing tasks or suggest
+> his own task without the long process of setting up and configuring the software
+> provision. This allows ***AstroModel*** to act as a versatile
+> an environment for exchanging proprietary software products in the field of astrophysical computing.
+
 
 ## Installation of Docker and docker-compose on Ubuntu ##
 
@@ -64,6 +60,16 @@ $ sudo ./scripts/boot/tester.sh testing_libs /path/to/leopart/tests
 $ sudo ./scripts/boot/config.sh <problem-name>
 # For example:
 $ sudo ./scripts/boot/config.sh particle_simulator
+
+
+# If you need to test your config without booting full server
+# you can use this utility. Solver can run your problem code
+# to test some configs or solve single problem.
+
+# Run local problem solver:
+$ sudo ./scripts/boot/solver.sh <problem-name> <parameters.json>
+# For example:
+$ sudo ./scripts/boot/solver.sh particle_simulator 3d.json
 
 
 # If you need to have a console of your porblem, like typing
