@@ -44,11 +44,11 @@ the icon of docker will be shown in topbar menu<br>
 
 ### test local files using problem enviroment ###
 If you need to test some code, but you have no generated <br>
-problem parameters you can run "tester.sh". This utility <br>
+problem parameters you can run `tester.sh`. This utility <br>
 is created to run some files with special libraries you have <br>
-in your problem. the testin directory must have "__init__.py" file <br>
+in your problem. the testin directory must have `__init__.py` file <br>
 to run tester correctly. In this file you can just import files <br>
-you need like "import file_1" and "file_1.py" is near to init file. <br>
+you need like `import file_1` and `file_1.py` is near to init file. <br>
 ```bash
 # Run local tester:
 $ sudo ./scripts/boot/tester.sh <problem-name> <your-directory>
