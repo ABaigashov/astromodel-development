@@ -1,5 +1,8 @@
 <p align="center">
-  <a style="text-decoration:none" href="https://astromodel.ru">
+  <style>
+    a{color: red;}
+  </style>
+  <a href="https://astromodel.ru">
     <img alt="Astromodel logo" src="./configurator/static/images/logo.svg">
     <img alt="Presidential grand" src="./configurator/static/images/fond.svg">
   </a>
