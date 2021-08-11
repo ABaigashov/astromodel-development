@@ -19,7 +19,7 @@ without the long process of setting up and configuring the software provision. T
 to be universal environment for exchanging software products in astrophysical computing scope.
 
 
-## Installation of Docker and docker-compose on Ubuntu ##
+# Installation of Docker and docker-compose on Ubuntu #
 
 ```bash
 $ sudo apt update
@@ -34,7 +34,7 @@ $ sudo curl -L $url -o /usr/local/bin/docker-compose
 $ sudo chmod +x /usr/local/bin/docker-compose
 $ docker --version && docker-compose --version
 ```
-## Installation of Docker and docker-compose on Mac ##
+# Installation of Docker and docker-compose on Mac #
 To install Docker and docker-compose on MacOS, you need<br>
 to go [this page](https://docs.docker.com/docker-for-mac/install/)
 , choice intel/apple processor version, download and install<br>
@@ -126,7 +126,7 @@ $ sudo docker container kill $(docker ps -q)
 $ sudo docker system prune -af
 ```
 
-## Compatibility of our project ##
+# Compatibility of our project #
 
 | **Operating system** | **Compatibility** |
 |:--------------------:|:-----------------:|
