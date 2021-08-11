@@ -96,16 +96,12 @@ If you need to run server like in our site, you need to use <br>
 this command. It makes all things he need to be exactly like <br>
 on our server. <br>
 
-> *!!!! ATTENTION !!!!*
-> If you are running server on your computer <br>
-> you need to close it CORRECTLY. When you need <br>
-> to stop server, press 'CTRL' + 'C' ONLY ONSE. <br>
-> (or 'control' + 'C' on MAC). This will take some <br>
-> time, but it's ok. If you press this keys one, <br>
-> Docker will close faster, but INCORRECTLY. <br>
-> !!! PRESS THIS KEYS COMBINATION ONES AND WAIT !!! <br>
-> If you accidentally press this keys twice, you <br>
-> need to run server again and close it CORRECTLY. <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*!!! ATTENTION !!!* <br>
+> If you are running server on your computer  you need to close it CORRECTLY. When you need <br>
+> to stop server, press 'CTRL' + 'C' ONLY ONSE.  or 'control' + 'C' on MAC). This will take some <br>
+> time, but it's ok. If you press this keys one,  Docker will close faster, but INCORRECTLY. <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*!!! PRESS THIS KEYS COMBINATION ONES AND WAIT !!!* <br>
+> If you accidentally press this keys twice, you  need to run server again and close it CORRECTLY. <br>
 ```bash
 # Run server:
 $ sudo ./scripts/boot/server.sh [args]
