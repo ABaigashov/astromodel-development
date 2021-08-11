@@ -7,8 +7,8 @@
 <br>
 
 ------------------------------------------
-
 <br>
+
 **AstroModel** project is astronomical development environment created for automatic storage,
 deployment, processing and modification of different physical, astronomical and astrophysical
 problems containerized by the `Docker`. The main goal of this project is simplification and
