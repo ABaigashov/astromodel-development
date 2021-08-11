@@ -108,7 +108,7 @@ $ sudo ./scripts/boot/console.sh testing_libs
 > *!!! PRESS THIS KEYS COMBINATION ONES AND WAIT !!!* <br>
 > If you accidentally press this keys twice, you  need to run server again and close it CORRECTLY. <br> -->
 <p align="center">
-  <h3>!!! ATTENTION !!!</h3>
+  <h4><b>!!! ATTENTION !!!</b></h4>
 </p>
 
 If you need to run server like in our site, you need to use <br>
