@@ -96,10 +96,10 @@ $ sudo ./scripts/boot/console.sh testing_libs
 ### *run your own local server* ###
 > *!!! ATTENTION !!!* <br>
 > If you are running server on your computer  you need to close it CORRECTLY. When you need <br>
-> to stop server, press 'CTRL' + 'C' ONLY ONSE.  or 'control' + 'C' on MAC). This will take some <br>
-> time, but it's ok. If you press this keys one,  Docker will close faster, but INCORRECTLY. <br>
-> *!!! PRESS THIS KEYS COMBINATION ONES AND WAIT !!!* <br>
-> If you accidentally press this keys twice, you  need to run server again and close it CORRECTLY. <br>
+> to stop server, press 'CTRL' + 'C' ONLY ONSE.  or 'control' + 'C' on MAC). This will take <br>
+> some time, but it's ok. If you press this keys one more time, Docker will close faster, <br>
+>  but INCORRECTLY. You need to press this keys ONLY ONES and WAIT a little bit. If you <br>
+> accidentally press this keys twice, you need to run server again and close it CORRECTLY. <br>
 
 If you need to run server like in our site, you need to use <br>
 this command. It makes all things he need to be exactly like <br>
