@@ -9,4 +9,4 @@ services:
     container_name: solver
     user: ${USERMODE}
     volumes:
-      - ${FOLDER}/:/usr/src/folder/
+      -  ${PWD}/modeling_module/physical_problems/${PROBLEM}/results:/usr/src/modeling_module/physical_problems/${PROBLEM}/results

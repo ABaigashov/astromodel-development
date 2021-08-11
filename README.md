@@ -44,16 +44,16 @@ the icon of docker will be shown in topbar menu<br>
 ```bash
 
 # If you need to test some code, but you have no generated
-# problem parameters you can run "solver.sh". This utility
+# problem parameters you can run "tester.sh". This utility
 # is created to run some files with special libraries you have
 # in your problem. the testin directory must have "__init__.py" file
-# to run solver correctly. In this file you can just import files
+# to run tester correctly. In this file you can just import files
 # you need like "import file_1" and "file_1.py" is near to init file.
 
-# Run local solver:
-$ ./scripts/boot/solver.sh <problem-name> <your-directory>
+# Run local tester:
+$ ./scripts/boot/tester.sh <problem-name> <your-directory>
 # For example:
-$ ./scripts/boot/solver.sh testing_libs /path/to/leopart/tests
+$ ./scripts/boot/tester.sh testing_libs /path/to/leopart/tests
 
 
 # If you need to create parameters for your problem, just run this

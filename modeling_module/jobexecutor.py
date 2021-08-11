@@ -20,9 +20,7 @@ class JobExecutor(Thread):
 		self.job = job
 		self.path_to_result = os.path.join(output, 'error.txt')
 		try:
-			with open(configuration, 'rb') as f:
-				parameters = json.load(f)
-			config = Configurator(parameters)
+			config = Configurator(configuration)
 			self.model = self.Model()
 			self.model.init(config, os.path.join(output, uuid4().hex[:16]), job)
 		except:

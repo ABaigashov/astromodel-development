@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  tester:
+    build:
+      context: ${PWD}
+      dockerfile: ${PWD}/docker/Dockerfile
+      target: tester
+    container_name: tester
+    user: ${USERMODE}
+    volumes:
+      - ${FOLDER}/:/usr/src/folder/
