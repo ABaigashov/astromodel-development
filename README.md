@@ -5,15 +5,14 @@
 
 ------------------------------------------
 
-AstroModel project - an astronomical development environment created for automatic storage, deployment, processing and modification of different physical,
-astronomical and astrophysical problems containerized by the `Docker`. The project is focused on maximum simplification and
-automatization of user interaction with program code, covering a wide range of tasks - numerical modeling,
-statistical analysis, optical instrument control, etc.
-Any AstroModel user can easily use,
-adapt and reformulate any of the existing tasks or suggest
-his own task without the long process of setting up and configuring the software
-provision. This allows AstroModel to act as a versatile
-an environment for exchanging proprietary software products in the field of astrophysical computing.
+AstroModel project is astronomical development environment created for automatic storage,
+deployment, processing and modification of different physical, astronomical and astrophysical
+problems containerized by the `Docker`. The main goal of this project is simplification and
+automatization of user interaction with program code. It covers a wide range of calculus such as
+numerical modeling, statistical analysis, optical instrument control, etc. AstroModel user can easily
+use, adapt and reformulate any of the existing problems. Also user can suggest his own problem solver
+without the long process of setting up and configuring the software provision. This allows our project
+to be universal environment for exchanging software products in astrophysical computing scope.
 
 
 ## Installation of Docker and docker-compose on Ubuntu ##
