@@ -126,22 +126,21 @@ $ sudo docker container kill $(docker ps -q)
 $ sudo docker system prune -af
 ```
 
-
------------------------------------------
-
-Compatibility of our project
+## Compatibility of our project ##
 
 | **Operating system** | **Compatibility** |
 |:--------------------:|:-----------------:|
-|    Ubuntu / Debian   |          ✔       |
-|      Arch linux      |          ✔       |
-|         Mint         |          ✔       |
-|        Fedora        |          ✔       |
-|         MacOS        |          ✔       |
-|      Windows NT      |          ❌      |
-|       ChromeOS       |          ❔       |
+|    Ubuntu / Debian   |          ✔        |
+|      Arch linux      |          ✔        |
+|         Mint         |          ✔        |
+|        Fedora        |          ✔        |
+|         MacOS        |          ✔        |
+|      Windows NT      |         ❌        |
+|       ChromeOS       |         ❔        |
 
 -----------------------------------------
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 > Toxicity doesn't lose games, <br>
 > &nbsp;&nbsp;&nbsp;bad players do. <br>
