@@ -35,12 +35,9 @@ $ sudo chmod +x /usr/local/bin/docker-compose
 $ docker --version && docker-compose --version
 ```
 # Installation of Docker and docker-compose on Mac #
-To install Docker and docker-compose on MacOS, you need<br>
-to go [this page](https://docs.docker.com/docker-for-mac/install/)
-, choice intel/apple processor version, download and install<br>
-docker as normal Mac application. After that, you need to run<br>
-this app, close all docker windows and keep this in tray<br>
-the icon of docker will be shown in topbar menu<br>
+To install Docker and docker-compose on MacOS, you need to go [this page](https://docs.docker.com/docker-for-mac/install/),<br>
+choice intel/apple processor version, download and install docker as normal Mac application. After that, you need to run<br>
+this app, close all docker windows and keep this in tray the icon of docker will be shown in topbar menu<br>
 
 # Our code utilities #
 
