@@ -40,9 +40,9 @@ docker as normal Mac application. After that, you need to run<br>
 this app, close all docker windows and keep this in tray<br>
 the icon of docker will be shown in topbar menu<br>
 
-# Some code tips #
+# **Some code tips** #
 
-### local files using problem enviroment ###
+### *local files using problem enviroment* ###
 If you need to test some code, but you have no generated <br>
 problem parameters you can run `tester.sh`. This utility <br>
 is created to run some files with special libraries you have <br>
