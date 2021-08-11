@@ -83,20 +83,20 @@ If you need to have a console of your porblem, like typing <br>
 in command line `python` or `python3` you need to use this <br>
 utility. Command opens interractive console with loaded <br>
 environment and libraries you wrote in your configuration files. <br>
+To close interractive console mode, write in terminal `exit()` <br>
 ```bash
 # Run interractive console mode:
 $ sudo ./scripts/boot/console.sh <problem-name>
 # For example:
 $ sudo ./scripts/boot/console.sh testing_libs
 ```
-To close interractive console mode, write in terminal `exit()` <br>
 
 ### *run your own local server* ###
 If you need to run server like in our site, you need to use <br>
 this command. It makes all things he need to be exactly like <br>
 on our server. <br>
 
-#### *!!!! ATTENTION !!!!* ####
+> *!!!! ATTENTION !!!!*
 > If you are running server on your computer <br>
 > you need to close it CORRECTLY. When you need <br>
 > to stop server, press 'CTRL' + 'C' ONLY ONSE. <br>
