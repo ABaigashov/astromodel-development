@@ -39,6 +39,22 @@ To install Docker and docker-compose on MacOS, you need to go [this page](https:
 choice intel / apple<br> processor version, download and install docker as typical Mac application. After that, you need
 to run<br> this app, close all docker windows and keep this in tray the icon of `Docker` will be shown in topbar menu<br>
 
+
+
+# Compatibility of our project #
+
+| **Operating system** | **Compatibility** |
+|:--------------------:|:-----------------:|
+|    Ubuntu / Debian   |          ✔        |
+|      Arch linux      |          ✔        |
+|         Mint         |          ✔        |
+|        Fedora        |          ✔        |
+|         MacOS        |          ✔        |
+|      Windows NT      |         ❌        |
+|       ChromeOS       |         ❔        |
+
+
+
 # Our code utilities #
 
 ### *test local files using problem enviroment* ###
@@ -123,21 +139,7 @@ $ sudo docker container kill $(docker ps -q)
 $ sudo docker system prune -af
 ```
 
-# Compatibility of our project #
-
-| **Operating system** | **Compatibility** |
-|:--------------------:|:-----------------:|
-|    Ubuntu / Debian   |          ✔        |
-|      Arch linux      |          ✔        |
-|         Mint         |          ✔        |
-|        Fedora        |          ✔        |
-|         MacOS        |          ✔        |
-|      Windows NT      |         ❌        |
-|       ChromeOS       |         ❔        |
-
 -----------------------------------------
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 > Toxicity doesn't lose games,<br>
 > &nbsp;&nbsp;&nbsp;bad players do.<br>
