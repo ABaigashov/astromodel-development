@@ -19,28 +19,6 @@ without the long process of setting up and configuring the software provision. T
 to be universal environment for exchanging software products in astrophysical computing scope.
 
 
-# Installation of Docker and docker-compose on Ubuntu #
-
-```bash
-$ sudo apt update
-$ sudo apt upgrade -y
-$ sudo apt install curl -y
-$ curl -fsSL https://get.docker.com -o get-docker.sh
-$ sudo sh get-docker.sh
-$ rm get-docker.sh
-$ version="1.29.2/docker-compose-$(uname -s)-$(uname -m)"
-$ url="https://github.com/docker/compose/releases/download/$version"
-$ sudo curl -L $url -o /usr/local/bin/docker-compose
-$ sudo chmod +x /usr/local/bin/docker-compose
-$ docker --version && docker-compose --version
-```
-# Installation of Docker and docker-compose on Mac #
-To install Docker and docker-compose on MacOS, you need to go [this page](https://docs.docker.com/docker-for-mac/install/),
-choice intel / apple<br> processor version, download and install docker as typical Mac application. After that, you need
-to run<br> this app, close all docker windows and keep this in tray the icon of `Docker` will be shown in topbar menu<br>
-
-
-
 # Compatibility of our project #
 
 | **Operating system** | **Compatibility** |
@@ -138,6 +116,28 @@ $ sudo docker container kill $(docker ps -q)
 # Clean all containers:
 $ sudo docker system prune -af
 ```
+
+
+# Installation of Docker and docker-compose on Ubuntu #
+
+```bash
+$ sudo apt update
+$ sudo apt upgrade -y
+$ sudo apt install curl -y
+$ curl -fsSL https://get.docker.com -o get-docker.sh
+$ sudo sh get-docker.sh
+$ rm get-docker.sh
+$ version="1.29.2/docker-compose-$(uname -s)-$(uname -m)"
+$ url="https://github.com/docker/compose/releases/download/$version"
+$ sudo curl -L $url -o /usr/local/bin/docker-compose
+$ sudo chmod +x /usr/local/bin/docker-compose
+$ docker --version && docker-compose --version
+```
+# Installation of Docker and docker-compose on Mac #
+To install Docker and docker-compose on MacOS, you need to go [this page](https://docs.docker.com/docker-for-mac/install/),
+choice intel / apple<br> processor version, download and install docker as typical Mac application. After that, you need
+to run<br> this app, close all docker windows and keep this in tray the icon of `Docker` will be shown in topbar menu<br>
+
 
 -----------------------------------------
 
