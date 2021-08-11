@@ -6,6 +6,8 @@
 </p>
 
 ------------------------------------------
+------------------------------------------
+<br>
 
 **AstroModel** project is astronomical development environment created for automatic storage,
 deployment, processing and modification of different physical, astronomical and astrophysical
@@ -18,6 +20,10 @@ use, adapt and reformulate any of the existing problems. Also user can suggest h
 without the long process of setting up and configuring the software provision. This allows our project
 to be universal environment for exchanging software products in astrophysical computing scope.
 
+
+<br>
+------------------------------------------
+------------------------------------------
 
 <br><br>
 
