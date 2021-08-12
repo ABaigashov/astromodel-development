@@ -4,7 +4,6 @@
     <img alt="Presidential grand" src="./configurator/static/images/fond.svg">
   </a>
 </p>
-<br>
 
 ------------------------------------------
 <br>
