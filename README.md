@@ -114,7 +114,7 @@ $ sudo ./scripts/boot/console.sh testing_libs
 If you need to run server like in our site, you need to use<br>
 this command. It makes all things he need to be exactly like<br>
 on our server.<br><br>
-[[modeling terminal]]: http://localhost:8888/ <br>
+\[modeling terminal\]: http://localhost:8888/ <br>
 ```bash
 # Run server:
 $ sudo ./scripts/boot/server.sh [args]
