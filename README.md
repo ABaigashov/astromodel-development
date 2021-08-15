@@ -114,8 +114,8 @@ If you need to run server like in our site, you need to use<br>
 this command. It makes all things he need to be exactly like<br>
 on our server.<br><br>
 These web pages can help you:<br>
-\[modeling terminal\]: http://loccalhost:8888/ <br>
-\[problem configurator\]: http://loccalhost:8888/form.html?<problem-name\> <br>
+\[modeling terminal\]: http://localhost:8888/ <br>
+\[problem configurator\]: http://localhost:8888/form.html?<problem-name\> <br>
 ```bash
 # Run server:
 $ sudo ./scripts/boot/server.sh [args]
