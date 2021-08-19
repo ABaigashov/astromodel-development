@@ -17,31 +17,31 @@ CASES:
     default: "2"
     type: int
     class: dropdown
+    dementional: false
     cases:
       Двумерное пространство: "2"
       Трехмерное пространство: "3"
-    dementional: false
 
   mesh:
     title: Способ задания сетки
     default: generator
     type: str
     class: dropdown
+    dementional: false
     cases:
       Генератор сетки: generator
       Указание областей: domains
-    dementional: false
 
   output_files:
     title: Результат
     default: matplotlib
     type: str
     class: dropdown
+    dementional: false
     cases:
       Таблица (xmls): xmls
       Графический (png): matplotlib
       Векторный (vtk and pvd): vtk
-    dementional: false
 
   x:
     title: x
@@ -49,6 +49,7 @@ CASES:
     type: str
     class: text
     units: distance
+    dementional: false
 
   y:
     title: y
@@ -56,6 +57,7 @@ CASES:
     type: str
     class: text
     units: distance
+    dementional: false
 
   z:
     title: z
@@ -63,6 +65,7 @@ CASES:
     type: str
     class: text
     units: distance
+    dementional: false
 
   point_x:
     title: Точка
@@ -70,6 +73,7 @@ CASES:
     type: str
     class: text
     units: distance
+    dementional: false
 
   point_y:
     title: Точка
@@ -77,6 +81,7 @@ CASES:
     type: str
     class: text
     units: distance
+    dementional: false
 
   radius:
     title: Радиус
@@ -84,18 +89,21 @@ CASES:
     type: str
     class: text
     units: distance
+    dementional: false
 
   vertex:
     title: Количество вершин
     default: "10"
     type: int
     class: text
+    dementional: false
 
   segments:
     title: Сегменты
     default: "32"
     type: int
     class: text
+    dementional: false
 
   a:
     title: Большая полуось
@@ -103,6 +111,7 @@ CASES:
     type: str
     class: text
     units: distance
+    dementional: false
 
   b:
     title: Малая полуось
@@ -110,6 +119,7 @@ CASES:
     type: str
     class: text
     units: distance
+    dementional: false
 
   h:
     title: Высота
@@ -117,6 +127,7 @@ CASES:
     type: str
     class: text
     units: distance
+    dementional: false
 
   d:
     title: Диаметр основания
@@ -124,6 +135,7 @@ CASES:
     type: str
     class: text
     units: distance
+    dementional: false
 
   param_for_csg:
     title: Хер его знает, что за параметр?
@@ -131,18 +143,19 @@ CASES:
     type: str
     class: text
     units: distance
+    dementional: false
 
   options:
     title: Опции генератора сеток
     default: None
     type: str
     class: dropdown
+    dementional: false
     cases:
       left: left
       right: right
       right/left: right/left
       crossed: crossed
-    dementional: false
 
   start:
     title: Начало
@@ -150,6 +163,7 @@ CASES:
     type: str
     class: text
     units: distance
+    dementional: false
 
   stop:
     title: Конец
@@ -157,6 +171,7 @@ CASES:
     type: str
     class: text
     units: distance
+    dementional: false
 
 GENERAL:
 
