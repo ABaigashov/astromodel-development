@@ -6,7 +6,7 @@
 
 # Import LOCAL python files with 'GlobalInteraction' object
 # and specifiend models representation of problem solution.
-from some_help_file import some_rocket_model
+from some_help_file import SomeRocketModel
 
 
 # This is the main class. It has special name and
@@ -22,7 +22,7 @@ class Model:
 	def init(self, config, output, job):
 		
 		# saving current problem model with incomming parameters
-		self.model = some_rocket_model(config, output, job)
+		self.model = SomeRocketModel(config, output, job)
 
 	# run method
 	# must ALWAYS return path to rendered file

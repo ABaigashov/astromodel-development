@@ -215,7 +215,7 @@ CASES:
   sex:
     title: Пол астронафта
     default: "?"
-    type: int
+    type: str
     class: dropdown
     cases:
       Мужской: man
