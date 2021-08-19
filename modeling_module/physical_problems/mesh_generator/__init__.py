@@ -29,4 +29,4 @@ class Model:
 	def run(self):
 
 		# render file and return path
-		return self.model.launch_rocket()
+		return self.model.create_mesh()
