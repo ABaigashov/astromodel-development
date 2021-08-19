@@ -86,7 +86,7 @@ class SomeRocketModel:
 		self.logger.log('Подготовка ракеты...')
 
 		# fake checking jet states
-		for i in range(self.jet_count):
+		for i in range(self.config.jet_count):
 			self.logger.log(f'Сопло №{i} в порядке')
 
 		# printing rocket building end message
@@ -100,7 +100,7 @@ class SomeRocketModel:
 		self.logger.log('Подготовка астронафтов...')
 
 		# loop through every astronaut
-		for astronaut in self.astronauts:
+		for astronaut in self.config.astronauts:
 
 			# getting astronaut state
 			state = astronaut_state(astronaut)
