@@ -4,7 +4,7 @@ from configurator import Configurator
 from traceback import format_exc
 from threading import Thread
 from uuid import uuid4
-import json, os, sys
+import os, sys
 
 
 class JobExecutor(Thread):
@@ -20,9 +20,7 @@ class JobExecutor(Thread):
 		self.job = job
 		self.path_to_result = os.path.join(output, 'error.txt')
 		try:
-			with open(configuration, 'rb') as f:
-				parameters = json.load(f)
-			config = Configurator(parameters)
+			config = Configurator(configuration)
 			self.model = self.Model()
 			self.model.init(config, os.path.join(output, uuid4().hex[:16]), job)
 		except:
@@ -36,7 +34,8 @@ class JobExecutor(Thread):
 			with open(os.devnull, 'w') as devnull:
 				with redirect_stdout(devnull):
 					self.path_to_result = self.model.run()
-				self.job.progress = 1
+			self.job.progress = 1
+			os.chmod(self.path_to_result, 0o666)
 		except:
 			print(format_exc())
 			with open(self.path_to_result, 'wb') as logfile:

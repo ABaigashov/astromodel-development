@@ -24,15 +24,24 @@ FROM base as console
 CMD sleep infinity
 
 
-FROM base as solver
+FROM base as tester
 
-CMD cd folder && python3 -u -B __init__.py
+CMD python3 -u -B -c "import os; os.chdir('./folder'); import __init__"
 
 
 FROM base as problem
 
 COPY ${PWD}/modeling_module/physical_problems/$PROBLEM ./modeling_module/physical_problems/$PROBLEM
 COPY ${PWD}/modeling_module/configurator.py ./modeling_module/
+
+
+FROM problem as solver
+
+ARG PARAMETERS
+ENV PARAMETERS=$PARAMETERS
+
+
+CMD python3 -u -B -c "import os; from uuid import uuid4; os.chdir('./modeling_module'); from configurator import Configurator; os.chdir('./physical_problems/$PROBLEM'); from __init__ import Model; os.chdir('/usr/src'); cfg=Configurator('/usr/src/modeling_module/physical_problems/$PROBLEM/init_files/$PARAMETERS'); model=Model(); model.init(cfg, os.path.join('/usr/src/modeling_module/physical_problems/$PROBLEM/results', uuid4().hex[:16]), type('fake_job', (), {'progress': 0})); file=model.run(); os.chmod(file, 0o666);"
 
 
 FROM problem as client

@@ -1,5 +1,3 @@
-import sys; sys.dont_write_bytecode = True
-
 from starlette.applications import Starlette
 from starlette.responses import JSONResponse
 from starlette.responses import Response

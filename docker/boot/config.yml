@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  config:
+    image: nginx
+    environment:
+      - PROBLEM=${PROBLEM}
+    ports:
+      - 8888:8888
+    volumes:
+      - ${PWD}/docker/boot/nginx.conf:/etc/nginx/templates/default.conf.template
+      - ${PWD}/configurator:/etc/nginx/html/configurator
+    container_name: config

@@ -13,13 +13,13 @@ bash ./scripts/file-linker.sh $1
 
 docker-compose \
 	-p astromodel \
-	-f ./docker/console.yml \
+	-f ./docker/boot/console.yml \
 	build \
 	--build-arg PROBLEM="$1" 
 
 docker-compose \
 	-p astromodel \
-	-f ./docker/console.yml \
+	-f ./docker/boot/console.yml \
 	up -d --no-log-prefix
 
 docker exec -it console python3

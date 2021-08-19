@@ -12,6 +12,8 @@ services:
       - /var/astromodel:/var/astromodel
     environment:
       - MODULE_NAME=main
+      - PYTHONDONTWRITEBYTECODE=x
+      - PYTHONUNBUFFERED=x
     healthcheck:
       test: ['CMD-SHELL', 'wget -O /dev/null http://localhost:80/api/ || exit 1']
       interval: 10s
