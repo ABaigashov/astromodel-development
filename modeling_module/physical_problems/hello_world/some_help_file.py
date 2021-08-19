@@ -49,7 +49,7 @@ class MyLogger:
 		self.output += sep.join(map(str, strings)) + end
 
 	# save method (save and return)
-	def log(self, path):
+	def save(self, path):
 
 		# opening log file
 		with open(path, 'w') as logfile:

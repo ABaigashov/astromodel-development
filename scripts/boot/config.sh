@@ -18,7 +18,7 @@ docker-compose \
 	-f ./docker/boot/config.yml \
 	build
 
-open http://localhost:8888/ || x-www-browser http://localhost:8888/
+open http://localhost:8008/ || x-www-browser http://localhost:8008/
 
 docker-compose \
 	-p astromodel \
