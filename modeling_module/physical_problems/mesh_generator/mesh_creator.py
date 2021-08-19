@@ -20,7 +20,7 @@ class MeshCreator:
 		print(self.config)
 		print(self.config.domains)
 
-
+'''
 domain = Rectangle(Point(0, 0), Point(1, 1))
 domain.set_subdomain(1, Circle(Point(0.5, 0.5), 0.4))
 mesh = generate_mesh(domain, 10)
@@ -118,3 +118,4 @@ mesh = BoxMesh(Point(0.0, 0.0, 0.0), Point(10.0, 4.0, 2.0), 10, 10, 10)
 print("Plotting a BoxMesh")
 vtkfile = File('mesh_9.pvd')
 vtkfile << mesh
+'''
