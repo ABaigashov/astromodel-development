@@ -48,7 +48,7 @@ class MyLogger:
 		# saving all stuff to the buffer
 		self.output += sep.join(map(str, strings)) + end
 
-	# save method (save and return )
+	# save method (save and return)
 	def log(self, path):
 
 		# opening log file
@@ -61,7 +61,7 @@ class MyLogger:
 		return path
 
 # crating some rocket model representation
-class some_rocket_model:
+class SomeRocketModel:
 
 	# some inicialization
 	def __init__(self, config, output, job):
