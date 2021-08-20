@@ -212,6 +212,7 @@ function generateNumereticInput(name, units, slots) {
 		_row.appendChild(row)
 		wrap.appendChild(_row)
 	} else {
+
 		label.className = 'form-check-label'
 		label.setAttribute('for', 'check-basic-collision')
 
@@ -256,6 +257,7 @@ function generateClassParameters(key, config) {
 
 	for (let name of config.OBJECTS[key].cases) {
 		let slots = config.CASES[name]
+		console.log(slots.class)
 		if (slots.class === 'dropdown') {
 			let dropdown = generateDropdown(name, slots)
 			wrap.appendChild(dropdown)
