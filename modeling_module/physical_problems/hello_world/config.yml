@@ -190,29 +190,29 @@ CASES:
     class: text
     dementional: false
 
-  name:
+  ast_name:
     title: Имя астронафта
     default: Пётр
     type: str
     class: text
     dementional: false
 
-  age:
+  ast_age:
     title: Возраст астронафта
     default: "30"
     type: int
     class: number
     dementional: false
 
-  weight:
+  ast_weight:
     title: Вес астронафта
     default: "70"
     type: int
-    class: text
+    class: number
     units: mass
     dementional: false
 
-  sex:
+  ast_sex:
     title: Пол астронафта
     default: "?"
     type: str
@@ -258,7 +258,7 @@ OBJECTS:
   astronauts:
     title: Астронафт
     cases:
-      - name
-      - weight
-      - age
-      - sex
+      - ast_name
+      - ast_weight
+      - ast_age
+      - ast_sex

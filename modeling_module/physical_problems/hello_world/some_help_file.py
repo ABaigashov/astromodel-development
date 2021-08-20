@@ -11,19 +11,19 @@ from time import sleep
 def astronaut_state(astronaut):
 
 	# checking astronaut age 
-	if astronaut.age < 21:
+	if astronaut.ast_age < 21:
 		return 'слишком молод'
-	if astronaut.age > 80:
+	if astronaut.ast_age > 80:
 		return 'слишком стар'
 
 	# checking astronaut weight 
-	if astronaut.weight < 60:
+	if astronaut.ast_weight < 60:
 		return 'недобор веса'
-	if astronaut.weight > 120:
+	if astronaut.ast_weight > 120:
 		return 'перебор веса'
 
 	# checking astronaut sex 
-	if astronaut.sex != 'man':
+	if astronaut.ast_sex != 'man':
 		return 'В космос только мужики!'
 	
 	# all is correct 
@@ -107,9 +107,9 @@ class SomeRocketModel:
 
 			# if all correct print this, else print error
 			if state == 'допущен':
-				self.logger.log(f'Астронафт \"{astronaut.name}\" готов')
+				self.logger.log(f'Астронафт \"{astronaut.ast_name}\" готов')
 			else:
-				self.logger.log(f'Астронафт \"{astronaut.name}\" не допущен. Причина: \"{state}\"')
+				self.logger.log(f'Астронафт \"{astronaut.ast_name}\" не допущен. Причина: \"{state}\"')
 
 		# printing astronauts preparing end message
 		self.logger.log('Астронафты готовы!\n')
