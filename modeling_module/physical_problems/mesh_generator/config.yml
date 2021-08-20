@@ -54,7 +54,7 @@ CASES:
     title: Координата х левого нижнего края
     default: "0"
     type: str
-    class: text
+    class: number
     units: distance
     dementional: false
 
@@ -62,7 +62,7 @@ CASES:
     title: Координата х правого верхнего края
     default: "1"
     type: str
-    class: text
+    class: number
     units: distance
     dementional: false
 
@@ -70,7 +70,7 @@ CASES:
     title: Координата у левого нижнего края
     default: "0"
     type: str
-    class: text
+    class: number
     units: distance
     dementional: false
 
@@ -78,7 +78,7 @@ CASES:
     title: Координата у правого верхнего края
     default: "1"
     type: str
-    class: text
+    class: number
     units: distance
     dementional: false
 
@@ -86,7 +86,7 @@ CASES:
     title: Координата х центра
     default: "0"
     type: str
-    class: text
+    class: number
     units: distance
     dementional: false
 
@@ -94,7 +94,7 @@ CASES:
     title: Координата у центра
     default: "0"
     type: str
-    class: text
+    class: number
     units: distance
     dementional: false
 
@@ -102,7 +102,7 @@ CASES:
     title: Радиус окружности
     default: "1"
     type: str
-    class: text
+    class: number
     units: distance
     dementional: false
 
@@ -110,7 +110,7 @@ CASES:
     title: Координата х центра
     default: "0"
     type: str
-    class: text
+    class: number
     units: distance
     dementional: false
 
@@ -118,7 +118,7 @@ CASES:
     title: Координата у центра
     default: "0"
     type: str
-    class: text
+    class: number
     units: distance
     dementional: false
 
@@ -126,7 +126,7 @@ CASES:
     title: Большая полуось эллипса
     default: "1"
     type: str
-    class: text
+    class: number
     units: distance
     dementional: false
 
@@ -134,7 +134,7 @@ CASES:
     title: Малая полуось эллипса
     default: "1"
     type: str
-    class: text
+    class: number
     units: distance
     dementional: false
 
