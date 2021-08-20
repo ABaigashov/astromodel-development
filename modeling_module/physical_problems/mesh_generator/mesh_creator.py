@@ -1,17 +1,20 @@
 import numpy as np
 from dolfin import *
-# from mshr import *
+from mshr import *
 
 def output_file(mesh, key, output):
 	if key == "xmls":
 		file = File(f"{output}/mesh.pvd")
 		file << mesh
+		return f"{output}/mesh.pvd"
 	elif key == "matplotlib":
 		file = File(f"{output}/mesh.pvd")
 		file << mesh
+		return f"{output}/mesh.pvd"
 	else:
 		file = File(f"{output}/mesh.pvd")
 		file << mesh
+		return f"{output}/mesh.pvd"
 
 
 class MeshCreator:
@@ -23,33 +26,44 @@ class MeshCreator:
 
 	def domains_parser(self):
 
-		domains = 0
+		domains_nul = Rectangle(Point(0, 0), Point(1, 1))
+		domains_new = Rectangle(Point(0, 0), Point(1, 1))
+		domains = domains_nul - domains_new
 
-		if "rectangles" in self.config:
+		if self.config.rectangles:
 			for rectangle in self.config.rectangles:
 				rect = Rectangle(Point(rectangle.rec_x0, rectangle.rec_y0),
 								 Point(rectangle.rec_x1, rectangle.rec_y1))
-				domains += rectangle.symbol * rect
+				if rectangle.invert:
+					domains -= rect
+				else:
+					domains += rect
 
-		if "circles" in self.config:
+		if self.config.circles:
 			for circle in self.config.circles:
-				circ = Rectangle(Point(circle.circ_x_centre, circle.circ_y_centre),
+				circ = Circle(Point(circle.circ_x_centre, circle.circ_y_centre),
 								 circle.circ_radius)
-				domains += circle.symbol * circ
+				if circle.invert:
+					domains -= circ
+				else:
+					domains += circ
 
-		if "ellipses" in self.config:
+		if self.config.ellipses:
 			for ellipse in self.config.ellipses:
-				ell = Rectangle(Point(ellipse.circ_x_centre, ellipse.circ_y_centre),
-							    ellipse.a,
-								ellipse.b)
-				domains += circle.symbol * ell
+				ell = Ellipse(Point(ellipse.ell_x_centre, ellipse.ell_y_centre),
+							    ellipse.ell_a,
+								ellipse.ell_b)
+				if ellipse.invert:
+					domains -= ell
+				else:
+					domains += ell
 
 		return domains
 
 	def create_mesh(self):
 		if self.config.mesh == "domains":
 			mesh = generate_mesh(self.domains_parser(), 10)
-			output_file(mesh, self.config.output_file, self.output)
+			return output_file(mesh, self.config.output_file, self.output)
 		else:
 			print('Poka pusto!!!')
 

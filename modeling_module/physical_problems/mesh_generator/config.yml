@@ -43,17 +43,20 @@ CASES:
       Графический (png): matplotlib
       Векторный (vtk and pvd): vtk
 
-  symbol:
+  invert:
     title: Знак добавления области (+ или -)
-    default: +
-    type: str
-    class: text
+    default: "False"
+    type: bool
+    class: dropdown
+    cases:
+      +: "False"
+      -: "True"
     dementional: false
 
   rec_x0:
     title: Координата х левого нижнего края
     default: "0"
-    type: str
+    type: float
     class: number
     units: distance
     dementional: false
@@ -61,7 +64,7 @@ CASES:
   rec_x1:
     title: Координата х правого верхнего края
     default: "1"
-    type: str
+    type: float
     class: number
     units: distance
     dementional: false
@@ -69,7 +72,7 @@ CASES:
   rec_y0:
     title: Координата у левого нижнего края
     default: "0"
-    type: str
+    type: float
     class: number
     units: distance
     dementional: false
@@ -77,7 +80,7 @@ CASES:
   rec_y1:
     title: Координата у правого верхнего края
     default: "1"
-    type: str
+    type: float
     class: number
     units: distance
     dementional: false
@@ -85,7 +88,7 @@ CASES:
   circ_x_centre:
     title: Координата х центра
     default: "0"
-    type: str
+    type: float
     class: number
     units: distance
     dementional: false
@@ -93,7 +96,7 @@ CASES:
   circ_y_centre:
     title: Координата у центра
     default: "0"
-    type: str
+    type: float
     class: number
     units: distance
     dementional: false
@@ -101,7 +104,7 @@ CASES:
   circ_radius:
     title: Радиус окружности
     default: "1"
-    type: str
+    type: float
     class: number
     units: distance
     dementional: false
@@ -109,7 +112,7 @@ CASES:
   ell_x_centre:
     title: Координата х центра
     default: "0"
-    type: str
+    type: float
     class: number
     units: distance
     dementional: false
@@ -117,7 +120,7 @@ CASES:
   ell_y_centre:
     title: Координата у центра
     default: "0"
-    type: str
+    type: float
     class: number
     units: distance
     dementional: false
@@ -125,7 +128,7 @@ CASES:
   ell_a:
     title: Большая полуось эллипса
     default: "1"
-    type: str
+    type: float
     class: number
     units: distance
     dementional: false
@@ -133,7 +136,7 @@ CASES:
   ell_b:
     title: Малая полуось эллипса
     default: "1"
-    type: str
+    type: float
     class: number
     units: distance
     dementional: false
@@ -151,7 +154,7 @@ OBJECTS:
   rectangles:
     title: Прямоугольник
     cases:
-      - symbol
+      - invert
       - rec_x0
       - rec_x1
       - rec_y0
@@ -160,7 +163,7 @@ OBJECTS:
   circles:
     title: Круг
     cases:
-      - symbol
+      - invert
       - circ_x_centre
       - circ_y_centre
       - circ_radius
@@ -168,7 +171,7 @@ OBJECTS:
   ellipses:
     title: Эллипс
     cases:
-      - symbol
+      - invert
       - ell_x_centre
       - ell_y_centre
       - ell_a
