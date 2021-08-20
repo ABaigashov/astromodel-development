@@ -1,20 +1,58 @@
-import os, json
 import numpy as np
 from dolfin import *
-from mshr import *
+# from mshr import *
+
+def output_file(mesh, key, output):
+	if key == "xmls":
+		file = File(f"{output}/mesh.pvd")
+		file << mesh
+	elif key == "matplotlib":
+		file = File(f"{output}/mesh.pvd")
+		file << mesh
+	else:
+		file = File(f"{output}/mesh.pvd")
+		file << mesh
+
 
 class MeshCreator:
 
-	# some inicialization
 	def __init__(self, config, output, job):
-
-		# keep incomming parameters inside 'self'
 		self.config = config
 		self.output = output
 		self.job = job
 
+	def domains_parser(self):
+
+		domains = 0
+
+		if "rectangles" in self.config:
+			for rectangle in self.config.rectangles:
+				rect = Rectangle(Point(rectangle.rec_x0, rectangle.rec_y0),
+								 Point(rectangle.rec_x1, rectangle.rec_y1))
+				domains += rectangle.symbol * rect
+
+		if "circles" in self.config:
+			for circle in self.config.circles:
+				circ = Rectangle(Point(circle.circ_x_centre, circle.circ_y_centre),
+								 circle.circ_radius)
+				domains += circle.symbol * circ
+
+		if "ellipses" in self.config:
+			for ellipse in self.config.ellipses:
+				ell = Rectangle(Point(ellipse.circ_x_centre, ellipse.circ_y_centre),
+							    ellipse.a,
+								ellipse.b)
+				domains += circle.symbol * ell
+
+		return domains
+
 	def create_mesh(self):
-		print(self.config)
+		if self.config.mesh == "domains":
+			mesh = generate_mesh(self.domains_parser(), 10)
+			output_file(mesh, self.config.output_file, self.output)
+		else:
+			print('Poka pusto!!!')
+
 
 '''
 domain = Rectangle(Point(0, 0), Point(1, 1))

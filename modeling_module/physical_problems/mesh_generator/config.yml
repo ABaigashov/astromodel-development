@@ -32,7 +32,7 @@ CASES:
       Генератор сетки: generator
       Указание областей: domains
 
-  output_files:
+  output_file:
     title: Результат
     default: matplotlib
     type: str
@@ -43,211 +43,133 @@ CASES:
       Графический (png): matplotlib
       Векторный (vtk and pvd): vtk
 
-  x:
-    title: x
+  symbol:
+    title: Знак добавления области (+ или -)
+    default: +
+    type: str
+    class: text
+    dementional: false
+
+  rec_x0:
+    title: Координата х левого нижнего края
     default: "0"
     type: str
     class: text
     units: distance
     dementional: false
 
-  y:
-    title: y
-    default: "0"
-    type: str
-    class: text
-    units: distance
-    dementional: false
-
-  z:
-    title: z
-    default: "0"
-    type: str
-    class: text
-    units: distance
-    dementional: false
-
-  point_x:
-    title: Точка
-    default: "0"
-    type: str
-    class: text
-    units: distance
-    dementional: false
-
-  point_y:
-    title: Точка
-    default: "0"
-    type: str
-    class: text
-    units: distance
-    dementional: false
-
-  radius:
-    title: Радиус
-    default: "0"
-    type: str
-    class: text
-    units: distance
-    dementional: false
-
-  vertex:
-    title: Количество вершин
-    default: "10"
-    type: int
-    class: text
-    dementional: false
-
-  segments:
-    title: Сегменты
-    default: "32"
-    type: int
-    class: text
-    dementional: false
-
-  a:
-    title: Большая полуось
+  rec_x1:
+    title: Координата х правого верхнего края
     default: "1"
     type: str
     class: text
     units: distance
     dementional: false
 
-  b:
-    title: Малая полуось
-    default: "1"
-    type: str
-    class: text
-    units: distance
-    dementional: false
-
-  h:
-    title: Высота
-    default: "1"
-    type: str
-    class: text
-    units: distance
-    dementional: false
-
-  d:
-    title: Диаметр основания
-    default: "1"
-    type: str
-    class: text
-    units: distance
-    dementional: false
-
-  param_for_csg:
-    title: Хер его знает, что за параметр?
-    default: "1"
-    type: str
-    class: text
-    units: distance
-    dementional: false
-
-  options:
-    title: Опции генератора сеток
-    default: None
-    type: str
-    class: dropdown
-    dementional: false
-    cases:
-      left: left
-      right: right
-      right/left: right/left
-      crossed: crossed
-
-  start:
-    title: Начало
+  rec_y0:
+    title: Координата у левого нижнего края
     default: "0"
     type: str
     class: text
     units: distance
     dementional: false
 
-  stop:
-    title: Конец
-    default: "10"
+  rec_y1:
+    title: Координата у правого верхнего края
+    default: "1"
     type: str
     class: text
     units: distance
     dementional: false
+
+  circ_x_centre:
+    title: Координата х центра
+    default: "0"
+    type: str
+    class: text
+    units: distance
+    dementional: false
+
+  circ_y_centre:
+    title: Координата у центра
+    default: "0"
+    type: str
+    class: text
+    units: distance
+    dementional: false
+
+  circ_radius:
+    title: Радиус окружности
+    default: "1"
+    type: str
+    class: text
+    units: distance
+    dementional: false
+
+  ell_x_centre:
+    title: Координата х центра
+    default: "0"
+    type: str
+    class: text
+    units: distance
+    dementional: false
+
+  ell_y_centre:
+    title: Координата у центра
+    default: "0"
+    type: str
+    class: text
+    units: distance
+    dementional: false
+
+  ell_a:
+    title: Большая полуось эллипса
+    default: "1"
+    type: str
+    class: text
+    units: distance
+    dementional: false
+
+  ell_b:
+    title: Малая полуось эллипса
+    default: "1"
+    type: str
+    class: text
+    units: distance
+    dementional: false
+
+
 
 GENERAL:
 
   - dimensions
-  - output_files
+  - output_file
   - mesh
 
 OBJECTS:
 
-  Rectangle:
+  rectangles:
     title: Прямоугольник
     cases:
-      - point_x
-      - point_y
+      - symbol
+      - rec_x0
+      - rec_x1
+      - rec_y0
+      - rec_y1
 
-  Circle:
+  circles:
     title: Круг
     cases:
-      - point_x
-      - point_y
-      - radius
+      - symbol
+      - circ_x_centre
+      - circ_y_centre
+      - circ_radius
 
-  Ellipse:
+  ellipses:
     title: Эллипс
     cases:
-      - point_x
-      - point_y
-      - a
-      - b
-      - segments
-
-  Cylinder:
-    title: Цилиндр
-    cases:
-      - point_x
-      - point_y
-      - h
-      - d
-      - vertex
-
-  Cone:
-    title: Диск
-    cases:
-      - point_x
-      - point_y
-      - h
-      - d
-      - vertex
-
-  Ellipsoid:
-    title: Эллипсоид
-    cases:
-      - point_x
-      - point_y
-      - a
-      - b
-      - h
-      - vertex
-
-  UnitIntervalMesh:
-    title: Генератор интервала
-    cases:
-      - start
-      - stop
-      - options
-
-  RectangleMesh:
-    title: Генератор прямоугольной сетки
-    cases:
-      - point_x
-      - point_y
-      - options
-
-  UnitCubeMesh:
-    title: Генератор прямоугольной сетки
-    cases:
-      - x
-      - y
-      - z
+      - symbol
+      - ell_x_centre
+      - ell_y_centre
+      - ell_a
+      - ell_b
