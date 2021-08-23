@@ -1,0 +1,36 @@
+[ZWO ASI294MC]
+Debayer Preview=On
+Pan=0
+Tilt=0
+Output Format=FITS files (*.fits)
+Binning=2
+Capture Area=4144x2822
+Colour Space=RAW16
+Temperature=24,2
+High Speed Mode=On
+Turbo USB=80(Auto)
+Flip=None
+Frame Rate Limit=Maximum
+Gain=208
+Exposure=0,001101
+Timestamp Frames=Off
+White Bal (B)=47
+White Bal (R)=42
+Brightness=0
+Auto Exp Max Gain=285
+Auto Exp Max Exp M S=30000
+Auto Exp Target Brightness=100
+Mono Bin=Off
+Banding Threshold=35
+Banding Suppression=0
+Apply Flat=None
+Subtract Dark=None
+#Black Point
+Display Black Point=0
+#MidTone Point
+Display MidTone Point=0,5
+#White Point
+Display White Point=1
+Notes=
+TimeStamp=2021-08-22T19:31:02.6217219Z
+SharpCapVersion=3.2.6482.0

@@ -1,3 +1,0 @@
-
-# Results file or files.
-# Files may be anything format (.txt, .png, .xmls, .gif and others)
