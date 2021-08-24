@@ -15,7 +15,7 @@ fi
 
 bash ./scripts/file-linker.sh $1
 
-export FOLDER=$(realpath $2)
+export FOLDER=$(python -c "import os; print(os.path.realpath('$2'))")
 
 docker-compose \
 	-p astromodel \
