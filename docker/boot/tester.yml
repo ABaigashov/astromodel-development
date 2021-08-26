@@ -7,6 +7,5 @@ services:
       dockerfile: ${PWD}/docker/Dockerfile
       target: tester
     container_name: tester
-    user: nobody
     volumes:
       - ${FOLDER}/:/usr/src/folder/
