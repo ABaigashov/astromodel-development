@@ -1,8 +1,8 @@
 
+from datetime import datetime
 from serial import Serial
 from enum import Enum
 from typing import *
-
 
 class TrackMode(Enum):
 	OFF = 0
@@ -102,6 +102,14 @@ class Telescope:
 		alt = cls._format_degrees(_alt)
 		return f'AZM( {azm} ); ALT( {alt} )'
 
+	@staticmethod
+	def format_datetime(time):
+		return datetime.fromisoformat(
+			'20{5:02d}-{3:02d}-{4:02d} {0}:{1:02d}:{2:02d}.000{q}:00'.format(
+				*time, q=(f'+{time[6]:02d}' if time[6] < 128 else f'-{(256 - time[6]):02d}')
+			)
+		).strftime('%I:%M:%S%p %B %d, %Y %Z')
+
 	def get_ra_dec(self, precise=True):
 		coordinate = self.execute('e' if precise else 'E')
 		return self._decode_coordinate(coordinate)
@@ -158,11 +166,11 @@ class Telescope:
 	def set_location(self, location):
 		return self.execute('W' + bytes(location).decode())
 
-	def get_time(self):
+	def get_datetime(self):
 		time = list(map(ord, self.execute('h')))
 		return time
 
-	def set_location(self, time):
+	def set_datetime(self, time):
 		return self.execute('H' + bytes(time).decode())
 
 	def get_version(self):
@@ -186,3 +194,6 @@ class Telescope:
 
 	def get_mount_state(self):
 		return self.execute('p')
+
+
+print(Telescope.format_datetime((15, 26, 0, 4, 6, 5, 251, 1)))
