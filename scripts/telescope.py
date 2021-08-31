@@ -170,7 +170,7 @@ class Telescope:
 		return '{0}{1}.{2}{3}.{4}{5}'.format(*version)
 
 	def get_model(self):
-		return self.models[self.execute('m')]
+		return self.models[ord(self.execute('m'))]
 
 	def echo(self, message):
 		return self.execute('K' + message)
