@@ -4,12 +4,12 @@ from serial import Serial
 from enum import Enum
 from typing import *
 
+
 class TrackMode(Enum):
 	OFF = 0
 	ALT_AZ = 1
 	EQATORIAL = 2
 	PEC = 3
-
 
 class Telescope:
 
@@ -194,6 +194,3 @@ class Telescope:
 
 	def get_mount_state(self):
 		return self.execute('p')
-
-
-print(Telescope.format_datetime((15, 26, 0, 4, 6, 5, 251, 1)))
