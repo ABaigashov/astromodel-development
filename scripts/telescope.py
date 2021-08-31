@@ -169,6 +169,9 @@ class Telescope:
 		version = map(lambda x: int(x, base=16), self.execute('V'))
 		return '{0}{1}.{2}{3}.{4}{5}'.format(*version)
 
+	def get_model(self):
+		return self.models[self.execute('m')]
+
 	def echo(self, message):
 		return self.execute('K' + message)
 
