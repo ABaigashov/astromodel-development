@@ -4,7 +4,7 @@
 # contains all information about variables, which will be
 # used in current problem. To generate web from of this
 # problem you must to have this file in problem folder.
-# In this web form user can put his paremeters and run 
+# In this web form user can put his paremeters and run
 # solver of current problem. This file also is necessary
 # to parse incomming parameters from web form. You can
 # specify any web field to make parameters more flexable.
@@ -211,7 +211,7 @@ UNITS:
     граммы: 1e-3
     килограммы: 1e+0
     тонны: 1e+3
-    массы Солнца: 1e+30
+    массы Солнца: 1.989e+30
 
   electricity:
     мкВ / см: 1e-4
