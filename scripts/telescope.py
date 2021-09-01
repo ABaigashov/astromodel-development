@@ -2,7 +2,6 @@
 from datetime import datetime
 from serial import Serial
 from enum import Enum
-from typing import *
 
 
 class TrackMode(Enum):
@@ -45,8 +44,10 @@ class Telescope:
 		command = command.encode() + b'\r'
 		if self.serial is None:
 			with self as telescope:
-				return self._execute(telescope.serial, command)
-		return self._execute(self.serial, command).decode()[:-1]
+				result = self._execute(telescope.serial, command)
+		else:
+			result = self._execute(self.serial, command)
+		return result.decode()[:-1]
 
 	@staticmethod
 	def _execute(serial, command):
