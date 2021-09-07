@@ -10,6 +10,9 @@ UNITS:
     парсеки: 30856776e+9
     мегапарсеки: 30856776e+15
 
+  angle:
+    градусы: 1e+0
+
 CASES:
 
   dimensions:
@@ -51,6 +54,14 @@ CASES:
     cases:
       +: "False"
       -: "True"
+    dementional: false
+
+  angle_of_rotation:
+    title: Угол поворота области
+    default: "0"
+    type: float
+    class: number
+    units: angle
     dementional: false
 
   rec_x0:
@@ -141,6 +152,85 @@ CASES:
     units: distance
     dementional: false
 
+  sphere_x_centre:
+    title: Координата х центра
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  sphere_y_centre:
+    title: Координата y центра
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  sphere_z_centre:
+    title: Координата z центра
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  sphere_radius:
+    title: Радиус сферы
+    default: "1"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  parall_x0:
+    title: Координата x левого нижнего угла
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  parall_x1:
+    title: Координата x правого верхнего угла
+    default: "1"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  parall_y0:
+    title: Координата y левого нижнего угла
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  parall_y1:
+    title: Координата y правого верхнего угла
+    default: "1"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  parall_z0:
+    title: Координата z левого нижнего угла
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  parall_z1:
+    title: Координата z правого верхнего угла
+    default: "1"
+    type: float
+    class: number
+    units: distance
+    dementional: false
 
 
 GENERAL:
@@ -159,6 +249,7 @@ OBJECTS:
       - rec_x1
       - rec_y0
       - rec_y1
+      - angle_of_rotation
 
   circles:
     title: Круг
@@ -176,3 +267,28 @@ OBJECTS:
       - ell_y_centre
       - ell_a
       - ell_b
+      - angle_of_rotation
+
+  spheres:
+    title: Сфера
+    cases:
+      - invert
+      - sphere_x_centre
+      - sphere_y_centre
+      - sphere_z_centre
+      - sphere_radius
+
+  parallelepipeds:
+    title: Параллелепипед
+    cases:
+      - invert
+      - parall_x0
+      - parall_x1
+      - parall_y0
+      - parall_y1
+      - parall_z0
+      - parall_z1
+
+  cones:
+    title: Конус
+    cases:
