@@ -112,18 +112,22 @@ file << mesh
 
 # Примеры различных сеток в DOLFIN (синтаксис)
 #команда plot не работает
+
+1.
 mesh = UnitIntervalMesh(10)
 print("Plotting a UnitIntervalMesh")
 plot(mesh, title="Unit interval")
 vtkfile = File('mesh_1.pvd')
 vtkfile << mesh
 
+
+
+2.
 mesh = UnitSquareMesh(10, 10)
 print("Plotting a UnitSquareMesh")
 plot(mesh, title="Unit square")
 vtkfile = File('mesh_2.pvd')
 vtkfile << mesh
-
 
 mesh = UnitSquareMesh(10, 10, "left")
 print("Plotting a UnitSquareMesh")
@@ -131,13 +135,11 @@ plot(mesh, title="Unit square (left)")
 vtkfile = File('mesh_3.pvd')
 vtkfile << mesh
 
-
 mesh = UnitSquareMesh(10, 10, "crossed")
 print("Plotting a UnitSquareMesh")
 plot(mesh, title="Unit square (crossed)")
 vtkfile = File('mesh_4.pvd')
 vtkfile << mesh
-
 
 mesh = UnitSquareMesh(10, 10, "right/left")
 print("Plotting a UnitSquareMesh")
@@ -145,6 +147,9 @@ plot(mesh, title="Unit square (right/left)")
 vtkfile = File('mesh_5.pvd')
 vtkfile << mesh
 
+
+
+3.
 mesh = RectangleMesh(Point(0.0, 0.0), Point(10.0, 4.0), 10, 10)
 print("Plotting a RectangleMesh")
 plot(mesh, title="Rectangle")
@@ -157,11 +162,17 @@ plot(mesh, title="Rectangle (right/left)")
 vtkfile = File('mesh_7.pvd')
 vtkfile << mesh
 
+
+
+4.
 mesh = UnitCubeMesh(10, 10, 10)
 print("Plotting a UnitCubeMesh")
 vtkfile = File('mesh_8.pvd')
 vtkfile << mesh
 
+
+
+5.
 mesh = BoxMesh(Point(0.0, 0.0, 0.0), Point(10.0, 4.0, 2.0), 10, 10, 10)
 print("Plotting a BoxMesh")
 vtkfile = File('mesh_9.pvd')
