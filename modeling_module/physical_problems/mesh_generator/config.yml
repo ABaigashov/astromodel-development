@@ -279,6 +279,70 @@ CASES:
     units: distance
     dementional: false
 
+  cylinder_x0:
+    title: Координата x нижнего основания
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  cylinder_x1:
+    title: Координата x верхнего основания
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  cylinder_y0:
+    title: Координата y нижнего основания
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  cylinder_y1:
+    title: Координата y верхнего основания
+    default: "1"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  cylinder_z0:
+    title: Координата z нижнего основания
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  cylinder_z1:
+    title: Координата z верхнего основания
+    default: "1"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  cyl_radius0:
+    title: Радиус нижнего основания
+    default: "1"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  cyl_radius1:
+    title: Радиус верхнего основания
+    default: "1"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
   number_of_cells_in_an_interval:
     title: Количество ячеек
     default: "1"
