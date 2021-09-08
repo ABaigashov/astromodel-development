@@ -34,6 +34,9 @@ class MeshCreator:
 			for rectangle in self.config.rectangles:
 				rect = Rectangle(Point(rectangle.rec_x0, rectangle.rec_y0),
 								 Point(rectangle.rec_x1, rectangle.rec_y1))
+				if rectangle.angle_of_rotation!=0:
+					rect = CSGRotation(rect, Point(rectangle.rot_point_x, rectangle.rot_point_y),
+					        rectangle.angle_of_rotation*180/np.pi)
 				if rectangle.invert:
 					domains -= rect
 				else:
@@ -43,6 +46,9 @@ class MeshCreator:
 			for circle in self.config.circles:
 				circ = Circle(Point(circle.circ_x_centre, circle.circ_y_centre),
 								 circle.circ_radius)
+				if circle.angle_of_rotation!=0:
+					circ = CSGRotation(circ, Point(rectangle.rot_point_x, rectangle.rot_point_y),
+					        rectangle.angle_of_rotation*180/np.pi)
 				if circle.invert:
 					domains -= circ
 				else:
@@ -53,10 +59,51 @@ class MeshCreator:
 				ell = Ellipse(Point(ellipse.ell_x_centre, ellipse.ell_y_centre),
 							    ellipse.ell_a,
 								ellipse.ell_b)
+				if ellipse.angle_of_rotation!=0:
+					ell = CSGRotation(ell, Point(ellipse.rot_point_x, ellipse.rot_point_y),
+					        rectangle.angle_of_rotation*180/np.pi)
 				if ellipse.invert:
 					domains -= ell
 				else:
 					domains += ell
+
+		if self.config.parallelepipeds:
+			for paralls in self.config.parallelepipeds:
+				box = Box(Point(paralls.parall_x0, paralls.parall_y0, paralls.parall_z0),
+							  Point(paralls.parall_x1, paralls.parall_y1, paralls.parall_z1))
+				if paralls.invert:
+					domains -= box
+				else:
+					domains += box
+
+		if self.config.ellipsoides:
+			for ellipse in self.config.ellipsoides:
+				ell = Ellipsoid(Point(ellipse.sphere_x_centre, ellipse.sphere_y_centre, ellipse.sphere_z_centre),
+							    ellipse.sphere_a, ellipse.sphere_b, ellipse.sphere_c)
+				if ellipse.invert:
+					domains -= ell
+				else:
+					domains += ell
+
+		if self.config.cones:
+			for con in self.config.cones:
+				cone = Cone(Point(con.cone_x0, con.cone_y0, con.cone_z0),
+							Point(con.cone_x1, con.cone_y1, con.cone_z1),
+							con.cone_radius)
+				if con.invert:
+					domains -= cone
+				else:
+					domains += cone
+
+		if self.config.cylinders:
+			for cyl in self.config.cylinders:
+				cylinder = Cylinder(Point(cyl.cylinder_x0, cyl.cylinder_y0, cyl.cylinder_z0),
+							Point(cyl.cylinder_x1, cyl.cylinder_y1, cyl.cylinder_z1),
+							cyl.cyl_radius0, cyl.cyl_radius1)
+				if cyl.invert:
+					domains -= cylinder
+				else:
+					domains += cylinder
 
 		return domains
 
@@ -69,12 +116,7 @@ class MeshCreator:
 
 
 '''
-domain = Rectangle(Point(0, 0), Point(1, 1))
-domain.set_subdomain(1, Circle(Point(0.5, 0.5), 0.4))
-mesh = generate_mesh(domain, 10)
 
-file = File("2_meshes/mesh_subdomain.pvd")
-file << mesh
 
 
 domain = Rectangle(Point(-1, -1), Point(1, 1))
@@ -87,12 +129,6 @@ file = File("2_meshes/mesh_complex.pvd")
 file << mesh
 
 #3D
-domain = Cylinder(Point(0,0,0), Point(0,0,10), 5, 5, 124)
-domain2 = Cylinder(Point(0,0,0), Point(0,0,10), 2, 2, 124)
-mesh = generate_mesh(domain-domain2, 10)
-file = File("2_meshes/cylinder.pvd")
-file << mesh
-
 domain = Cone(Point(0,0,10), Point(0,0,0), 5, 32)
 mesh = generate_mesh(domain, 10)
 file = File("2_meshes/cone.pvd")

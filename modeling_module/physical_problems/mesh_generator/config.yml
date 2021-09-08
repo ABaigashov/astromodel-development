@@ -46,6 +46,13 @@ CASES:
       Графический (png): matplotlib
       Векторный (vtk and pvd): vtk
 
+  divisions:
+    title: Количество интервалов разбиения вдоль одного измерения
+    default: "100"
+    type: int
+    class: number
+    dementional: false
+
   invert:
     title: Знак добавления области (+ или -)
     default: "False"
@@ -62,6 +69,30 @@ CASES:
     type: float
     class: number
     units: angle
+    dementional: false
+
+  rot_point_x:
+    title: Координата x центра поворота области
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  rot_point_y:
+    title: Координата y центра поворота области
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  rot_point_z:
+    title: Координата z центра поворота области
+    default: "0"
+    type: float
+    class: number
+    units: distance
     dementional: false
 
   rec_x0:
@@ -176,8 +207,24 @@ CASES:
     units: distance
     dementional: false
 
-  sphere_radius:
-    title: Радиус сферы
+  sphere_a:
+    title: x-полуось эллипсоида
+    default: "1"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  sphere_b:
+    title: y-полуось эллипсоида
+    default: "1"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  sphere_c:
+    title: z-полуось эллипсоида
     default: "1"
     type: float
     class: number
@@ -232,12 +279,124 @@ CASES:
     units: distance
     dementional: false
 
+  cylinder_x0:
+    title: Координата x центра нижнего основания
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  cylinder_y0:
+    title: Координата y центра нижнего основания
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional:
+
+  cylinder_z0:
+    title: Координата z центра нижнего основания
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  cylinder_x1:
+    title: Координата x центра верхнего основания
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  cylinder_y1:
+    title: Координата y центра верхнего основания
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional:
+
+  cylinder_z1:
+    title: Координата z центра верхнего основания
+    default: "1"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  cyl_radius0:
+    title: Радиус нижнего основания цилиндра
+    default: "1"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  cone_x0:
+    title: Координата x вершины конуса
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  cone_y0:
+    title: Координата y вершины конуса
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional:
+
+  cone_z0:
+    title: Координата z вершины конуса
+    default: "1"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  cone_x1:
+    title: Координата x центра основания конуса
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  cone_y1:
+    title: Координата y центра основания конуса
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional:
+
+  cone_z1:
+    title: Координата z центра основания конуса
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  cone_radius:
+    title: Радиус основания конуса
+    default: "1"
+    type: float
+    class: number
+    units: distance
+    dementional: false
 
 GENERAL:
 
   - dimensions
   - output_file
   - mesh
+  - divisions
 
 OBJECTS:
 
@@ -250,6 +409,8 @@ OBJECTS:
       - rec_y0
       - rec_y1
       - angle_of_rotation
+      - rot_point_x
+      - rot_point_y
 
   circles:
     title: Круг
@@ -258,6 +419,9 @@ OBJECTS:
       - circ_x_centre
       - circ_y_centre
       - circ_radius
+      - angle_of_rotation
+      - rot_point_x
+      - rot_point_y
 
   ellipses:
     title: Эллипс
@@ -268,15 +432,19 @@ OBJECTS:
       - ell_a
       - ell_b
       - angle_of_rotation
+      - rot_point_x
+      - rot_point_y
 
-  spheres:
-    title: Сфера
+  ellipsoides:
+    title: Эллипсоид
     cases:
       - invert
       - sphere_x_centre
       - sphere_y_centre
       - sphere_z_centre
-      - sphere_radius
+      - sphere_a
+      - sphere_b
+      - sphere_c
 
   parallelepipeds:
     title: Параллелепипед
@@ -289,6 +457,27 @@ OBJECTS:
       - parall_z0
       - parall_z1
 
+  cylinders:
+    title: Цилиндр
+    cases:
+      - invert
+      - cylinder_x0
+      - cylinder_y0
+      - cylinder_z0
+      - cyl_radius0
+      - cylinder_x1
+      - cylinder_y1
+      - cylinder_z1
+      - cyl_radius1
+
   cones:
     title: Конус
     cases:
+      - invert
+      - cone_x0
+      - cone_y0
+      - cone_z0
+      - cone_x1
+      - cone_y1
+      - cone_z1
+      - cone_radius
