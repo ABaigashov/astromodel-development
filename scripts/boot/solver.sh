@@ -16,13 +16,14 @@ fi
 bash ./scripts/file-linker.sh $1
 
 export PROBLEM=$1
+path=$(python -c "import os; print(os.path.realpath('$2'))")
 
 docker-compose \
 	-p astromodel \
 	-f ./docker/boot/solver.yml \
 	build \
 	--build-arg PROBLEM="$1" \
-	--build-arg PARAMETERS="$2"
+	--build-arg PARAMETERS="$path"
 
 docker-compose \
 	-p astromodel \
