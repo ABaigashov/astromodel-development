@@ -153,7 +153,7 @@ class Configurator:
 		return problem, dict(general=general, objects=objects)
 
 	def __getattr__(self, key):
-		if key in {'_CFG_RAW_DATA', 'OUTPUT'}:
+		if key in {'_CFG_RAW_DATA'}:
 			return object.__getattribute__(self, key)
 		if key in self._CFG_RAW_DATA['general']:
 			return self._CFG_RAW_DATA['general'][key]

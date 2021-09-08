@@ -8,11 +8,8 @@ if [ ! -d ./modeling_module/physical_problems/$1 ]; then
 	echo "Oh no... No such problem \"$1\", check the spelling"
 	exit 1
 fi
-
-path=$(python -c "import os; print(os.path.realpath('$2'))")
-
 if [ ! -f ./modeling_module/physical_problems/$1/init_files/$2 ]; then
-	echo "Oh no... No such configuration file \"$path\", check the spelling"
+	echo "Oh no... No such configuration file \"$2\", check the spelling"
 	exit 1
 fi
 
@@ -25,7 +22,7 @@ docker-compose \
 	-f ./docker/boot/solver.yml \
 	build \
 	--build-arg PROBLEM="$1" \
-	--build-arg PARAMETERS="$path"
+	--build-arg PARAMETERS="$2"
 
 docker-compose \
 	-p astromodel \

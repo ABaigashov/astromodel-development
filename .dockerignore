@@ -1,5 +1,4 @@
 .git
-modeling_module/physical_problems/*/init_files
 modeling_module/physical_problems/*/results
 modeling_module/physical_problems/*/test.py
 */__pycache__
