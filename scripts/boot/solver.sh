@@ -8,15 +8,17 @@ if [ ! -d ./modeling_module/physical_problems/$1 ]; then
 	echo "Oh no... No such problem \"$1\", check the spelling"
 	exit 1
 fi
+
+path=$(python -c "import os; print(os.path.realpath('$2'))")
+
 if [ ! -f ./modeling_module/physical_problems/$1/init_files/$2 ]; then
-	echo "Oh no... No such configuration file \"$2\", check the spelling"
+	echo "Oh no... No such configuration file \"$path\", check the spelling"
 	exit 1
 fi
 
 bash ./scripts/file-linker.sh $1
 
 export PROBLEM=$1
-path=$(python -c "import os; print(os.path.realpath('$2'))")
 
 docker-compose \
 	-p astromodel \
