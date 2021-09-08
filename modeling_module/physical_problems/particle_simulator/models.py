@@ -77,7 +77,8 @@ class JsonModel(BaseModel):
 		for i in range((self.config.steps_number // self.config.frames_gap)):
 			
 			# Update paremeters in 'astro_object'
-			self.astro_object.update_dynamic_parametrs(self.config.step, i * self.config.frames_gap * self.config.step)
+			for j in range(self.config.frames_gap):
+				self.astro_object.update_dynamic_parametrs(self.config.step, (i * self.config.frames_gap + j) * self.config.step)
 			
 			# Write calculated parameters to frame
 			data[f"frame_{i}"] = [{
@@ -123,7 +124,8 @@ class PlotModel(BaseModel):
 		self.job.progress += 1 / (self.config.steps_number // self.config.frames_gap)
 
 		# Update paremeters in 'astro_object'
-		self.astro_object.update_dynamic_parametrs(self.config.step, i * self.config.frames_gap * self.config.step)
+		for j in range(self.config.frames_gap):
+			self.astro_object.update_dynamic_parametrs(self.config.step, (i * self.config.frames_gap + j) * self.config.step)
 
 		# Count and draw some other things
 		self.counting()

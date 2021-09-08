@@ -123,6 +123,7 @@ function generateTextInput(name, units, slots, data) {
 
 			let input = document.createElement('input')
 			applyAttributes(input, {'data-config-key': name + '.value[]'}, defaultTextInputCases)
+			input.placeholder = String.fromCharCode(88 + i)
 
 			col.appendChild(input)
 			row.appendChild(col)
@@ -200,8 +201,10 @@ function generateNumereticInput(name, units, slots) {
 				'data-config-key': name + '.value[]',
 				'minimum': slots.minimum,
 				'maximum': slots.maximum,
-				'step': slots.step,
+				'step': slots.step
 			}, defaultNumereticInputCases)
+
+			input.placeholder = String.fromCharCode(88 + i)
 
 			col.appendChild(input)
 			row.appendChild(col)
