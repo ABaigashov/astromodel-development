@@ -463,19 +463,6 @@ OBJECTS:
       - cylinder_z1
       - cyl_radius1
 
-  cones:
-    title: Конус
-    cases:
-      - invert
-      - cone_x0
-      - cone_y0
-      - cone_z0
-      - cone_x1
-      - cone_y1
-      - cone_z1
-      - cone_radius
-
-
   unitintervalmesh:
     title: Интервал (0,1)
     cases:
