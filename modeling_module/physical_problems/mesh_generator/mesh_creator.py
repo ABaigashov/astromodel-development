@@ -1,6 +1,7 @@
 import numpy as np
 from dolfin import *
 from mshr import *
+import matplotlib.pyplot as plt
 
 def output_file(mesh, key, output):
 	if key == "xmls":
@@ -8,9 +9,13 @@ def output_file(mesh, key, output):
 		file << mesh
 		return f"{output}/mesh.xml"
 	elif key == "matplotlib":
-		file = File(f"{output}/mesh.pvd")
+		file = File(f"{output}/mesh.xml")
 		file << mesh
-		return f"{output}/mesh.pvd"
+		plot(mesh)
+		filename = f"{output}/mesh.png"
+		plt.savefig(filename)
+		plt.close()
+		return f"{output}/mesh.png"
 	else:
 		file = File(f"{output}/mesh.pvd")
 		file << mesh
