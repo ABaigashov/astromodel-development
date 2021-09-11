@@ -4,9 +4,9 @@ from mshr import *
 
 def output_file(mesh, key, output):
 	if key == "xmls":
-		file = File(f"{output}/mesh.pvd")
+		file = File(f"{output}/mesh.xml")
 		file << mesh
-		return f"{output}/mesh.pvd"
+		return f"{output}/mesh.xml"
 	elif key == "matplotlib":
 		file = File(f"{output}/mesh.pvd")
 		file << mesh
@@ -121,16 +121,7 @@ class MeshCreator:
 
 
 '''
-#3D
-domain = Cone(Point(0,0,10), Point(0,0,0), 5, 32)
-mesh = generate_mesh(domain, 10)
-file = File("2_meshes/cone.pvd")
-file << mesh
 
-domain=Ellipsoid(Point(0,0,0), 1, 2, 3, 15)
-mesh = generate_mesh(domain, 10)
-file = File("2_meshes/ellipsoid.pvd")
-file << mesh
 
 # domain = Circle(Point(1, 0.1), 0.4)
 # domain2 = CSGScaling(domain, 2)
