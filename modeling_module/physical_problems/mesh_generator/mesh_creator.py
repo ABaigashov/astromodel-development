@@ -26,9 +26,14 @@ class MeshCreator:
 
 	def domains_parser(self):
 
-		domains_nul = Rectangle(Point(0, 0), Point(1, 1))
-		domains_new = Rectangle(Point(0, 0), Point(1, 1))
-		domains = domains_nul - domains_new
+		if self.config.dimensions==2:
+			domains_nul = Rectangle(Point(0, 0), Point(1, 1))
+			domains_new = Rectangle(Point(0, 0), Point(1, 1))
+			domains = domains_nul - domains_new
+		else:
+			domains_nul = Box(Point(0, 0, 0), Point(1, 1, 1))
+			domains_new = Box(Point(0, 0, 0), Point(1, 1, 1))
+			domains = domains_nul - domains_new
 
 		if self.config.rectangles:
 			for rectangle in self.config.rectangles:
@@ -70,7 +75,7 @@ class MeshCreator:
 		if self.config.parallelepipeds:
 			for paralls in self.config.parallelepipeds:
 				box = Box(Point(paralls.parall_x0, paralls.parall_y0, paralls.parall_z0),
-							  Point(paralls.parall_x1, paralls.parall_y1, paralls.parall_z1))
+						  Point(paralls.parall_x1, paralls.parall_y1, paralls.parall_z1))
 				if paralls.invert:
 					domains -= box
 				else:
@@ -89,7 +94,7 @@ class MeshCreator:
 			for con in self.config.cones:
 				cone = Cone(Point(con.cone_x0, con.cone_y0, con.cone_z0),
 							Point(con.cone_x1, con.cone_y1, con.cone_z1),
-							con.cone_radius)
+							con.cone_radius, self.config.divisions)
 				if con.invert:
 					domains -= cone
 				else:
@@ -99,7 +104,7 @@ class MeshCreator:
 			for cyl in self.config.cylinders:
 				cylinder = Cylinder(Point(cyl.cylinder_x0, cyl.cylinder_y0, cyl.cylinder_z0),
 							Point(cyl.cylinder_x1, cyl.cylinder_y1, cyl.cylinder_z1),
-							cyl.cyl_radius0, cyl.cyl_radius1)
+							cyl.cyl_radius0, cyl.cyl_radius1, self.config.divisions)
 				if cyl.invert:
 					domains -= cylinder
 				else:
@@ -116,18 +121,6 @@ class MeshCreator:
 
 
 '''
-
-
-
-domain = Rectangle(Point(-1, -1), Point(1, 1))
-domain1 = Circle(Point(0.5, 0.5), 0.4)
-domain2 = Ellipse(Point(0,0), 0.5, 1, segments=32)
-domain3 = CSGRotation(domain2, 1.57)
-mesh = generate_mesh(domain-domain2-domain3, 10)
-
-file = File("2_meshes/mesh_complex.pvd")
-file << mesh
-
 #3D
 domain = Cone(Point(0,0,10), Point(0,0,0), 5, 32)
 mesh = generate_mesh(domain, 10)
