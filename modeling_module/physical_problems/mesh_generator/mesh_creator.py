@@ -13,7 +13,7 @@ def output_file(mesh, key, output):
 		filename = f"{output}/mesh.png"
 		plt.savefig(filename)
 		plt.close()
-		return f"{output}/mesh.pvd"
+		return f"{output}/mesh.png"
 	else:
 		file = File(f"{output}/mesh.pvd")
 		file << mesh
