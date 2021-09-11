@@ -47,8 +47,8 @@ class MeshCreator:
 				circ = Circle(Point(circle.circ_x_centre, circle.circ_y_centre),
 								 circle.circ_radius)
 				if circle.angle_of_rotation!=0:
-					circ = CSGRotation(circ, Point(rectangle.rot_point_x, rectangle.rot_point_y),
-					        rectangle.angle_of_rotation*180/np.pi)
+					circ = CSGRotation(circ, Point(rectangle.rot_point_x, circle.rot_point_y),
+					        circle.angle_of_rotation*180/np.pi)
 				if circle.invert:
 					domains -= circ
 				else:
@@ -61,7 +61,7 @@ class MeshCreator:
 								ellipse.ell_b)
 				if ellipse.angle_of_rotation!=0:
 					ell = CSGRotation(ell, Point(ellipse.rot_point_x, ellipse.rot_point_y),
-					        rectangle.angle_of_rotation*180/np.pi)
+					        ellipse.angle_of_rotation*180/np.pi)
 				if ellipse.invert:
 					domains -= ell
 				else:
