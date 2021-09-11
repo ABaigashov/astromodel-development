@@ -9,13 +9,11 @@ def output_file(mesh, key, output):
 		file << mesh
 		return f"{output}/mesh.xml"
 	elif key == "matplotlib":
-		file = File(f"{output}/mesh.xml")
-		file << mesh
 		plot(mesh)
-		filename = f"{output}/mesh.png"
+		filename = f"{output}.png"
 		plt.savefig(filename)
 		plt.close()
-		return f"{output}/mesh.png"
+		return f"{output}.png"
 	else:
 		file = File(f"{output}/mesh.pvd")
 		file << mesh
@@ -121,7 +119,6 @@ class MeshCreator:
 
 		if self.config.mesh == "domains":
 			mesh = generate_mesh(self.domains_parser(), 10)
-			return output_file(mesh, self.config.output_file, self.output)
 		else:
 			if self.config.unitintervalmesh:
 				for interval in self.config.unitintervalmesh:
@@ -151,7 +148,7 @@ class MeshCreator:
 							box.number_of_cells_in_x_direction, box.number_of_cells_in_y_direction,
 							box.number_of_cells_in_z_direction)
 
-			return mesh
+		return output_file(mesh, self.config.output_file, self.output)
 
 
 
