@@ -27,6 +27,6 @@ class Model:
 	# run method
 	# must ALWAYS return path to rendered file
 	def run(self):
-
+		self.model.create_mesh()
 		# render file and return path
-		return self.model.create_mesh()
+		return 0

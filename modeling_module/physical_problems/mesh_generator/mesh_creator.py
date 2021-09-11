@@ -85,15 +85,15 @@ class MeshCreator:
 				else:
 					domains += ell
 
-		if self.config.cones:
-			for con in self.config.cones:
-				cone = Cone(Point(con.cone_x0, con.cone_y0, con.cone_z0),
-							Point(con.cone_x1, con.cone_y1, con.cone_z1),
-							con.cone_radius)
-				if con.invert:
-					domains -= cone
-				else:
-					domains += cone
+		# if self.config.cones:
+		# 	for con in self.config.cones:
+		# 		cone = Cone(Point(con.cone_x0, con.cone_y0, con.cone_z0),
+		# 					Point(con.cone_x1, con.cone_y1, con.cone_z1),
+		# 					con.cone_radius)
+		# 		if con.invert:
+		# 			domains -= cone
+		# 		else:
+		# 			domains += cone
 
 		if self.config.cylinders:
 			for cyl in self.config.cylinders:

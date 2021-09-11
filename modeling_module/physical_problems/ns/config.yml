@@ -1,14 +1,10 @@
 CASES:
 
   eos_name:
-    title: Выберите уравнение состояния
+    title: Введите имя файла с уравнением состояния (без расширения)
     default: SLy
     type: str
-    class: dropdown
-    cases:
-      SLy: SLy
-      APR4: APR4
-      GM1: GM1
+    class: text
     dementional: false
 
   analytical:
