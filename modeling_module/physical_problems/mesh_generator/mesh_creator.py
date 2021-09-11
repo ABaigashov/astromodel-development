@@ -113,11 +113,42 @@ class MeshCreator:
 		return domains
 
 	def create_mesh(self):
+
 		if self.config.mesh == "domains":
 			mesh = generate_mesh(self.domains_parser(), 10)
 			return output_file(mesh, self.config.output_file, self.output)
 		else:
-			print('Poka pusto!!!')
+			if self.config.unitintervalmesh:
+				for interval in self.config.unitintervalmesh:
+					mesh = UnitIntervalMesh(inter.number_of_cells_in_an_interval)
+
+			if self.config.unitsquaremesh:
+				for square in self.config.unitsquaremesh:
+					mesh = UnitSquareMesh(square.number_of_cells_in_x_direction,
+						 	square.number_of_cells_in_y_direction, square.direction_of_the_diagonals)
+
+			if self.config.rectanglemesh:
+				for rectangle in self.config.rectanglemesh:
+					mesh = RectangleMesh(Point(rectangle.parall_x0, rectangle.parall_y0),
+							Point(rectangle.parall_x1, rectangle.parall_x1),
+							rectangle.number_of_cells_in_x_direction, rectangle.number_of_cells_in_y_direction,
+							rectangle.direction_of_the_diagonals)
+
+			if self.config.unitcubemesh:
+				for cube in self.config.unitcubemesh:
+					mesh = UnitCubeMesh(cube.number_of_cells_in_x_direction,
+							cube.number_of_cells_in_y_direction, cube.number_of_cells_in_z_direction)
+
+			if self.config.boxmesh:
+				for box in self.config.boxmesh:
+					mesh = BoxMesh(Point(box.parall_x0, box.parall_y0, box.parall_z0),
+							Point(box.parall_x1, box.parall_y1, box.parall_z1),
+							box.number_of_cells_in_x_direction, box.number_of_cells_in_y_direction,
+							box.number_of_cells_in_z_direction)
+
+			return mesh
+
+
 
 
 '''
@@ -138,37 +169,10 @@ plot(mesh, title="Unit interval")
 vtkfile = File('mesh_1.pvd')
 vtkfile << mesh
 
-mesh = UnitSquareMesh(10, 10)
-print("Plotting a UnitSquareMesh")
-plot(mesh, title="Unit square")
-vtkfile = File('mesh_2.pvd')
-vtkfile << mesh
-
-
-mesh = UnitSquareMesh(10, 10, "left")
-print("Plotting a UnitSquareMesh")
-plot(mesh, title="Unit square (left)")
-vtkfile = File('mesh_3.pvd')
-vtkfile << mesh
-
-
-mesh = UnitSquareMesh(10, 10, "crossed")
-print("Plotting a UnitSquareMesh")
-plot(mesh, title="Unit square (crossed)")
-vtkfile = File('mesh_4.pvd')
-vtkfile << mesh
-
-
 mesh = UnitSquareMesh(10, 10, "right/left")
 print("Plotting a UnitSquareMesh")
 plot(mesh, title="Unit square (right/left)")
 vtkfile = File('mesh_5.pvd')
-vtkfile << mesh
-
-mesh = RectangleMesh(Point(0.0, 0.0), Point(10.0, 4.0), 10, 10)
-print("Plotting a RectangleMesh")
-plot(mesh, title="Rectangle")
-vtkfile = File('mesh_6.pvd')
 vtkfile << mesh
 
 mesh = RectangleMesh(Point(-3.0, 2.0), Point(7.0, 6.0), 10, 10, "right/left")
