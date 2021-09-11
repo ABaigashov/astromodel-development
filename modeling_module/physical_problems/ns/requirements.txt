@@ -1,0 +1,24 @@
+
+# This is just the list of all 'pip' requirements
+# Most of this is dependencies of other libraries, but
+# it doesn't matter. You can write this file by yourself
+# to have more control around requirements.
+#
+# [Hint]:
+#     You no need to write exact version of library.
+#     You can write just the name of library or
+#     the comparable version with other version or
+#     the version older/newer then some version.
+#     (check the official documentation).
+#
+# But...
+# If you are lazy (like me) you can just type
+# in command line "pip freeze > requirements.txt"
+# and have a nice day!
+
+
+
+matplotlib==3.3.2
+numpy==1.21.2
+sympy==1.6.2
+scipy==1.7.1

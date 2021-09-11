@@ -1,1 +1,8 @@
-{"OBJECTS":{"astronauts":[{"id":"ybo-idw","index":1,"ast_weight":{"units":"1","value":"60"},"ast_sex":"man","ast_name":"Путин","ast_age":"68","name":"Новый объект","color":[57,245,141],"type":{"value":"astronauts","description":"Астронафт"}}]},"GENERAL":{"rocket_time":{"units":"","value":"20"},"name":"1","rocket_name":"Ангара","jet_count":"1","post_in_news":"on"},"PROBLEM":"hello_world"}
+{"OBJECTS":{"astronauts":
+  [{"id":"ybo-idw","index":1,
+    "ast_weight":{"units":"1","value":"60"},
+    "ast_sex":"man","ast_name":"Путин","ast_age":"68","name":"Новый объект",
+    "color":[57,245,141],"type":{"value":"astronauts",
+      "description":"Астронафт"}}]},
+      "GENERAL":{"rocket_time":{"units":"","value":"20"},
+      "name":"1","rocket_name":"Ангара","jet_count":"1"},"PROBLEM":"hello_world"}

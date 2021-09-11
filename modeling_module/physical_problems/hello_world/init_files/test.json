@@ -1,1 +1,9 @@
-{"OBJECTS":{"astronauts":[{"id":"kcg-tgc","index":1,"sex":"man","name":"biba","weight":"50","age":"50","color":[11,226,81],"type":{"value":"astronauts","description":"Астронафт"}},{"id":"dsv-lvt","index":2,"sex":"woman","name":"boba","weight":"30","age":"40","color":[160,249,35],"type":{"value":"astronauts","description":"Астронафт"}}]},"GENERAL":{"rocket_time":{"units":"1","value":"10"},"name":"test","rocket_name":"PupaLupa","jet_count":"5","post_in_news":"on"},"PROBLEM":"hello_world"}
+{"OBJECTS":{"astronauts":[{"id":"kcg-tgc","index":1,
+  "sex":"man","name":"biba","weight":"50","age":"50","color":[11,226,81],
+  "type":{"value":"astronauts","description":"Астронафт"}},
+  {"id":"dsv-lvt","index":2,"sex":"woman","name":"boba",
+    "weight":"30","age":"40","color":[160,249,35],
+    "type":{"value":"astronauts","description":"Астронафт"}}]},
+    "GENERAL":{"rocket_time":{"units":"1","value":"10"},"name":"test",
+    "rocket_name":"PupaLupa","jet_count":"5","post_in_news":"on"},
+    "PROBLEM":"hello_world"}
