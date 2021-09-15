@@ -1,4 +1,4 @@
-from dolfin import *
+from fenics import *
 import numpy as np
 # import matplotlib.pyplot as plt
 # import matplotlib.tri as mtri
@@ -31,7 +31,7 @@ class Task_maker():
         self.kappa = "1"
 
         if self.config.mesh_name:
-             self.mesh = self.config.mesh_name
+             self.mesh = path + 'mesh/' + self.config.mesh_name
 
         if self.config.source:
             self.source = self.config.source
@@ -83,7 +83,7 @@ class BVP_solver():
         self.Nc = []
         self.bx = []
 
-        self.boundary_parts = MeshFunction('size_t', task.mesh, task.mesh.topology().dim() - 1)
+        self.boundary_parts = MeshFunction('size_t', self.mesh, self.mesh.topology().dim() - 1)
 
         ds = Measure('ds', domain = self.mesh, subdomain_data = self.boundary_parts)
 
@@ -100,7 +100,7 @@ class BVP_solver():
                     u_D = Expression(u_code, degree=2)
                 else:
                     u_D = Expression(task.scalar_condition[k], degree=2)
-                DC = DirichletBC(self.V, u_D, self.description_scalar[k])
+                DC = DirichletBC(self.V, u_D, task.description_scalar[k])
                 self.Dc.append(DC)
             if task.type_scalar[k]=="Neumann":
                 if task.notation_scalar[k]=="SYM":
@@ -120,9 +120,9 @@ class BVP_solver():
             k = k+1
 
             #источник в правой части уравнения Пуассона
-        self.f = Expression(task.source, degree=2, u=u)
+        self.f = Expression(task.source, degree=2, u=self.u)
 
-        self.kappa1 = Expression(task.kappa, degree=2,u=u)
+        self.kappa1 = Expression(task.kappa, degree=2,u=self.u)
 
 
     def Solving_eq(self):
@@ -131,7 +131,7 @@ class BVP_solver():
         solve(F == 0, self.u, self.Dc)
 
         # Save solution to file in VTK format
-        vtkfile = File(path+'solution.pvd')
+        vtkfile = File(path+'results/'+'solution.pvd')
         vtkfile << self.u
 
 
