@@ -1,0 +1,64 @@
+[ZWO ASI294MC(a)]
+FrameType=Light
+#Дебайрезация
+Debayer Preview=On
+#Просмотр изображения
+Pan=0
+#Наклон
+Tilt=0
+#Формат вывода
+Output Format=FITS files (*.fits)
+#Биннинг
+Binning=2
+#Разрешение
+Capture Area=4144x2822
+#Цветовое пространство
+Colour Space=RAW8
+#Текущая температура
+Temperature=10,5
+#Высокоскоростной режим
+High Speed Mode=Off
+#Tурбо USB
+Turbo USB=80(Auto)
+#Отразить
+Flip=None
+#Частота кадров
+Frame Rate Limit=Maximum
+#Усиление (Gain)
+Gain=0
+#Экспозиция
+Exposure=15,905s
+#Отметка времени
+Timestamp Frames=Off
+#Баланс белого (B)
+White Bal (B)=90
+#Баланс белого (R)
+White Bal (R)=51
+#Offset
+Brightness=77
+Auto Exp Max Gain=285
+Auto Exp Max Exp M S=30000
+Auto Exp Target Brightness=100
+Mono Bin=Off
+#Выравнивание фона
+Background Subtraction=Off
+#Отслеживание дрейфа планет
+Planet/Disk Stabilization=Off
+#Степень сглаживания
+Banding Threshold=35
+#Сглаживание полос
+Banding Suppression=0
+#Разделить на Flat
+Apply Flat=None
+#Вычесть Dark
+Subtract Dark=None
+#Уровень черного
+Display Black Point=0
+#Среднее значение
+Display MidTone Point=0,5
+#Уровень белого
+Display White Point=1
+#Журнал
+Notes=
+TimeStamp=2021-09-20T23:38:41.1566137Z
+SharpCapVersion=4.0.8115.0

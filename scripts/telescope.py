@@ -13,7 +13,7 @@ class TrackMode(Enum):
 	PEC = 3
 
 
-@typechecked
+# @typechecked
 class Telescope:
 
 	models = {
@@ -56,7 +56,7 @@ class Telescope:
 	@staticmethod
 	def _execute(serial, command: bytes) -> bytes:
 		serial.write(command)
-		return serial.readline()
+		return serial.readall()
 
 	@staticmethod
 	def _decode_coordinate(coordinate: str) -> Tuple[float, float]:
