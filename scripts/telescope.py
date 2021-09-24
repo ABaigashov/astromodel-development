@@ -13,7 +13,7 @@ class TrackMode(Enum):
 	PEC = 3
 
 
-# @typechecked
+@typechecked
 class Telescope:
 
 	models = {
@@ -29,7 +29,7 @@ class Telescope:
 	models.update({id: 'AZ GOTO Series' for id in range(128, 144)})
 	models.update({id: 'DOB GOTO Series' for id in range(144, 160)})
 
-	def __init__(self, port: str, baudrate: int = 9600, timeout: Optional[int] = None) -> None:
+	def __init__(self, port: str, baudrate: int = 9600, timeout: Optional[Union[int, float]] = 0.1) -> None:
 		self.port = port
 		self.baudrate = baudrate
 		self.timeout = timeout
@@ -51,7 +51,12 @@ class Telescope:
 				result = self._execute(telescope.serial, command)
 		else:
 			result = self._execute(self.serial, command)
-		return result.decode()[:-1]
+		result = result.decode()
+		if result[-1] == '#':
+			return result
+		if self.serial is not None:
+			self.serial.close()
+			raise SyntaxError('TelescopeError: wrong command result')
 
 	@staticmethod
 	def _execute(serial, command: bytes) -> bytes:
