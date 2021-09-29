@@ -1,0 +1,121 @@
+CASES:
+
+  omega_m:
+    title: Доля плотности материи
+    default: "0"
+    type: str
+    class: text
+    dementional: false
+
+  omega_r:
+    title: Доля плотности излучения
+    default: "0"
+    type: str
+    class: text
+    dementional: false
+
+  omega_d:
+    title: Доля плотности темной энергии
+    default: "0"
+    type: str
+    class: text
+    dementional: false
+
+  equation_d:
+    title: Уравнение состояния темной энергии (в нотации sympy)
+    default: "-rho"
+    type: str
+    class: text
+    dementional: false
+
+  parameters:
+    title: Значения параметров в уравнении состояния темной энергии
+    default: "?"
+    type: str
+    class: text
+    dementional: false
+
+  z_max:
+    title: Значение красного смещения
+    default: "?"
+    type: str
+    class: text
+    dementional: false
+
+  t_max:
+    title: Значение времени в млрд. л.
+    default: "?"
+    type: str
+    class: text
+    dementional: false
+
+  H_0:
+    title: Значение параметра Хаббла в км/с/Мпк
+    default: "72"
+    type: str
+    class: text
+    dementional: false
+
+  task_1:
+    title: Посчитать диаграмму звездная величина - красное смещение
+    default: "True"
+    type: bool
+    class: checkbox
+    dementional: false
+
+  task_2:
+    title: Посчитать зависимость параметра Хаббла от красного смещения
+    default: "True"
+    type: bool
+    class: checkbox
+    dementional: false
+
+  task_3:
+    title: Посчитать диаграмму время-красное смещение
+    default: "True"
+    type: bool
+    class: checkbox
+    dementional: false
+
+  task_4:
+    title: Посчитать зависимость e-foldings от времени
+    default: "True"
+    type: bool
+    class: checkbox
+    dementional: false
+
+  task_5:
+    title: Посчитать зависимость плотностей компонентов Вселенной от времени в прошлом
+    default: "True"
+    type: bool
+    class: checkbox
+    dementional: false
+
+  task_6:
+    title: Посчитать зависимость плотностей компонентов Вселенной от времени в будущем
+    default: "True"
+    type: bool
+    class: checkbox
+    dementional: false
+
+GENERAL:
+  - task_1
+  - task_2
+  - task_3
+  - task_4
+  - task_5
+  - task_6
+  - H_0
+  - t_max
+  - z_max
+  - omega_m
+  - omega_r
+
+OBJECTS:
+
+  dark_components:
+    title: Темная компонента
+    cases:
+      - omega_d
+      - equation_d
+      - parameters
