@@ -2,6 +2,8 @@ import numpy as np
 # import matplotlib.pyplot as plt
 # import matplotlib.tri as mtri
 import sympy as sym
+from sympy import symbols
+from sympy import sympify
 
 
 # from mpl_toolkits.mplot3d import *
