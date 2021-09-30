@@ -6,7 +6,7 @@
 
 # Import LOCAL python files with 'GlobalInteraction' object
 # and specifiend models representation of problem solution.
-from solver import Task_maker, BVP_solver
+from solver import Task_maker, Cosmology_data, Cosmology_calculus
 # This is the main class. It has special name and
 # in your '__init__.py' file it MUST have same name
 # and same methods.
@@ -23,13 +23,18 @@ class Model:
 		Task = Task_maker(config)
 		# saving current problem model with incomming parameters
 
-		self.model = BVP_solver(Task)
+		self.model_SNE = Cosmology_data(Task.name_SNE, Task.row_SNE)
+		self.model_H = Cosmology_data(Task.name_Hubble, Task.row_Hubble)
+		self.model_SNE.Data_loader()
+		self.model_H.Data_loader()
+		self.calculations = Cosmology_calculus(Task, self.model_SNE, self.model_H)
 
 	# run method
 	# must ALWAYS return path to rendered file
 	def run(self):
+		self.calculations.hubble_versus_z()
 
-		self.model.Solving_eq()
-		print("Вычисления завершены, посмотрите результаты в папке results")
+		print(self.calculations.H)
+
 		# render file and return path
-		return 0
+		return 1

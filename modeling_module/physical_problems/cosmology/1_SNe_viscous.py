@@ -13,61 +13,14 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 import matplotlib.gridspec as gridspec
 
-data = np.loadtxt("data/SNE580.txt", delimiter='\t', dtype=np.float)
-z0 = data[:,0]
-mu0 = data[:,1]
-err = data[:,2]
-
-data_2 = np.loadtxt("data/HUBBLE3.txt", delimiter=' ', dtype=np.float)
-z1 = data_2[:,0]
-H0 = data_2[:,1]
-err1 = data_2[:,2]
-
-def friedmann(Y0,a,w0,zeta0,c0):
-    t, H, rho_d, rho_m = Y0
-    p = w0*rho_d - 3*(rho_m+rho_d)*zeta0-c0
-    dt_da = 1/(H*a)
-    dH_da = -(1/(H*a))*(1/2)*(rho_d+rho_m+p)
-    drho2_da = -(3/a)*(rho_d+p)
-    drho1_da = -(3/a)*rho_m
-
-    return dt_da, dH_da, drho2_da, drho1_da
-
-def mu_versus_z(z1,Omega_d,w0,zeta0,c0):
-    DL = np.zeros(len(z1))
-    dist = np.zeros(len(z1))
-    mu = np.zeros(len(z1))
-    for i in range(len(z1)):
-        dist0=0
-        a = 1/(z1[i]+1)
-        N = int((1-a)//0.01)
-        if N<2:
-            N=2
-        scale = np.linspace(1,a,N)
-        Y0=0,1, Omega_d*3, (1-Omega_d)*3
-        sol = odeint(friedmann, Y0, scale,args=(w0,zeta0,c0))
-        for j in range(1,N):
-            #dist[i]=dist0 - (scale[j+1]-scale[j])/(sol[j,1]*scale[j]**2)
-            dist[i]=dist0 - 2*(sol[j,0]-sol[j-1,0])/(scale[j]+scale[j-1])
-            dist0 = dist[i]
-        DL[i] = (1+z1[i])*dist[i]
-        mu[i] = 5*np.log10(DL[i])
-
-    return z1, mu
 
 
-def hubble_versus_z(z1,Omega_d,w0,zeta0,c0):
-    z = np.zeros(len(z1))
-    H00 = np.zeros(len(z1))
-    for i in range(len(z1)):
-        a = 1/(z1[i]+1)
-        N=2
-        scale = np.linspace(1,a,N)
-        Y0=0,1, Omega_d*3, (1-Omega_d)*3
-        sol = odeint(friedmann, Y0, scale,args=(w0,zeta0,c0))
-        H00[i] = sol[N-1,1]
 
-    return z, H00
+
+
+
+
+
 
 def chi_square(mu,mu0,err):
     A0,B0,C0 = 0,0,0

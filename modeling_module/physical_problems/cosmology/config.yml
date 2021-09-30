@@ -1,5 +1,61 @@
 CASES:
 
+  name_SNE:
+    title: "Имя файла, содержащего данные по сверхновым звездам"
+    default: "SNE580"
+    type: str
+    class: text
+    dementional: false
+
+  row_1:
+    title: "Номер столбца, содержащего значения красных смещений"
+    default: "1"
+    type: str
+    class: text
+    dementional: false
+
+  row_2:
+    title: "Номер столбца, содержащего значения звездных величин"
+    default: "2"
+    type: str
+    class: text
+    dementional: false
+
+  row_3:
+    title: "Номер столбца, содержащего значения среднеквадратичной ошибки"
+    default: "3"
+    type: str
+    class: text
+    dementional: false
+
+  name_Hubble:
+    title: "Имя файла, содержащего данные по зависимости H(z)"
+    default: "HUBBLE"
+    type: str
+    class: text
+    dementional: false
+
+  row_4:
+    title: "Номер столбца, содержащего значения красных смещений"
+    default: "1"
+    type: str
+    class: text
+    dementional: false
+
+  row_5:
+    title: "Номер столбца, содержащего значения параметра Хаббла"
+    default: "2"
+    type: str
+    class: text
+    dementional: false
+
+  row_6:
+    title: "Номер столбца, содержащего значения среднеквадратичной ошибки"
+    default: "3"
+    type: str
+    class: text
+    dementional: false
+
   omega_m:
     title: Доля плотности материи
     default: "0"
@@ -110,6 +166,14 @@ GENERAL:
   - z_max
   - omega_m
   - omega_r
+  - name_Hubble
+  - row_4
+  - row_5
+  - row_6
+  - name_SNE
+  - row_1
+  - row_2
+  - row_3
 
 OBJECTS:
 

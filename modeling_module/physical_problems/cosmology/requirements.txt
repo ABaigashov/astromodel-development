@@ -20,3 +20,4 @@
 # check "particle_simulator" problem
 
 matplotlib
+scipy
