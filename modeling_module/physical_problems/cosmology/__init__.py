@@ -32,9 +32,9 @@ class Model:
 	# run method
 	# must ALWAYS return path to rendered file
 	def run(self):
-		self.calculations.hubble_versus_z()
-
-		print(self.calculations.H)
+		self.calculations.mu_diagram()
+		self.calculations.integration()
+		self.calculations.visualization()
 
 		# render file and return path
 		return 1
