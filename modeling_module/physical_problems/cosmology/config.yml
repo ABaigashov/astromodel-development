@@ -134,21 +134,35 @@ CASES:
     dementional: false
 
   task_4:
-    title: Посчитать зависимость e-foldings от времени
+    title: Посчитать зависимость масштабного фактора от времени в будущем
     default: "True"
     type: bool
     class: checkbox
     dementional: false
 
   task_5:
-    title: Посчитать зависимость плотностей компонентов Вселенной от времени в прошлом
+    title: Посчитать зависимость параметра Хаббла от времени в будущем
     default: "True"
     type: bool
     class: checkbox
     dementional: false
 
   task_6:
+    title: Посчитать зависимость плотностей компонентов Вселенной от времени в прошлом
+    default: "True"
+    type: bool
+    class: checkbox
+    dementional: false
+
+  task_7:
     title: Посчитать зависимость плотностей компонентов Вселенной от времени в будущем
+    default: "True"
+    type: bool
+    class: checkbox
+    dementional: false
+
+  task_8:
+    title: Посчитать расстояние по угловому диаметру
     default: "True"
     type: bool
     class: checkbox
@@ -161,6 +175,8 @@ GENERAL:
   - task_4
   - task_5
   - task_6
+  - task_7
+  - task_8
   - H_0
   - t_max
   - z_max

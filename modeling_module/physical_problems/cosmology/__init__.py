@@ -20,21 +20,21 @@ class Model:
 	def init(self, config, output, job):
 
 
-		Task = Task_maker(config)
+		self.Task = Task_maker(config)
 		# saving current problem model with incomming parameters
 
-		self.model_SNE = Cosmology_data(Task.name_SNE, Task.row_SNE)
-		self.model_H = Cosmology_data(Task.name_Hubble, Task.row_Hubble)
+		self.model_SNE = Cosmology_data(self.Task.name_SNE, self.Task.row_SNE)
+		self.model_H = Cosmology_data(self.Task.name_Hubble, self.Task.row_Hubble)
 		self.model_SNE.Data_loader()
 		self.model_H.Data_loader()
-		self.calculations = Cosmology_calculus(Task, self.model_SNE, self.model_H)
+		self.calculations = Cosmology_calculus(config, self.Task, self.model_SNE, self.model_H)
 
 	# run method
 	# must ALWAYS return path to rendered file
 	def run(self):
 		self.calculations.mu_diagram()
 		self.calculations.integration()
-		self.calculations.visualization()
+		self.calculations.visualization(self.Task)
 
 		# render file and return path
 		return 1
