@@ -180,8 +180,6 @@ GENERAL:
   - H_0
   - t_max
   - z_max
-  - omega_m
-  - omega_r
   - name_Hubble
   - row_4
   - row_5
@@ -193,9 +191,11 @@ GENERAL:
 
 OBJECTS:
 
-  dark_components:
-    title: Темная компонента
+  cosmological_components:
+    title: Компоненты
     cases:
+      - omega_m
+      - omega_r
       - omega_d
       - equation_d
       - parameters
