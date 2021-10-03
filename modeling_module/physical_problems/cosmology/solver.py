@@ -134,8 +134,8 @@ class Cosmology_calculus():
                 dist0 = dist[i]
             DL[i] = (1+z)*dist[i]
             self.H_i.append(self.H_0*sol[N-1,1])
-            self.t_i.append(sol[N-1,0]*13.6*self.H_0/70)
-            self.DA.append(DL[i]/(1+z)**2)
+            self.t_i.append(sol[N-1,0]*13.6*70/self.H_0)
+            self.DA.append(DL[i]*(13.6/3.2616)*(70/self.H_0)/(1+z)**2)
             self.Omega_d.append(sol[N-1,2]/(3*sol[N-1,1]**2))
             self.Omega_m.append(sol[N-1,4]/(3*sol[N-1,1]**2))
             self.z_i.append(z)
@@ -193,7 +193,7 @@ class Visualization:
 
         if Task.plot_diagram_1 == True:
 
-            fig = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
+            fig = plt.figure(figsize=(12,8), facecolor='pink', frameon=True)
             ax = fig.add_subplot(111)
             for model in self.models:
                 ax.plot(model.z_i,model.mu_i)
@@ -302,7 +302,7 @@ class Visualization:
             ax4.minorticks_on()
             ax4.set_title('Angular_diameter_distance')
             ax4.set_xlabel('z')
-            ax4.set_ylabel('D_A, Mpc')
+            ax4.set_ylabel('D_A, Gpc')
             ax4.grid(which='major',linewidth = 2)
             ax4.grid(which='minor')
             fig4.savefig(path + 'results/DA(z)')
