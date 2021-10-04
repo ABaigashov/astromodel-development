@@ -84,6 +84,13 @@ CASES:
     class: text
     dementional: false
 
+  title_of_model:
+    title: "Название модели"
+    default: "model_1"
+    type: str
+    class: text
+    dementional: false
+
   parameters:
     title: Значения параметров в уравнении состояния темной энергии
     default: "?"
@@ -194,6 +201,7 @@ OBJECTS:
   cosmological_components:
     title: Компоненты
     cases:
+      - title_of_model
       - omega_m
       - omega_r
       - omega_d

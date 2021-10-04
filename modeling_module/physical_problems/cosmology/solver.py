@@ -84,6 +84,7 @@ class Cosmology_calculus():
         self.omega_r = float(model.omega_r)
         self.omega_d = float(model.omega_d)
         self.EOS = sympify(model.equation_d)
+        self.title_of_model = model.title_of_model
 
         self.z_max = float(config.z_max)
         self.t_max = float(config.t_max)/13.6*float(config.H_0)/70
@@ -149,8 +150,8 @@ class Cosmology_calculus():
             sol = odeint(Friedmann_eqs_2, ICS, times, args = (self.EOS,))
             self.scale_factor.append(sol[1,0])
             self.T_i.append(t*13.6*70/self.H_0)
-            self.OMEGA_d.append(sol[1,4]/(3*sol[1,1]**2))
-            self.OMEGA_m.append(sol[1,2]/(3*sol[1,1]**2))
+            self.OMEGA_d.append(sol[1,2]/(3*sol[1,1]**2))
+            self.OMEGA_m.append(sol[1,4]/(3*sol[1,1]**2))
             self.HUBBLE.append(sol[1,1]*self.H_0)
 
     def hubble_versus_z(self):
@@ -193,11 +194,16 @@ class Visualization:
 
         if Task.plot_diagram_1 == True:
 
-            fig = plt.figure(figsize=(12,8), facecolor='pink', frameon=True)
+            legends = []
+
+            fig = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
             ax = fig.add_subplot(111)
             for model in self.models:
                 ax.plot(model.z_i,model.mu_i)
+                legends.append(model.title_of_model)
             ax.errorbar(model.redshifts_1,model.mu_o, yerr=model.err_mu, fmt=".")
+            legends.append('observational_data')
+            ax.legend(legends)
             ax.minorticks_on()
             ax.set_title('SNe_Ia_magnitude_vs_redshift')
             ax.set_xlabel('z')
@@ -208,11 +214,16 @@ class Visualization:
 
         if Task.plot_diagram_2 == True:
 
+            legends = []
+
             fig2 = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
             ax2 = fig2.add_subplot(111)
             for model in self.models:
                 ax2.plot(model.z_i,model.H_i)
+                legends.append(model.title_of_model)
             ax2.errorbar(model.redshifts_2,model.H_o,yerr=model.err_H,fmt=".")
+            legends.append("observational data")
+            ax2.legend(legends)
             ax2.minorticks_on()
             ax2.set_title('Hubble_parameter_vs_redshift')
             ax2.set_xlabel('z')
@@ -222,11 +233,13 @@ class Visualization:
             fig2.savefig(path + 'results/H(z)')
         #
         if Task.plot_diagram_3 == True:
-
+            legends = []
             fig3 = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
             ax3 = fig3.add_subplot(111)
             for model in self.models:
                 ax3.plot(model.z_i,model.t_i)
+                legends.append(model.title_of_model)
+            ax3.legend(legends)
             ax3.minorticks_on()
             ax3.set_title('time_vs_redshift')
             ax3.set_xlabel('z')
@@ -237,10 +250,14 @@ class Visualization:
         #
         if Task.plot_diagram_4 == True:
 
+            legends = []
+
             fig5 = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
             ax5 = fig5.add_subplot(111)
             for model in self.models:
                 ax5.plot(model.T_i,model.scale_factor)
+                legends.append(model.title_of_model)
+            ax5.legend(legends)
             ax5.minorticks_on()
             ax5.set_title('scale_factor_in_future')
             ax5.set_xlabel('t, Gyr')
@@ -251,10 +268,14 @@ class Visualization:
         #
         if Task.plot_diagram_5 == True:
 
+            legends = []
+
             fig4 = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
             ax4 = fig4.add_subplot(111)
             for model in self.models:
                 ax4.plot(model.T_i,model.HUBBLE)
+                legends.append(model.title_of_model)
+            ax4.legend(legends)
             ax4.minorticks_on()
             ax4.set_title('Hubble_parameter_in_future')
             ax4.set_xlabel('t, Gyr')
@@ -264,12 +285,15 @@ class Visualization:
             fig4.savefig(path + 'results/H(t)')
         #
         if Task.plot_diagram_6 == True:
-
+            legends = []
             fig5 = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
             ax5 = fig5.add_subplot(111)
             for model in self.models:
                 ax5.plot(model.z_i,model.Omega_d)
+                legends.append(model.title_of_model + ', fraction_of_dark_energy')
                 ax5.plot(model.z_i,model.Omega_m)
+                legends.append(model.title_of_model + ', fraction_of_matter')
+            ax5.legend(legends)
             ax5.minorticks_on()
             ax5.set_title('Fraction_of_densities_in_past')
             ax5.set_xlabel('z')
@@ -280,11 +304,16 @@ class Visualization:
         #
         if Task.plot_diagram_7 == True:
 
+            legends = []
+
             fig5 = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
             ax5 = fig5.add_subplot(111)
             for model in self.models:
                 ax5.plot(model.T_i,model.OMEGA_d)
+                legends.append(model.title_of_model + ', fraction_of_dark_energy')
                 ax5.plot(model.T_i,model.OMEGA_m)
+                legends.append(model.title_of_model + ', fraction_of_matter')
+            ax5.legend(legends)
             ax5.minorticks_on()
             ax5.set_title('Fraction_of_densities_in_future')
             ax5.set_xlabel('t, Gyr')
@@ -295,10 +324,14 @@ class Visualization:
         #
         if Task.plot_diagram_8 == True:
 
+            legends = []
+
             fig4 = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
             ax4 = fig4.add_subplot(111)
             for model in self.models:
                 ax4.plot(model.z_i,model.DA)
+                legends.append(model.title_of_model)
+            ax4.legend(legends)
             ax4.minorticks_on()
             ax4.set_title('Angular_diameter_distance')
             ax4.set_xlabel('z')
