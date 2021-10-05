@@ -14,37 +14,6 @@ from matplotlib.colors import LogNorm
 import matplotlib.gridspec as gridspec
 
 
-
-
-
-
-
-
-
-
-def chi_square(mu,mu0,err):
-    A0,B0,C0 = 0,0,0
-    for i in range(1,len(mu0)):
-        A = A0 + (mu[i] - mu0[i])**2/err[i]**2
-        B = B0 + (mu[i] - mu0[i])/err[i]**2
-        C = C0 + 1/err[i]**2
-        C0 = C
-        B0 = B
-        A0 = A
-    return  A-B**2/C, 10**((B/C+42.384)/5)
-
-def chi_square_2(H,H0,err):
-    A0,B0,C01 = 0,0,0
-    for i in range(len(H0)):
-        A = A0 + H0[i]**2/err[i]**2
-        B = B0 + H0[i]*H[i]/err[i]**2
-        C1 = C01 + H[i]**2/err[i]**2
-        C01 = C1
-        B0 = B
-        A0 = A
-    return  A-B**2/C1, B/C1
-
-
 def definition_opt(Omega_min, chi_max, a1, a2, a3):
     Omega_d=Omega_min
     w0 = a1

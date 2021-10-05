@@ -16,30 +16,32 @@ from scipy.integrate import *
 path = 'modeling_module/physical_problems/cosmology/'
 
 def Friedmann_eqs(ICS,a,eq):
-    t, H, rho_m, rho_r, rho_d = ICS
+    t, H, rho_m, rho_r, rho_d, rho_k = ICS
     rho_s = symbols('rho_s')
     p = eq.subs(rho_s, rho_d)
     dt_da = 1/(H*a)
-    dH_da = -(1/(H*a))*(1/2)*(rho_d+rho_m+(4/3)*rho_r+p)
+    dH_da = -(1/(H*a))*(1/2)*(rho_d+rho_m+(4/3)*rho_r+p+(2/3)*rho_k)
 
     drho_m_da = -(3/a)*rho_m
     drho_r_da = -(4/a)*rho_r
     drho_d_da = -(3/a)*(rho_d+p)
+    drho_k_da = -(2/a)*rho_k
 
-    return dt_da, dH_da, drho_m_da, drho_r_da, drho_d_da
+    return dt_da, dH_da, drho_m_da, drho_r_da, drho_d_da, drho_k_da
 
 def Friedmann_eqs_2(ICS,a,eq):
-    a, H, rho_m, rho_r, rho_d = ICS
+    a, H, rho_m, rho_r, rho_d, rho_k = ICS
     rho_s = symbols('rho_s')
     p = eq.subs(rho_s, rho_d)
     da_dt = H*a
-    dH_dt = -(1/2)*(rho_d+rho_m+(4/3)*rho_r+p)
+    dH_dt = -(1/2)*(rho_d+rho_m+(4/3)*rho_r+p+2*rho_k/3)
 
     drho_m_dt = -(3*H)*rho_m
     drho_r_dt = -(4*H)*rho_r
     drho_d_dt = -(3*H)*(rho_d+p)
+    drho_k_dt = -(2*H)*rho_k
 
-    return da_dt, dH_dt, drho_m_dt, drho_r_dt, drho_d_dt
+    return da_dt, dH_dt, drho_m_dt, drho_r_dt, drho_d_dt, drho_k_dt
 
 class Task_maker():
 
@@ -83,6 +85,7 @@ class Cosmology_calculus():
         self.omega_m = float(model.omega_m)
         self.omega_r = float(model.omega_r)
         self.omega_d = float(model.omega_d)
+        self.omega_k = 1 - self.omega_m - self.omega_r - self.omega_d
         self.EOS = sympify(model.equation_d)
         self.title_of_model = model.title_of_model
 
@@ -116,24 +119,34 @@ class Cosmology_calculus():
         self.err_mu = Data_1.err
         self.err_H = Data_2.err
 
+        self.chi_square_mu = 10000
+        self.H_opt = 72
+
     def mu_diagram(self):
         DL = np.zeros(200)
+        DM = np.zeros(200)
         dist = np.zeros(len(DL))
         for i in range(len(DL)):
             dist0=0
-            z = 0.0001 + self.z_max*i/200
+            z = 0.005 + self.z_max*i/200
             a = 1/(z+1)
             N = int((1-a)//0.01)
             if N<2:
                 N=2
             scale = np.linspace(1,a,N)
-            ICS = 0, 1, 3*self.omega_m, 3*self.omega_r, 3*self.omega_d
+            ICS = 0, 1, 3*self.omega_m, 3*self.omega_r, 3*self.omega_d, 3*self.omega_k
             sol = odeint(Friedmann_eqs, ICS, scale, args = (self.EOS,))
             for j in range(1,N):
                 #dist[i]=dist0 - (scale[j+1]-scale[j])/(sol[j,1]*scale[j]**2)
                 dist[i]=dist0 - 2*(sol[j,0]-sol[j-1,0])/(scale[j]+scale[j-1])
                 dist0 = dist[i]
-            DL[i] = (1+z)*dist[i]
+            if self.omega_k>0:
+                DM[i] = np.sinh(np.sqrt(self.omega_k)*dist[i])/np.sqrt(self.omega_k)
+            if self.omega_k<0:
+                DM[i] = np.sin(np.sqrt(-self.omega_k)*dist[i])/np.sqrt(-self.omega_k)
+            if self.omega_k==0:
+                DM[i] = dist[i]
+            DL[i] = (1+z)*DM[i]
             self.H_i.append(self.H_0*sol[N-1,1])
             self.t_i.append(sol[N-1,0]*13.6*70/self.H_0)
             self.DA.append(DL[i]*(13.6/3.2616)*(70/self.H_0)/(1+z)**2)
@@ -146,7 +159,7 @@ class Cosmology_calculus():
         for i in range(201):
             t = 0.000 + self.t_max*i/200
             times = np.linspace(0,t,2)
-            ICS = 1, 1, 3*self.omega_m,3*self.omega_r, 3*self.omega_d
+            ICS = 1, 1, 3*self.omega_m,3*self.omega_r, 3*self.omega_d, 3*self.omega_k
             sol = odeint(Friedmann_eqs_2, ICS, times, args = (self.EOS,))
             self.scale_factor.append(sol[1,0])
             self.T_i.append(t*13.6*70/self.H_0)
@@ -160,12 +173,13 @@ class Cosmology_calculus():
             a = 1/(self.redshifts_2[i]+1)
             N=2
             scale = np.linspace(1,a,N)
-            ICS = 0, 1, 3*self.omega_m, 3*self.omega_r, 3*self.omega_d
+            ICS = 0, 1, 3*self.omega_m, 3*self.omega_r, 3*self.omega_d, 3*self.omega_k
             sol = odeint(Friedmann_eqs, ICS, scale, args = (self.EOS,))
             self.H_m.append(sol[N-1,1])
 
     def mu_versus_z(self):
         DL = np.zeros(len(self.redshifts_1))
+        DM = np.zeros(len(self.redshifts_1))
         dist = np.zeros(len(DL))
         for i in range(len(DL)):
             dist0=0
@@ -174,14 +188,44 @@ class Cosmology_calculus():
             if N<2:
                 N=2
             scale = np.linspace(1,a,N)
-            ICS = 0, 1, 3*self.omega_m, 3*self.omega_r, 3*self.omega_d
+            ICS = 0, 1, 3*self.omega_m, 3*self.omega_r, 3*self.omega_d, 3*self.omega_k
             sol = odeint(Friedmann_eqs, ICS, scale, args = (self.EOS,))
             for j in range(1,N):
                 #dist[i]=dist0 - (scale[j+1]-scale[j])/(sol[j,1]*scale[j]**2)
                 dist[i]=dist0 - 2*(sol[j,0]-sol[j-1,0])/(scale[j]+scale[j-1])
                 dist0 = dist[i]
-            DL[i] = (1+self.redshifts_1[i])*dist[i]
-            self.mu_m.append(5*np.log10(DL[i]))
+            if self.omega_k>0:
+                DM[i] = np.sinh(np.sqrt(self.omega_k)*dist[i])/np.sqrt(self.omega_k)
+            if self.omega_k<0:
+                DM[i] = np.sin(np.sqrt(-self.omega_k)*dist[i])/np.sqrt(-self.omega_k)
+            if self.omega_k==0:
+                DM[i] = dist[i]
+            DL[i] = (1+self.redshifts_1[i])*DM[i]
+            self.mu_m.append(5*np.log10(DL[i])-5*np.log10(self.H_0/100)+43.16-0.713)
+
+    def chi_square_magnitude(self):
+        A0,B0,C0 = 0,0,0
+        for i in range(0,len(self.mu_m)):
+            A = A0 + (self.mu_m[i] - self.mu_o[i])**2/self.err_mu[i]**2
+            B = B0 + (self.mu_m[i] - self.mu_o[i])/self.err_mu[i]**2
+            C = C0 + 1/self.err_mu[i]**2
+            C0 = C
+            B0 = B
+            A0 = A
+        self.chi_square_mu = A-B**2/C
+        self.H_opt = 70*10**((B/C+42.384)/5)/299752458
+
+    def chi_square_hubble(self):
+        A0,B0,C01 = 0,0,0
+        for i in range(len(self.H_o)):
+            A = A0 + self.H_o[i]**2/self.err_H[i]**2
+            B = B0 + self.H_o[i]*self.H_m[i]/self.err_H[i]**2
+            C1 = C01 + self.H_m[i]**2/self.err_H[i]**2
+            C01 = C1
+            B0 = B
+            A0 = A
+        self.chi_square_H = A-B**2/C1
+        self.H_opt = B/C1
 
 class Visualization:
 
