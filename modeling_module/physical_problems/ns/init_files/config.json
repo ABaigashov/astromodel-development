@@ -1,9 +1,0 @@
-{"OBJECTS":{"EoS_parameters":[{"id":"pdt-bgw","index":1,
-  "eos_name":"SLy","analytical":"no","units_density":"MeV/fm3",
-  "units_pressure":"MeV/fm3","density_row":"2","pressure_row":"3",
-  "name":"Новый объект","color":[121,209,36],
-  "type":{"value":"EoS_parameters","description":"Уравнение состояния"}}]},
-  "GENERAL":{"units_of_representation":"MeV/fm3","name":"","rho_min":"500",
-    "rho_max":"600","number_of_points":"20","rho_i":"600",
-    "calculate_mass_in_interval":"on","calculate_mass_profile":"on"},
-    "PROBLEM":"ns"}
