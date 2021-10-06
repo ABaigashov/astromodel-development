@@ -17,8 +17,8 @@
 # and have a nice day!
 
 
-# nothing needed
-# check "particle_simulator" problem
 
-mshr
-numpy
+matplotlib==3.3.2
+numpy==1.21.2
+sympy==1.6.2
+scipy==1.7.1

@@ -1,0 +1,14 @@
+{"OBJECTS":
+  {
+    "Rectangle":[
+    {"id":"xgs-duu",
+      "index":1,
+      "point_x":"3",
+      "point_y":"2",
+      "name":"ob1",
+      "color":[119,93,195],
+      "type":{"value":"Rectangle","description":"Прямоугольник"}
+    }
+    ]
+  },
+  "GENERAL":{"dimensions":"2","output_files":"matplotlib","mesh":"domains","name":"test"},"PROBLEM":"mesh_generator"}

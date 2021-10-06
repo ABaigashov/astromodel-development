@@ -121,6 +121,7 @@ These web pages can help you:<br>
 $ sudo ./scripts/boot/server.sh [args]
 # Acshelly we use this:
 $ sudo ./scripts/boot/server.sh up --build
+```
 
 <br>
 
