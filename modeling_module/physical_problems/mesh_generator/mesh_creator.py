@@ -1,19 +1,16 @@
 import numpy as np
 from dolfin import *
 from mshr import *
-import matplotlib.pyplot as plt
 
 def output_file(mesh, key, output):
 	if key == "xmls":
-		file = File(f"{output}/mesh.xml")
+		file = File(f"{output}/mesh.pvd")
 		file << mesh
-		return f"{output}/mesh.xml"
+		return f"{output}/mesh.pvd"
 	elif key == "matplotlib":
-		plot(mesh)
-		filename = f"{output}.png"
-		plt.savefig(filename)
-		plt.close()
-		return f"{output}.png"
+		file = File(f"{output}/mesh.pvd")
+		file << mesh
+		return f"{output}/mesh.pvd"
 	else:
 		file = File(f"{output}/mesh.pvd")
 		file << mesh
@@ -29,14 +26,9 @@ class MeshCreator:
 
 	def domains_parser(self):
 
-		if self.config.dimensions==2:
-			domains_nul = Rectangle(Point(0, 0), Point(1, 1))
-			domains_new = Rectangle(Point(0, 0), Point(1, 1))
-			domains = domains_nul - domains_new
-		else:
-			domains_nul = Box(Point(0, 0, 0), Point(1, 1, 1))
-			domains_new = Box(Point(0, 0, 0), Point(1, 1, 1))
-			domains = domains_nul - domains_new
+		domains_nul = Rectangle(Point(0, 0), Point(1, 1))
+		domains_new = Rectangle(Point(0, 0), Point(1, 1))
+		domains = domains_nul - domains_new
 
 		if self.config.rectangles:
 			for rectangle in self.config.rectangles:
@@ -55,8 +47,8 @@ class MeshCreator:
 				circ = Circle(Point(circle.circ_x_centre, circle.circ_y_centre),
 								 circle.circ_radius)
 				if circle.angle_of_rotation!=0:
-					circ = CSGRotation(circ, Point(rectangle.rot_point_x, circle.rot_point_y),
-					        circle.angle_of_rotation*180/np.pi)
+					circ = CSGRotation(circ, Point(rectangle.rot_point_x, rectangle.rot_point_y),
+					        rectangle.angle_of_rotation*180/np.pi)
 				if circle.invert:
 					domains -= circ
 				else:
@@ -69,7 +61,7 @@ class MeshCreator:
 								ellipse.ell_b)
 				if ellipse.angle_of_rotation!=0:
 					ell = CSGRotation(ell, Point(ellipse.rot_point_x, ellipse.rot_point_y),
-					        ellipse.angle_of_rotation*180/np.pi)
+					        rectangle.angle_of_rotation*180/np.pi)
 				if ellipse.invert:
 					domains -= ell
 				else:
@@ -78,7 +70,7 @@ class MeshCreator:
 		if self.config.parallelepipeds:
 			for paralls in self.config.parallelepipeds:
 				box = Box(Point(paralls.parall_x0, paralls.parall_y0, paralls.parall_z0),
-						  Point(paralls.parall_x1, paralls.parall_y1, paralls.parall_z1))
+							  Point(paralls.parall_x1, paralls.parall_y1, paralls.parall_z1))
 				if paralls.invert:
 					domains -= box
 				else:
@@ -93,21 +85,21 @@ class MeshCreator:
 				else:
 					domains += ell
 
-		if self.config.cones:
-			for con in self.config.cones:
-				cone = Cone(Point(con.cone_x0, con.cone_y0, con.cone_z0),
-							Point(con.cone_x1, con.cone_y1, con.cone_z1),
-							con.cone_radius, self.config.divisions)
-				if con.invert:
-					domains -= cone
-				else:
-					domains += cone
+		# if self.config.cones:
+		# 	for con in self.config.cones:
+		# 		cone = Cone(Point(con.cone_x0, con.cone_y0, con.cone_z0),
+		# 					Point(con.cone_x1, con.cone_y1, con.cone_z1),
+		# 					con.cone_radius)
+		# 		if con.invert:
+		# 			domains -= cone
+		# 		else:
+		# 			domains += cone
 
 		if self.config.cylinders:
 			for cyl in self.config.cylinders:
 				cylinder = Cylinder(Point(cyl.cylinder_x0, cyl.cylinder_y0, cyl.cylinder_z0),
 							Point(cyl.cylinder_x1, cyl.cylinder_y1, cyl.cylinder_z1),
-							cyl.cyl_radius0, cyl.cyl_radius1, self.config.divisions)
+							cyl.cyl_radius0, cyl.cyl_radius1)
 				if cyl.invert:
 					domains -= cylinder
 				else:
@@ -116,45 +108,36 @@ class MeshCreator:
 		return domains
 
 	def create_mesh(self):
-
 		if self.config.mesh == "domains":
 			mesh = generate_mesh(self.domains_parser(), 10)
+			return output_file(mesh, self.config.output_file, self.output)
 		else:
-			if self.config.unitintervalmesh:
-				for interval in self.config.unitintervalmesh:
-					mesh = UnitIntervalMesh(inter.number_of_cells_in_an_interval)
-
-			if self.config.unitsquaremesh:
-				for square in self.config.unitsquaremesh:
-					mesh = UnitSquareMesh(square.number_of_cells_in_x_direction,
-						 	square.number_of_cells_in_y_direction, square.direction_of_the_diagonals)
-
-			if self.config.rectanglemesh:
-				for rectangle in self.config.rectanglemesh:
-					mesh = RectangleMesh(Point(rectangle.parall_x0, rectangle.parall_y0),
-							Point(rectangle.parall_x1, rectangle.parall_x1),
-							rectangle.number_of_cells_in_x_direction, rectangle.number_of_cells_in_y_direction,
-							rectangle.direction_of_the_diagonals)
-
-			if self.config.unitcubemesh:
-				for cube in self.config.unitcubemesh:
-					mesh = UnitCubeMesh(cube.number_of_cells_in_x_direction,
-							cube.number_of_cells_in_y_direction, cube.number_of_cells_in_z_direction)
-
-			if self.config.boxmesh:
-				for box in self.config.boxmesh:
-					mesh = BoxMesh(Point(box.parall_x0, box.parall_y0, box.parall_z0),
-							Point(box.parall_x1, box.parall_y1, box.parall_z1),
-							box.number_of_cells_in_x_direction, box.number_of_cells_in_y_direction,
-							box.number_of_cells_in_z_direction)
-
-		return output_file(mesh, self.config.output_file, self.output)
-
-
+			print('Poka pusto!!!')
 
 
 '''
 
+
+
+domain = Rectangle(Point(-1, -1), Point(1, 1))
+domain1 = Circle(Point(0.5, 0.5), 0.4)
+domain2 = Ellipse(Point(0,0), 0.5, 1, segments=32)
+domain3 = CSGRotation(domain2, 1.57)
+mesh = generate_mesh(domain-domain2-domain3, 10)
+
+file = File("2_meshes/mesh_complex.pvd")
+file << mesh
+
+#3D
+domain = Cone(Point(0,0,10), Point(0,0,0), 5, 32)
+mesh = generate_mesh(domain, 10)
+file = File("2_meshes/cone.pvd")
+file << mesh
+
+domain=Ellipsoid(Point(0,0,0), 1, 2, 3, 15)
+mesh = generate_mesh(domain, 10)
+file = File("2_meshes/ellipsoid.pvd")
+file << mesh
 
 # domain = Circle(Point(1, 0.1), 0.4)
 # domain2 = CSGScaling(domain, 2)
@@ -171,10 +154,37 @@ plot(mesh, title="Unit interval")
 vtkfile = File('mesh_1.pvd')
 vtkfile << mesh
 
+mesh = UnitSquareMesh(10, 10)
+print("Plotting a UnitSquareMesh")
+plot(mesh, title="Unit square")
+vtkfile = File('mesh_2.pvd')
+vtkfile << mesh
+
+
+mesh = UnitSquareMesh(10, 10, "left")
+print("Plotting a UnitSquareMesh")
+plot(mesh, title="Unit square (left)")
+vtkfile = File('mesh_3.pvd')
+vtkfile << mesh
+
+
+mesh = UnitSquareMesh(10, 10, "crossed")
+print("Plotting a UnitSquareMesh")
+plot(mesh, title="Unit square (crossed)")
+vtkfile = File('mesh_4.pvd')
+vtkfile << mesh
+
+
 mesh = UnitSquareMesh(10, 10, "right/left")
 print("Plotting a UnitSquareMesh")
 plot(mesh, title="Unit square (right/left)")
 vtkfile = File('mesh_5.pvd')
+vtkfile << mesh
+
+mesh = RectangleMesh(Point(0.0, 0.0), Point(10.0, 4.0), 10, 10)
+print("Plotting a RectangleMesh")
+plot(mesh, title="Rectangle")
+vtkfile = File('mesh_6.pvd')
 vtkfile << mesh
 
 mesh = RectangleMesh(Point(-3.0, 2.0), Point(7.0, 6.0), 10, 10, "right/left")
