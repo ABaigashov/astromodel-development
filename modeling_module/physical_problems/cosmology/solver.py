@@ -255,8 +255,8 @@ class Visualization:
             ax.set_ylabel('M')
             ax.grid(which='major',linewidth = 2)
             ax.grid(which='minor')
-            fig.savefig(path + 'results/SNe_Ia')
-        return f'{self.output}/results/SNe_Ia'
+            fig.savefig(f'{self.output}/SNe_Ia')
+        return f'{self.output}/SNe_Ia'
         # if Task.plot_diagram_2 == True:
         #
         #     legends = []
