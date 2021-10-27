@@ -229,9 +229,10 @@ class Cosmology_calculus():
 
 class Visualization:
 
-    def __init__(self, models):
+    def __init__(self, models, output):
 
         self.models = models
+        self.output = output
 
 
     def graphics(self, Task):
@@ -255,7 +256,7 @@ class Visualization:
             ax.grid(which='major',linewidth = 2)
             ax.grid(which='minor')
             fig.savefig(path + 'results/SNe_Ia')
-
+        return f'{self.output}/results/SNe_Ia'
         # if Task.plot_diagram_2 == True:
         #
         #     legends = []

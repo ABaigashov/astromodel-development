@@ -31,9 +31,6 @@ class Model:
 		for model in self.Task.cosmological_components:
 			self.models.append(Cosmology_calculus(config, model, self.model_SNE, self.model_H))
 
-	# run method
-	# must ALWAYS return path to rendered file
-	def run(self):
 		for model in self.models:
 			model.mu_diagram()
 			model.integration()
@@ -42,7 +39,11 @@ class Model:
 			# print(model.chi_square_H, model.H_opt)
 			self.models_1.append(model)
 
-		self.GRAPH = Visualization(self.models_1)
+		self.GRAPH = Visualization(self.models_1, output)
+
+	# run method
+	# must ALWAYS return path to rendered file
+	def run(self):
 
 		# render file and return path
 		return self.GRAPH.graphics(self.Task)
