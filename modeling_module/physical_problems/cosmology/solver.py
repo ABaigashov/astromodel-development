@@ -1,10 +1,11 @@
 import numpy as np
-# import matplotlib.pyplot as plt
-# import matplotlib.tri as mtri
 from sympy import symbols, sympify
 import matplotlib.pyplot as plt
 from scipy import *
 from scipy.integrate import *
+import os
+import shutil
+import zipfile
 
 
 # from mpl_toolkits.mplot3d import *
@@ -234,6 +235,8 @@ class Visualization:
         self.models = models
         self.output = output
 
+        os.mkdir(self.output)
+
 
     def graphics(self, Task):
 
@@ -255,132 +258,143 @@ class Visualization:
             ax.set_ylabel('M')
             ax.grid(which='major',linewidth = 2)
             ax.grid(which='minor')
-            fig.savefig(f'{self.output}/SNe_Ia')
-        return f'{self.output}/SNe_Ia'
-        # if Task.plot_diagram_2 == True:
+            fig.savefig(f'{self.output}/SNe_Ia.png')
+
+        if Task.plot_diagram_2 == True:
+
+            legends = []
+
+            fig2 = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
+            ax2 = fig2.add_subplot(111)
+            for model in self.models:
+                ax2.plot(model.z_i,model.H_i)
+                legends.append(model.title_of_model)
+            ax2.errorbar(model.redshifts_2,model.H_o,yerr=model.err_H,fmt=".")
+            legends.append("observational data")
+            ax2.legend(legends)
+            ax2.minorticks_on()
+            ax2.set_title('Hubble_parameter_vs_redshift')
+            ax2.set_xlabel('z')
+            ax2.set_ylabel('H, km/s/Mpc')
+            ax2.grid(which='major',linewidth = 2)
+            ax2.grid(which='minor')
+            fig2.savefig(f'{self.output}/H(z)')
         #
-        #     legends = []
+        if Task.plot_diagram_3 == True:
+            legends = []
+            fig3 = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
+            ax3 = fig3.add_subplot(111)
+            for model in self.models:
+                ax3.plot(model.z_i,model.t_i)
+                legends.append(model.title_of_model)
+            ax3.legend(legends)
+            ax3.minorticks_on()
+            ax3.set_title('time_vs_redshift')
+            ax3.set_xlabel('z')
+            ax3.set_ylabel('t, Gyr')
+            ax3.grid(which='major',linewidth = 2)
+            ax3.grid(which='minor')
+            fig3.savefig(f'{self.output}/Backlook_time')
         #
-        #     fig2 = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
-        #     ax2 = fig2.add_subplot(111)
-        #     for model in self.models:
-        #         ax2.plot(model.z_i,model.H_i)
-        #         legends.append(model.title_of_model)
-        #     ax2.errorbar(model.redshifts_2,model.H_o,yerr=model.err_H,fmt=".")
-        #     legends.append("observational data")
-        #     ax2.legend(legends)
-        #     ax2.minorticks_on()
-        #     ax2.set_title('Hubble_parameter_vs_redshift')
-        #     ax2.set_xlabel('z')
-        #     ax2.set_ylabel('H, km/s/Mpc')
-        #     ax2.grid(which='major',linewidth = 2)
-        #     ax2.grid(which='minor')
-        #     fig2.savefig(path + 'results/H(z)')
-        # #
-        # if Task.plot_diagram_3 == True:
-        #     legends = []
-        #     fig3 = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
-        #     ax3 = fig3.add_subplot(111)
-        #     for model in self.models:
-        #         ax3.plot(model.z_i,model.t_i)
-        #         legends.append(model.title_of_model)
-        #     ax3.legend(legends)
-        #     ax3.minorticks_on()
-        #     ax3.set_title('time_vs_redshift')
-        #     ax3.set_xlabel('z')
-        #     ax3.set_ylabel('t, Gyr')
-        #     ax3.grid(which='major',linewidth = 2)
-        #     ax3.grid(which='minor')
-        #     fig3.savefig(path + 'results/Backlook_time')
-        # #
-        # if Task.plot_diagram_4 == True:
+        if Task.plot_diagram_4 == True:
+
+            legends = []
+
+            fig5 = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
+            ax5 = fig5.add_subplot(111)
+            for model in self.models:
+                ax5.plot(model.T_i,model.scale_factor)
+                legends.append(model.title_of_model)
+            ax5.legend(legends)
+            ax5.minorticks_on()
+            ax5.set_title('scale_factor_in_future')
+            ax5.set_xlabel('t, Gyr')
+            ax5.set_ylabel('a')
+            ax5.grid(which='major',linewidth = 2)
+            ax5.grid(which='minor')
+            fig5.savefig(f'{self.output}/a(t)')
         #
-        #     legends = []
+        if Task.plot_diagram_5 == True:
+
+            legends = []
+
+            fig4 = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
+            ax4 = fig4.add_subplot(111)
+            for model in self.models:
+                ax4.plot(model.T_i,model.HUBBLE)
+                legends.append(model.title_of_model)
+            ax4.legend(legends)
+            ax4.minorticks_on()
+            ax4.set_title('Hubble_parameter_in_future')
+            ax4.set_xlabel('t, Gyr')
+            ax4.set_ylabel('H, km/s/Mpc')
+            ax4.grid(which='major',linewidth = 2)
+            ax4.grid(which='minor')
+            fig4.savefig(f'{self.output}/H(t)')
         #
-        #     fig5 = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
-        #     ax5 = fig5.add_subplot(111)
-        #     for model in self.models:
-        #         ax5.plot(model.T_i,model.scale_factor)
-        #         legends.append(model.title_of_model)
-        #     ax5.legend(legends)
-        #     ax5.minorticks_on()
-        #     ax5.set_title('scale_factor_in_future')
-        #     ax5.set_xlabel('t, Gyr')
-        #     ax5.set_ylabel('a')
-        #     ax5.grid(which='major',linewidth = 2)
-        #     ax5.grid(which='minor')
-        #     fig5.savefig(path + 'results/a(t)')
-        # #
-        # if Task.plot_diagram_5 == True:
+        if Task.plot_diagram_6 == True:
+            legends = []
+            fig5 = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
+            ax5 = fig5.add_subplot(111)
+            for model in self.models:
+                ax5.plot(model.z_i,model.Omega_d)
+                legends.append(model.title_of_model + ', fraction_of_dark_energy')
+                ax5.plot(model.z_i,model.Omega_m)
+                legends.append(model.title_of_model + ', fraction_of_matter')
+            ax5.legend(legends)
+            ax5.minorticks_on()
+            ax5.set_title('Fraction_of_densities_in_past')
+            ax5.set_xlabel('z')
+            ax5.set_ylabel('Omega_d, Omega_m')
+            ax5.grid(which='major',linewidth = 2)
+            ax5.grid(which='minor')
+            fig5.savefig(f'{self.output}/Omega_in_past')
         #
-        #     legends = []
+        if Task.plot_diagram_7 == True:
+
+            legends = []
+
+            fig5 = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
+            ax5 = fig5.add_subplot(111)
+            for model in self.models:
+                ax5.plot(model.T_i,model.OMEGA_d)
+                legends.append(model.title_of_model + ', fraction_of_dark_energy')
+                ax5.plot(model.T_i,model.OMEGA_m)
+                legends.append(model.title_of_model + ', fraction_of_matter')
+            ax5.legend(legends)
+            ax5.minorticks_on()
+            ax5.set_title('Fraction_of_densities_in_future')
+            ax5.set_xlabel('t, Gyr')
+            ax5.set_ylabel('Omega')
+            ax5.grid(which='major',linewidth = 2)
+            ax5.grid(which='minor')
+            fig5.savefig(f'{self.output}/Omega_in_future')
         #
-        #     fig4 = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
-        #     ax4 = fig4.add_subplot(111)
-        #     for model in self.models:
-        #         ax4.plot(model.T_i,model.HUBBLE)
-        #         legends.append(model.title_of_model)
-        #     ax4.legend(legends)
-        #     ax4.minorticks_on()
-        #     ax4.set_title('Hubble_parameter_in_future')
-        #     ax4.set_xlabel('t, Gyr')
-        #     ax4.set_ylabel('H, km/s/Mpc')
-        #     ax4.grid(which='major',linewidth = 2)
-        #     ax4.grid(which='minor')
-        #     fig4.savefig(path + 'results/H(t)')
-        # #
-        # if Task.plot_diagram_6 == True:
-        #     legends = []
-        #     fig5 = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
-        #     ax5 = fig5.add_subplot(111)
-        #     for model in self.models:
-        #         ax5.plot(model.z_i,model.Omega_d)
-        #         legends.append(model.title_of_model + ', fraction_of_dark_energy')
-        #         ax5.plot(model.z_i,model.Omega_m)
-        #         legends.append(model.title_of_model + ', fraction_of_matter')
-        #     ax5.legend(legends)
-        #     ax5.minorticks_on()
-        #     ax5.set_title('Fraction_of_densities_in_past')
-        #     ax5.set_xlabel('z')
-        #     ax5.set_ylabel('Omega_d, Omega_m')
-        #     ax5.grid(which='major',linewidth = 2)
-        #     ax5.grid(which='minor')
-        #     fig5.savefig(path + 'results/Omega_in_past')
-        # #
-        # if Task.plot_diagram_7 == True:
-        #
-        #     legends = []
-        #
-        #     fig5 = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
-        #     ax5 = fig5.add_subplot(111)
-        #     for model in self.models:
-        #         ax5.plot(model.T_i,model.OMEGA_d)
-        #         legends.append(model.title_of_model + ', fraction_of_dark_energy')
-        #         ax5.plot(model.T_i,model.OMEGA_m)
-        #         legends.append(model.title_of_model + ', fraction_of_matter')
-        #     ax5.legend(legends)
-        #     ax5.minorticks_on()
-        #     ax5.set_title('Fraction_of_densities_in_future')
-        #     ax5.set_xlabel('t, Gyr')
-        #     ax5.set_ylabel('Omega')
-        #     ax5.grid(which='major',linewidth = 2)
-        #     ax5.grid(which='minor')
-        #     fig5.savefig(path + 'results/Omega_in_future')
-        # #
-        # if Task.plot_diagram_8 == True:
-        #
-        #     legends = []
-        #
-        #     fig4 = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
-        #     ax4 = fig4.add_subplot(111)
-        #     for model in self.models:
-        #         ax4.plot(model.z_i,model.DA)
-        #         legends.append(model.title_of_model)
-        #     ax4.legend(legends)
-        #     ax4.minorticks_on()
-        #     ax4.set_title('Angular_diameter_distance')
-        #     ax4.set_xlabel('z')
-        #     ax4.set_ylabel('D_A, Gpc')
-        #     ax4.grid(which='major',linewidth = 2)
-        #     ax4.grid(which='minor')
-        #     fig4.savefig(path + 'results/DA(z)')
+        if Task.plot_diagram_8 == True:
+
+            legends = []
+
+            fig4 = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
+            ax4 = fig4.add_subplot(111)
+            for model in self.models:
+                ax4.plot(model.z_i,model.DA)
+                legends.append(model.title_of_model)
+            ax4.legend(legends)
+            ax4.minorticks_on()
+            ax4.set_title('Angular_diameter_distance')
+            ax4.set_xlabel('z')
+            ax4.set_ylabel('D_A, Gpc')
+            ax4.grid(which='major',linewidth = 2)
+            ax4.grid(which='minor')
+            fig4.savefig(f'{self.output}/DA(z)')
+
+        fantasy_zip = zipfile.ZipFile(f'{self.output}/archive.zip', 'w')
+
+        for folder, subfolders, files in os.walk(f'{self.output}'):
+
+            for file in files:
+                if file.endswith('.png'):
+                    fantasy_zip.write(os.path.join(folder, file), os.path.relpath(os.path.join(folder,file), f'{self.output}'), compress_type = zipfile.ZIP_DEFLATED)
+
+        fantasy_zip.close()
+        return f'{self.output}/archive.zip'
