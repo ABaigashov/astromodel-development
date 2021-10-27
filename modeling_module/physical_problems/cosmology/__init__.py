@@ -39,12 +39,10 @@ class Model:
 			model.integration()
 			model.hubble_versus_z()
 			model.chi_square_hubble()
-			print(model.chi_square_H, model.H_opt)
+			# print(model.chi_square_H, model.H_opt)
 			self.models_1.append(model)
 
 		self.GRAPH = Visualization(self.models_1)
 
-		self.GRAPH.graphics(self.Task)
-
 		# render file and return path
-		return 1
+		return self.GRAPH.graphics(self.Task)

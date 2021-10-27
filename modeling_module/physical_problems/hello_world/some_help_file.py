@@ -10,23 +10,23 @@ from time import sleep
 # some example fucntion of astronaut state
 def astronaut_state(astronaut):
 
-	# checking astronaut age 
+	# checking astronaut age
 	if astronaut.ast_age < 21:
 		return 'слишком молод'
 	if astronaut.ast_age > 80:
 		return 'слишком стар'
 
-	# checking astronaut weight 
+	# checking astronaut weight
 	if astronaut.ast_weight < 60:
 		return 'недобор веса'
 	if astronaut.ast_weight > 120:
 		return 'перебор веса'
 
-	# checking astronaut sex 
+	# checking astronaut sex
 	if astronaut.ast_sex != 'man':
 		return 'В космос только мужики!'
-	
-	# all is correct 
+
+	# all is correct
 	return 'допущен'
 
 
@@ -44,7 +44,7 @@ class MyLogger:
 
 		# printing all by default 'print'
 		print(*strings, sep=' ', end='\n')
-		
+
 		# saving all stuff to the buffer
 		self.output += sep.join(map(str, strings)) + end
 
@@ -56,7 +56,7 @@ class MyLogger:
 
 			# write all output suff
 			logfile.write(self.output)
-		
+
 		# returning path to the file
 		return path
 
@@ -65,7 +65,7 @@ class SomeRocketModel:
 
 	# some inicialization
 	def __init__(self, config, output, job):
-		
+
 		# keep incomming parameters inside 'self'
 		self.config = config
 		self.output = output
@@ -114,7 +114,7 @@ class SomeRocketModel:
 		# printing astronauts preparing end message
 		self.logger.log('Астронафты готовы!\n')
 
-	# this example method needs to 
+	# this example method needs to
 	# launch our rocket
 	def launch_rocket(self):
 
