@@ -1,10 +1,11 @@
 import numpy as np
-# import matplotlib.pyplot as plt
-# import matplotlib.tri as mtri
 from sympy import symbols, sympify
 import matplotlib.pyplot as plt
 from scipy import *
 from scipy.integrate import *
+import os
+import shutil
+import zipfile
 
 
 # from mpl_toolkits.mplot3d import *
@@ -229,9 +230,12 @@ class Cosmology_calculus():
 
 class Visualization:
 
-    def __init__(self, models):
+    def __init__(self, models, output):
 
         self.models = models
+        self.output = output
+
+        os.mkdir(self.output)
 
 
     def graphics(self, Task):
@@ -254,7 +258,7 @@ class Visualization:
             ax.set_ylabel('M')
             ax.grid(which='major',linewidth = 2)
             ax.grid(which='minor')
-            fig.savefig(path + 'results/SNe_Ia')
+            fig.savefig(f'{self.output}/SNe_Ia.png')
 
         if Task.plot_diagram_2 == True:
 
@@ -274,7 +278,7 @@ class Visualization:
             ax2.set_ylabel('H, km/s/Mpc')
             ax2.grid(which='major',linewidth = 2)
             ax2.grid(which='minor')
-            fig2.savefig(path + 'results/H(z)')
+            fig2.savefig(f'{self.output}/H(z)')
         #
         if Task.plot_diagram_3 == True:
             legends = []
@@ -290,7 +294,7 @@ class Visualization:
             ax3.set_ylabel('t, Gyr')
             ax3.grid(which='major',linewidth = 2)
             ax3.grid(which='minor')
-            fig3.savefig(path + 'results/Backlook_time')
+            fig3.savefig(f'{self.output}/Backlook_time')
         #
         if Task.plot_diagram_4 == True:
 
@@ -308,7 +312,7 @@ class Visualization:
             ax5.set_ylabel('a')
             ax5.grid(which='major',linewidth = 2)
             ax5.grid(which='minor')
-            fig5.savefig(path + 'results/a(t)')
+            fig5.savefig(f'{self.output}/a(t)')
         #
         if Task.plot_diagram_5 == True:
 
@@ -326,7 +330,7 @@ class Visualization:
             ax4.set_ylabel('H, km/s/Mpc')
             ax4.grid(which='major',linewidth = 2)
             ax4.grid(which='minor')
-            fig4.savefig(path + 'results/H(t)')
+            fig4.savefig(f'{self.output}/H(t)')
         #
         if Task.plot_diagram_6 == True:
             legends = []
@@ -344,7 +348,7 @@ class Visualization:
             ax5.set_ylabel('Omega_d, Omega_m')
             ax5.grid(which='major',linewidth = 2)
             ax5.grid(which='minor')
-            fig5.savefig(path + 'results/Omega_in_past')
+            fig5.savefig(f'{self.output}/Omega_in_past')
         #
         if Task.plot_diagram_7 == True:
 
@@ -364,7 +368,7 @@ class Visualization:
             ax5.set_ylabel('Omega')
             ax5.grid(which='major',linewidth = 2)
             ax5.grid(which='minor')
-            fig5.savefig(path + 'results/Omega_in_future')
+            fig5.savefig(f'{self.output}/Omega_in_future')
         #
         if Task.plot_diagram_8 == True:
 
@@ -382,4 +386,15 @@ class Visualization:
             ax4.set_ylabel('D_A, Gpc')
             ax4.grid(which='major',linewidth = 2)
             ax4.grid(which='minor')
-            fig4.savefig(path + 'results/DA(z)')
+            fig4.savefig(f'{self.output}/DA(z)')
+
+        fantasy_zip = zipfile.ZipFile(f'{self.output}/archive.zip', 'w')
+
+        for folder, subfolders, files in os.walk(f'{self.output}'):
+
+            for file in files:
+                if file.endswith('.png'):
+                    fantasy_zip.write(os.path.join(folder, file), os.path.relpath(os.path.join(folder,file), f'{self.output}'), compress_type = zipfile.ZIP_DEFLATED)
+
+        fantasy_zip.close()
+        return f'{self.output}/archive.zip'
