@@ -230,13 +230,12 @@ class Cosmology_calculus():
 
 class Visualization:
 
-    def __init__(self, models, output):
+    def __init__(self, models, output, job):
 
         self.models = models
         self.output = output
-
+        self.job = job
         os.mkdir(self.output)
-
 
     def graphics(self, Task):
 
@@ -259,6 +258,7 @@ class Visualization:
             ax.grid(which='major',linewidth = 2)
             ax.grid(which='minor')
             fig.savefig(f'{self.output}/SNe_Ia.png')
+            self.job.progress += 1 / 8
 
         if Task.plot_diagram_2 == True:
 
@@ -279,6 +279,7 @@ class Visualization:
             ax2.grid(which='major',linewidth = 2)
             ax2.grid(which='minor')
             fig2.savefig(f'{self.output}/H(z)')
+            self.job.progress += 1 / 8
         #
         if Task.plot_diagram_3 == True:
             legends = []
@@ -295,6 +296,7 @@ class Visualization:
             ax3.grid(which='major',linewidth = 2)
             ax3.grid(which='minor')
             fig3.savefig(f'{self.output}/Backlook_time')
+            self.job.progress += 1 / 8
         #
         if Task.plot_diagram_4 == True:
 
@@ -313,6 +315,7 @@ class Visualization:
             ax5.grid(which='major',linewidth = 2)
             ax5.grid(which='minor')
             fig5.savefig(f'{self.output}/a(t)')
+            self.job.progress += 1 / 8
         #
         if Task.plot_diagram_5 == True:
 
@@ -331,6 +334,7 @@ class Visualization:
             ax4.grid(which='major',linewidth = 2)
             ax4.grid(which='minor')
             fig4.savefig(f'{self.output}/H(t)')
+            self.job.progress += 1 / 8
         #
         if Task.plot_diagram_6 == True:
             legends = []
@@ -349,6 +353,7 @@ class Visualization:
             ax5.grid(which='major',linewidth = 2)
             ax5.grid(which='minor')
             fig5.savefig(f'{self.output}/Omega_in_past')
+            self.job.progress += 1 / 8
         #
         if Task.plot_diagram_7 == True:
 
@@ -369,6 +374,7 @@ class Visualization:
             ax5.grid(which='major',linewidth = 2)
             ax5.grid(which='minor')
             fig5.savefig(f'{self.output}/Omega_in_future')
+            self.job.progress += 1 / 8
         #
         if Task.plot_diagram_8 == True:
 
@@ -387,6 +393,7 @@ class Visualization:
             ax4.grid(which='major',linewidth = 2)
             ax4.grid(which='minor')
             fig4.savefig(f'{self.output}/DA(z)')
+            self.job.progress += 1 / 8
 
         fantasy_zip = zipfile.ZipFile(f'{self.output}/archive.zip', 'w')
 
@@ -397,4 +404,5 @@ class Visualization:
                     fantasy_zip.write(os.path.join(folder, file), os.path.relpath(os.path.join(folder,file), f'{self.output}'), compress_type = zipfile.ZIP_DEFLATED)
 
         fantasy_zip.close()
+        
         return f'{self.output}/archive.zip'
