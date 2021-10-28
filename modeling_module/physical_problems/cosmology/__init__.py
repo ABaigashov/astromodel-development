@@ -39,7 +39,7 @@ class Model:
 			# print(model.chi_square_H, model.H_opt)
 			self.models_1.append(model)
 
-		self.GRAPH = Visualization(self.models_1, output)
+		self.GRAPH = Visualization(self.models_1, output, job)
 
 	# run method
 	# must ALWAYS return path to rendered file
