@@ -8,10 +8,10 @@ bash cmake.sh --exclude-subdir --skip-license --prefix=/usr/local
 apt-get update
 apt-get install --no-install-recommends fenics -y
 
-# git clone https://bitbucket.org/jakob_maljaars/leopart/
-# cd leopart/source/cpp
-# cmake .
-# make
-# cd ../..
-# python3 setup.py install
-# cd ..
+git clone https://bitbucket.org/jakob_maljaars/leopart/
+cd leopart/source/cpp
+cmake .
+make
+cd ../..
+python3 setup.py install
+cd ..
