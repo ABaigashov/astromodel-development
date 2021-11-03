@@ -3,3 +3,4 @@ hello_world: 1
 mesh_generator: 1
 ns: 2
 cosmology: 1
+poisson_problem: 1
