@@ -19,17 +19,21 @@ class Model:
 	#            :job: job instance (uses for 'job.process' monipulations)
 	def init(self, config, output, job):
 
+		self.config = config
+		if self.config.mass_object:
+			self.potential = PointsPotential(self.config, output, job)
+		else:
+			Task = Task_maker(self.config)
+			# saving current problem model with incomming parameters
 
-		Task = Task_maker(config)
-		# saving current problem model with incomming parameters
-
-		self.model = BVP_solver(Task)
+			self.model = BVP_solver(Task, output)
 
 	# run method
 	# must ALWAYS return path to rendered file
 	def run(self):
-
-		self.model.Solving_eq()
-		print("Вычисления завершены, посмотрите результаты в папке results")
-		# render file and return path
-		return 0
+		if self.config.mass_object:
+			return self.potential.start()
+		else:
+			# print("Вычисления завершены, посмотрите результаты в папке results")
+			# render file and return path
+			return self.model.Solving_eq()

@@ -1,7 +1,8 @@
 from fenics import *
 import numpy as np
-# import matplotlib.pyplot as plt
-# import matplotlib.tri as mtri
+from mshr import *
+import numpy as np
+import matplotlib.pyplot as plt
 import sympy as sym
 
 
@@ -70,9 +71,10 @@ class Task_maker():
 
 class BVP_solver():
 
-    def __init__(self, task):
+    def __init__(self, task, output):
 
         self.mesh = Mesh(task.mesh)
+        self.output = output
 
         self.V = FunctionSpace(self.mesh, 'P', 1)
         #объявление искомых функций и пробных функций. Они являются частью V.
@@ -133,6 +135,139 @@ class BVP_solver():
         # Save solution to file in VTK format
         vtkfile = File(path+'results/'+'solution.pvd')
         vtkfile << self.u
+
+        return f'{self.output}/solution.pvd'
+
+class PointsPotential:
+
+    def __init__(self, config, output, job):
+		self.config = config
+		self.output = output
+		self.job = job
+
+
+    def start(self):
+
+        self.parameters = self.config.mass_object
+        #-------------Create DOLPHIN mesh and define function space----------
+        ae = 1.496 * 10**11
+        G = 6.67408 * 10**(-11)
+        tol = 1E-14
+        self.edge = 100
+        self.ncells = 256
+
+        domain =  Rectangle(Point(-self.edge, -elf.edge),
+                            Point(self.edge, self.edge))
+
+        # generate mesh and determination of the Function Space
+        mesh = generate_mesh(domain, self.ncells)
+
+        P1 = FiniteElement('CG', triangle, 1)
+
+        V = FunctionSpace(mesh, P1)
+        Q = FunctionSpace(mesh, 'DG', 0)
+
+        # Данные из конфигуратора
+        N = 5
+        m_obj = [500, 500, 632, 1034, 800]
+        y_obj = [57, -43, 60, -70, 0]
+        x_obj = [64, 23, -45, -80, 0]
+        r_obj = [6, 8, 10, 11, 5]
+
+        ex_L = ''
+        ex_R = ''
+        ex_H = ''
+        ex_B = ''
+
+        for p in self.parameters:
+        	if p.y >= 0 and p.x >= 0:
+        		ex_L += f'- G * {p.mass_obj} / pow(pow(x[1]-{p.y}, 2) + pow(-{self.edge}-{p.x}, 2), 0.5)'
+        		ex_R += f'- G * {p.mass_obj} / pow(pow(x[1]-{p.y}, 2) + pow({self.edge}-{p.x}, 2), 0.5)'
+        		ex_H += f'- G * {p.mass_obj} / pow(pow(x[0]-{p.x}, 2) + pow({self.edge}-{p.y}, 2), 0.5)'
+        		ex_B += f'- G * {p.mass_obj} / pow(pow(x[0]-{p.x}, 2) + pow(-{self.edge}-{p.y}, 2), 0.5)'
+
+        	elif y_obj[i] < 0 and x_obj[i] >= 0:
+        		ex_L += f'- G * {p.mass_obj} / pow(pow(x[1]+{-p.y}, 2) + pow(-{self.edge}-{p.x}, 2), 0.5)'
+        		ex_R += f'- G * {p.mass_obj} / pow(pow(x[1]+{-p.y}, 2) + pow({self.edge}-{p.x}, 2), 0.5)'
+        		ex_H += f'- G * {p.mass_obj} / pow(pow(x[0]-{p.x}, 2) + pow({self.edge}+{-p.y}, 2), 0.5)'
+        		ex_B += f'- G * {p.mass_obj} / pow(pow(x[0]-{p.x}, 2) + pow(-{self.edge}+{-p.y}, 2), 0.5)'
+
+        	elif y_obj[i] >= 0 and x_obj[i] < 0:
+        		ex_L += f'- G * {p.mass_obj} / pow(pow(x[1]-{p.y}, 2) + pow(-{self.edge}+{-p.x]}, 2), 0.5)'
+        		ex_R += f'- G * {p.mass_obj} / pow(pow(x[1]-{p.y}, 2) + pow({self.edge}+{-p.x}, 2), 0.5)'
+        		ex_H += f'- G * {p.mass_obj} / pow(pow(x[0]+{-p.x}, 2) + pow({self.edge}-{p.y}, 2), 0.5)'
+        		ex_B += f'- G * {p.mass_obj} / pow(pow(x[0]+{-p.x}, 2) + pow(-{self.edge}-{p.y}, 2), 0.5)'
+
+        	elif y_obj[i] < 0 and x_obj[i] < 0:
+        		ex_L += f'- G * {p.mass_obj} / pow(pow(x[1]+{-p.y}, 2) + pow(-{self.edge}+{-p.x}, 2), 0.5)'
+        		ex_R += f'- G * {p.mass_obj} / pow(pow(x[1]+{-p.y}, 2) + pow({self.edge}+{-xp.x}, 2), 0.5)'
+        		ex_H += f'- G * {p.mass_obj} / pow(pow(x[0]+{-p.x}, 2) + pow({self.edge}+{-p.y}, 2), 0.5)'
+        		ex_B += f'- G * {p.mass_obj} / pow(pow(x[0]+{-p.x}, 2) + pow(-{self.edge}+{-p.y}, 2), 0.5)'
+
+        # -------------Define boundary condition------------
+        phi_L = Expression(ex_L, G=G, degree=2)
+        phi_R = Expression(ex_R, G=G, degree=2)
+        phi_H = Expression(ex_H, G=G, degree=2)
+        phi_B = Expression(ex_B, G=G, degree=2)
+
+        def boundary_L(x, on_boundary):
+        	return on_boundary and near(x[0], -self.edge, tol)
+        def boundary_R(x, on_boundary):
+        	return on_boundary and near(x[0], self.edge, tol)
+        def boundary_H(x, on_boundary):
+        	return on_boundary and near(x[1], self.edge, tol)
+        def boundary_B(x, on_boundary):
+        	return on_boundary and near(x[1], -self.edge, tol)
+
+        bc_L = DirichletBC(V, phi_L, boundary_L)
+        bc_R = DirichletBC(V, phi_R, boundary_R)
+        bc_H = DirichletBC(V, phi_H, boundary_H)
+        bc_B = DirichletBC(V, phi_B, boundary_B)
+
+        bc = [bc_L, bc_R, bc_H, bc_B]
+
+        # -------------Define variational problem------------
+        phi = Function(V)
+        v = TestFunction(V)
+
+        rho = []
+        rho_sum = Expression('0', degree=2)
+        for p in self.parameters:
+        	condition = f'pow(pow(x[0] - {p.x}, 2) + pow(x[1] - {p.y}, 2), 0.5) <= {p.r} ? 3 * {p.mass_obj} / (4 * pi * pow({p.r}, 3)): 0'
+        	rho_i = Expression(condition, degree=2, pi=np.pi)
+        	rho.append(rho_i)
+        	rho_sum += rho_i
+
+
+        J = Expression('pow(x[0]*x[0] + x[1]*x[1], 0.5)', degree=2)
+
+        Func = (J*phi.dx(0)*v.dx(0) + J*phi.dx(1)*v.dx(1) - J*4*np.pi*rho_sum*v)*dx
+
+        #---------------------Compute solution---------------------
+        solve(Func == 0, phi, bc)
+
+        #--------------------------Ploting------------------------
+        #get array componets and triangulation :
+        v = phi.compute_vertex_values(mesh)
+        x = mesh.coordinates()[:,0]
+        y = mesh.coordinates()[:,1]
+        t = mesh.cells()
+
+        ax = plt.axes()
+
+        cm = plt.get_cmap('viridis')
+        c = ax.tricontourf(x, y, t, v, 10, cmap=cm)
+        p = ax.triplot(x, y, t, '-', color='k', lw=0.2, alpha=0.4)
+
+        plt.xlim(-edge, edge)
+        plt.ylim(-edge, edge)
+        plt.axis('equal')
+
+        #-----------Output in the file-------------------
+        plt.savefig("results/potential_func.png")
+
+        return f"{output}/potential_func.png"
+
 
 
 #пример задания граничных условий через привычные переменные x,y на языке Python

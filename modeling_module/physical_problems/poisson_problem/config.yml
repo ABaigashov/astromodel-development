@@ -1,3 +1,23 @@
+UNITS:
+
+  distance:
+    микрометры: 1e-6
+    милиметры: 1e-3
+    метры: 1e+0
+    километры: 1e+3
+    aстрономические единицы: 1495978707e+2
+    световые года: 94607304725808e+2
+    парсеки: 30856776e+9
+    мегапарсеки: 30856776e+15
+
+  mass:
+    микрограммы: 1e-9
+    милиграммы: 1e-6
+    граммы: 1e-3
+    килограммы: 1e+0
+    тонны: 1e+3
+    массы Солнца: 1.989e+30
+
 CASES:
 
   task_name:
@@ -58,6 +78,53 @@ CASES:
       sympy: "SYM"
     dementional: false
 
+  mass_obj:
+    title: Масса тела
+    default: "0"
+    type: float
+    class: number
+    units: mass
+    dementional: false
+
+  x:
+    title: Координата Х
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  y:
+    title: Координата Y
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  r:
+    title: Радиус объекта
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  edge:
+    title: Границы пространства
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  ncells:
+    title: Количесвто конечных элементов
+    default: "0"
+    type: int
+    class: number
+    dementional: false
+
 GENERAL:
   - task_name
   - source
@@ -72,3 +139,11 @@ OBJECTS:
       - description
       - condition
       - notation
+
+  mass_object:
+    title: Массивный объект
+    cases:
+      - mass_obj
+      - x
+      - y
+      - r
