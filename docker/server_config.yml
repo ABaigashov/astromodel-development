@@ -1,6 +1,8 @@
 particle_simulator: 4
 hello_world: 1
 mesh_generator: 1
-ns: 2
+neutron_stars: 1
 cosmology: 1
 poisson_problem: 1
+cherge_in_triangle: 1
+testing_libs: 1
