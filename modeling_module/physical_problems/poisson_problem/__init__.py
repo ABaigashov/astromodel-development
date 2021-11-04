@@ -7,6 +7,7 @@
 # Import LOCAL python files with 'GlobalInteraction' object
 # and specifiend models representation of problem solution.
 from solver import Task_maker, BVP_solver
+from solver import PointsPotential
 # This is the main class. It has special name and
 # in your '__init__.py' file it MUST have same name
 # and same methods.

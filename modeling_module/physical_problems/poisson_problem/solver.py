@@ -4,6 +4,7 @@ from mshr import *
 import numpy as np
 import matplotlib.pyplot as plt
 import sympy as sym
+import os
 
 
 # from mpl_toolkits.mplot3d import *
@@ -141,10 +142,10 @@ class BVP_solver():
 class PointsPotential:
 
     def __init__(self, config, output, job):
-		self.config = config
-		self.output = output
-		self.job = job
-
+        self.config = config
+        self.output = output
+        os.mkdir(self.output)
+        self.job = job
 
     def start(self):
 
@@ -156,7 +157,7 @@ class PointsPotential:
         self.edge = 100
         self.ncells = 256
 
-        domain =  Rectangle(Point(-self.edge, -elf.edge),
+        domain =  Rectangle(Point(-self.edge, -self.edge),
                             Point(self.edge, self.edge))
 
         # generate mesh and determination of the Function Space
@@ -166,13 +167,6 @@ class PointsPotential:
 
         V = FunctionSpace(mesh, P1)
         Q = FunctionSpace(mesh, 'DG', 0)
-
-        # Данные из конфигуратора
-        N = 5
-        m_obj = [500, 500, 632, 1034, 800]
-        y_obj = [57, -43, 60, -70, 0]
-        x_obj = [64, 23, -45, -80, 0]
-        r_obj = [6, 8, 10, 11, 5]
 
         ex_L = ''
         ex_R = ''
@@ -193,7 +187,7 @@ class PointsPotential:
         		ex_B += f'- G * {p.mass_obj} / pow(pow(x[0]-{p.x}, 2) + pow(-{self.edge}+{-p.y}, 2), 0.5)'
 
         	elif y_obj[i] >= 0 and x_obj[i] < 0:
-        		ex_L += f'- G * {p.mass_obj} / pow(pow(x[1]-{p.y}, 2) + pow(-{self.edge}+{-p.x]}, 2), 0.5)'
+        		ex_L += f'- G * {p.mass_obj} / pow(pow(x[1]-{p.y}, 2) + pow(-{self.edge}+{-p.x}, 2), 0.5)'
         		ex_R += f'- G * {p.mass_obj} / pow(pow(x[1]-{p.y}, 2) + pow({self.edge}+{-p.x}, 2), 0.5)'
         		ex_H += f'- G * {p.mass_obj} / pow(pow(x[0]+{-p.x}, 2) + pow({self.edge}-{p.y}, 2), 0.5)'
         		ex_B += f'- G * {p.mass_obj} / pow(pow(x[0]+{-p.x}, 2) + pow(-{self.edge}-{p.y}, 2), 0.5)'
@@ -259,14 +253,14 @@ class PointsPotential:
         c = ax.tricontourf(x, y, t, v, 10, cmap=cm)
         p = ax.triplot(x, y, t, '-', color='k', lw=0.2, alpha=0.4)
 
-        plt.xlim(-edge, edge)
-        plt.ylim(-edge, edge)
+        plt.xlim(-self.edge, self.edge)
+        plt.ylim(-self.edge, self.edge)
         plt.axis('equal')
 
         #-----------Output in the file-------------------
-        plt.savefig("results/potential_func.png")
+        plt.savefig(f"{self.output}/potential_func.png")
 
-        return f"{output}/potential_func.png"
+        return f"{self.output}/potential_func.png"
 
 
 
