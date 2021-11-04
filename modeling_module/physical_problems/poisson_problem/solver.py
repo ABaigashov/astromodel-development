@@ -13,7 +13,7 @@ import os
 ############################
 #####УРАВНЕНИЕ ПУАССОНА#####
 ############################
-path = 'modeling_module/physical_problems/math_problems/'
+path = 'modeling_module/physical_problems/poisson_problem/'
 
 class Task_maker():
 
