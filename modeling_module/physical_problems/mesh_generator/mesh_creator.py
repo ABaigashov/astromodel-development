@@ -30,6 +30,12 @@ class MeshCreator:
 		domains_new = Rectangle(Point(0, 0), Point(1, 1))
 		domains = domains_nul - domains_new
 
+		if self.dimensions == 3:
+			domains_nul = BoxMesh(Point(0, 0, 0), Point(1, 1, 1), 10, 10, 10)
+			domains_new = BoxMesh(Point(0, 0, 0), Point(1, 1, 1), 10, 10, 10)
+			domains = domains_nul - domains_new
+
+
 		if self.config.rectangles:
 			for rectangle in self.config.rectangles:
 				rect = Rectangle(Point(rectangle.rec_x0, rectangle.rec_y0),
