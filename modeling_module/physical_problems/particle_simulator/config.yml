@@ -562,7 +562,7 @@ GENERAL:
 OBJECTS:
 
   point_objects:
-    title: Единичный объект
+    title: Точечный объект
     cases:
       - coords
       - speed
@@ -570,6 +570,17 @@ OBJECTS:
       - mass
       - radius
       - delay
+
+  EM_fields:
+    title: Электромагнитное поле
+    cases:
+      - electricity
+      - magnetic
+
+  G_fields:
+    title: Гравитационное поле
+    cases:
+      - gravity
 
   random_generators:
     title: Генератор произвольного распределения объектов
@@ -605,14 +616,3 @@ OBJECTS:
       - apside_angle
       - radius_scale
       - mass_scale
-
-  EM_fields:
-    title: Электромагнитное поле
-    cases:
-      - electricity
-      - magnetic
-
-  G_fields:
-    title: Гравитационное поле
-    cases:
-      - gravity
