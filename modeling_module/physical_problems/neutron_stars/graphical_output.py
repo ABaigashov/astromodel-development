@@ -5,14 +5,20 @@ from calculus import EOS, Star
 from collector import Result_maker
 from sympy import sympify
 
+import os
+import shutil
+import zipfile
+
 G = 6.67408 * 10**(-11)
 sun_mass = 1.989*pow(10,30)
 c = 299792458
-path = 'modeling_module/physical_problems/ns/'
+path = 'modeling_module/physical_problems/neutron_stars/'
 
 class Model_of_representation():
 
-	def __init__(self, task1, task2):
+	def __init__(self, output, task1, task2):
+		self.output = output
+		os.mkdir(self.output)
 		self.task1 = task1
 		self.task2 = task2
 		units_of_representation = self.task1[0][0]
@@ -76,7 +82,7 @@ class Model_of_representation():
 			ax.set_ylabel('m(r)')
 			ax.grid(which='major',linewidth = 2)
 			ax.grid(which='minor')
-			fig.savefig(path + 'results/mass_profile')
+			fig.savefig(f'{self.output}/mass_profile.png')
 
 			ax2.minorticks_on()
 			ax2.set_title('density profile')
@@ -85,7 +91,7 @@ class Model_of_representation():
 			ax2.set_ylabel('rho(r), ' + self.task1[0][0])
 			ax2.grid(which='major',linewidth = 2)
 			ax2.grid(which='minor')
-			fig2.savefig(path + 'results/density_profile')
+			fig2.savefig(f'{self.output}/density_profile')
 
 			ax3.minorticks_on()
 			ax3.set_title('pressure profile')
@@ -94,7 +100,18 @@ class Model_of_representation():
 			ax3.set_ylabel('p, ' + self.task1[0][0])
 			ax3.grid(which='major',linewidth = 2)
 			ax3.grid(which='minor')
-			fig3.savefig(path + 'results/pressure_profile')
+			fig3.savefig(f'{self.output}/pressure_profile')
+
+			fantasy_zip = zipfile.ZipFile(f'{self.output}/archive.zip', 'w')
+
+			for folder, subfolders, files in os.walk(f'{self.output}'):
+				for file in files:
+					if file.endswith('.png'):
+						fantasy_zip.write(os.path.join(folder, file), os.path.relpath(os.path.join(folder,file), f'{self.output}'), compress_type = zipfile.ZIP_DEFLATED)
+
+			fantasy_zip.close()
+
+			return f'{self.output}/archive.zip'
 
 	def work_2(self):
 
@@ -142,7 +159,7 @@ class Model_of_representation():
 				ax2.plot(RHO,M)
 				legend.append(result.id)
 
-				Name=path + 'results/'+i[0]+'_M_R'+'.txt'
+				Name=f'{self.output}/'+i[0]+'_M_R'+'.txt'
 				G = open(Name, 'w')
 				G.write('density')
 				G.write(' ')
@@ -166,7 +183,7 @@ class Model_of_representation():
 			ax.legend(legend)
 			ax.grid(which='major',linewidth = 2)
 			ax.grid(which='minor')
-			fig.savefig(path + 'results/mass_radius_relation')
+			fig.savefig(f'{self.output}/mass_radius_relation')
 
 			ax2.minorticks_on()
 			ax2.set_title('Mass-central density relation')
@@ -175,4 +192,4 @@ class Model_of_representation():
 			ax2.legend(legend)
 			ax2.grid(which='major',linewidth = 2)
 			ax2.grid(which='minor')
-			fig2.savefig(path + 'results/mass_density_relation')
+			fig2.savefig(f'{self.output}/mass_density_relation')
