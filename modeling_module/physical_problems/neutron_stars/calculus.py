@@ -77,7 +77,7 @@ class EOS:
                 name_file, form,
                 rho_row, p_row,
                 units_density, units_pressure):
-        path = 'modeling_module/physical_problems/ns/'
+        path = 'modeling_module/physical_problems/neutron_stars/'
         if form=="table":
             self.name_file = path + "EOS/" + name_file + ".txt"
         else:

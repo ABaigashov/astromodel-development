@@ -35,7 +35,7 @@ class Model:
 		else:
 			self.task1 = "no"
 
-		self.model = Model_of_representation(Task.task_descriptor, Task.EoS_descriptor)
+		self.model = Model_of_representation(output, Task.task_descriptor, Task.EoS_descriptor)
 
 	# run method
 	# must ALWAYS return path to rendered file
