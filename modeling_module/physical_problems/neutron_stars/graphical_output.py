@@ -21,6 +21,7 @@ class Model_of_representation():
 		os.mkdir(self.output)
 		self.task1 = task1
 		self.task2 = task2
+		self.fantasy_zip = zipfile.ZipFile(f'{self.output}/archive.zip', 'w')
 		units_of_representation = self.task1[0][0]
 		if units_of_representation == 'MeV/fm3':
 		    k0 = 1.60219*10**(-6)*10**(39)
@@ -102,16 +103,15 @@ class Model_of_representation():
 			ax3.grid(which='minor')
 			fig3.savefig(f'{self.output}/pressure_profile')
 
-			fantasy_zip = zipfile.ZipFile(f'{self.output}/archive.zip', 'w')
 
-			for folder, subfolders, files in os.walk(f'{self.output}'):
-				for file in files:
-					if file.endswith('.png'):
-						fantasy_zip.write(os.path.join(folder, file), os.path.relpath(os.path.join(folder,file), f'{self.output}'), compress_type = zipfile.ZIP_DEFLATED)
+			if self.task1[0][1]=="None":
+				for folder, subfolders, files in os.walk(f'{self.output}'):
+					for file in files:
+						if file.endswith('.png') or file.endswith('.txt'):
+							self.fantasy_zip.write(os.path.join(folder, file), os.path.relpath(os.path.join(folder,file), f'{self.output}'), compress_type = zipfile.ZIP_DEFLATED)
 
-			fantasy_zip.close()
-
-			return f'{self.output}/archive.zip'
+				self.fantasy_zip.close()
+				return f'{self.output}/archive.zip'
 
 	def work_2(self):
 
@@ -193,3 +193,12 @@ class Model_of_representation():
 			ax2.grid(which='major',linewidth = 2)
 			ax2.grid(which='minor')
 			fig2.savefig(f'{self.output}/mass_density_relation')
+
+			for folder, subfolders, files in os.walk(f'{self.output}'):
+				for file in files:
+					if file.endswith('.png') or file.endswith('.txt'):
+						self.fantasy_zip.write(os.path.join(folder, file), os.path.relpath(os.path.join(folder,file), f'{self.output}'), compress_type = zipfile.ZIP_DEFLATED)
+
+			self.fantasy_zip.close()
+
+			return f'{self.output}/archive.zip'
