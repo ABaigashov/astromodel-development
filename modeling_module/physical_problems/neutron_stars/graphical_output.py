@@ -12,7 +12,7 @@ import zipfile
 G = 6.67408 * 10**(-11)
 sun_mass = 1.989*pow(10,30)
 c = 299792458
-path = 'modeling_module/physical_problems/neutron_stars/'
+#path = 'modeling_module/physical_problems/neutron_stars/'
 
 class Model_of_representation():
 
@@ -41,8 +41,8 @@ class Model_of_representation():
 			ax3 = fig3.add_subplot(111)
 			legend=[]
 			for i in self.task2:
-				result=EOS(name_file=i[0], form=i[5], rho_row=i[1], p_row=i[2],
-	                    	units_density=i[3], units_pressure=i[4])
+				result=EOS(name_eos=i[0], name_file=i[1], form=i[6], rho_row=i[2], p_row=i[3],
+	                    	units_density=i[4], units_pressure=i[5])
 				result2=EOS.EOS_maker(result)
 				summa=Result_maker()
 
@@ -128,8 +128,8 @@ class Model_of_representation():
 			for i in self.task2:
 				print("Производятся вычисления для уравнения состояния")
 				print(i[0])
-				result=EOS(name_file=i[0], form=i[5], rho_row=i[1], p_row=i[2],
-			               units_density=i[3], units_pressure=i[4])
+				result=EOS(name_eos=i[0], name_file=i[1], form=i[6], rho_row=i[2], p_row=i[3],
+	                    	units_density=i[4], units_pressure=i[5])
 				result2=EOS.EOS_maker(result)
 				summa=Result_maker()
 

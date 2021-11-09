@@ -21,6 +21,8 @@ class Task_maker:
             for EoS_parameters in EoS_parameters_1:
                 if EoS_parameters.eos_name:
                     name = EoS_parameters.eos_name
+                if EoS_parameters.eos_file:
+                    eos_file = EoS_parameters.eos_file
                 if EoS_parameters.analytical:
                     if EoS_parameters.analytical=="yes":
                         form = "analytical"
@@ -45,7 +47,7 @@ class Task_maker:
                 else:
                     units_pressure = "dyne/cm2"
 
-                EoS_descriptor = [name, density_row, pressure_row, units_density,
+                EoS_descriptor = [name, eos_file, density_row, pressure_row, units_density,
                                  units_pressure, form]
                 self.EoS_descriptor.append(EoS_descriptor)
 
