@@ -6,7 +6,7 @@ from scipy.integrate import *
 import os
 import shutil
 import zipfile
-
+from urllib import request
 
 # from mpl_toolkits.mplot3d import *
 # from matplotlib import cm
@@ -44,25 +44,6 @@ def Friedmann_eqs_2(ICS,a,eq):
 
     return da_dt, dH_dt, drho_m_dt, drho_r_dt, drho_d_dt, drho_k_dt
 
-class Task_maker():
-
-    def __init__(self, config):
-
-        self.name_SNE = config.name_SNE
-        self.name_Hubble = config.name_Hubble
-        self.plot_diagram_1 = config.task_1
-        self.plot_diagram_2 = config.task_2
-        self.plot_diagram_3 = config.task_3
-        self.plot_diagram_4 = config.task_4
-        self.plot_diagram_5 = config.task_5
-        self.plot_diagram_6 = config.task_6
-        self.plot_diagram_7 = config.task_7
-        self.plot_diagram_8 = config.task_8
-
-        self.cosmological_components = config.cosmological_components
-        self.row_SNE = [int(config.row_1),int(config.row_2),int(config.row_3)]
-        self.row_Hubble = [int(config.row_4),int(config.row_5),int(config.row_6)]
-
 class Cosmology_data():
 
     def __init__(self, name, rows):
@@ -73,8 +54,10 @@ class Cosmology_data():
         self.err = []
 
     def Data_loader(self):
-        name = path + "data/" + self.name
-        data = np.loadtxt(name, delimiter='\t', dtype=np.float)
+        remote_url = self.name
+        name_file = path + "data/" + "1.txt"
+        request.urlretrieve(remote_url, name_file)
+        data = np.loadtxt(name_file, delimiter='\t', dtype=np.float)
         self.z0 = data[:,self.rows[0]-1]
         self.parameter = data[:,self.rows[1]-1]
         self.err = data[:,self.rows[2]-1]
@@ -237,9 +220,9 @@ class Visualization:
         self.job = job
         os.mkdir(self.output)
 
-    def graphics(self, Task):
+    def graphics(self, config):
 
-        if Task.plot_diagram_1 == True:
+        if config.task_1 == True:
 
             legends = []
 
@@ -260,7 +243,7 @@ class Visualization:
             fig.savefig(f'{self.output}/SNe_Ia.png')
             self.job.progress += 1 / 8
 
-        if Task.plot_diagram_2 == True:
+        if config.task_2 == True:
 
             legends = []
 
@@ -281,7 +264,7 @@ class Visualization:
             fig2.savefig(f'{self.output}/H(z)')
             self.job.progress += 1 / 8
         #
-        if Task.plot_diagram_3 == True:
+        if config.task_3 == True:
             legends = []
             fig3 = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
             ax3 = fig3.add_subplot(111)
@@ -298,7 +281,7 @@ class Visualization:
             fig3.savefig(f'{self.output}/Backlook_time')
             self.job.progress += 1 / 8
         #
-        if Task.plot_diagram_4 == True:
+        if config.task_4 == True:
 
             legends = []
 
@@ -317,7 +300,7 @@ class Visualization:
             fig5.savefig(f'{self.output}/a(t)')
             self.job.progress += 1 / 8
         #
-        if Task.plot_diagram_5 == True:
+        if config.task_5 == True:
 
             legends = []
 
@@ -336,7 +319,7 @@ class Visualization:
             fig4.savefig(f'{self.output}/H(t)')
             self.job.progress += 1 / 8
         #
-        if Task.plot_diagram_6 == True:
+        if config.task_6 == True:
             legends = []
             fig5 = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
             ax5 = fig5.add_subplot(111)
@@ -355,7 +338,7 @@ class Visualization:
             fig5.savefig(f'{self.output}/Omega_in_past')
             self.job.progress += 1 / 8
         #
-        if Task.plot_diagram_7 == True:
+        if config.task_7 == True:
 
             legends = []
 
@@ -376,7 +359,7 @@ class Visualization:
             fig5.savefig(f'{self.output}/Omega_in_future')
             self.job.progress += 1 / 8
         #
-        if Task.plot_diagram_8 == True:
+        if config.task_8 == True:
 
             legends = []
 
@@ -404,5 +387,5 @@ class Visualization:
                     fantasy_zip.write(os.path.join(folder, file), os.path.relpath(os.path.join(folder,file), f'{self.output}'), compress_type = zipfile.ZIP_DEFLATED)
 
         fantasy_zip.close()
-        
+
         return f'{self.output}/archive.zip'

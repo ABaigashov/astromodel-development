@@ -6,7 +6,7 @@
 
 # Import LOCAL python files with 'GlobalInteraction' object
 # and specifiend models representation of problem solution.
-from solver import Task_maker, Cosmology_data, Cosmology_calculus, Visualization
+from solver import Cosmology_data, Cosmology_calculus, Visualization
 # This is the main class. It has special name and
 # in your '__init__.py' file it MUST have same name
 # and same methods.
@@ -20,15 +20,15 @@ class Model:
 	def init(self, config, output, job):
 
 
-		self.Task = Task_maker(config)
+		self.config = config
 		# saving current problem model with incomming parameters
 		self.models = []
 		self.models_1 = []
-		self.model_SNE = Cosmology_data(self.Task.name_SNE, self.Task.row_SNE)
-		self.model_H = Cosmology_data(self.Task.name_Hubble, self.Task.row_Hubble)
+		self.model_SNE = Cosmology_data(config.name_SNE, [int(config.row_1),int(config.row_2),int(config.row_3)])
+		self.model_H = Cosmology_data(config.name_Hubble,[int(config.row_4),int(config.row_5),int(config.row_6)])
 		self.model_SNE.Data_loader()
 		self.model_H.Data_loader()
-		for model in self.Task.cosmological_components:
+		for model in config.cosmological_components:
 			self.models.append(Cosmology_calculus(config, model, self.model_SNE, self.model_H))
 
 		for model in self.models:
@@ -46,4 +46,4 @@ class Model:
 	def run(self):
 
 		# render file and return path
-		return self.GRAPH.graphics(self.Task)
+		return self.GRAPH.graphics(self.config)
