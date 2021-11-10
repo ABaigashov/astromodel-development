@@ -1,0 +1,27 @@
+{
+    "описание": "Уравнение Пуассона с граничными условиями Дирихле в квадрате",
+    "mesh_name": "mesh_square.xml",
+    "scalar_functions": [
+      {
+        "boundary_name": "left",
+        "description": "near(x[0], 0)",
+        "condition_type": "Dirichlet",
+        "condition": "1"
+      },
+      {
+        "boundary_name": "right",
+        "description": "near(x[0], 1)",
+        "condition_type": "Dirichlet",
+        "condition": "1"
+      },
+      {
+        "boundary_name": "up_down",
+        "description": "near(x[1], 0) || near(x[1], 1)",
+        "condition_type": "Dirichlet",
+        "condition": "1"
+      }
+    ],
+    "source": "3*exp(-(x[0]-0.5)*(x[0]-0.5)-(x[1]-0.5)*(x[1]-0.5))",
+    "output": "ex5/solution.pvd",
+    "kappa": "1 +x[1] + 0.05*u"
+}

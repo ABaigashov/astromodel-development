@@ -1,0 +1,22 @@
+{
+    "описание": "Уравнение Пуассона c символьным заданием ГУ",
+    "mesh_name": "mesh_square.xml",
+    "scalar_functions": [
+      {
+        "boundary_name": "left",
+        "description": "near(x[0],0)",
+        "condition_type": "Neumann",
+        "condition": "-x[1]",
+        "notation": "EXPR"
+      },
+      {
+        "boundary_name": "right",
+        "description": "near(x[0],1)",
+        "condition_type": "Neumann",
+        "condition": "-x[1]",
+        "notation": "EXPR"
+      }
+    ],
+    "source": "0",
+    "output": "poisson/solution.pvd"
+}
