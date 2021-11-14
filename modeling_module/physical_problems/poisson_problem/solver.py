@@ -14,7 +14,6 @@ import os
 #####УРАВНЕНИЕ ПУАССОНА#####
 ############################
 path = 'modeling_module/physical_problems/poisson_problem/'
-
 class Task_maker():
 
     def __init__(self, config):
@@ -38,8 +37,8 @@ class Task_maker():
         if self.config.source:
             self.source = self.config.source
 
-        # if self.config.kappa:
-        #     self.kappa = self.config.kappa
+        if self.config.kappa:
+            self.kappa = self.config.kappa
 
         # if self.config.vector_functions:
         #     self.conditions = self.config.vector_functions
@@ -134,7 +133,8 @@ class BVP_solver():
         solve(F == 0, self.u, self.Dc)
 
         # Save solution to file in VTK format
-        vtkfile = File(path+'results/'+'solution.pvd')
+        os.mkdir(self.output)
+        vtkfile = File(f'{self.output}/solution.pvd')
         vtkfile << self.u
 
         return f'{self.output}/solution.pvd'

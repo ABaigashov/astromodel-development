@@ -44,6 +44,13 @@ CASES:
     class: text
     dementional: false
 
+  kappa:
+    title: Фактор нелинейности
+    default: "1"
+    type: str
+    class: text
+    dementional: false
+
   condition_type:
     title: Тип граничного условия
     default: "Dirichlet"
@@ -128,6 +135,7 @@ CASES:
 GENERAL:
   - task_name
   - source
+  - kappa
   - mesh_name
 
 OBJECTS:
