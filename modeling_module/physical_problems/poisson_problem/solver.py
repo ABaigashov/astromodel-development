@@ -30,6 +30,8 @@ class Task_maker():
         self.notation_scalar = []
         self.source = "0"
         self.kappa = "1"
+        self.t_0 = 0
+        self.t_f = 0
 
         if self.config.mesh_name:
              self.mesh = path + 'mesh/' + self.config.mesh_name
@@ -39,6 +41,18 @@ class Task_maker():
 
         if self.config.kappa:
             self.kappa = self.config.kappa
+
+        if self.config.task_name:
+            self.task_name = self.config.task_name
+
+        if config.task_name=="Heat":
+            if self.config.t_0:
+                self.t_0 = float(self.config.t_0)
+
+            if self.config.t_f:
+                self.t_f = float(self.config.t_f)
+
+
 
         # if self.config.vector_functions:
         #     self.conditions = self.config.vector_functions
@@ -75,6 +89,8 @@ class BVP_solver():
 
         self.mesh = Mesh(task.mesh)
         self.output = output
+        self.t_0 = task.t_0
+        self.t_f = task.t_f
 
         self.V = FunctionSpace(self.mesh, 'P', 1)
         #объявление искомых функций и пробных функций. Они являются частью V.
@@ -94,15 +110,15 @@ class BVP_solver():
         for i in task.name_scalar:
             if task.type_scalar[k]=="Dirichlet":
                 if task.notation_scalar[k]=="SYM":
-                    u_D = sym.sympify(task.scalar_condition[k])
+                    u_D0 = sym.sympify(task.scalar_condition[k])
                     x, y, z, t = sym.symbols('x[0], x[1], x[2], t')
                     sub = [('x',x),('y',y),('z',z),('t',t)]
-                    u_D = u_D.subs(sub)
-                    u_code = sym.printing.ccode(u_D)
-                    u_D = Expression(u_code, degree=2)
+                    u_D0 = u_D0.subs(sub)
+                    u_code = sym.printing.ccode(u_D0)
+                    self.u_D = Expression(u_code, degree=2)
                 else:
-                    u_D = Expression(task.scalar_condition[k], degree=2)
-                DC = DirichletBC(self.V, u_D, task.description_scalar[k])
+                    self.u_D = Expression(task.scalar_condition[k], degree=2)
+                DC = DirichletBC(self.V, self.u_D, task.description_scalar[k])
                 self.Dc.append(DC)
             if task.type_scalar[k]=="Neumann":
                 if task.notation_scalar[k]=="SYM":
@@ -127,15 +143,38 @@ class BVP_solver():
         self.kappa1 = Expression(task.kappa, degree=2,u=self.u)
 
 
-    def Solving_eq(self):
-        #постановка вариационной задачи и ее решение с граничными условиями
-        F = self.kappa1*dot(grad(self.u), grad(self.v))*dx - self.f*self.v*dx - sum(self.Nc)
-        solve(F == 0, self.u, self.Dc)
+    def Solving_eq(self, task):
 
-        # Save solution to file in VTK format
-        os.mkdir(self.output)
-        vtkfile = File(f'{self.output}/solution.pvd')
-        vtkfile << self.u
+        if task.task_name=="Poisson":
+            #постановка вариационной задачи и ее решение с граничными условиями
+            F = self.kappa1*dot(grad(self.u), grad(self.v))*dx - self.f*self.v*dx - sum(self.Nc)
+            solve(F == 0, self.u, self.Dc)
+
+            # Save solution to file in VTK format
+            os.mkdir(self.output)
+            vtkfile = File(f'{self.output}/solution.pvd')
+            vtkfile << self.u
+
+        if task.task_name=="Heat":
+            self.f = Expression(task.source, degree=2, t=self.t_0)
+            u_n = interpolate(self.u_D, self.V)
+            N=10
+            dt=(self.t_f - self.t_0)/N
+            #постановка вариационной задачи для каждого момента времени. Производная
+            #по времени просто представляется в виде (u-u_n)/dt, на dt затем умножение
+            F = (self.u - u_n)*self.v*dx + self.kappa1*dt*dot(grad(self.u), grad(self.v))*dx - dt*self.f*self.v*dx - sum(self.Nc)
+            os.mkdir(self.output)
+            for n in range(N):
+                #шаг по времени
+                self.t_0 += dt
+                #подстановка нового значения t в ГУ
+                self.u_D.t = self.t_0
+                #решение
+                solve(F == 0, self.u, self.Dc)
+                # Save solution to file in VTK format
+                vtkfile = File(f'{self.output}/solution.pvd'.format(n))
+                vtkfile << self.u
+                u_n.assign(self.u)
 
         return f'{self.output}/solution.pvd'
 

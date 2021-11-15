@@ -37,4 +37,4 @@ class Model:
 		else:
 			# print("Вычисления завершены, посмотрите результаты в папке results")
 			# render file and return path
-			return self.model.Solving_eq()
+			return self.model.Solving_eq(self.config)
