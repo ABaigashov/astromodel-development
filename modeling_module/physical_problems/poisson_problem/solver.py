@@ -112,9 +112,10 @@ class BVP_solver():
                 if task.notation_scalar[k]=="SYM":
                     u_D0 = sym.sympify(task.scalar_condition[k])
                     x, y, z, t = sym.symbols('x[0], x[1], x[2], t')
-                    sub = [('x',x),('y',y),('z',z),('t',t)]
+                    sub = [('x',x),('y',y),('z',z),('t',self.t_0)]
                     u_D0 = u_D0.subs(sub)
                     u_code = sym.printing.ccode(u_D0)
+                    print(u_code)
                     self.u_D = Expression(u_code, degree=2)
                 else:
                     self.u_D = Expression(task.scalar_condition[k], degree=2)
@@ -124,7 +125,7 @@ class BVP_solver():
                 if task.notation_scalar[k]=="SYM":
                     g_N = sym.sympify(task.scalar_condition[k])
                     x, y, z, t = sym.symbols('x[0], x[1], x[2], t')
-                    sub = [('x',x),('y',y),('z',z),('t',t)]
+                    sub = [('x',x),('y',y),('z',z),('t',self.t_0)]
                     g_N = g_N.subs(sub)
                     g_code = sym.printing.ccode(g_N)
                     g = Expression(g_code, degree=2)
