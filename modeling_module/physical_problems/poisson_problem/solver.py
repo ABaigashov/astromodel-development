@@ -32,6 +32,7 @@ class Task_maker():
         self.kappa = "1"
         self.t_0 = 0
         self.t_f = 0
+        self.N = 1
 
         if self.config.mesh_name:
              self.mesh = path + 'mesh/' + self.config.mesh_name
@@ -51,6 +52,12 @@ class Task_maker():
 
             if self.config.t_f:
                 self.t_f = float(self.config.t_f)
+
+            if self.config.ics:
+                self.ics = self.config.ics
+
+            if self.config.N:
+                self.N = int(self.config.N)
 
 
 
@@ -91,34 +98,37 @@ class BVP_solver():
         self.output = output
         self.t_0 = task.t_0
         self.t_f = task.t_f
+        self.number_of_steps = task.N
 
         os.mkdir(self.output)
 
-        self.V = FunctionSpace(self.mesh, 'P', 1)
-        #объявление искомых функций и пробных функций. Они являются частью V.
-        self.u = Function(self.V)
-        self.v = TestFunction(self.V)
 
-        self.Dc = []
-        self.Nc = []
-        self.bx = []
+        #объявление искомых функций и пробных функций. Они являются частью V.
 
         self.boundary_parts = MeshFunction('size_t', self.mesh, self.mesh.topology().dim() - 1)
 
-        ds = Measure('ds', domain = self.mesh, subdomain_data = self.boundary_parts)
 
     def Solving_eq(self, task):
+        V = FunctionSpace(self.mesh, 'P', 1)
 
+        u = Function(V)
+        v = TestFunction(V)
+        ds = Measure('ds', domain = self.mesh, subdomain_data = self.boundary_parts)
+        Dc = []
+        Nc = []
+        bx = []
+
+
+        if task.task_name == "Heat":
+            u_0 = Expression(task.ics, degree=2)
+            dt=(self.t_f - self.t_0)/self.number_of_steps
+            u_n = interpolate(u_0, V)
 
         if task.task_name == "Poisson":
-            N=0
+            self.number_of_steps = 1
             dt=0
-        if task.task_name == "Heat":
-            N=10
-            dt=(self.t_f - self.t_0)/N
 
-        for n in range(N+1):
-            print('URA')
+        for n in range(self.number_of_steps):
 
             k=0
             m=0
@@ -130,13 +140,11 @@ class BVP_solver():
                         sub = [('x',x),('y',y),('z',z),('t',self.t_0)]
                         u_D0 = u_0.subs(sub)
                         u_code = sym.printing.ccode(u_D0)
-                        print(u_code)
-                        self.u_D = Expression(u_code, degree=2)
+                        u_D = Expression(u_code, degree=2)
                     else:
-                        self.u_D = Expression(task.scalar_condition[k], degree=2)
-                        print('URA')
-                    DC = DirichletBC(self.V, self.u_D, task.description_scalar[k])
-                    self.Dc.append(DC)
+                        u_D = Expression(task.scalar_condition[k], degree=2)
+                    DC = DirichletBC(V, u_D, task.description_scalar[k])
+                    Dc.append(DC)
                 if task.type_scalar[k]=="Neumann":
                     if task.notation_scalar[k]=="SYM":
                         g_N = sym.sympify(task.scalar_condition[k])
@@ -148,39 +156,42 @@ class BVP_solver():
                     else:
                         g = Expression(task.scalar_condition[k], degree=2)
                     bx1 = CompiledSubDomain(task.description_scalar[k])
-                    self.bx.append(bx1)
-                    self.bx[m].mark(self.boundary_parts, m)
-                    self.Nc.append(g*self.v*ds(m))
+                    bx.append(bx1)
+                    bx[m].mark(self.boundary_parts, m)
+                    Nc.append(g*v*ds(m))
                     m = m+1
                 k = k+1
 
                 #источник в правой части уравнения Пуассона
-            self.f = Expression(task.source, degree=2, t=self.t_0, u=self.u)
+            f = Expression(task.source, degree=2, t=self.t_0, u=u)
 
-            self.kappa1 = Expression(task.kappa, degree=2,t=self.t_0, u=self.u)
+            kappa1 = Expression(task.kappa, degree=2,t=self.t_0, u=u)
 
             if task.task_name == "Poisson":
-                F = self.kappa1*dot(grad(self.u), grad(self.v))*dx - self.f*self.v*dx - sum(self.Nc)
-                solve(F == 0, self.u, self.Dc)
+                F = kappa1*dot(grad(u), grad(v))*dx - f*v*dx - sum(Nc)
+                solve(F == 0, u, Dc)
 
             if task.task_name == "Heat":
-                u_n = interpolate(self.u_D, self.V)
-                F = (self.u - u_n)*self.v*dx + self.kappa1*dt*dot(grad(self.u), grad(self.v))*dx - dt*self.f*self.v*dx - sum(self.Nc)
-                solve(F == 0, self.u, self.Dc)
+                F = (u - u_n)*v*dx + kappa1*dt*dot(grad(u), grad(v))*dx - dt*f*v*dx - sum(Nc)
+                solve(F == 0, u, Dc)
+                u_n.assign(u)
+
 
 
             # Save solution to file in VTK format
-            vtkfile = File(f"{self.output}/solution.pvd".format(n))
-            vtkfile << self.u
+            vtkfile = File(f"{self.output}/solution.{format(n)}.pvd")
+            vtkfile << u
 
             self.t_0 += dt
 
-            self.Dc = []
-            self.Nc = []
-            self.bx = []
+            print(self.t_0)
+
+            Dc = []
+            Nc = []
+            bx = []
 
 
-        return f"{self.output}/solution.pvd"
+        return f"{self.output}/solution.{format(n)}.pvd"
 
 class PointsPotential:
 

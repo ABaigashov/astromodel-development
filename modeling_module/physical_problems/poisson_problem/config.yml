@@ -51,6 +51,34 @@ CASES:
     class: text
     dementional: false
 
+  t_0:
+    title: Начальное время
+    default: "0"
+    type: str
+    class: text
+    dementional: false
+
+  t_f:
+    title: Конечное время
+    default: "0"
+    type: str
+    class: text
+    dementional: false
+
+  ics:
+    title: Начальное условие
+    default: "0"
+    type: str
+    class: text
+    dementional: false
+
+  N:
+    title: Число шагов
+    default: "1"
+    type: str
+    class: text
+    dementional: false
+
   condition_type:
     title: Тип граничного условия
     default: "Dirichlet"
@@ -137,6 +165,10 @@ GENERAL:
   - source
   - kappa
   - mesh_name
+  - t_0
+  - t_f
+  - N
+  - ics
 
 OBJECTS:
 
