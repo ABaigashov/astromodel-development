@@ -104,6 +104,7 @@ class Cosmology_calculus():
         self.err_H = Data_2.err
 
         self.chi_square_mu = 10000
+        self.chi_square_H = 10000
         self.H_opt = 72
 
     def mu_diagram(self):
@@ -210,6 +211,17 @@ class Cosmology_calculus():
             A0 = A
         self.chi_square_H = A-B**2/C1
         self.H_opt = B/C1
+
+class Model_Var():
+
+    def __init__(self, omega_d, omega_m, omega_r, equation_d, title):
+
+        self.omega_d = omega_d
+        self.omega_m = omega_m
+        self.omega_r = omega_r
+        self.equation_d = equation_d
+        self.title_of_model = title
+
 
 class Visualization:
 
