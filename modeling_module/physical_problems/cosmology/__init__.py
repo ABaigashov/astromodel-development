@@ -3,7 +3,7 @@
 # '__init__.py' and you SHOULDN'T RENAME it. The file
 # contains main solver object.
 
-
+from sympy import *
 # Import LOCAL python files with 'GlobalInteraction' object
 # and specifiend models representation of problem solution.
 from solver import Cosmology_data, Cosmology_calculus, Visualization, Model_Var
@@ -41,22 +41,31 @@ class Model:
 
 		else:
 			for model in config.cosmological_components:
-				print(model)
-				omega_m = float(model.omega_m)+0.1
-				omega_d = float(model.omega_d)-0.1
-				omega_r = float(model.omega_r)
-				equation_d = model.equation_d
-				title = '0'
-				model_var = Model_Var(str(omega_d), str(omega_m), str(omega_r), equation_d, title)
+				for i in range(0,3):
+					omega_m = float(model.omega_m)
+					omega_d = float(model.omega_d)
+					omega_r = float(model.omega_r)
+					equation_d = model.equation_d
+					eq = sympify(model.equation_d)
+					u = symbols(model.parameters)
 
-				print(omega_m,omega_d,omega_r,equation_d)
-				self.models.append(Cosmology_calculus(config, model_var, self.model_SNE, self.model_H))
+					eq1 = eq.subs(u, 0.01*i)
+					print(eq1)
+					equation_d = str(eq1)
+					title = model.parameters + '=' + str(0.01*i)
+					model_var = Model_Var(str(omega_d), str(omega_m), str(omega_r), equation_d, title)
+
+					self.models.append(Cosmology_calculus(config, model_var, self.model_SNE, self.model_H))
 
 			for model in self.models:
 				model.mu_diagram()
 				model.integration()
 				model.hubble_versus_z()
+				model.chi_square_hubble()
+				print(model.chi_square_H)
 				model.mu_versus_z()
+				model.chi_square_magnitude()
+				print(model.chi_square_mu)
 
 			self.GRAPH = Visualization(self.models, output, job)
 

@@ -76,6 +76,7 @@ class Cosmology_calculus():
         self.z_max = float(config.z_max)
         self.t_max = float(config.t_max)/13.6*float(config.H_0)/70
         self.H_0 = float(config.H_0)
+        self.task_1 = config.task_1
 
         self.redshifts_1 = Data_1.z0
         self.redshifts_2 = Data_2.z0
@@ -121,24 +122,25 @@ class Cosmology_calculus():
             scale = np.linspace(1,a,N)
             ICS = 0, 1, 3*self.omega_m, 3*self.omega_r, 3*self.omega_d, 3*self.omega_k
             sol = odeint(Friedmann_eqs, ICS, scale, args = (self.EOS,))
-            for j in range(1,N):
-                #dist[i]=dist0 - (scale[j+1]-scale[j])/(sol[j,1]*scale[j]**2)
-                dist[i]=dist0 - 2*(sol[j,0]-sol[j-1,0])/(scale[j]+scale[j-1])
-                dist0 = dist[i]
-            if self.omega_k>0:
-                DM[i] = np.sinh(np.sqrt(self.omega_k)*dist[i])/np.sqrt(self.omega_k)
-            if self.omega_k<0:
-                DM[i] = np.sin(np.sqrt(-self.omega_k)*dist[i])/np.sqrt(-self.omega_k)
-            if self.omega_k==0:
-                DM[i] = dist[i]
-            DL[i] = (1+z)*DM[i]
+            if self.task_1 == True:
+                for j in range(1,N):
+                    dist[i]=dist0 - 2*(sol[j,0]-sol[j-1,0])/(scale[j]+scale[j-1])
+                    dist0 = dist[i]
+                if self.omega_k>0:
+                    DM[i] = np.sinh(np.sqrt(self.omega_k)*dist[i])/np.sqrt(self.omega_k)
+                if self.omega_k<0:
+                    DM[i] = np.sin(np.sqrt(-self.omega_k)*dist[i])/np.sqrt(-self.omega_k)
+                if self.omega_k==0:
+                    DM[i] = dist[i]
+                DL[i] = (1+z)*DM[i]
+                self.DA.append(DL[i]*(13.6/3.2616)*(70/self.H_0)/(1+z)**2)
+                self.mu_i.append(5*np.log10(DL[i])-5*np.log10(self.H_0/100)+43.16-0.713)
             self.H_i.append(self.H_0*sol[N-1,1])
             self.t_i.append(sol[N-1,0]*13.6*70/self.H_0)
-            self.DA.append(DL[i]*(13.6/3.2616)*(70/self.H_0)/(1+z)**2)
             self.Omega_d.append(sol[N-1,2]/(3*sol[N-1,1]**2))
             self.Omega_m.append(sol[N-1,4]/(3*sol[N-1,1]**2))
             self.z_i.append(z)
-            self.mu_i.append(5*np.log10(DL[i])-5*np.log10(self.H_0/100)+43.16-0.713)
+
 
     def integration(self):
         for i in range(201):
@@ -221,6 +223,7 @@ class Model_Var():
         self.omega_r = omega_r
         self.equation_d = equation_d
         self.title_of_model = title
+
 
 
 class Visualization:
