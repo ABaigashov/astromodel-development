@@ -40,32 +40,74 @@ class Model:
 			self.GRAPH = Visualization(self.models, output, job)
 
 		else:
+			chi_opt = 10000
 			for model in config.cosmological_components:
-				for i in range(0,3):
-					omega_m = float(model.omega_m)
-					omega_d = float(model.omega_d)
+				for i in range(-8,8):
+					omega_m = float(model.omega_m)+0.01*i
+					omega_d = float(model.omega_d)-0.01*i
 					omega_r = float(model.omega_r)
 					equation_d = model.equation_d
 					eq = sympify(model.equation_d)
 					u = symbols(model.parameters)
 
-					eq1 = eq.subs(u, 0.01*i)
+					eq1 = eq.subs(u, 0.0)
 					print(eq1)
 					equation_d = str(eq1)
-					title = model.parameters + '=' + str(0.01*i)
+					title = "omega=" + str(float(model.omega_m)+(0.01*i))
 					model_var = Model_Var(str(omega_d), str(omega_m), str(omega_r), equation_d, title)
 
-					self.models.append(Cosmology_calculus(config, model_var, self.model_SNE, self.model_H))
+					current_model = Cosmology_calculus(config, model_var, self.model_SNE, self.model_H)
 
-			for model in self.models:
-				model.mu_diagram()
-				model.integration()
-				model.hubble_versus_z()
-				model.chi_square_hubble()
-				print(model.chi_square_H)
-				model.mu_versus_z()
-				model.chi_square_magnitude()
-				print(model.chi_square_mu)
+
+					current_model.mu_diagram()
+					#model.integration()
+					current_model.hubble_versus_z()
+					current_model.chi_square_hubble()
+					res = current_model.chi_square_H
+					if res<chi_opt:
+						chi_opt=res
+						H_opt = current_model.H_opt
+						omega_m_opt = current_model.omega_m
+						omega_d_opt = current_model.omega_d
+					if res>chi_opt:
+						print("Optimal parameters are found")
+						break
+					#model.mu_versus_z()
+					#model.chi_square_magnitude()
+					#print(model.chi_square_mu)
+					print(chi_opt, current_model.omega_m)
+
+			for i in range(0,600):
+				omega_m = (omega_m_opt)+0.001*i
+				omega_d = (omega_d_opt)-0.001*i
+
+				model_var = Model_Var(str(omega_d), str(omega_m), str(omega_r), equation_d, "0")
+				current_model = Cosmology_calculus(config, model_var, self.model_SNE, self.model_H)
+				current_model.hubble_versus_z()
+				current_model.chi_square_hubble()
+				res = current_model.chi_square_H
+				print(omega_m, res)
+				if res>chi_opt+1:
+					Omega_m_max = current_model.omega_m
+					print(Omega_m_max)
+					break
+			for i in range(0,600):
+				omega_m = (omega_m_opt)-0.001*i
+				omega_d = (omega_d_opt)+0.001*i
+
+				model_var = Model_Var(str(omega_d), str(omega_m), str(omega_r), equation_d, "0")
+				current_model = Cosmology_calculus(config, model_var, self.model_SNE, self.model_H)
+				current_model.hubble_versus_z()
+				current_model.chi_square_hubble()
+				res = current_model.chi_square_H
+				print(omega_m, res)
+				if res>chi_opt+1:
+					Omega_m_min = current_model.omega_m
+					print(Omega_m_min)
+					break
+
+
+
 
 			self.GRAPH = Visualization(self.models, output, job)
 
