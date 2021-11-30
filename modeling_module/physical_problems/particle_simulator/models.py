@@ -37,7 +37,7 @@ class BaseModel:
 		self.edge, self.scaling, self.label = utils.load_label(self.config.edge)
 
 	# some properties...
-	
+
 	@property
 	def colors(self):
 		return np.array(self.astro_object.get_colors()) / 255
@@ -53,6 +53,10 @@ class BaseModel:
 	@property
 	def radius(self):
 		return np.array(self.astro_object.get_radius()) / self.scaling
+
+	@property
+	def trajectory(self):
+		return np.array(self.astro_object.get_trajectories())
 
 
 # Expanding base model
@@ -75,16 +79,17 @@ class JsonModel(BaseModel):
 
 		# Loop throw every step
 		for i in range((self.config.steps_number // self.config.frames_gap)):
-			
+
 			# Update paremeters in 'astro_object'
 			for j in range(self.config.frames_gap):
 				self.astro_object.update_dynamic_parametrs(self.config.step, (i * self.config.frames_gap + j) * self.config.step)
-			
+
 			# Write calculated parameters to frame
 			data[f"frame_{i}"] = [{
 				"coords": list(self.coords),
 				"colors": list(self.colors),
-				"radius": list(self.radius)
+				"radius": list(self.radius),
+				"trajectory": list(self.trajectory)
 			}]
 
 			# Changing value on progressbar
@@ -140,10 +145,10 @@ class PlotModel(BaseModel):
 		# Creating 'moviepy.editor.VideoClip' object
 		# with callback 'self.get_frame' and duration parameter
 		animation = VideoClip(self.get_frame, duration=(self.config.steps_number // self.config.frames_gap) / self.config.fps)
-		
+
 		# Writing all created frames to 'animation'
 		animation.write_videofile(self.output + '.mp4', fps=self.config.fps)
-		
+
 		# Return path to file
 		return self.output + '.mp4'
 
@@ -181,28 +186,30 @@ class Plot2DModel(PlotModel):
 				self.coords[i, 1] + self.activity[i] * self.radius[i] * np.sin(angle),
 				c=self.colors[i]
 			)
-
 			# If the 'trajectory' parameter is turned on...
 			if self.config.trajectory:
 
-				# Saving current position to next iterations
+
+
+					# Saving current position to next iterations
 				if len(self.all_trajectory) == i:
 					self.all_trajectory.append(np.array([self.coords[i]]))
 				else:
 					self.all_trajectory[i] = np.append(self.all_trajectory[i], np.array([self.coords[i]]), axis=0)
-				# Drawing the trajectory of object
-				plt.plot(
-					*self.all_trajectory[i].T,
-					'.', ms=1, c=self.colors[i]
-				)
+					# Drawing the trajectory of object
+				if self.trajectory[i]==True:
+					plt.plot(
+						*self.all_trajectory[i].T,
+						'.', ms=1, c=self.colors[i]
+					)
 
 
 # Creating 3D version of 'PlotModel'
 class Plot3DModel(PlotModel):
-	
+
 	# Some inicialization
 	def __init__(self, *args, **kw):
-		
+
 		# Basic init of parent class
 		super().__init__(*args, **kw)
 

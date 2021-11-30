@@ -400,6 +400,13 @@ CASES:
     units: distance
     dementional: false
 
+  trajectory:
+    title: Отображать траекторию частицы
+    default: "True"
+    type: bool
+    class: checkbox
+    dementional: false
+
   delay:
     title: Время появления
     default: "0"
@@ -570,6 +577,7 @@ OBJECTS:
       - mass
       - radius
       - delay
+      - trajectory
 
   random_generators:
     title: Генератор произвольного распределения объектов

@@ -40,13 +40,13 @@ class GlobalInteraction:
 
 
 	# Method which calculating force for one point object
-	# Argument :point: instance of 'Point' object 
+	# Argument :point: instance of 'Point' object
 	# Returns 'result_force' vector
 	def force_calculation(self, point):
-		
+
 		# Creating empty arrays with specific dimension
 		result_force = np.zeros(self.config.dimensions)
-		
+
 		# Storing 'config.K' parameter as short variable
 		K = self.config.K
 
@@ -79,7 +79,7 @@ class GlobalInteraction:
 
 					# If gravity point interaction exsists
 					if self.config.gravity_point_interaction:
-						
+
 						# Add this gravitational force
 						result_force += gravity_point_interaction(self.config, point, p, distance)
 
@@ -103,7 +103,7 @@ class GlobalInteraction:
 		# Storing 'config.K' parameter as short variable
 		K = self.config.K
 
-		# Loop through every point 
+		# Loop through every point
 		for p in self.points:
 
 			# If the point 'p' is "material point"
@@ -179,7 +179,7 @@ class GlobalInteraction:
 
 		# Loop through every point (one more time)
 		for p in self.points:
-			
+
 			# If point is active
 			if p.activity:
 
@@ -285,7 +285,7 @@ class GlobalInteraction:
 									R_2[i] = T[i,j] * p2.coords[j] + R_2[i]
 
 						elif self.config.dimensions == 2:
-							
+
 							V_1[0] = p1.velocity[0]
 							V_1[1] = p1.velocity[1]
 							V_2[0] = p2.velocity[0]
@@ -433,6 +433,11 @@ class GlobalInteraction:
 	def get_colors(self):
 		return [p.color for p in self.points]
 
+	# Method to get trajectory of all stored points
+	# Returns: array of
+	def get_trajectories(self):
+		return [p.trajectory for p in self.points]
+
 
 
 # Ow shit! Some more physical code which i can't
@@ -545,7 +550,7 @@ class Point:
 
 	def __init__(self, coords, velocity, id=0,
 				 activity=1, delay=0, mass=1.0,
-				 charge=1.0, radius=0, color=None):
+				 charge=1.0, radius=0, trajectory=False, color=None):
 
 		self.id = id
 		self.coords = coords
@@ -556,6 +561,7 @@ class Point:
 		self.radius = radius
 		self.color = color
 		self.delay = delay
+		self.trajectory = trajectory
 
 		if delay == 0:
 			self.activity = 1
