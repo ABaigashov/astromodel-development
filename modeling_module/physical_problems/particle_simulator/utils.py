@@ -132,8 +132,6 @@ def load_point_objects(config, astro_object):
 			for i in range(config.dimensions):
 				coordinates[0, i] = point['coords'][i]
 				velocities[0, i] = point['speed'][i]
-				print(point['coords'][i])
-				print(point['speed'][i])
 
 			try:
 				trajectory0 = point.trajectory
