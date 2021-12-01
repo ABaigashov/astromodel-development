@@ -37,6 +37,7 @@ class GlobalInteraction:
 		# Creating empty points and fields storages
 		self.points = []
 		self.fields = []
+		self.walls = []
 
 
 	# Method which calculating force for one point object
@@ -202,6 +203,24 @@ class GlobalInteraction:
 
 		# Loop through pair of points
 		for p1 in self.points:
+
+			for wall in self.walls:
+				distance=np.abs(wall.a0*p1.coords[0]+wall.b0*p1.coords[1]+wall.c0)/np.sqrt(wall.a0**2+wall.b0**2)
+
+				if distance<=p1.radius:
+					if ((p1.coords[0]>=min(wall.coords_1[0],wall.coords_2[0])
+					and p1.coords[0]<=max(wall.coords_1[0],wall.coords_2[0])) or
+					(p1.coords[1]>=min(wall.coords_1[1],wall.coords_2[1])
+					and p1.coords[1]<=max(wall.coords_1[1],wall.coords_2[1]))):
+						c = wall.a0/np.sqrt(wall.a0**2+wall.b0**2)
+						s = wall.b0/np.sqrt(wall.a0**2+wall.b0**2)
+						v_x = p1.velocity[0]*c - p1.velocity[1]*s
+						v_y = p1.velocity[0]*s + p1.velocity[1]*c
+						p1.velocity[0] = -v_x*c + v_y*s
+						p1.velocity[1] = +v_x*s + v_y*s
+
+
+
 			for p2 in self.points:
 
 				# Activity check and...
@@ -413,10 +432,19 @@ class GlobalInteraction:
 	def append_fields(self, *args, **kwargs):
 		self.fields.append(Field(*args, **kwargs))
 
+	# Procedure of adding a wall in calculation model
+	def append_wall(self, *args, **kwargs):
+		self.walls.append(Wall(*args, **kwargs))
+
 	# Method to get coordinates of all stored points
 	# Returns: array of coordinates
 	def get_coords(self):
 		return [p.coords for p in self.points]
+
+	# Method to get coordinates of all stored walls
+	# Returns: array of coordinates
+	def get_coords_walls(self):
+		return [[wall.coords_1 for wall in self.walls], [wall.coords_2 for wall in self.walls]]
 
 	# Method to get activities of all stored points
 	# Returns: array of activities
@@ -437,8 +465,6 @@ class GlobalInteraction:
 	# Returns: array of
 	def get_trajectories(self):
 		return [p.trajectory for p in self.points]
-
-
 
 # Ow shit! Some more physical code which i can't
 # recognize what happends in it. Ok. I'm done
@@ -579,3 +605,15 @@ class Point:
 		self.acceleration = self.acceleration * 0
 		self.dv1 = self.dv2 = self.dv3 = self.dv4 = \
 		self.dq1 = self.dq2 = self.dq3 = self.dq4 = 0
+
+class Wall:
+
+	def __init__(self, coords_1, coords_2, id=0, color=None):
+
+		self.id = id
+		self.coords_1 = coords_1
+		self.coords_2 = coords_2
+		self.color = color
+		self.a0 = coords_2[1]-coords_1[1]
+		self.b0 = - (coords_2[0]-coords_1[0])
+		self.c0 = -self.a0*coords_1[0]-self.b0*coords_1[1]

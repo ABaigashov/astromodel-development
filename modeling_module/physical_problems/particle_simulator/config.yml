@@ -550,6 +550,22 @@ CASES:
     units: angle
     dementional: false
 
+  coords_1:
+    title: Координаты начала стенки
+    default: "0"
+    type: float
+    class: steps_number
+    units: distance
+    dementional: true
+
+  coords_2:
+    title: Координаты конца стенки
+    default: "0"
+    type: float
+    class: steps_number
+    units: distance
+    dementional: true
+
 GENERAL:
   - dimensions
   - K
@@ -578,6 +594,12 @@ OBJECTS:
       - radius
       - delay
       - trajectory
+
+  wall_objects:
+    title: Стенка
+    cases:
+      - coords_1
+      - coords_2
 
   random_generators:
     title: Генератор произвольного распределения объектов

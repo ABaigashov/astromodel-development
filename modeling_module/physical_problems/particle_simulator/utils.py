@@ -114,30 +114,20 @@ def load_point_objects(config, astro_object):
 			color=point.color, mass=point.mass, radius=point.radius, trajectory=trajectory0, id=point.id
 		)
 
-	# if config.random_generators:
-	if True:
-		generator_points = Generators(config)
+# Function to load walls to the astro_object
+# Arguments :config: instance of 'Configuration' object
+#     :astro_object: instance of 'GlobalInteraction' object
+def load_walls(config, astro_object):
 
-		for point in generator_points.output_points():
+	try:
+		for wall in config.wall_objects:
 
-			# Creating empty arrays with specific dimension
-			coordinates = np.ndarray(shape=(1, config.dimensions))
-			velocities = np.ndarray(shape=(1, config.dimensions))
+			coordinate_1 = np.ndarray(shape=(1, config.dimensions))
+			coordinate_2 = np.ndarray(shape=(1, config.dimensions))
 
-			# Filling arrays by incomming values
-			for i in range(config.dimensions):
-				coordinates[0, i] = point['coords'][i]
-				velocities[0, i] = point['speed'][i]
+			coordinate_1 = wall.coords_1
+			coordinate_2 = wall.coords_2
 
-			try:
-				if point.trajectory:
-					trajectory0 = point.trajectory
-
-			except:
-				trajectory0 = config.trajectory
-
-			# Load by 'append' procedure
-			astro_object.append(
-				*coordinates, *velocities, charge=point['charge'], delay=point['delay'],
-				color=point['color'], mass=point['mass'], radius=point['radius'], trajectory=trajectory0, id=point['id']
-			)
+			astro_object.append_wall(coordinate_1, coordinate_2, id=wall.id)
+	except:
+		walls = "None"
