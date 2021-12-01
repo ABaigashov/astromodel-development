@@ -2,7 +2,7 @@
 
 import random
 
-class Generators:
+class GeneratorsBase:
     def __init__(self, config):
         self.config = config
 
