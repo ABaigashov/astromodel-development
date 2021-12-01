@@ -101,11 +101,9 @@ def load_point_objects(config, astro_object):
 			coordinates[0, i] = point.coords[i]
 			velocities[0, i] = point.speed[i]
 
-		try:
-			if point.trajectory:
-				trajectory0 = point.trajectory
-
-		except:
+		if point.trajectory:
+			trajectory0 = point.trajectory
+		else:
 			trajectory0 = config.trajectory
 
 		# Load by 'append' procedure

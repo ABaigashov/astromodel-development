@@ -196,19 +196,19 @@ class Plot2DModel(PlotModel):
 				c=self.colors[i]
 			)
 			# If the 'trajectory' parameter is turned on...
-			if self.config.trajectory:
+			# if self.config.trajectory:
 
-					# Saving current position to next iterations
-				if len(self.all_trajectory) == i:
-					self.all_trajectory.append(np.array([self.coords[i]]))
-				else:
-					self.all_trajectory[i] = np.append(self.all_trajectory[i], np.array([self.coords[i]]), axis=0)
-					# Drawing the trajectory of object
-				if self.trajectory[i]==True:
-					plt.plot(
-						*self.all_trajectory[i].T,
-						'.', ms=1, c=self.colors[i]
-					)
+				# Saving current position to next iterations
+			if len(self.all_trajectory) == i:
+				self.all_trajectory.append(np.array([self.coords[i]]))
+			else:
+				self.all_trajectory[i] = np.append(self.all_trajectory[i], np.array([self.coords[i]]), axis=0)
+				# Drawing the trajectory of object
+			if self.trajectory[i]:
+				plt.plot(
+					*self.all_trajectory[i].T,
+					'.', ms=1, c=self.colors[i]
+				)
 
 
 # Creating 3D version of 'PlotModel'
