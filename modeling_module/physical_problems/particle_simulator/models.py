@@ -32,6 +32,7 @@ class BaseModel:
 		# functions in 'utils' help file
 		utils.load_point_objects(config, astro_object)
 		utils.load_fields(config, astro_object)
+		utils.load_walls(config, astro_object)
 
 		# Saving the scale of current calculation area
 		self.edge, self.scaling, self.label = utils.load_label(self.config.edge)
@@ -49,6 +50,10 @@ class BaseModel:
 	@property
 	def coords(self):
 		return np.array(self.astro_object.get_coords()) / self.scaling
+
+	@property
+	def coords_walls(self):
+		return np.array(self.astro_object.get_coords_walls()) / self.scaling
 
 	@property
 	def radius(self):
@@ -80,7 +85,7 @@ class JsonModel(BaseModel):
 		# Loop throw every step
 		for i in range((self.config.steps_number // self.config.frames_gap)):
 
-			# Update paremeters in 'astro_object'
+			# Update parameters in 'astro_object'
 			for j in range(self.config.frames_gap):
 				self.astro_object.update_dynamic_parametrs(self.config.step, (i * self.config.frames_gap + j) * self.config.step)
 
@@ -178,6 +183,10 @@ class Plot2DModel(PlotModel):
 		# Basic angular linspace
 		angle = np.linspace(0, 2*np.pi, 100)
 
+		for s in range(self.coords_walls.shape[0]):
+			plt.plot([float(self.coords_walls[0][s,0]),float(self.coords_walls[1][s,0])],
+				  [float(self.coords_walls[0][s,1]),float(self.coords_walls[1][s,1])],'-k')
+
 		for i in range(self.coords.shape[0]):
 
 			# Drawing a circle of a point object
@@ -188,8 +197,6 @@ class Plot2DModel(PlotModel):
 			)
 			# If the 'trajectory' parameter is turned on...
 			if self.config.trajectory:
-
-
 
 					# Saving current position to next iterations
 				if len(self.all_trajectory) == i:

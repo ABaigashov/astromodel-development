@@ -113,3 +113,21 @@ def load_point_objects(config, astro_object):
 			*coordinates, *velocities, charge=point.charge, delay=point.delay,
 			color=point.color, mass=point.mass, radius=point.radius, trajectory = trajectory0, id=point.id
 		)
+
+# Function to load walls to the astro_object
+# Arguments :config: instance of 'Configuration' object
+#     :astro_object: instance of 'GlobalInteraction' object
+def load_walls(config, astro_object):
+
+	try:
+		for wall in config.wall_objects:
+
+			coordinate_1 = np.ndarray(shape=(1, config.dimensions))
+			coordinate_2 = np.ndarray(shape=(1, config.dimensions))
+
+			coordinate_1 = wall.coords_1
+			coordinate_2 = wall.coords_2
+
+			astro_object.append_wall(coordinate_1, coordinate_2, id=wall.id)
+	except:
+		walls = "None"
