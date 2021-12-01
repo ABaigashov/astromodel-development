@@ -107,14 +107,20 @@ def load_point_objects(config, astro_object):
 			trajectory0 = config.trajectory
 
 		# Load by 'append' procedure
-		astro_object.append(
-			*coordinates, *velocities, charge=point.charge, delay=point.delay,
-			color=point.color, mass=point.mass, radius=point.radius, trajectory=trajectory0, id=point.id
-		)
+		astro_object.append(*coordinates,
+							*velocities,
+							charge=point.charge,
+							delay=point.delay,
+							color=point.color,
+							mass=point.mass,
+							radius=point.radius,
+							trajectory=trajectory0,
+							id=point.id
+							)
 
-	# if config.random_generators:
-	if False:
-		generator_points = Generators(config)
+	if config.random_generators:
+
+		generator_points = generators.RandomGenerators(config)
 
 		for point in generator_points.output_points():
 
@@ -126,19 +132,25 @@ def load_point_objects(config, astro_object):
 			for i in range(config.dimensions):
 				coordinates[0, i] = point['coords'][i]
 				velocities[0, i] = point['speed'][i]
+				print(point['coords'][i])
+				print(point['speed'][i])
 
 			try:
-				if point.trajectory:
-					trajectory0 = point.trajectory
-
+				trajectory0 = point.trajectory
 			except:
 				trajectory0 = config.trajectory
 
 			# Load by 'append' procedure
-			astro_object.append(
-				*coordinates, *velocities, charge=point['charge'], delay=point['delay'],
-				color=point['color'], mass=point['mass'], radius=point['radius'], trajectory=trajectory0, id=point['id']
-			)
+			astro_object.append(*coordinates,
+								*velocities,
+								charge=point['charge'],
+								delay=point['delay'],
+								color=point['color'],
+								mass=point['mass'],
+								radius=point['radius'],
+								trajectory=trajectory0,
+								id=point['id']
+								)
 
 # Function to load walls to the astro_object
 # Arguments :config: instance of 'Configuration' object

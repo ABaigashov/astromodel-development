@@ -182,11 +182,11 @@ class Plot2DModel(PlotModel):
 
 		# Basic angular linspace
 		angle = np.linspace(0, 2*np.pi, 100)
-
-		for s in range(self.coords_walls.shape[0]):
-			plt.plot([float(self.coords_walls[0][s,0]),float(self.coords_walls[1][s,0])],
-				  [float(self.coords_walls[0][s,1]),float(self.coords_walls[1][s,1])],'-k')
-
+		#
+		# for s in range(self.coords_walls.shape[0]):
+		# 	plt.plot([float(self.coords_walls[0][s,0]),float(self.coords_walls[1][s,0])],
+		# 		  [float(self.coords_walls[0][s,1]),float(self.coords_walls[1][s,1])],'-k')
+		#
 		for i in range(self.coords.shape[0]):
 
 			# Drawing a circle of a point object
@@ -195,8 +195,6 @@ class Plot2DModel(PlotModel):
 				self.coords[i, 1] + self.activity[i] * self.radius[i] * np.sin(angle),
 				c=self.colors[i]
 			)
-			# If the 'trajectory' parameter is turned on...
-			# if self.config.trajectory:
 
 				# Saving current position to next iterations
 			if len(self.all_trajectory) == i:
