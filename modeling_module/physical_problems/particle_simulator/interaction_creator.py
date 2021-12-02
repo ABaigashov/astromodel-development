@@ -206,18 +206,19 @@ class GlobalInteraction:
 
 			for wall in self.walls:
 				distance=np.abs(wall.a0*p1.coords[0]+wall.b0*p1.coords[1]+wall.c0)/np.sqrt(wall.a0**2+wall.b0**2)
+				distance0=np.abs(wall.a0*p1.prev_pos[0]+wall.b0*p1.prev_pos[1]+wall.c0)/np.sqrt(wall.a0**2+wall.b0**2)
 
-				if distance<=p1.radius:
+				if distance<=p1.radius and distance0>p1.radius:
 					if ((p1.coords[0]>=min(wall.coords_1[0],wall.coords_2[0])
 					and p1.coords[0]<=max(wall.coords_1[0],wall.coords_2[0])) or
 					(p1.coords[1]>=min(wall.coords_1[1],wall.coords_2[1])
 					and p1.coords[1]<=max(wall.coords_1[1],wall.coords_2[1]))):
-						c = wall.a0/np.sqrt(wall.a0**2+wall.b0**2)
-						s = wall.b0/np.sqrt(wall.a0**2+wall.b0**2)
+						c = wall.b0/np.sqrt(wall.a0**2+wall.b0**2)
+						s = wall.a0/np.sqrt(wall.a0**2+wall.b0**2)
 						v_x = p1.velocity[0]*c - p1.velocity[1]*s
 						v_y = p1.velocity[0]*s + p1.velocity[1]*c
-						p1.velocity[0] = -v_x*c + v_y*s
-						p1.velocity[1] = +v_x*s + v_y*c
+						p1.velocity[0] = +v_x*c - v_y*s
+						p1.velocity[1] = -v_x*s - v_y*c
 
 
 
