@@ -217,7 +217,7 @@ class GlobalInteraction:
 						v_x = p1.velocity[0]*c - p1.velocity[1]*s
 						v_y = p1.velocity[0]*s + p1.velocity[1]*c
 						p1.velocity[0] = -v_x*c + v_y*s
-						p1.velocity[1] = +v_x*s + v_y*s
+						p1.velocity[1] = +v_x*s + v_y*c
 
 
 

@@ -183,9 +183,9 @@ class Plot2DModel(PlotModel):
 		# Basic angular linspace
 		angle = np.linspace(0, 2*np.pi, 100)
 		#
-		# for s in range(self.coords_walls.shape[0]):
-		# 	plt.plot([float(self.coords_walls[0][s,0]),float(self.coords_walls[1][s,0])],
-		# 		  [float(self.coords_walls[0][s,1]),float(self.coords_walls[1][s,1])],'-k')
+		for s in range(len(self.coords_walls[0])):
+			plt.plot([float(self.coords_walls[0][s,0]),float(self.coords_walls[1][s,0])],
+				  [float(self.coords_walls[0][s,1]),float(self.coords_walls[1][s,1])],'-k')
 		#
 		for i in range(self.coords.shape[0]):
 
