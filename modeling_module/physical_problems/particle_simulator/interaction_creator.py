@@ -615,6 +615,6 @@ class Wall:
 		self.coords_1 = coords_1
 		self.coords_2 = coords_2
 		self.color = color
-		self.a0 = coords_2[1]-coords_1[1]
-		self.b0 = - (coords_2[0]-coords_1[0])
+		self.a0 = float(coords_2[1]-coords_1[1])
+		self.b0 = - float((coords_2[0]-coords_1[0]))
 		self.c0 = -self.a0*coords_1[0]-self.b0*coords_1[1]

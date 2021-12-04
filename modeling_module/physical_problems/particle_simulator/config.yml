@@ -436,6 +436,41 @@ CASES:
     units: distance
     dementional: true
 
+  equation_X:
+    title: Параметрическое уравнение границы
+    default: "0"
+    type: expr
+    class: text
+    dementional: false
+
+  equation_Y:
+    title: Параметрическое уравнение границы
+    default: "0"
+    type: expr
+    class: text
+    dementional: false
+
+  u_s:
+    title: Начальное значение параметра
+    default: "0"
+    type: float
+    class: number
+    dementinal: false
+
+  u_f:
+    title: Конечное значение параметра
+    default: "0"
+    type: float
+    class: number
+    dementinal: false
+
+  number_of_divisions:
+    title: Число разбиений интервала изменения параметра
+    default: "1"
+    type: int
+    class: number
+    dementinal: false
+
   ####################### general generators #######################
   particals_number:
     title: Количество точек
@@ -620,6 +655,15 @@ OBJECTS:
     cases:
       - coords_1
       - coords_2
+
+  complex_wall:
+    title: Сложная стенка
+    cases:
+      - equation_X
+      - equation_Y
+      - u_s
+      - u_f
+      - number_of_divisions
 
   random_generators:
     title: Генератор произвольного распределения объектов

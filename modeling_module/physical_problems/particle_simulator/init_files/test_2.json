@@ -44,6 +44,13 @@
     "coords_2":{"units":"1","value":["-7.5","-7.5","0"]},
     "name":"wall","color":[178,26,128],
     "type":{"value":"wall_objects","description":"Стенка"}}],
+    "complex_wall":
+    [{"id":"wxk-xx","index":8,
+      "equation_X":"u","equation_Y":"-u**2",
+      "u_s":"0", "u_f": "5",
+      "name":"wall","color":[178,26,128],
+      "number_of_divisions":"10",
+      "type":{"value":"complex_wall","description":"Сложная_граница"}}],
     "random_generators":[],"ring_generator":[],"ellipse_generators":[]},
     "GENERAL":{"dimensions":"2","K":"1","output_graphics":"matplotlib",
       "step":{"units":"1","value":"1"},"edge":{"units":"1","value":"10"},

@@ -7,7 +7,7 @@
 from physics import constants
 import generators
 # Import some required libraries
-from sympy import sympify
+from sympy import sympify, symbols
 import numpy as np
 
 # Function to scale calculating area
@@ -160,10 +160,40 @@ def load_walls(config, astro_object):
 
 			coordinate_1 = np.ndarray(shape=(1, config.dimensions))
 			coordinate_2 = np.ndarray(shape=(1, config.dimensions))
+			coordinate_0 = np.array([wall.coords_1[0], wall.coords_1[1]])
+			coordinate_1 = coordinate_0
+			coordinate_0 = np.array([wall.coords_2[0], wall.coords_2[1]])
+			coordinate_2 = coordinate_0
 
-			coordinate_1 = wall.coords_1
-			coordinate_2 = wall.coords_2
+			print(wall.id)
+			print(coordinate_1,"yes")
 
 			astro_object.append_wall(coordinate_1, coordinate_2, id=wall.id)
 	except:
 		walls = "None"
+
+
+	for wall in config.complex_wall:
+
+		equation_X = sympify(wall.equation_X)
+		equation_Y = sympify(wall.equation_Y)
+		print(equation_X)
+		u = symbols('u')
+
+		N = int(wall.number_of_divisions)
+		du = (float(wall.u_f)-float(wall.u_s))/N
+
+		for i in range(0, N):
+			coordinate_1 = np.ndarray(shape=(1, config.dimensions))
+			coordinate_2 = np.ndarray(shape=(1, config.dimensions))
+			u_i = float(wall.u_s)+i*du
+			u_f = u_i + du
+			id_i = wall.id + str(i)
+			print(id_i)
+			coordinate_0 = np.array([equation_X.subs(u,u_i), equation_Y.subs(u,u_i)])
+			coordinate_1 = coordinate_0
+			print(coordinate_1, "yes")
+			coordinate_0 = np.array([equation_X.subs(u,u_f), equation_Y.subs(u,u_f)])
+			coordinate_2 = coordinate_0
+
+			astro_object.append_wall(coordinate_1, coordinate_2,id=id_i)
