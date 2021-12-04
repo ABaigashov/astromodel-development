@@ -471,6 +471,13 @@ CASES:
     class: number
     dementinal: false
 
+  elasticity:
+    title: Коэффициент эластичности стенки
+    default: "1"
+    type: float
+    class: number
+    dementional: false
+
   ####################### general generators #######################
   particals_number:
     title: Количество точек

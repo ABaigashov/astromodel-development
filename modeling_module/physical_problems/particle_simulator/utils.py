@@ -155,7 +155,8 @@ def load_point_objects(config, astro_object):
 #     :astro_object: instance of 'GlobalInteraction' object
 def load_walls(config, astro_object):
 
-	try:
+	if config.wall_objects:
+
 		for wall in config.wall_objects:
 
 			coordinate_1 = np.ndarray(shape=(1, config.dimensions))
@@ -165,29 +166,29 @@ def load_walls(config, astro_object):
 			coordinate_0 = np.array([wall.coords_2[0], wall.coords_2[1]])
 			coordinate_2 = coordinate_0
 
-			astro_object.append_wall(coordinate_1, coordinate_2, id=wall.id)
-	except:
-		walls = "None"
+			astro_object.append_wall(coordinate_1, coordinate_2, id=wall.id, K=wall.elasticity)
 
 
-	for wall in config.complex_wall:
+	if config.complex_wall:
 
-		equation_X = sympify(wall.equation_X)
-		equation_Y = sympify(wall.equation_Y)
-		u = symbols('u')
+		for wall in config.complex_wall:
 
-		N = int(wall.number_of_divisions)
-		du = (float(wall.u_f)-float(wall.u_s))/N
+			equation_X = sympify(wall.equation_X)
+			equation_Y = sympify(wall.equation_Y)
+			u = symbols('u')
 
-		for i in range(0, N):
-			coordinate_1 = np.ndarray(shape=(1, config.dimensions))
-			coordinate_2 = np.ndarray(shape=(1, config.dimensions))
-			u_i = float(wall.u_s)+i*du
-			u_f = u_i + du
-			id_i = wall.id + str(i)
-			coordinate_0 = np.array([equation_X.subs(u,u_i), equation_Y.subs(u,u_i)])
-			coordinate_1 = coordinate_0
-			coordinate_0 = np.array([equation_X.subs(u,u_f), equation_Y.subs(u,u_f)])
-			coordinate_2 = coordinate_0
+			N = int(wall.number_of_divisions)
+			du = (float(wall.u_f)-float(wall.u_s))/N
 
-			astro_object.append_wall(coordinate_1, coordinate_2,id=id_i)
+			for i in range(0, N):
+				coordinate_1 = np.ndarray(shape=(1, config.dimensions))
+				coordinate_2 = np.ndarray(shape=(1, config.dimensions))
+				u_i = float(wall.u_s)+i*du
+				u_f = u_i + du
+				id_i = wall.id + str(i)
+				coordinate_0 = np.array([equation_X.subs(u,u_i), equation_Y.subs(u,u_i)])
+				coordinate_1 = coordinate_0
+				coordinate_0 = np.array([equation_X.subs(u,u_f), equation_Y.subs(u,u_f)])
+				coordinate_2 = coordinate_0
+
+				astro_object.append_wall(coordinate_1, coordinate_2,id=id_i, K=wall.elasticity)

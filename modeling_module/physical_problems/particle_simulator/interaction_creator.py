@@ -217,8 +217,8 @@ class GlobalInteraction:
 						s = wall.a0/np.sqrt(wall.a0**2+wall.b0**2)
 						v_x = p1.velocity[0]*c - p1.velocity[1]*s
 						v_y = p1.velocity[0]*s + p1.velocity[1]*c
-						p1.velocity[0] = +v_x*c - v_y*s
-						p1.velocity[1] = -v_x*s - v_y*c
+						p1.velocity[0] = +v_x*c - v_y*s*wall.elasticity
+						p1.velocity[1] = -v_x*s - v_y*c*wall.elasticity
 						break
 
 
@@ -610,12 +610,12 @@ class Point:
 
 class Wall:
 
-	def __init__(self, coords_1, coords_2, id=0, color=None):
+	def __init__(self, coords_1, coords_2, id=0, K=1):
 
 		self.id = id
 		self.coords_1 = coords_1
 		self.coords_2 = coords_2
-		self.color = color
+		self.elasticity = K
 		self.a0 = float(coords_2[1]-coords_1[1])
 		self.b0 = - float((coords_2[0]-coords_1[0]))
 		self.c0 = -self.a0*coords_1[0]-self.b0*coords_1[1]
