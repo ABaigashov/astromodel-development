@@ -165,9 +165,6 @@ def load_walls(config, astro_object):
 			coordinate_0 = np.array([wall.coords_2[0], wall.coords_2[1]])
 			coordinate_2 = coordinate_0
 
-			print(wall.id)
-			print(coordinate_1,"yes")
-
 			astro_object.append_wall(coordinate_1, coordinate_2, id=wall.id)
 	except:
 		walls = "None"
@@ -177,7 +174,6 @@ def load_walls(config, astro_object):
 
 		equation_X = sympify(wall.equation_X)
 		equation_Y = sympify(wall.equation_Y)
-		print(equation_X)
 		u = symbols('u')
 
 		N = int(wall.number_of_divisions)
@@ -189,10 +185,8 @@ def load_walls(config, astro_object):
 			u_i = float(wall.u_s)+i*du
 			u_f = u_i + du
 			id_i = wall.id + str(i)
-			print(id_i)
 			coordinate_0 = np.array([equation_X.subs(u,u_i), equation_Y.subs(u,u_i)])
 			coordinate_1 = coordinate_0
-			print(coordinate_1, "yes")
 			coordinate_0 = np.array([equation_X.subs(u,u_f), equation_Y.subs(u,u_f)])
 			coordinate_2 = coordinate_0
 
