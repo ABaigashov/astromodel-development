@@ -1,7 +1,7 @@
 # Discription ...
 
 import random
-
+import numpy as np
 
 class GeneralGenerators:
     def __init__(self, config):
@@ -42,7 +42,6 @@ class GeneralGenerators:
         return point_parametrs
 
 
-
 class RandomGenerators:
 
     def __init__(self, config):
@@ -68,7 +67,70 @@ class RandomGenerators:
 
 
 class RingsGenerators(GeneralGenerators):
-    pass
+
+    def __init__(self, config):
+        self.config = config
+        self.generator = GeneralGenerators(self.config)
+
+    def output_points(self):
+
+        point_parametrs = self.generator.general_parameters(self.config.ring_generator)
+
+        counter = 0
+        for generator in self.config.ring_generator:
+            print(generator)
+            coordinate, velocity  = self.rings_generator(generator)
+            for j in range(generator.particals_number):
+                point_parametrs[j+counter]["coords"] = coordinate[j]
+                point_parametrs[j+counter]["speed"] = velocity[j]
+            counter += j + 1
+
+        return point_parametrs
+
+    def rings_generator(self, **kw):
+
+        """ Функция распределения частиц в кольце объекта, с параметрами:
+            xc - координата "х" центра кольца
+            yc - координата "у" центра кольца
+            vxc - "х" компонента скорости центрального объекта
+            vyc - "у" компонента скорости центрального объекта
+            r - радиус кольца, относительно центра
+            N - количество точек в кольце
+            V - скорость движения частиц в кольце, направление скорости касательно
+                к радиусу, проведенному к точке кольца из центра (хс, ус)
+        """
+
+        # Создание таблицы с параметрами координат и скоростей объектов
+        coordinate = np.ndarray(shape=(kw['N'], 3))
+        velocity = np.ndarray(shape=(kw['N'], 3))
+
+        # Создание цикла для определения координат и скоростей к заданному объекту
+        for i in range(0, kw['N'], 1):
+
+            # Определение ула для объектов
+            alpha = 2 * np.pi / kw['N'] * i
+
+            # Определение координат для первого кольца
+            x = kw['xc'] + kw['r'] * np.sin(alpha)
+            y = kw['yc'] + kw['r'] * np.cos(alpha)
+            z = 0
+
+            # Подставление координат в таблицу
+            coordinate[i, 0] = x
+            coordinate[i, 1] = y
+            coordinate[i, 2] = z
+
+            # Определение проекций скоростей в разных четвертях тригонометрической окружности
+            Vx = kw['vxc'] - kw['V'] * np.cos(alpha)
+            Vy = kw['vyc'] + kw['V'] * np.sin(alpha)
+            Vz = 0
+
+            # Подставление проекций скоростей  в  таблицу
+            velocity[i, 0] = Vx
+            velocity[i, 1] = Vy
+            velocity[i, 2] = Vz
+
+        return coordinate, velocity
 
 
 class ElipsesGenerators(GeneralGenerators):

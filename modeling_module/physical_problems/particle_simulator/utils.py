@@ -119,7 +119,6 @@ def load_point_objects(config, astro_object):
 							)
 
 	if config.random_generators:
-
 		generator_points = generators.RandomGenerators(config)
 
 		for point in generator_points.output_points():
@@ -149,6 +148,39 @@ def load_point_objects(config, astro_object):
 								trajectory=trajectory0,
 								id=point['id']
 								)
+
+
+		if config.ring_generator:
+			generator_points = generators.RingsGenerators(config)
+
+
+			for point in generator_points.output_points():
+
+				# Creating empty arrays with specific dimension
+				coordinates = np.ndarray(shape=(1, config.dimensions))
+				velocities = np.ndarray(shape=(1, config.dimensions))
+
+				# Filling arrays by incomming values
+				for i in range(config.dimensions):
+					coordinates[0, i] = point['coords'][i]
+					velocities[0, i] = point['speed'][i]
+
+				try:
+					trajectory0 = point.trajectory
+				except:
+					trajectory0 = config.trajectory
+
+				# Load by 'append' procedure
+				astro_object.append(*coordinates,
+									*velocities,
+									charge=point['charge'],
+									delay=point['delay'],
+									color=point['color'],
+									mass=point['mass'],
+									radius=point['radius'],
+									trajectory=trajectory0,
+									id=point['id']
+									)
 
 # Function to load walls to the astro_object
 # Arguments :config: instance of 'Configuration' object
