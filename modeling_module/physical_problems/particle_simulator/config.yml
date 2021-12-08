@@ -662,6 +662,7 @@ OBJECTS:
     cases:
       - coords_1
       - coords_2
+      - elasticity
 
   complex_wall:
     title: Сложная стенка
@@ -671,6 +672,7 @@ OBJECTS:
       - u_s
       - u_f
       - number_of_divisions
+      - elasticity
 
   random_generators:
     title: Генератор произвольного распределения объектов
