@@ -83,7 +83,33 @@ def load_fields(config, astro_object):
 	# Load by 'append_fields' procedure
 	astro_object.append_fields(Emx, Emy, Emz, Hmx, Hmy, Hmz, PhiG)
 
+# Function to load fields to the astro_object
+# Arguments :config: instance of 'Configuration' object
+#     :astro_object: instance of 'GlobalInteraction' object
+#     :generator_points: instance of 'generators' object
+def astro_object_creator(config, astro_object, generator_points):
 
+	for point in generator_points.output_points():
+
+		# Creating empty arrays with specific dimension
+		coordinates = np.ndarray(shape=(1, config.dimensions))
+		velocities = np.ndarray(shape=(1, config.dimensions))
+
+		# Filling arrays by incomming values
+		for i in range(config.dimensions):
+			coordinates[0, i] = point['coords'][i]
+			velocities[0, i] = point['speed'][i]
+
+		# Load by 'append' procedure
+		astro_object.append(*coordinates,
+			*velocities,
+			charge=point['charge'],
+			delay=point['delay'],
+			color=point['color'],
+			mass=point['mass'],
+			radius=point['radius'],
+			trajectory=point['trajectory'],
+			id=point['id'])
 
 # Function to load point objects to the astro_object
 # Arguments :config: instance of 'Configuration' object
@@ -101,86 +127,28 @@ def load_point_objects(config, astro_object):
 			coordinates[0, i] = point.coords[i]
 			velocities[0, i] = point.speed[i]
 
-		if point.trajectory:
-			trajectory0 = point.trajectory
-		else:
-			trajectory0 = config.trajectory
-
 		# Load by 'append' procedure
 		astro_object.append(*coordinates,
-							*velocities,
-							charge=point.charge,
-							delay=point.delay,
-							color=point.color,
-							mass=point.mass,
-							radius=point.radius,
-							trajectory=trajectory0,
-							id=point.id
-							)
+			*velocities,
+			charge=point.charge,
+			delay=point.delay,
+			color=point.color,
+			mass=point.mass,
+			radius=point.radius,
+			trajectory=point.trajectory,
+			id=point.id)
 
 	if config.random_generators:
 		generator_points = generators.RandomGenerators(config)
+		astro_object_creator(config, astro_object, generator_points)
 
-		for point in generator_points.output_points():
+	if config.ring_generator:
+		generator_points = generators.RingsGenerators(config)
+		astro_object_creator(config, astro_object, generator_points)
 
-			# Creating empty arrays with specific dimension
-			coordinates = np.ndarray(shape=(1, config.dimensions))
-			velocities = np.ndarray(shape=(1, config.dimensions))
-
-			# Filling arrays by incomming values
-			for i in range(config.dimensions):
-				coordinates[0, i] = point['coords'][i]
-				velocities[0, i] = point['speed'][i]
-
-			try:
-				trajectory0 = point.trajectory
-			except:
-				trajectory0 = config.trajectory
-
-			# Load by 'append' procedure
-			astro_object.append(*coordinates,
-								*velocities,
-								charge=point['charge'],
-								delay=point['delay'],
-								color=point['color'],
-								mass=point['mass'],
-								radius=point['radius'],
-								trajectory=trajectory0,
-								id=point['id']
-								)
-
-
-		if config.ring_generator:
-			generator_points = generators.RingsGenerators(config)
-
-
-			for point in generator_points.output_points():
-
-				# Creating empty arrays with specific dimension
-				coordinates = np.ndarray(shape=(1, config.dimensions))
-				velocities = np.ndarray(shape=(1, config.dimensions))
-
-				# Filling arrays by incomming values
-				for i in range(config.dimensions):
-					coordinates[0, i] = point['coords'][i]
-					velocities[0, i] = point['speed'][i]
-
-				try:
-					trajectory0 = point.trajectory
-				except:
-					trajectory0 = config.trajectory
-
-				# Load by 'append' procedure
-				astro_object.append(*coordinates,
-									*velocities,
-									charge=point['charge'],
-									delay=point['delay'],
-									color=point['color'],
-									mass=point['mass'],
-									radius=point['radius'],
-									trajectory=trajectory0,
-									id=point['id']
-									)
+	if config.ellipse_generators:
+		generator_points = generators.ElipsesGenerators(config)
+		astro_object_creator(config, astro_object, generator_points)
 
 # Function to load walls to the astro_object
 # Arguments :config: instance of 'Configuration' object
@@ -199,7 +167,6 @@ def load_walls(config, astro_object):
 			coordinate_2 = coordinate_0
 
 			astro_object.append_wall(coordinate_1, coordinate_2, id=wall.id, K=wall.elasticity)
-
 
 	if config.complex_wall:
 

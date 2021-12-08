@@ -389,7 +389,7 @@ CASES:
 
   trajectory:
     title: Отображать траекторию частицы
-    default: "True"
+    default: "False"
     type: bool
     class: checkbox
     dementional: false
@@ -601,11 +601,11 @@ CASES:
 
   focus:
     title: Положение фокуса
-    default: "0"
+    default: "1"
     type: int
     class: dropdown
     cases:
-      Правый: "0"
+      Правый: "-1"
       Левый: "1"
     dementional: false
 
@@ -625,7 +625,6 @@ GENERAL:
   - gravity_extended_interaction
   - electricity_point_interaction
   - electricity_extended_interaction
-  - trajectory
   - step
   - steps_number
   - fps
@@ -678,6 +677,7 @@ OBJECTS:
     title: Генератор произвольного распределения объектов
     cases:
       - particals_number
+      - trajectory
       - equal_parameters
       - radius_scale
       - mass_scale
@@ -690,6 +690,7 @@ OBJECTS:
     title: Генератор кругового распределения объектов
     cases:
       - particals_number
+      - trajectory
       - equal_parameters
       - radius_scale
       - mass_scale
@@ -705,6 +706,7 @@ OBJECTS:
     title: Генератор эллиптического распределения объектов
     cases:
       - particals_number
+      - trajectory
       - equal_parameters
       - radius_scale
       - mass_scale

@@ -18,7 +18,7 @@
   "EM_fields":[],"G_fields":[],
   "wall_objects":[{"id":"wxk-x",
     "index":3,
-    "coords_1":{"units":"1","value":["-7.5","7.5","0"]},
+    "coords_1":{"units":"1","value":["-6.5","7.5","0"]},
     "coords_2":{"units":"1","value":["-7.5","-7.5","0"]},
     "elasticity":"0.3","name":"wall","color":[178,26,128],
     "type":{"value":"wall_objects","description":"Стенка"}},
@@ -42,6 +42,6 @@
       "random_generators":[],"ring_generator":[],"ellipse_generators":[]},
       "GENERAL":{"dimensions":"2","K":"1","output_graphics":"matplotlib",
         "step":{"units":"1","value":"1"},"edge":{"units":"1","value":"10"},
-        "name":"test_00","steps_number":"200","fps":"30","frames_gap":"1",
+        "name":"test_00","steps_number":"500","fps":"30","frames_gap":"1",
         "scale_faktor":"1","gravity_point_interaction":"on","trajectory":"on"},
         "PROBLEM":"particle_simulator"}
