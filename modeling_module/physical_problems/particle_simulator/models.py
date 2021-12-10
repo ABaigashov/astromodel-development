@@ -32,12 +32,13 @@ class BaseModel:
 		# functions in 'utils' help file
 		utils.load_point_objects(config, astro_object)
 		utils.load_fields(config, astro_object)
+		utils.load_walls(config, astro_object)
 
 		# Saving the scale of current calculation area
 		self.edge, self.scaling, self.label = utils.load_label(self.config.edge)
 
 	# some properties...
-	
+
 	@property
 	def colors(self):
 		return np.array(self.astro_object.get_colors()) / 255
@@ -51,8 +52,16 @@ class BaseModel:
 		return np.array(self.astro_object.get_coords()) / self.scaling
 
 	@property
+	def coords_walls(self):
+		return np.array(self.astro_object.get_coords_walls()) / self.scaling
+
+	@property
 	def radius(self):
 		return np.array(self.astro_object.get_radius()) / self.scaling
+
+	@property
+	def trajectory(self):
+		return np.array(self.astro_object.get_trajectories())
 
 
 # Expanding base model
@@ -75,16 +84,17 @@ class JsonModel(BaseModel):
 
 		# Loop throw every step
 		for i in range((self.config.steps_number // self.config.frames_gap)):
-			
-			# Update paremeters in 'astro_object'
+
+			# Update parameters in 'astro_object'
 			for j in range(self.config.frames_gap):
 				self.astro_object.update_dynamic_parametrs(self.config.step, (i * self.config.frames_gap + j) * self.config.step)
-			
+
 			# Write calculated parameters to frame
 			data[f"frame_{i}"] = [{
 				"coords": list(self.coords),
 				"colors": list(self.colors),
-				"radius": list(self.radius)
+				"radius": list(self.radius),
+				"trajectory": list(self.trajectory)
 			}]
 
 			# Changing value on progressbar
@@ -140,10 +150,10 @@ class PlotModel(BaseModel):
 		# Creating 'moviepy.editor.VideoClip' object
 		# with callback 'self.get_frame' and duration parameter
 		animation = VideoClip(self.get_frame, duration=(self.config.steps_number // self.config.frames_gap) / self.config.fps)
-		
+
 		# Writing all created frames to 'animation'
 		animation.write_videofile(self.output + '.mp4', fps=self.config.fps)
-		
+
 		# Return path to file
 		return self.output + '.mp4'
 
@@ -172,7 +182,11 @@ class Plot2DModel(PlotModel):
 
 		# Basic angular linspace
 		angle = np.linspace(0, 2*np.pi, 100)
-
+		#
+		for s in range(len(self.coords_walls[0])):
+			plt.plot([float(self.coords_walls[0][s,0]),float(self.coords_walls[1][s,0])],
+				  [float(self.coords_walls[0][s,1]),float(self.coords_walls[1][s,1])],'-k')
+		#
 		for i in range(self.coords.shape[0]):
 
 			# Drawing a circle of a point object
@@ -182,15 +196,13 @@ class Plot2DModel(PlotModel):
 				c=self.colors[i]
 			)
 
-			# If the 'trajectory' parameter is turned on...
-			if self.config.trajectory:
-
 				# Saving current position to next iterations
-				if len(self.all_trajectory) == i:
-					self.all_trajectory.append(np.array([self.coords[i]]))
-				else:
-					self.all_trajectory[i] = np.append(self.all_trajectory[i], np.array([self.coords[i]]), axis=0)
+			if len(self.all_trajectory) == i:
+				self.all_trajectory.append(np.array([self.coords[i]]))
+			else:
+				self.all_trajectory[i] = np.append(self.all_trajectory[i], np.array([self.coords[i]]), axis=0)
 				# Drawing the trajectory of object
+			if self.trajectory[i]:
 				plt.plot(
 					*self.all_trajectory[i].T,
 					'.', ms=1, c=self.colors[i]
@@ -199,10 +211,10 @@ class Plot2DModel(PlotModel):
 
 # Creating 3D version of 'PlotModel'
 class Plot3DModel(PlotModel):
-	
+
 	# Some inicialization
 	def __init__(self, *args, **kw):
-		
+
 		# Basic init of parent class
 		super().__init__(*args, **kw)
 

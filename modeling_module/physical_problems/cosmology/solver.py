@@ -6,7 +6,7 @@ from scipy.integrate import *
 import os
 import shutil
 import zipfile
-
+from urllib import request
 
 # from mpl_toolkits.mplot3d import *
 # from matplotlib import cm
@@ -44,25 +44,6 @@ def Friedmann_eqs_2(ICS,a,eq):
 
     return da_dt, dH_dt, drho_m_dt, drho_r_dt, drho_d_dt, drho_k_dt
 
-class Task_maker():
-
-    def __init__(self, config):
-
-        self.name_SNE = config.name_SNE
-        self.name_Hubble = config.name_Hubble
-        self.plot_diagram_1 = config.task_1
-        self.plot_diagram_2 = config.task_2
-        self.plot_diagram_3 = config.task_3
-        self.plot_diagram_4 = config.task_4
-        self.plot_diagram_5 = config.task_5
-        self.plot_diagram_6 = config.task_6
-        self.plot_diagram_7 = config.task_7
-        self.plot_diagram_8 = config.task_8
-
-        self.cosmological_components = config.cosmological_components
-        self.row_SNE = [int(config.row_1),int(config.row_2),int(config.row_3)]
-        self.row_Hubble = [int(config.row_4),int(config.row_5),int(config.row_6)]
-
 class Cosmology_data():
 
     def __init__(self, name, rows):
@@ -73,8 +54,10 @@ class Cosmology_data():
         self.err = []
 
     def Data_loader(self):
-        name = path + "data/" + self.name
-        data = np.loadtxt(name, delimiter='\t', dtype=np.float)
+        remote_url = self.name
+        name_file = path + "data/" + "1.txt"
+        request.urlretrieve(remote_url, name_file)
+        data = np.loadtxt(name_file, delimiter='\t', dtype=np.float)
         self.z0 = data[:,self.rows[0]-1]
         self.parameter = data[:,self.rows[1]-1]
         self.err = data[:,self.rows[2]-1]
@@ -93,6 +76,7 @@ class Cosmology_calculus():
         self.z_max = float(config.z_max)
         self.t_max = float(config.t_max)/13.6*float(config.H_0)/70
         self.H_0 = float(config.H_0)
+        self.task_1 = config.task_1
 
         self.redshifts_1 = Data_1.z0
         self.redshifts_2 = Data_2.z0
@@ -121,6 +105,7 @@ class Cosmology_calculus():
         self.err_H = Data_2.err
 
         self.chi_square_mu = 10000
+        self.chi_square_H = 10000
         self.H_opt = 72
 
     def mu_diagram(self):
@@ -137,24 +122,25 @@ class Cosmology_calculus():
             scale = np.linspace(1,a,N)
             ICS = 0, 1, 3*self.omega_m, 3*self.omega_r, 3*self.omega_d, 3*self.omega_k
             sol = odeint(Friedmann_eqs, ICS, scale, args = (self.EOS,))
-            for j in range(1,N):
-                #dist[i]=dist0 - (scale[j+1]-scale[j])/(sol[j,1]*scale[j]**2)
-                dist[i]=dist0 - 2*(sol[j,0]-sol[j-1,0])/(scale[j]+scale[j-1])
-                dist0 = dist[i]
-            if self.omega_k>0:
-                DM[i] = np.sinh(np.sqrt(self.omega_k)*dist[i])/np.sqrt(self.omega_k)
-            if self.omega_k<0:
-                DM[i] = np.sin(np.sqrt(-self.omega_k)*dist[i])/np.sqrt(-self.omega_k)
-            if self.omega_k==0:
-                DM[i] = dist[i]
-            DL[i] = (1+z)*DM[i]
+            if self.task_1 == True:
+                for j in range(1,N):
+                    dist[i]=dist0 - 2*(sol[j,0]-sol[j-1,0])/(scale[j]+scale[j-1])
+                    dist0 = dist[i]
+                if self.omega_k>0:
+                    DM[i] = np.sinh(np.sqrt(self.omega_k)*dist[i])/np.sqrt(self.omega_k)
+                if self.omega_k<0:
+                    DM[i] = np.sin(np.sqrt(-self.omega_k)*dist[i])/np.sqrt(-self.omega_k)
+                if self.omega_k==0:
+                    DM[i] = dist[i]
+                DL[i] = (1+z)*DM[i]
+                self.DA.append(DL[i]*(13.6/3.2616)*(70/self.H_0)/(1+z)**2)
+                self.mu_i.append(5*np.log10(DL[i])-5*np.log10(self.H_0/100)+43.16-0.713)
             self.H_i.append(self.H_0*sol[N-1,1])
             self.t_i.append(sol[N-1,0]*13.6*70/self.H_0)
-            self.DA.append(DL[i]*(13.6/3.2616)*(70/self.H_0)/(1+z)**2)
             self.Omega_d.append(sol[N-1,2]/(3*sol[N-1,1]**2))
             self.Omega_m.append(sol[N-1,4]/(3*sol[N-1,1]**2))
             self.z_i.append(z)
-            self.mu_i.append(5*np.log10(DL[i])-5*np.log10(self.H_0/100)+43.16-0.713)
+
 
     def integration(self):
         for i in range(201):
@@ -228,6 +214,18 @@ class Cosmology_calculus():
         self.chi_square_H = A-B**2/C1
         self.H_opt = B/C1
 
+class Model_Var():
+
+    def __init__(self, omega_d, omega_m, omega_r, equation_d, title):
+
+        self.omega_d = omega_d
+        self.omega_m = omega_m
+        self.omega_r = omega_r
+        self.equation_d = equation_d
+        self.title_of_model = title
+
+
+
 class Visualization:
 
     def __init__(self, models, output, job):
@@ -237,9 +235,9 @@ class Visualization:
         self.job = job
         os.mkdir(self.output)
 
-    def graphics(self, Task):
+    def graphics(self, config):
 
-        if Task.plot_diagram_1 == True:
+        if config.task_1 == True:
 
             legends = []
 
@@ -260,7 +258,7 @@ class Visualization:
             fig.savefig(f'{self.output}/SNe_Ia.png')
             self.job.progress += 1 / 8
 
-        if Task.plot_diagram_2 == True:
+        if config.task_2 == True:
 
             legends = []
 
@@ -281,7 +279,7 @@ class Visualization:
             fig2.savefig(f'{self.output}/H(z)')
             self.job.progress += 1 / 8
         #
-        if Task.plot_diagram_3 == True:
+        if config.task_3 == True:
             legends = []
             fig3 = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
             ax3 = fig3.add_subplot(111)
@@ -298,7 +296,7 @@ class Visualization:
             fig3.savefig(f'{self.output}/Backlook_time')
             self.job.progress += 1 / 8
         #
-        if Task.plot_diagram_4 == True:
+        if config.task_4 == True:
 
             legends = []
 
@@ -317,7 +315,7 @@ class Visualization:
             fig5.savefig(f'{self.output}/a(t)')
             self.job.progress += 1 / 8
         #
-        if Task.plot_diagram_5 == True:
+        if config.task_5 == True:
 
             legends = []
 
@@ -336,7 +334,7 @@ class Visualization:
             fig4.savefig(f'{self.output}/H(t)')
             self.job.progress += 1 / 8
         #
-        if Task.plot_diagram_6 == True:
+        if config.task_6 == True:
             legends = []
             fig5 = plt.figure(figsize=(8,8), facecolor='pink', frameon=True)
             ax5 = fig5.add_subplot(111)
@@ -355,7 +353,7 @@ class Visualization:
             fig5.savefig(f'{self.output}/Omega_in_past')
             self.job.progress += 1 / 8
         #
-        if Task.plot_diagram_7 == True:
+        if config.task_7 == True:
 
             legends = []
 
@@ -376,7 +374,7 @@ class Visualization:
             fig5.savefig(f'{self.output}/Omega_in_future')
             self.job.progress += 1 / 8
         #
-        if Task.plot_diagram_8 == True:
+        if config.task_8 == True:
 
             legends = []
 
@@ -404,5 +402,5 @@ class Visualization:
                     fantasy_zip.write(os.path.join(folder, file), os.path.relpath(os.path.join(folder,file), f'{self.output}'), compress_type = zipfile.ZIP_DEFLATED)
 
         fantasy_zip.close()
-        
+
         return f'{self.output}/archive.zip'

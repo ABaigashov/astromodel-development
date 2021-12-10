@@ -28,6 +28,7 @@ class Model:
 			# saving current problem model with incomming parameters
 
 			self.model = BVP_solver(Task, output)
+			self.Task = Task
 
 	# run method
 	# must ALWAYS return path to rendered file
@@ -37,4 +38,4 @@ class Model:
 		else:
 			# print("Вычисления завершены, посмотрите результаты в папке results")
 			# render file and return path
-			return self.model.Solving_eq()
+			return self.model.Solving_eq(self.Task)

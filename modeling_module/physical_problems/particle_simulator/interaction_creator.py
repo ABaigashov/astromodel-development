@@ -37,16 +37,17 @@ class GlobalInteraction:
 		# Creating empty points and fields storages
 		self.points = []
 		self.fields = []
+		self.walls = []
 
 
 	# Method which calculating force for one point object
-	# Argument :point: instance of 'Point' object 
+	# Argument :point: instance of 'Point' object
 	# Returns 'result_force' vector
 	def force_calculation(self, point):
-		
+
 		# Creating empty arrays with specific dimension
 		result_force = np.zeros(self.config.dimensions)
-		
+
 		# Storing 'config.K' parameter as short variable
 		K = self.config.K
 
@@ -79,7 +80,7 @@ class GlobalInteraction:
 
 					# If gravity point interaction exsists
 					if self.config.gravity_point_interaction:
-						
+
 						# Add this gravitational force
 						result_force += gravity_point_interaction(self.config, point, p, distance)
 
@@ -103,7 +104,7 @@ class GlobalInteraction:
 		# Storing 'config.K' parameter as short variable
 		K = self.config.K
 
-		# Loop through every point 
+		# Loop through every point
 		for p in self.points:
 
 			# If the point 'p' is "material point"
@@ -179,7 +180,7 @@ class GlobalInteraction:
 
 		# Loop through every point (one more time)
 		for p in self.points:
-			
+
 			# If point is active
 			if p.activity:
 
@@ -202,6 +203,26 @@ class GlobalInteraction:
 
 		# Loop through pair of points
 		for p1 in self.points:
+
+			for wall in self.walls:
+				distance=np.abs(wall.a0*p1.coords[0]+wall.b0*p1.coords[1]+wall.c0)/np.sqrt(wall.a0**2+wall.b0**2)
+				distance0=np.abs(wall.a0*p1.prev_pos[0]+wall.b0*p1.prev_pos[1]+wall.c0)/np.sqrt(wall.a0**2+wall.b0**2)
+
+				if distance<=p1.radius and distance0>p1.radius:
+					if ((p1.coords[0]>=min(wall.coords_1[0],wall.coords_2[0])
+					and p1.coords[0]<=max(wall.coords_1[0],wall.coords_2[0])) or
+					(p1.coords[1]>=min(wall.coords_1[1],wall.coords_2[1])
+					and p1.coords[1]<=max(wall.coords_1[1],wall.coords_2[1]))):
+						c = wall.b0/np.sqrt(wall.a0**2+wall.b0**2)
+						s = wall.a0/np.sqrt(wall.a0**2+wall.b0**2)
+						v_x = p1.velocity[0]*c - p1.velocity[1]*s
+						v_y = p1.velocity[0]*s + p1.velocity[1]*c
+						p1.velocity[0] = +v_x*c - v_y*s*wall.elasticity
+						p1.velocity[1] = -v_x*s - v_y*c*wall.elasticity
+						break
+
+
+
 			for p2 in self.points:
 
 				# Activity check and...
@@ -285,7 +306,7 @@ class GlobalInteraction:
 									R_2[i] = T[i,j] * p2.coords[j] + R_2[i]
 
 						elif self.config.dimensions == 2:
-							
+
 							V_1[0] = p1.velocity[0]
 							V_1[1] = p1.velocity[1]
 							V_2[0] = p2.velocity[0]
@@ -413,10 +434,19 @@ class GlobalInteraction:
 	def append_fields(self, *args, **kwargs):
 		self.fields.append(Field(*args, **kwargs))
 
+	# Procedure of adding a wall in calculation model
+	def append_wall(self, *args, **kwargs):
+		self.walls.append(Wall(*args, **kwargs))
+
 	# Method to get coordinates of all stored points
 	# Returns: array of coordinates
 	def get_coords(self):
 		return [p.coords for p in self.points]
+
+	# Method to get coordinates of all stored walls
+	# Returns: array of coordinates
+	def get_coords_walls(self):
+		return [[wall.coords_1 for wall in self.walls], [wall.coords_2 for wall in self.walls]]
 
 	# Method to get activities of all stored points
 	# Returns: array of activities
@@ -433,7 +463,10 @@ class GlobalInteraction:
 	def get_colors(self):
 		return [p.color for p in self.points]
 
-
+	# Method to get trajectory of all stored points
+	# Returns: array of
+	def get_trajectories(self):
+		return [p.trajectory for p in self.points]
 
 # Ow shit! Some more physical code which i can't
 # recognize what happends in it. Ok. I'm done
@@ -545,7 +578,7 @@ class Point:
 
 	def __init__(self, coords, velocity, id=0,
 				 activity=1, delay=0, mass=1.0,
-				 charge=1.0, radius=0, color=None):
+				 charge=1.0, radius=0, trajectory=False, color=None):
 
 		self.id = id
 		self.coords = coords
@@ -556,6 +589,7 @@ class Point:
 		self.radius = radius
 		self.color = color
 		self.delay = delay
+		self.trajectory = trajectory
 
 		if delay == 0:
 			self.activity = 1
@@ -573,3 +607,15 @@ class Point:
 		self.acceleration = self.acceleration * 0
 		self.dv1 = self.dv2 = self.dv3 = self.dv4 = \
 		self.dq1 = self.dq2 = self.dq3 = self.dq4 = 0
+
+class Wall:
+
+	def __init__(self, coords_1, coords_2, id=0, K=1):
+
+		self.id = id
+		self.coords_1 = coords_1
+		self.coords_2 = coords_2
+		self.elasticity = K
+		self.a0 = float(coords_2[1]-coords_1[1])
+		self.b0 = - float((coords_2[0]-coords_1[0]))
+		self.c0 = -self.a0*coords_1[0]-self.b0*coords_1[1]

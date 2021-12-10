@@ -25,7 +25,7 @@ class Model:
 
 		# creating object of 'GlobalInteraction' class
 		astro_object = GlobalInteraction(config)
-		
+
 		# saving current problem model with incomming parameters
 		self.model = _model_from_config(config, astro_object, output, job)
 

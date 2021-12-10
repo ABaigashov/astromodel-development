@@ -25,6 +25,8 @@ class Model:
 		Task.EoS_append()
 		Task.Task_append()
 
+		self.output = output
+
 		if config.calculate_mass_profile == True:
 			self.task2 = "yes"
 		else:
@@ -35,7 +37,7 @@ class Model:
 		else:
 			self.task1 = "no"
 
-		self.model = Model_of_representation(Task.task_descriptor, Task.EoS_descriptor)
+		self.model = Model_of_representation(output, Task.task_descriptor, Task.EoS_descriptor)
 
 	# run method
 	# must ALWAYS return path to rendered file
@@ -46,4 +48,4 @@ class Model:
 			self.model.work_2()
 		print("Вычисления завершены, посмотрите результаты в папке results")
 		# render file and return path
-		return 0
+		return f'{self.output}/archive.zip'

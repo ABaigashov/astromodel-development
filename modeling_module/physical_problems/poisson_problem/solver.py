@@ -14,7 +14,6 @@ import os
 #####УРАВНЕНИЕ ПУАССОНА#####
 ############################
 path = 'modeling_module/physical_problems/poisson_problem/'
-
 class Task_maker():
 
     def __init__(self, config):
@@ -31,6 +30,9 @@ class Task_maker():
         self.notation_scalar = []
         self.source = "0"
         self.kappa = "1"
+        self.t_0 = 0
+        self.t_f = 0
+        self.N = 1
 
         if self.config.mesh_name:
              self.mesh = path + 'mesh/' + self.config.mesh_name
@@ -38,8 +40,26 @@ class Task_maker():
         if self.config.source:
             self.source = self.config.source
 
-        # if self.config.kappa:
-        #     self.kappa = self.config.kappa
+        if self.config.kappa:
+            self.kappa = self.config.kappa
+
+        if self.config.task_name:
+            self.task_name = self.config.task_name
+
+        if config.task_name=="Heat":
+            if self.config.t_0:
+                self.t_0 = float(self.config.t_0)
+
+            if self.config.t_f:
+                self.t_f = float(self.config.t_f)
+
+            if self.config.ics:
+                self.ics = self.config.ics
+
+            if self.config.N:
+                self.N = int(self.config.N)
+
+
 
         # if self.config.vector_functions:
         #     self.conditions = self.config.vector_functions
@@ -76,68 +96,102 @@ class BVP_solver():
 
         self.mesh = Mesh(task.mesh)
         self.output = output
+        self.t_0 = task.t_0
+        self.t_f = task.t_f
+        self.number_of_steps = task.N
 
-        self.V = FunctionSpace(self.mesh, 'P', 1)
+        os.mkdir(self.output)
+
+
         #объявление искомых функций и пробных функций. Они являются частью V.
-        self.u = Function(self.V)
-        self.v = TestFunction(self.V)
-
-        self.Dc = []
-        self.Nc = []
-        self.bx = []
 
         self.boundary_parts = MeshFunction('size_t', self.mesh, self.mesh.topology().dim() - 1)
 
+
+    def Solving_eq(self, task):
+        V = FunctionSpace(self.mesh, 'P', 1)
+
+        u = Function(V)
+        v = TestFunction(V)
         ds = Measure('ds', domain = self.mesh, subdomain_data = self.boundary_parts)
-
-        k=0
-        m=0
-        for i in task.name_scalar:
-            if task.type_scalar[k]=="Dirichlet":
-                if task.notation_scalar[k]=="SYM":
-                    u_D = sym.sympify(task.scalar_condition[k])
-                    x, y, z, t = sym.symbols('x[0], x[1], x[2], t')
-                    sub = [('x',x),('y',y),('z',z),('t',t)]
-                    u_D = u_D.subs(sub)
-                    u_code = sym.printing.ccode(u_D)
-                    u_D = Expression(u_code, degree=2)
-                else:
-                    u_D = Expression(task.scalar_condition[k], degree=2)
-                DC = DirichletBC(self.V, u_D, task.description_scalar[k])
-                self.Dc.append(DC)
-            if task.type_scalar[k]=="Neumann":
-                if task.notation_scalar[k]=="SYM":
-                    g_N = sym.sympify(task.scalar_condition[k])
-                    x, y, z, t = sym.symbols('x[0], x[1], x[2], t')
-                    sub = [('x',x),('y',y),('z',z),('t',t)]
-                    g_N = g_N.subs(sub)
-                    g_code = sym.printing.ccode(g_N)
-                    g = Expression(g_code, degree=2)
-                else:
-                    g = Expression(task.scalar_condition[k], degree=2)
-                bx1 = CompiledSubDomain(task.description_scalar[k])
-                self.bx.append(bx1)
-                self.bx[m].mark(self.boundary_parts, m)
-                self.Nc.append(g*self.v*ds(m))
-                m = m+1
-            k = k+1
-
-            #источник в правой части уравнения Пуассона
-        self.f = Expression(task.source, degree=2, u=self.u)
-
-        self.kappa1 = Expression(task.kappa, degree=2,u=self.u)
+        Dc = []
+        Nc = []
+        bx = []
 
 
-    def Solving_eq(self):
-        #постановка вариационной задачи и ее решение с граничными условиями
-        F = self.kappa1*dot(grad(self.u), grad(self.v))*dx - self.f*self.v*dx - sum(self.Nc)
-        solve(F == 0, self.u, self.Dc)
+        if task.task_name == "Heat":
+            u_0 = Expression(task.ics, degree=2)
+            dt=(self.t_f - self.t_0)/self.number_of_steps
+            u_n = interpolate(u_0, V)
 
-        # Save solution to file in VTK format
-        vtkfile = File(path+'results/'+'solution.pvd')
-        vtkfile << self.u
+        if task.task_name == "Poisson":
+            self.number_of_steps = 1
+            dt=0
 
-        return f'{self.output}/solution.pvd'
+        for n in range(self.number_of_steps):
+
+            k=0
+            m=0
+            for i in task.name_scalar:
+                if task.type_scalar[k]=="Dirichlet":
+                    if task.notation_scalar[k]=="SYM":
+                        u_0 = sym.sympify(task.scalar_condition[k])
+                        x, y, z, t = sym.symbols('x[0], x[1], x[2], t')
+                        sub = [('x',x),('y',y),('z',z),('t',self.t_0)]
+                        u_D0 = u_0.subs(sub)
+                        u_code = sym.printing.ccode(u_D0)
+                        u_D = Expression(u_code, degree=2)
+                    else:
+                        u_D = Expression(task.scalar_condition[k], degree=2)
+                    DC = DirichletBC(V, u_D, task.description_scalar[k])
+                    Dc.append(DC)
+                if task.type_scalar[k]=="Neumann":
+                    if task.notation_scalar[k]=="SYM":
+                        g_N = sym.sympify(task.scalar_condition[k])
+                        x, y, z, t = sym.symbols('x[0], x[1], x[2], t')
+                        sub = [('x',x),('y',y),('z',z),('t',self.t_0)]
+                        g_N = g_N.subs(sub)
+                        g_code = sym.printing.ccode(g_N)
+                        g = Expression(g_code, degree=2)
+                    else:
+                        g = Expression(task.scalar_condition[k], degree=2)
+                    bx1 = CompiledSubDomain(task.description_scalar[k])
+                    bx.append(bx1)
+                    bx[m].mark(self.boundary_parts, m)
+                    Nc.append(g*v*ds(m))
+                    m = m+1
+                k = k+1
+
+                #источник в правой части уравнения Пуассона
+            f = Expression(task.source, degree=2, t=self.t_0, u=u)
+
+            kappa1 = Expression(task.kappa, degree=2,t=self.t_0, u=u)
+
+            if task.task_name == "Poisson":
+                F = kappa1*dot(grad(u), grad(v))*dx - f*v*dx - sum(Nc)
+                solve(F == 0, u, Dc)
+
+            if task.task_name == "Heat":
+                F = (u - u_n)*v*dx + kappa1*dt*dot(grad(u), grad(v))*dx - dt*f*v*dx - sum(Nc)
+                solve(F == 0, u, Dc)
+                u_n.assign(u)
+
+
+
+            # Save solution to file in VTK format
+            vtkfile = File(f"{self.output}/solution.{format(n)}.pvd")
+            vtkfile << u
+
+            self.t_0 += dt
+
+            print(self.t_0)
+
+            Dc = []
+            Nc = []
+            bx = []
+
+
+        return f"{self.output}/solution.{format(n)}.pvd"
 
 class PointsPotential:
 

@@ -12,6 +12,7 @@ from scipy.integrate import odeint
 from sympy import exp, log
 from sympy import symbols
 from sympy import sympify
+from urllib import request
 
 G = 6.67408 * 10**(-11)
 sun_mass = 1.989*pow(10,30)
@@ -73,16 +74,22 @@ def TOV_func_2(s, r, expression):
 
 class EOS:
 
-    def __init__(self,
+    def __init__(self, name_eos,
                 name_file, form,
                 rho_row, p_row,
                 units_density, units_pressure):
-        path = 'modeling_module/physical_problems/ns/'
+
+        # Define the remote file to retrieve
+        remote_url = name_file
+        # Define the local filename to save data
+        # Download remote and save locally
+        path = 'modeling_module/physical_problems/neutron_stars/'
         if form=="table":
-            self.name_file = path + "EOS/" + name_file + ".txt"
+            self.name_file = path + "EOS/" + name_eos + ".txt"
+            request.urlretrieve(remote_url, self.name_file)
         else:
             self.name_file = 'analytical'
-        self.id = name_file
+        self.id = name_eos
         if form=="table":
             self.pressure = []
             self.density = []

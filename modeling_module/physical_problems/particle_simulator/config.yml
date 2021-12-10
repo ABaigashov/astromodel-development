@@ -228,6 +228,7 @@ UNITS:
 
 CASES:
 
+  ####################### GENERAL #######################
   dimensions:
     title: Размерность пространства моделирования
     default: "2"
@@ -287,13 +288,6 @@ CASES:
     class: checkbox
     dementional: false
 
-  trajectory:
-    title: Отображать траектории частиц
-    default: "True"
-    type: bool
-    class: checkbox
-    dementional: false
-
   step:
     title: Шаг по времени моделирования
     default: "1"
@@ -344,6 +338,7 @@ CASES:
     minimum: "0"
     dementional: false
 
+  ####################### point_objects #######################
   coords:
     title: Координаты центра
     default: "0"
@@ -360,21 +355,13 @@ CASES:
     units: velosity
     dementional: true
 
-  electricity:
-    title: Компоненты электрического поля
+  mass:
+    title: Масса
     default: "0"
-    type: expr
-    class: text
-    units: electricity
-    dementional: true
-
-  magnetic:
-    title: Компоненты магнитного поля
-    default: "0"
-    type: expr
-    class: text
-    units: magnetic
-    dementional: true
+    type: float
+    class: number
+    units: mass
+    dementional: false
 
   charge:
     title: Заряд
@@ -382,14 +369,6 @@ CASES:
     type: float
     class: number
     units: charge
-    dementional: false
-
-  mass:
-    title: Масса
-    default: "0"
-    type: float
-    class: number
-    units: mass
     dementional: false
 
   radius:
@@ -408,11 +387,110 @@ CASES:
     units: time
     dementional: false
 
+  trajectory:
+    title: Отображать траекторию частицы
+    default: "False"
+    type: bool
+    class: checkbox
+    dementional: false
+
+  ####################### EM_fields #######################
+  electricity:
+    title: Компоненты электрического поля
+    default: "0"
+    type: expr
+    class: text
+    units: electricity
+    dementional: true
+
+  magnetic:
+    title: Компоненты магнитного поля
+    default: "0"
+    type: expr
+    class: text
+    units: magnetic
+    dementional: true
+
+  ####################### G_fields #######################
   gravity:
     title: Потенциал гравитационного поля
     default: "0"
     type: expr
     class: text
+    dementional: false
+
+  ####################### walls #######################
+  coords_1:
+    title: Координаты начала стенки
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: true
+
+  coords_2:
+    title: Координаты конца стенки
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: true
+
+  equation_X:
+    title: Параметрическое уравнение границы
+    default: "0"
+    type: expr
+    class: text
+    dementional: false
+
+  equation_Y:
+    title: Параметрическое уравнение границы
+    default: "0"
+    type: expr
+    class: text
+    dementional: false
+
+  u_s:
+    title: Начальное значение параметра
+    default: "0"
+    type: float
+    class: number
+    dementinal: false
+
+  u_f:
+    title: Конечное значение параметра
+    default: "0"
+    type: float
+    class: number
+    dementinal: false
+
+  number_of_divisions:
+    title: Число разбиений интервала изменения параметра
+    default: "1"
+    type: int
+    class: number
+    dementinal: false
+
+  elasticity:
+    title: Коэффициент эластичности стенки
+    default: "1"
+    type: float
+    class: number
+    dementional: false
+
+  ####################### general generators #######################
+  particals_number:
+    title: Количество точек
+    default: "0"
+    type: int
+    class: number
+    dementional: false
+
+  equal_parameters:
+    title: Сделать все объекты одинаковыми
+    default: "True"
+    type: bool
+    class: checkbox
     dementional: false
 
   radius_scale:
@@ -421,22 +499,6 @@ CASES:
     type: float
     class: number
     units: distance
-    dementional: false
-
-  coordinate_scale:
-    title: Масштаб координат точек
-    default: "1"
-    type: float
-    class: number
-    units: distance
-    dementional: false
-
-  velocity_scale:
-    title: Масштаб скоростей точек
-    default: "1"
-    type: float
-    class: number
-    units: velosity
     dementional: false
 
   mass_scale:
@@ -463,27 +525,30 @@ CASES:
     units: time
     dementional: false
 
-  particals_number:
-    title: Количество точек
-    default: "0"
-    type: int
-    class: number
-    dementional: false
-
-  ring_radius:
-    title: Радиус кольца
-    default: "0"
+  ####################### random_generators #######################
+  coordinate_scale:
+    title: Масштаб координат точек
+    default: "1"
     type: float
     class: number
     units: distance
     dementional: false
 
-  point_velocity:
-    title: Модуль скорости точек
-    default: "0"
+  velocity_scale:
+    title: Масштаб скоростей точек
+    default: "1"
     type: float
     class: number
     units: velosity
+    dementional: false
+
+  ####################### ring_generator #######################
+  mass_center:
+    title: Масса центрального тела
+    default: "0"
+    type: float
+    class: number
+    units: mass
     dementional: false
 
   coords_center:
@@ -502,14 +567,23 @@ CASES:
     units: velosity
     dementional: true
 
-  mass_center:
-    title: Масса центрального тела
+  ring_radius:
+    title: Радиус кольца
     default: "0"
     type: float
     class: number
-    units: mass
+    units: distance
     dementional: false
 
+  point_velocity:
+    title: Модуль скорости точек
+    default: "0"
+    type: float
+    class: number
+    units: velosity
+    dementional: false
+
+  ####################### ellipse_generators #######################
   major_axis:
     title: Большая полуось эллипса
     default: "0"
@@ -527,11 +601,11 @@ CASES:
 
   focus:
     title: Положение фокуса
-    default: "0"
+    default: "1"
     type: int
     class: dropdown
     cases:
-      Правый: "0"
+      Правый: "-1"
       Левый: "1"
     dementional: false
 
@@ -551,7 +625,6 @@ GENERAL:
   - gravity_extended_interaction
   - electricity_point_interaction
   - electricity_extended_interaction
-  - trajectory
   - step
   - steps_number
   - fps
@@ -566,10 +639,39 @@ OBJECTS:
     cases:
       - coords
       - speed
-      - charge
       - mass
+      - charge
       - radius
       - delay
+      - trajectory
+
+  EM_fields:
+    title: Электромагнитное поле
+    cases:
+      - electricity
+      - magnetic
+
+  G_fields:
+    title: Гравитационное поле
+    cases:
+      - gravity
+
+  wall_objects:
+    title: Стенка
+    cases:
+      - coords_1
+      - coords_2
+      - elasticity
+
+  complex_wall:
+    title: Сложная стенка
+    cases:
+      - equation_X
+      - equation_Y
+      - u_s
+      - u_f
+      - number_of_divisions
+      - elasticity
 
   EM_fields:
     title: Электромагнитное поле
@@ -585,28 +687,42 @@ OBJECTS:
   random_generators:
     title: Генератор произвольного распределения объектов
     cases:
+      - particals_number
+      - trajectory
+      - equal_parameters
       - radius_scale
-      - coordinate_scale
-      - velocity_scale
       - mass_scale
       - charge_scale
       - delay_scale
+      - coordinate_scale
+      - velocity_scale
 
   ring_generator:
     title: Генератор кругового распределения объектов
     cases:
       - particals_number
+      - trajectory
+      - equal_parameters
+      - radius_scale
+      - mass_scale
+      - charge_scale
+      - delay_scale
+      - mass_center
       - coords_center
       - speed_center
       - ring_radius
-      - radius_scale
-      - mass_scale
       - point_velocity
 
   ellipse_generators:
     title: Генератор эллиптического распределения объектов
     cases:
       - particals_number
+      - trajectory
+      - equal_parameters
+      - radius_scale
+      - mass_scale
+      - charge_scale
+      - delay_scale
       - mass_center
       - coords_center
       - speed_center
@@ -614,5 +730,3 @@ OBJECTS:
       - exentricity
       - focus
       - apside_angle
-      - radius_scale
-      - mass_scale

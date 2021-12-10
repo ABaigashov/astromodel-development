@@ -5,9 +5,9 @@
 
 # Import LOCAL python dict with some physical constants
 from physics import constants
-
+import generators
 # Import some required libraries
-from sympy import sympify
+from sympy import sympify, symbols
 import numpy as np
 
 # Function to scale calculating area
@@ -83,7 +83,33 @@ def load_fields(config, astro_object):
 	# Load by 'append_fields' procedure
 	astro_object.append_fields(Emx, Emy, Emz, Hmx, Hmy, Hmz, PhiG)
 
+# Function to load fields to the astro_object
+# Arguments :config: instance of 'Configuration' object
+#     :astro_object: instance of 'GlobalInteraction' object
+#     :generator_points: instance of 'generators' object
+def astro_object_creator(config, astro_object, generator_points):
 
+	for point in generator_points.output_points():
+
+		# Creating empty arrays with specific dimension
+		coordinates = np.ndarray(shape=(1, config.dimensions))
+		velocities = np.ndarray(shape=(1, config.dimensions))
+
+		# Filling arrays by incomming values
+		for i in range(config.dimensions):
+			coordinates[0, i] = point['coords'][i]
+			velocities[0, i] = point['speed'][i]
+
+		# Load by 'append' procedure
+		astro_object.append(*coordinates,
+			*velocities,
+			charge=point['charge'],
+			delay=point['delay'],
+			color=point['color'],
+			mass=point['mass'],
+			radius=point['radius'],
+			trajectory=point['trajectory'],
+			id=point['id'])
 
 # Function to load point objects to the astro_object
 # Arguments :config: instance of 'Configuration' object
@@ -102,7 +128,66 @@ def load_point_objects(config, astro_object):
 			velocities[0, i] = point.speed[i]
 
 		# Load by 'append' procedure
-		astro_object.append(
-			*coordinates, *velocities, charge=point.charge, delay=point.delay,
-			color=point.color, mass=point.mass, radius=point.radius, id=point.id
-		)
+		astro_object.append(*coordinates,
+			*velocities,
+			charge=point.charge,
+			delay=point.delay,
+			color=point.color,
+			mass=point.mass,
+			radius=point.radius,
+			trajectory=point.trajectory,
+			id=point.id)
+
+	if config.random_generators:
+		generator_points = generators.RandomGenerators(config)
+		astro_object_creator(config, astro_object, generator_points)
+
+	if config.ring_generator:
+		generator_points = generators.RingsGenerators(config)
+		astro_object_creator(config, astro_object, generator_points)
+
+	if config.ellipse_generators:
+		generator_points = generators.ElipsesGenerators(config)
+		astro_object_creator(config, astro_object, generator_points)
+
+# Function to load walls to the astro_object
+# Arguments :config: instance of 'Configuration' object
+#     :astro_object: instance of 'GlobalInteraction' object
+def load_walls(config, astro_object):
+
+	if config.wall_objects:
+
+		for wall in config.wall_objects:
+
+			coordinate_1 = np.ndarray(shape=(1, config.dimensions))
+			coordinate_2 = np.ndarray(shape=(1, config.dimensions))
+			coordinate_0 = np.array([wall.coords_1[0], wall.coords_1[1]])
+			coordinate_1 = coordinate_0
+			coordinate_0 = np.array([wall.coords_2[0], wall.coords_2[1]])
+			coordinate_2 = coordinate_0
+
+			astro_object.append_wall(coordinate_1, coordinate_2, id=wall.id, K=wall.elasticity)
+
+	if config.complex_wall:
+
+		for wall in config.complex_wall:
+
+			equation_X = sympify(wall.equation_X)
+			equation_Y = sympify(wall.equation_Y)
+			u = symbols('u')
+
+			N = int(wall.number_of_divisions)
+			du = (float(wall.u_f)-float(wall.u_s))/N
+
+			for i in range(0, N):
+				coordinate_1 = np.ndarray(shape=(1, config.dimensions))
+				coordinate_2 = np.ndarray(shape=(1, config.dimensions))
+				u_i = float(wall.u_s)+i*du
+				u_f = u_i + du
+				id_i = wall.id + str(i)
+				coordinate_0 = np.array([equation_X.subs(u,u_i), equation_Y.subs(u,u_i)])
+				coordinate_1 = coordinate_0
+				coordinate_0 = np.array([equation_X.subs(u,u_f), equation_Y.subs(u,u_f)])
+				coordinate_2 = coordinate_0
+
+				astro_object.append_wall(coordinate_1, coordinate_2,id=id_i, K=wall.elasticity)

@@ -343,6 +343,62 @@ CASES:
     units: distance
     dementional: false
 
+  cone_x0:
+    title: Координата x вершины конуса
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  cone_y0:
+    title: Координата y вершины конуса
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  cone_z0:
+    title: Координата z вершины конуса
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  cone_x1:
+    title: Координата x центра основания конуса
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  cone_y1:
+    title: Координата y центра основания конуса
+    default: "0"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  cone_z1:
+    title: Координата z центра основания конуса
+    default: "1"
+    type: float
+    class: number
+    units: distance
+    dementional: false
+
+  cone_radius:
+      title: Радиус основания конуса
+      default: "1"
+      type: float
+      class: number
+      units: distance
+      dementional: false
+
   number_of_cells_in_an_interval:
     title: Количество ячеек
     default: "1"
@@ -462,6 +518,18 @@ OBJECTS:
       - cylinder_y1
       - cylinder_z1
       - cyl_radius1
+
+  cones:
+    title: Конус
+    cases:
+      - invert
+      - cone_x0
+      - cone_x1
+      - cone_y0
+      - cone_y1
+      - cone_z0
+      - cone_z1
+      - cone_radius
 
   unitintervalmesh:
     title: Интервал (0,1)

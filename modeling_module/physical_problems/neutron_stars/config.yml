@@ -1,8 +1,15 @@
 CASES:
 
   eos_name:
-    title: Введите имя файла с уравнением состояния (без расширения)
-    default: SLy
+    title: Введите название уравнения состояния
+    default: EOS_1
+    type: str
+    class: text
+    dementional: false
+
+  eos_file:
+    title: Введите ссылку на файл с уравнением состояния
+    default: None
     type: str
     class: text
     dementional: false
