@@ -235,7 +235,7 @@ class GlobalInteraction:
 					distance = np.linalg.norm(p1.coords - p2.coords, ord=2)
 
 					# If no collision found
-					if distance <= p1.radius + p2.radius and distance0 > p1.radius + p2.radius:
+					if (distance <= p1.radius + p2.radius and distance0 >= p1.radius + p2.radius) or (distance0 < p1.radius + p2.radius and distance<distance0):
 
 						# calculatig normal of speed
 						v1 = np.linalg.norm(p1.velocity, ord=2)
