@@ -673,17 +673,6 @@ OBJECTS:
       - number_of_divisions
       - elasticity
 
-  EM_fields:
-    title: Электромагнитное поле
-    cases:
-      - electricity
-      - magnetic
-
-  G_fields:
-    title: Гравитационное поле
-    cases:
-      - gravity
-
   random_generators:
     title: Генератор произвольного распределения объектов
     cases:
