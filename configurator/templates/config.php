@@ -107,26 +107,28 @@
                     <input type="checkbox">
                     <span>
                         Учитывать гравитационные взаимодействия
-                        <div class="cfg-hint-bx">
-                            <div class="cfg-opener"><img
-                                    src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt="">
-                            </div>
-                            <div class="cfg-frame">Всплывающая информация по данному полю</div>
-                        </div>
                     </span>
                 </label>
+                <div class="cfg-hint-bx">
+                    <div class="cfg-opener"><img
+                            src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt="">
+                    </div>
+                    <div class="cfg-frame">Всплывающая информация по данному полю</div>
+                </div>
+            </div>
+            <div class="cfg-ch-group">
                 <label class="cfg-check-item">
                     <input type="checkbox">
                     <span>
                         Учитывать мой стаж работы
-                        <div class="cfg-hint-bx">
-                            <div class="cfg-opener"><img
-                                    src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt="">
-                            </div>
-                            <div class="cfg-frame">Всплывающая информация по данному полю</div>
-                        </div>
                     </span>
                 </label>
+                <div class="cfg-hint-bx">
+                    <div class="cfg-opener"><img
+                            src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt="">
+                    </div>
+                    <div class="cfg-frame">Всплывающая информация по данному полю</div>
+                </div>
             </div>
             <div class="cfg-select-inf-item">
                 <div class="cfg-lbl">

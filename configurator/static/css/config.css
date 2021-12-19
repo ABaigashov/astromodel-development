@@ -84,7 +84,7 @@
     border-radius: 9px;
     border: 1px solid #bb2028;
     font-size: 24px;
-    min-width: 230px;
+    min-width: 270px;
     height: 80px;
     display: flex;
     align-items: center;
@@ -175,7 +175,7 @@ body {
 }
 .cfg-select-inf-item {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 .cfg-select-inf-item select {
     width: 100%;
@@ -310,6 +310,7 @@ textarea:focus:-ms-input-placeholder {
     margin-left: 5px;
 }
 .cfg-hint-bx .cfg-opener {
+    margin-left: 5px;
     cursor: pointer;
 }
 .cfg-hint-bx:hover .cfg-frame {
@@ -344,7 +345,7 @@ textarea:focus:-ms-input-placeholder {
     color: white;
     text-shadow: 0px -2px 10px rgb(0 0 0 / 45%);
     font-size: 32px;
-    right: 30px;
+    right: 24px;
     width: 20px;
     height: 20px;
     clip-path: polygon(0 0%, 0 140%, 150% 140%, 150% 0);
@@ -454,8 +455,6 @@ textarea:focus:-ms-input-placeholder {
     align-items: center;
 }
 .cfg-check-item {
-    margin-bottom: 20px;
-    display: block;
     cursor: pointer;
 }
 .cfg-check-item input {
@@ -484,6 +483,8 @@ textarea:focus:-ms-input-placeholder {
 .cfg-ch-group {
     padding-top: 10px;
     margin-bottom: 30px;
+    display: flex;
+    align-items: center;
 }
 .cfg-plus-bt {
     display: block;
@@ -531,6 +532,7 @@ textarea:focus:-ms-input-placeholder {
     }
     .cfg-btn {
         height: 60px;
+        min-width: unset;
         font-size: 18px;
     }
 }
@@ -773,7 +775,7 @@ textarea:focus:-ms-input-placeholder {
         font-size: 12px;
     }
     .cfg-hint-bx .cfg-opener img {
-        width: 18px;
+        min-width: 18px;
     }
     .cfg-select-inf-item .cfg-line-bx .cfg-select {
         margin-left: 10px;

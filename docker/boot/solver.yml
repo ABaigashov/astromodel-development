@@ -1,11 +1,11 @@
-version: '3.8'
+version: "3.8"
 
 services:
-  solver:
-    build:
-      context: ${PWD}
-      dockerfile: ${PWD}/docker/Dockerfile
-      target: solver
-    container_name: solver
-    volumes:
-      -  ${PWD}/modeling_module/physical_problems/${PROBLEM}/results:/usr/src/modeling_module/physical_problems/${PROBLEM}/results
+    solver:
+        build:
+            context: ${PWD}
+            dockerfile: ${PWD}/docker/Dockerfile
+            target: solver
+        container_name: solver
+        volumes:
+            - ${PWD}/modeling_module/physical_problems/${PROBLEM}/results:/usr/src/modeling_module/physical_problems/${PROBLEM}/results

@@ -1,50 +1,48 @@
-version: '3.8'
+version: "3.8"
 
 networks:
-  default:
-    external:
-      name: astro-net
+    default:
+        external:
+            name: astro-net
 
 services:
+    postgres:
+        image: postgres:11.7
+        restart: always
+        ports:
+            - 5434:5432
+        volumes:
+            - /var/astromodel/pgdata:/var/lib/postgresql/data/pgdata
+        environment:
+            - PGDATA=/var/lib/postgresql/data/pgdata
+            - POSTGRES_USER=astromodel
+            - POSTGRES_PASSWORD=astromodel
+            - POSTGRES_DB=astromodel
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U astromodel"]
+            interval: 10s
+            timeout: 10s
+            retries: 5
+        container_name: postgres
 
-  postgres:
-    image: postgres:11.7
-    restart: always
-    ports:
-      - 5434:5432
-    volumes:
-      - /var/astromodel/pgdata:/var/lib/postgresql/data/pgdata
-    environment:
-      - PGDATA=/var/lib/postgresql/data/pgdata
-      - POSTGRES_USER=astromodel
-      - POSTGRES_PASSWORD=astromodel
-      - POSTGRES_DB=astromodel
-    healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U astromodel']
-      interval: 10s
-      timeout: 10s
-      retries: 5
-    container_name: postgres
+    astromodel:
+        build:
+            context: ${PWD}/docker/astromodel
+        container_name: astromodel
 
-  astromodel:
-    build:
-      context: ${PWD}/docker/astromodel
-    container_name: astromodel
+    wsserver:
+        build:
+            context: ${PWD}/docker/wsserver
+        container_name: wsserver
 
-  wsserver:
-    build:
-      context: ${PWD}/docker/wsserver
-    container_name: wsserver
-
-  nginx:
-    image: nginx
-    ports:
-      - 8888:8888
-    depends_on:
-      - wsserver
-    volumes:
-      - ${PWD}/docker/nginx.conf:/etc/nginx/conf.d/default.conf
-      - /var/astromodel/data:/data
-      - ${PWD}/configurator:/configurator
-      - ${PWD}/server/www:/www
-    container_name: nginx
+    nginx:
+        build:
+            context: ${PWD}
+            dockerfile: ${PWD}/docker/nginx/Dockerfile
+        ports:
+            - 8888:8888
+        depends_on:
+            - wsserver
+        volumes:
+            - /var/astromodel/data:/data
+        container_name: nginx

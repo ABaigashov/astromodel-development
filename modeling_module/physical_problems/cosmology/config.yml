@@ -1,209 +1,207 @@
 CASES:
+    name_SNE:
+        title: "Имя файла, содержащего данные по сверхновым звездам"
+        default: "SNE580"
+        type: str
+        class: text
+        dementional: false
 
-  name_SNE:
-    title: "Имя файла, содержащего данные по сверхновым звездам"
-    default: "SNE580"
-    type: str
-    class: text
-    dementional: false
+    row_1:
+        title: "Номер столбца, содержащего значения красных смещений"
+        default: "1"
+        type: str
+        class: text
+        dementional: false
 
-  row_1:
-    title: "Номер столбца, содержащего значения красных смещений"
-    default: "1"
-    type: str
-    class: text
-    dementional: false
+    row_2:
+        title: "Номер столбца, содержащего значения звездных величин"
+        default: "2"
+        type: str
+        class: text
+        dementional: false
 
-  row_2:
-    title: "Номер столбца, содержащего значения звездных величин"
-    default: "2"
-    type: str
-    class: text
-    dementional: false
+    row_3:
+        title: "Номер столбца, содержащего значения среднеквадратичной ошибки"
+        default: "3"
+        type: str
+        class: text
+        dementional: false
 
-  row_3:
-    title: "Номер столбца, содержащего значения среднеквадратичной ошибки"
-    default: "3"
-    type: str
-    class: text
-    dementional: false
+    name_Hubble:
+        title: "Имя файла, содержащего данные по зависимости H(z)"
+        default: "HUBBLE"
+        type: str
+        class: text
+        dementional: false
 
-  name_Hubble:
-    title: "Имя файла, содержащего данные по зависимости H(z)"
-    default: "HUBBLE"
-    type: str
-    class: text
-    dementional: false
+    row_4:
+        title: "Номер столбца, содержащего значения красных смещений"
+        default: "1"
+        type: str
+        class: text
+        dementional: false
 
-  row_4:
-    title: "Номер столбца, содержащего значения красных смещений"
-    default: "1"
-    type: str
-    class: text
-    dementional: false
+    row_5:
+        title: "Номер столбца, содержащего значения параметра Хаббла"
+        default: "2"
+        type: str
+        class: text
+        dementional: false
 
-  row_5:
-    title: "Номер столбца, содержащего значения параметра Хаббла"
-    default: "2"
-    type: str
-    class: text
-    dementional: false
+    row_6:
+        title: "Номер столбца, содержащего значения среднеквадратичной ошибки"
+        default: "3"
+        type: str
+        class: text
+        dementional: false
 
-  row_6:
-    title: "Номер столбца, содержащего значения среднеквадратичной ошибки"
-    default: "3"
-    type: str
-    class: text
-    dementional: false
+    omega_m:
+        title: Доля плотности материи
+        default: "0"
+        type: str
+        class: text
+        dementional: false
 
-  omega_m:
-    title: Доля плотности материи
-    default: "0"
-    type: str
-    class: text
-    dementional: false
+    omega_r:
+        title: Доля плотности излучения
+        default: "0"
+        type: str
+        class: text
+        dementional: false
 
-  omega_r:
-    title: Доля плотности излучения
-    default: "0"
-    type: str
-    class: text
-    dementional: false
+    omega_d:
+        title: Доля плотности темной энергии
+        default: "0"
+        type: str
+        class: text
+        dementional: false
 
-  omega_d:
-    title: Доля плотности темной энергии
-    default: "0"
-    type: str
-    class: text
-    dementional: false
+    equation_d:
+        title: Уравнение состояния темной энергии (в нотации sympy)
+        default: "-rho"
+        type: str
+        class: text
+        dementional: false
 
-  equation_d:
-    title: Уравнение состояния темной энергии (в нотации sympy)
-    default: "-rho"
-    type: str
-    class: text
-    dementional: false
+    title_of_model:
+        title: "Название модели"
+        default: "model_1"
+        type: str
+        class: text
+        dementional: false
 
-  title_of_model:
-    title: "Название модели"
-    default: "model_1"
-    type: str
-    class: text
-    dementional: false
+    parameters:
+        title: Значения параметров в уравнении состояния темной энергии
+        default: "?"
+        type: str
+        class: text
+        dementional: false
 
-  parameters:
-    title: Значения параметров в уравнении состояния темной энергии
-    default: "?"
-    type: str
-    class: text
-    dementional: false
+    z_max:
+        title: Значение красного смещения
+        default: "?"
+        type: str
+        class: text
+        dementional: false
 
-  z_max:
-    title: Значение красного смещения
-    default: "?"
-    type: str
-    class: text
-    dementional: false
+    t_max:
+        title: Значение времени в млрд. л.
+        default: "?"
+        type: str
+        class: text
+        dementional: false
 
-  t_max:
-    title: Значение времени в млрд. л.
-    default: "?"
-    type: str
-    class: text
-    dementional: false
+    H_0:
+        title: Значение параметра Хаббла в км/с/Мпк
+        default: "72"
+        type: str
+        class: text
+        dementional: false
 
-  H_0:
-    title: Значение параметра Хаббла в км/с/Мпк
-    default: "72"
-    type: str
-    class: text
-    dementional: false
+    task_1:
+        title: Посчитать диаграмму звездная величина - красное смещение
+        default: "True"
+        type: bool
+        class: checkbox
+        dementional: false
 
-  task_1:
-    title: Посчитать диаграмму звездная величина - красное смещение
-    default: "True"
-    type: bool
-    class: checkbox
-    dementional: false
+    task_2:
+        title: Посчитать зависимость параметра Хаббла от красного смещения
+        default: "True"
+        type: bool
+        class: checkbox
+        dementional: false
 
-  task_2:
-    title: Посчитать зависимость параметра Хаббла от красного смещения
-    default: "True"
-    type: bool
-    class: checkbox
-    dementional: false
+    task_3:
+        title: Посчитать диаграмму время-красное смещение
+        default: "True"
+        type: bool
+        class: checkbox
+        dementional: false
 
-  task_3:
-    title: Посчитать диаграмму время-красное смещение
-    default: "True"
-    type: bool
-    class: checkbox
-    dementional: false
+    task_4:
+        title: Посчитать зависимость масштабного фактора от времени в будущем
+        default: "True"
+        type: bool
+        class: checkbox
+        dementional: false
 
-  task_4:
-    title: Посчитать зависимость масштабного фактора от времени в будущем
-    default: "True"
-    type: bool
-    class: checkbox
-    dementional: false
+    task_5:
+        title: Посчитать зависимость параметра Хаббла от времени в будущем
+        default: "True"
+        type: bool
+        class: checkbox
+        dementional: false
 
-  task_5:
-    title: Посчитать зависимость параметра Хаббла от времени в будущем
-    default: "True"
-    type: bool
-    class: checkbox
-    dementional: false
+    task_6:
+        title: Посчитать зависимость плотностей компонентов Вселенной от времени в прошлом
+        default: "True"
+        type: bool
+        class: checkbox
+        dementional: false
 
-  task_6:
-    title: Посчитать зависимость плотностей компонентов Вселенной от времени в прошлом
-    default: "True"
-    type: bool
-    class: checkbox
-    dementional: false
+    task_7:
+        title: Посчитать зависимость плотностей компонентов Вселенной от времени в будущем
+        default: "True"
+        type: bool
+        class: checkbox
+        dementional: false
 
-  task_7:
-    title: Посчитать зависимость плотностей компонентов Вселенной от времени в будущем
-    default: "True"
-    type: bool
-    class: checkbox
-    dementional: false
-
-  task_8:
-    title: Посчитать расстояние по угловому диаметру
-    default: "True"
-    type: bool
-    class: checkbox
-    dementional: false
+    task_8:
+        title: Посчитать расстояние по угловому диаметру
+        default: "True"
+        type: bool
+        class: checkbox
+        dementional: false
 
 GENERAL:
-  - task_1
-  - task_2
-  - task_3
-  - task_4
-  - task_5
-  - task_6
-  - task_7
-  - task_8
-  - H_0
-  - t_max
-  - z_max
-  - name_Hubble
-  - row_4
-  - row_5
-  - row_6
-  - name_SNE
-  - row_1
-  - row_2
-  - row_3
+    - task_1
+    - task_2
+    - task_3
+    - task_4
+    - task_5
+    - task_6
+    - task_7
+    - task_8
+    - H_0
+    - t_max
+    - z_max
+    - name_Hubble
+    - row_4
+    - row_5
+    - row_6
+    - name_SNE
+    - row_1
+    - row_2
+    - row_3
 
 OBJECTS:
-
-  cosmological_components:
-    title: Компоненты
-    cases:
-      - title_of_model
-      - omega_m
-      - omega_r
-      - omega_d
-      - equation_d
-      - parameters
+    cosmological_components:
+        title: Компоненты
+        cases:
+            - title_of_model
+            - omega_m
+            - omega_r
+            - omega_d
+            - equation_d
+            - parameters

@@ -1,11 +1,11 @@
-version: '3.8'
+version: "3.8"
 
 services:
-  tester:
-    build:
-      context: ${PWD}
-      dockerfile: ${PWD}/docker/Dockerfile
-      target: tester
-    container_name: tester
-    volumes:
-      - ${FOLDER}/:/usr/src/folder/
+    tester:
+        build:
+            context: ${PWD}
+            dockerfile: ${PWD}/docker/Dockerfile
+            target: tester
+        container_name: tester
+        volumes:
+            - ${FOLDER}/:/usr/src/folder/

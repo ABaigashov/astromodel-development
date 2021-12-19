@@ -15,7 +15,7 @@ for check in $configs $requirements $setups; do
 	fi
 done
 
-cp -v $PWD/docker/server.template $PWD/docker/docker-compose.yml
+cp $PWD/docker/server.template $PWD/docker/docker-compose.yml
 chmod 666 $PWD/docker/docker-compose.yml
 
 docker container prune -f --filter "until=12h"
@@ -24,12 +24,12 @@ function link {
 
 	if [ -f $problems/$1/config.yml ]; then
 		if [ -f $problems/$1/requirements.txt ]; then
-			cp -v $problems/$1/requirements.txt $requirements/$1.txt
+			cp $problems/$1/requirements.txt $requirements/$1.txt
 		else
 			echo "" > $requirements/$1.txt
 		fi
 		if [ -f $problems/$1/setup.sh ]; then
-			cp -v $problems/$1/setup.sh $setups/$1.sh
+			cp $problems/$1/setup.sh $setups/$1.sh
 		else
 			echo "" > $setups/$1.sh
 		fi
@@ -39,7 +39,7 @@ function link {
 		fi
 	fi
 
-	cp -v $problems/$1/config.yml $configs/$1.yml
+	cp $problems/$1/config.yml $configs/$1.yml
 	chmod 666 $configs/$1.yml $requirements/$1.txt $setups/$1.sh
 }
 
@@ -62,22 +62,22 @@ else
 		link $problem
 
 		if [ -f $problems/$problem/config.yml ]; then
-			echo ""                                            >> $PWD/docker/docker-compose.yml
-			echo "  wsclient-$problem:"                        >> $PWD/docker/docker-compose.yml
-			echo "    depends_on:"                             >> $PWD/docker/docker-compose.yml
-			echo "      - wsserver"                            >> $PWD/docker/docker-compose.yml
-			echo "    volumes:"                                >> $PWD/docker/docker-compose.yml
-			echo "      - /var/astromodel:/var/astromodel"     >> $PWD/docker/docker-compose.yml
-			echo "    deploy:"                                 >> $PWD/docker/docker-compose.yml
-			echo "      replicas: $size"                       >> $PWD/docker/docker-compose.yml
-			echo "      restart_policy:"                       >> $PWD/docker/docker-compose.yml
-			echo "        condition: on-failure"               >> $PWD/docker/docker-compose.yml
-			echo "    build:"                                  >> $PWD/docker/docker-compose.yml
-			echo "      context: \${PWD}"                      >> $PWD/docker/docker-compose.yml
-			echo "      dockerfile: \${PWD}/docker/Dockerfile" >> $PWD/docker/docker-compose.yml
-			echo "      target: client"                        >> $PWD/docker/docker-compose.yml
-			echo "      args:"                                 >> $PWD/docker/docker-compose.yml
-			echo "        - PROBLEM=$problem"                  >> $PWD/docker/docker-compose.yml
+			echo ""                                                  >> $PWD/docker/docker-compose.yml
+			echo "    wsclient-$problem:"                            >> $PWD/docker/docker-compose.yml
+			echo "        depends_on:"                               >> $PWD/docker/docker-compose.yml
+			echo "            - wsserver"                            >> $PWD/docker/docker-compose.yml
+			echo "        volumes:"                                  >> $PWD/docker/docker-compose.yml
+			echo "            - /var/astromodel:/var/astromodel"     >> $PWD/docker/docker-compose.yml
+			echo "        deploy:"                                   >> $PWD/docker/docker-compose.yml
+			echo "            replicas: $size"                       >> $PWD/docker/docker-compose.yml
+			echo "            restart_policy:"                       >> $PWD/docker/docker-compose.yml
+			echo "                condition: on-failure"             >> $PWD/docker/docker-compose.yml
+			echo "        build:"                                    >> $PWD/docker/docker-compose.yml
+			echo "            context: \${PWD}"                      >> $PWD/docker/docker-compose.yml
+			echo "            dockerfile: \${PWD}/docker/Dockerfile" >> $PWD/docker/docker-compose.yml
+			echo "            target: client"                        >> $PWD/docker/docker-compose.yml
+			echo "            args:"                                 >> $PWD/docker/docker-compose.yml
+			echo "                - PROBLEM=$problem"                >> $PWD/docker/docker-compose.yml
 		fi
 	done
 
