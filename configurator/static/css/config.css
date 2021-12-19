@@ -1,0 +1,804 @@
+.cfg-container {
+    max-width: 1170px;
+    margin: 0 auto;
+    padding: max(15px, 5vh) 5vw;
+    display: none;
+}
+.cfg-table-bx {
+    font-family: "Open Sans", sans-serif;
+    color: #131315;
+    font-size: 24px;
+    line-height: 1;
+}
+.cfg-table-bx .cfg-h3 {
+    font-size: 36px;
+    margin-bottom: 35px;
+}
+.cfg-table-wrap {
+    overflow: auto;
+    width: 100%;
+}
+.cfg-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.cfg-table td {
+    border: 1px solid #d2d2d2;
+    padding: 25px 10px;
+}
+.cfg-table .cfg-open-res {
+    cursor: pointer;
+}
+.cfg-table .cfg-open-res:hover {
+    text-decoration: underline;
+}
+.cfg-overlay {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    display: none;
+}
+.cfg-popup {
+    left: 50%;
+    top: 50px;
+    margin-left: -465px;
+    position: fixed;
+    z-index: 11;
+    width: 930px;
+    background: #fff;
+    border-radius: 27px;
+    padding: 40px 70px;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+    display: none;
+}
+.cfg-popup .cfg-close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}
+.cfg-popup .cfg-close:hover {
+    cursor: pointer;
+}
+.cfg-popup-video .cfg-vid-bx {
+    border: 2px solid #d9d9d9;
+    margin: 0 auto 30px;
+    max-width: 600px;
+}
+.cfg-popup-video .cfg-vid-bx > img,
+.cfg-popup-video .cfg-vid-bx > iframe {
+    max-width: 100%;
+    display: block;
+}
+.cfg-popup-video .cfg-btn-wr {
+    display: flex;
+    justify-content: space-between;
+}
+.cfg-btn {
+    text-align: center;
+    background: #bb2028;
+    border-radius: 9px;
+    border: 1px solid #bb2028;
+    font-size: 24px;
+    min-width: 270px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #fff;
+    transition: 0.3s all ease;
+}
+.cfg-btn:hover {
+    border-color: #000;
+    background: #000;
+}
+.cfg-btn-framed {
+    background: transparent;
+    color: #bb2028;
+}
+.cfg-btn-framed:hover {
+    border-color: #000;
+    background: transparent;
+    color: #000;
+}
+body {
+    margin: 0;
+}
+.cfg-table-bx .cfg-h4 {
+    margin-bottom: 35px;
+    font-size: 24px;
+}
+.cfg-file-bx {
+    background: #f4f4f4;
+    border: 1px solid #d2d2d2;
+    border-radius: 9px;
+    padding: 60px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+.cfg-tt {
+    margin-right: 20px;
+}
+.cfg-file-bx .cfg-tt .cfg-t1 {
+    font-size: 36px;
+}
+.cfg-file-bx .cfg-tt .cfg-t2 {
+    margin-top: 5px;
+    font-size: 18px;
+}
+.cfg-file-bx-uploaded {
+    padding: 10px;
+}
+.cfg-file-inf-bx {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+.cfg-file-inf-bx .cfg-ico {
+    margin-right: 25px;
+}
+.cfg-file-inf-bx .cfg-line {
+    border-left: 1px solid #d2d2d2;
+    height: 70px;
+    margin: 0 25px;
+}
+.cfg-file-bx .cfg-btn-wr {
+    display: flex;
+}
+.cfg-file-bx .cfg-btn-framed {
+    margin-right: 15px;
+}
+.cfg-back-bx {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.cfg-back-bx .cfg-tt {
+    font-size: 24px;
+    text-align: right;
+    line-height: 25px;
+}
+.cfg-back-bx .cfg-tt a {
+    color: #bb2028;
+    text-decoration: none;
+}
+.cfg-back-bx .cfg-tt a:hover {
+    text-decoration: underline;
+}
+.cfg-select-inf-item {
+    position: relative;
+    margin-bottom: 30px;
+}
+.cfg-select-inf-item select {
+    width: 100%;
+    border: 1px solid #d9d9d9;
+    outline: 0;
+    border-radius: 9px;
+    height: 80px;
+    width: 100%;
+    font-size: 24px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    -webkit-appearance: none; /* Chrome */
+    -moz-appearance: none; /* Firefox */
+    appearance: none; /* убираем дефолнтные стрелочки */
+    color: #131313;
+    background: transparent;
+    position: relative;
+    z-index: 1;
+}
+.cfg-select-inf-item .cfg-select {
+    position: relative;
+}
+.cfg-select-inf-item .cfg-select:after {
+    content: "";
+    width: 20px;
+    height: 12px;
+    position: absolute;
+    right: 30px;
+    top: 33px;
+    z-index: 0;
+}
+.cfg-select-inf-item input[type="text"] {
+    color: #131315;
+    width: 100%;
+    border: 1px solid #d9d9d9;
+    outline: 0;
+    border-radius: 9px;
+    height: 80px;
+    width: 100%;
+    font-size: 24px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    background: #fff;
+}
+::-webkit-input-placeholder {
+    color: #a5a5a5;
+}
+:-moz-placeholder {
+    color: #a5a5a5;
+}
+::-moz-placeholder {
+    color: #a5a5a5;
+}
+:-ms-input-placeholder {
+    color: #a5a5a5;
+}
+input::-webkit-input-placeholder {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+input::-moz-placeholder {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+input:-moz-placeholder {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+input:-ms-input-placeholder {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+input:focus::-webkit-input-placeholder {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+input:focus::-moz-placeholder {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+input:focus:-moz-placeholder {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+input:focus:-ms-input-placeholder {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+textarea::-webkit-input-placeholder {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+textarea::-moz-placeholder {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+textarea:-moz-placeholder {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+textarea:-ms-input-placeholder {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+textarea:focus::-webkit-input-placeholder {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+textarea:focus::-moz-placeholder {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+textarea:focus:-moz-placeholder {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+textarea:focus:-ms-input-placeholder {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.cfg-select-inf-item .cfg-sel-over {
+    right: 0;
+    top: 0;
+    position: absolute;
+    width: 350px;
+}
+.cfg-hint-bx {
+    position: relative;
+    z-index: 2;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+.cfg-hint-bx .cfg-opener {
+    margin-left: 5px;
+    cursor: pointer;
+}
+.cfg-hint-bx:hover .cfg-frame {
+    visibility: visible;
+    opacity: 1;
+}
+.cfg-hint-bx .cfg-frame {
+    font-size: 24px;
+    line-height: 1;
+    text-align: center;
+    padding: 30px;
+    border: 2px solid #d9d9d9;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    background: #fff;
+    z-index: 2;
+    right: -30px;
+    bottom: 50px;
+    width: 300px;
+    box-sizing: border-box;
+    position: absolute;
+    border-radius: 10px;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s all ease;
+}
+.cfg-hint-bx .cfg-frame:after {
+    content: "▲";
+    position: absolute;
+    bottom: -28px;
+    display: inline-block;
+    transform: rotate(0.5turn);
+    color: white;
+    text-shadow: 0px -2px 10px rgb(0 0 0 / 45%);
+    font-size: 32px;
+    right: 24px;
+    width: 20px;
+    height: 20px;
+    clip-path: polygon(0 0%, 0 140%, 150% 140%, 150% 0);
+}
+.cfg-table-red td:nth-child(5),
+.cfg-table-red td:nth-child(6) {
+    text-align: center;
+}
+.cfg-table .cfg-color {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+}
+.cfg-table .cfg-color1 {
+    background: linear-gradient(98.58deg, #ffd347 0%, #fff500 100%);
+}
+.cfg-table .cfg-color2 {
+    background: linear-gradient(
+        98.58deg,
+        #0d75ff 0%,
+        #96fbb2 46.75%,
+        #feffff 100%
+    );
+}
+.cfg-table .cfg-color3 {
+    background: linear-gradient(98.58deg, #ececec 0%, #feffff 100%);
+}
+.cfg-table .cfg-filled td {
+    background: #eeeeee;
+}
+.cfg-popup-form {
+    top: 5%;
+    max-height: 90%;
+    overflow: auto;
+}
+.cfg-table .cfg-red {
+    cursor: pointer;
+}
+.cfg-popup-form {
+    width: 770px;
+    padding: 50px 30px 30px;
+    box-sizing: border-box;
+    margin-left: -385px;
+}
+.cfg-popup-form .cfg-h4 {
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+.cfg-popup-form .cfg-select-inf-item {
+    margin-bottom: 15px;
+}
+.cfg-pop-form .cfg-h2 {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 30px;
+}
+.cfg-pop-form .cfg-wr {
+    display: flex;
+}
+.cfg-pop-form .cfg-wr1 .cfg-bx1 {
+    width: 444px;
+    margin-right: 10px;
+}
+.cfg-pop-form .cfg-wr1 .cfg-bx2 {
+    width: 255px;
+}
+.cfg-select-inf-item-color {
+    position: relative;
+}
+.cfg-select-inf-item-color .cfg-color {
+    width: 40px;
+    height: 40px;
+    background: #86c958;
+    border-radius: 5px;
+    position: absolute;
+    top: 65px;
+    left: 10px;
+}
+.cfg-select-inf-item-color input[type="text"] {
+    padding-left: 60px;
+}
+.cfg-pop-form .cfg-wr2 {
+    margin-left: -5px;
+    margin-right: -5px;
+}
+.cfg-pop-form .cfg-wr2 .cfg-bx {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.cfg-pop-form .cfg-wr2 .cfg-select-inf-item input[type="text"] {
+    text-align: center;
+}
+.cfg-pop-form .cfg-bt-wr {
+    display: flex;
+    justify-content: space-between;
+}
+.cfg-pop-form .cfg-hint-bx .cfg-frame {
+    padding: 15px;
+    font-size: 18px;
+    width: 200px;
+}
+.cfg-table-bx .cfg-lbl,
+.cfg-pop-form .cfg-lbl {
+    font-size: 24px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+.cfg-check-item {
+    cursor: pointer;
+}
+.cfg-check-item input {
+    position: absolute;
+    left: -999px;
+    opacity: 0;
+}
+.cfg-check-item span {
+    display: block;
+    font-size: 24px;
+    color: #131315;
+    position: relative;
+    padding-left: 50px;
+    line-height: 40px;
+}
+.cfg-check-item span:after {
+    content: "";
+    width: 40px;
+    height: 40px;
+    border-radius: 9px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid #d9d9d9;
+}
+.cfg-ch-group {
+    padding-top: 10px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+}
+.cfg-plus-bt {
+    display: block;
+    margin: 20px auto 0;
+    width: 85px;
+}
+.cfg-xyz-bx {
+    display: flex;
+    margin-right: -25px;
+}
+.cfg-xyz-bx .cfg-bx {
+    width: 33.333%;
+    padding: 0 25px;
+    position: relative;
+}
+.cfg-xyz-bx .cfg-bx .cfg-let {
+    font-size: 36px;
+    line-height: 80px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.cfg-select-inf-item .cfg-line-bx {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.cfg-select-inf-item .cfg-line-bx .cfg-select {
+    margin-left: 20px;
+    width: 55%;
+}
+.cfg-select-inf-item .cfg-line-bx .cfg-lbl {
+    margin-bottom: 0;
+}
+
+@media (max-width: 1299px) {
+    .cfg-container {
+        max-width: 970px;
+    }
+    .cfg-table-bx {
+        font-size: 18px;
+    }
+    .cfg-table-bx .cfg-h3 {
+        font-size: 30px;
+    }
+    .cfg-btn {
+        height: 60px;
+        min-width: unset;
+        font-size: 18px;
+    }
+}
+@media (max-width: 991px) {
+    .cfg-container {
+        max-width: 750px;
+    }
+    .cfg-table-bx {
+        font-size: 16px;
+    }
+    .cfg-table td {
+        padding: 10px;
+    }
+    .cfg-popup {
+        width: 700px;
+        margin-left: -350px;
+        padding: 30px;
+        border-radius: 10px;
+    }
+    .cfg-popup .cfg-close {
+        right: 15px;
+        top: 15px;
+    }
+    .cfg-btn {
+        font-size: 16px;
+        height: 50px;
+    }
+    .cfg-file-bx .cfg-btn {
+        width: 180px;
+        min-width: 180px;
+    }
+    .cfg-file-bx {
+        padding: 10px;
+    }
+    .cfg-file-bx .cfg-tt .cfg-t2 {
+        font-size: 14px;
+    }
+    .cfg-file-bx .cfg-tt .cfg-t1 {
+        font-size: 24px;
+    }
+    .cfg-table-bx .cfg-h4 {
+        font-size: 20px;
+    }
+    .cfg-back-bx .cfg-tt {
+        font-size: 18px;
+    }
+    .cfg-select-inf-item select,
+    .cfg-select-inf-item input[type="text"] {
+        font-size: 16px;
+        height: 50px;
+    }
+    .cfg-select-inf-item .cfg-sel-over {
+        width: 190px;
+    }
+    .cfg-hint-bx .cfg-frame {
+        padding: 15px;
+        width: 200px;
+        font-size: 16px;
+    }
+    .cfg-select-inf-item .cfg-select:after {
+        top: 18px;
+    }
+    .cfg-table-bx .cfg-lbl,
+    .cfg-check-item span {
+        font-size: 16px;
+    }
+    .cfg-check-item span:after {
+        width: 20px;
+        height: 20px;
+        background-size: 50% !important;
+        border-radius: 4px;
+    }
+    .cfg-check-item span {
+        padding-left: 30px;
+        line-height: 20px;
+    }
+    .cfg-pop-form .cfg-h2 {
+        font-size: 24px;
+    }
+    .cfg-pop-form .cfg-lbl {
+        font-size: 16px;
+    }
+    .cfg-xyz-bx .cfg-bx .cfg-let {
+        font-size: 24px;
+        line-height: 50px;
+    }
+    .cfg-xyz-bx .cfg-bx {
+        padding: 0 15px;
+    }
+    .cfg-xyz-bx {
+        margin-right: -15px;
+    }
+}
+@media (max-width: 767px) {
+    .cfg-table-bx .cfg-h4 {
+        font-size: 18px;
+    }
+    .cfg-back-bx .cfg-tt {
+        margin-top: 15px;
+    }
+    .cfg-file-bx .cfg-btn-framed {
+        margin: 0 0 15px;
+    }
+    .cfg-file-bx .cfg-btn-wr {
+        display: block;
+    }
+    .cfg-back-bx .cfg-btn {
+        width: 180px;
+    }
+    .cfg-file-bx {
+        display: block;
+    }
+    .cfg-file-bx .cfg-tt {
+        margin-bottom: 20px;
+    }
+    .cfg-file-inf-bx {
+        font-size: 14px;
+    }
+    .cfg-file-inf-bx {
+        margin-bottom: 20px;
+    }
+    .cfg-file-inf-bx .cfg-ico {
+        margin-right: 10px;
+    }
+    .cfg-file-inf-bx .cfg-line {
+        margin: 0 10px;
+        height: 20px;
+    }
+    .cfg-popup-video .cfg-btn-wr .cfg-btn {
+        width: 140px;
+    }
+    .cfg-table-bx .cfg-h3 {
+        font-size: 24px;
+    }
+    .cfg-table .cfg-del img {
+        width: 20px;
+    }
+    .cfg-table {
+        font-size: 14px;
+    }
+    .cfg-popup {
+        width: 100%;
+        margin-left: 0px;
+        padding: 40px 15px;
+        border-radius: 0px;
+        height: 100%;
+        overflow: auto;
+        left: 0;
+        top: 0;
+    }
+    .cfg-select-inf-item select,
+    .cfg-select-inf-item input[type="text"] {
+        font-size: 12px;
+    }
+    .cfg-hint-bx {
+        right: 5px;
+    }
+    .cfg-hint-bx .cfg-frame {
+        right: -15px;
+    }
+    .cfg-hint-bx .cfg-frame:after {
+        right: 15px;
+    }
+    .cfg-select-inf-item select {
+        background-position: 90% 50%;
+    }
+    .cfg-select-inf-item .cfg-sel-over {
+        width: 124px;
+    }
+    .cfg-back-bx .cfg-btn {
+        width: 45%;
+    }
+    .cfg-back-bx-cc {
+        display: block;
+        text-align: center;
+    }
+    .cfg-back-bx-cc .cfg-btn {
+        width: 100%;
+    }
+    .cfg-table .cfg-red img {
+        width: 15px;
+    }
+    .cfg-table .cfg-color {
+        width: 30px;
+        height: 30px;
+    }
+    .cfg-popup {
+        max-height: 100%;
+    }
+    .cfg-pop-form .cfg-wr1 {
+        display: block;
+    }
+    .cfg-pop-form .cfg-wr1 .cfg-bx1,
+    .cfg-pop-form .cfg-wr1 .cfg-bx2 {
+        width: 100%;
+    }
+    .cfg-pop-form .cfg-wr1 .cfg-bx1 {
+        margin-right: 0;
+    }
+    .cfg-select-inf-item-color .cfg-color {
+        width: 25px;
+        height: 25px;
+        top: 47px;
+    }
+    .cfg-select-inf-item-color input[type="text"] {
+        padding-left: 42px;
+    }
+    .cfg-pop-form .cfg-select-inf-item select {
+        background-position: 87% 50%;
+    }
+    .cfg-pop-form .cfg-wr2 .cfg-select-inf-item input[type="text"] {
+        text-align: left;
+    }
+    .cfg-pop-form .cfg-bt-wr .cfg-btn {
+        width: 45%;
+    }
+    .cfg-back-bx .cfg-tt {
+        text-align: center;
+    }
+    .cfg-file-bx {
+        text-align: center;
+    }
+    .cfg-file-bx .cfg-btn {
+        margin: 0 auto;
+    }
+    .cfg-file-bx .cfg-btn-framed {
+        margin-bottom: 15px;
+    }
+    .cfg-file-bx .cfg-tt .cfg-t2 {
+        text-align: left;
+    }
+    .cfg-select-inf-item .cfg-select:after {
+        right: 15px;
+    }
+    .cfg-file-bx .cfg-tt .cfg-t1 {
+        margin-bottom: 20px;
+    }
+    .cfg-table-bx .cfg-lbl,
+    .cfg-check-item span {
+        font-size: 12px;
+    }
+    .cfg-hint-bx .cfg-opener img {
+        min-width: 18px;
+    }
+    .cfg-select-inf-item .cfg-line-bx .cfg-select {
+        margin-left: 10px;
+        width: 47%;
+    }
+}
+
+button {
+    cursor: pointer;
+}
+
+.cfg-btn:hover {
+    color: white;
+}
+
+.cfg-container:target {
+    display: block;
+}
+
+.cfg-select-inf-item .cfg-select select:required:invalid {
+    color: gray;
+}
+
+.cfg-select-inf-item .cfg-select option {
+    color: black;
+}
