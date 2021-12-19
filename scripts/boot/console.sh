@@ -11,6 +11,8 @@ fi
 
 bash ./scripts/file-linker.sh $1
 
+export SEED=$RANDOM$RANDOM$RANDOM
+
 docker-compose \
 	-p astromodel \
 	-f ./docker/boot/console.yml \
@@ -22,6 +24,8 @@ docker-compose \
 	-f ./docker/boot/console.yml \
 	up -d --no-log-prefix
 
-docker exec -it console python3
+docker exec -it console-${SEED} python3
 
-docker kill $(docker ps -q --filter ancestor=astromodel_console)
+docker kill $(docker ps -q --filter name=console-${SEED}) >> /dev/null
+
+unset SEED

@@ -6,4 +6,4 @@ services:
             context: ${PWD}
             dockerfile: ${PWD}/docker/Dockerfile
             target: console
-        container_name: console
+        container_name: console-${SEED}

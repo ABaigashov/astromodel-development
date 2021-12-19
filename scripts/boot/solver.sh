@@ -16,6 +16,7 @@ fi
 bash ./scripts/file-linker.sh $1
 
 export PROBLEM=$1
+export SEED=$RANDOM$RANDOM$RANDOM
 
 docker-compose \
 	-p astromodel \
@@ -30,3 +31,4 @@ docker-compose \
 	up --no-log-prefix
 
 unset PROBLEM
+unset SEED

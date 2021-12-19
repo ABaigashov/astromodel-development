@@ -6,6 +6,6 @@ services:
             context: ${PWD}
             dockerfile: ${PWD}/docker/Dockerfile
             target: solver
-        container_name: solver
+        container_name: solver_${PROBLEM}-${SEED}
         volumes:
             - ${PWD}/modeling_module/physical_problems/${PROBLEM}/results:/usr/src/modeling_module/physical_problems/${PROBLEM}/results
