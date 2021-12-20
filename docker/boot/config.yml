@@ -6,7 +6,7 @@ services:
         environment:
             - PROBLEM=${PROBLEM}
         ports:
-            - 8888:8008
+            - 8008:8008
         volumes:
             - ${PWD}/docker/boot/nginx.conf:/etc/nginx/templates/default.conf.template
             - ${PWD}/configurator:/etc/nginx/html/configurator
