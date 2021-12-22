@@ -8,6 +8,14 @@
 }
 </style>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&amp;display=swap" rel="stylesheet">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+<link rel="stylesheet" href="<?php echo $server_url; ?>/construct/static/css/config.css">
+<script type="text/javascript" src="<?php echo $server_url; ?>/construct/static/js/gen.js"></script>
+
 <div class="cfg-container" id="cfg-page-1">
     <div class="cfg-table-bx">
         <div class="cfg-h3">Загрузка конфигурационного файла</div>
@@ -204,9 +212,9 @@
                         </td>
                     </tr>
                 </table>
-                <a href="" class="cfg-plus-bt"><img src="<?php echo $server_url; ?>/construct/static/images/plus2.svg"
-                        alt=""></a>
             </div>
+            <a href="" class="cfg-plus-bt"><img src="<?php echo $server_url; ?>/construct/static/images/plus2.svg"
+                        alt=""></a>
 
             <div class="cfg-back-bx">
                 <a href="#cfg-page-2" class="cfg-btn cfg-btn-framed">Назад</a>
