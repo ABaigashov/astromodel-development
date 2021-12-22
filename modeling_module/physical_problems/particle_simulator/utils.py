@@ -109,6 +109,7 @@ def astro_object_creator(config, astro_object, generator_points):
 			mass=point['mass'],
 			radius=point['radius'],
 			trajectory=point['trajectory'],
+			K=point['K'],
 			id=point['id'])
 
 # Function to load point objects to the astro_object
@@ -136,7 +137,8 @@ def load_point_objects(config, astro_object):
 			mass=point.mass,
 			radius=point.radius,
 			trajectory=point.trajectory,
-			id=point.id)
+			id=point.id,
+			K=point.K)
 
 	if config.random_generators:
 		generator_points = generators.RandomGenerators(config)

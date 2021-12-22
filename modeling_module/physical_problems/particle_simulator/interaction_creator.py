@@ -48,9 +48,6 @@ class GlobalInteraction:
 		# Creating empty arrays with specific dimension
 		result_force = np.zeros(self.config.dimensions)
 
-		# Storing 'config.K' parameter as short variable
-		K = self.config.K
-
 		# Loop through every field
 		for field in self.fields:
 
@@ -102,7 +99,7 @@ class GlobalInteraction:
 		self.clean_acceleration()
 
 		# Storing 'config.K' parameter as short variable
-		K = self.config.K
+		#K = self.config.K
 
 		# Loop through every point
 		for p in self.points:
@@ -233,6 +230,7 @@ class GlobalInteraction:
 					# Calculating previous and current distances
 					distance0 = np.linalg.norm(p1.prev_pos - p2.prev_pos, ord=2)
 					distance = np.linalg.norm(p1.coords - p2.coords, ord=2)
+					K = p1.K * p2.K
 
 					# If no collision found
 					if (distance <= p1.radius + p2.radius and distance0 >= p1.radius + p2.radius) or (distance0 < p1.radius + p2.radius and distance<distance0):
@@ -578,7 +576,7 @@ class Point:
 
 	def __init__(self, coords, velocity, id=0,
 				 activity=1, delay=0, mass=1.0,
-				 charge=1.0, radius=0, trajectory=False, color=None):
+				 charge=1.0, radius=0, trajectory=False, color=None, K=1):
 
 		self.id = id
 		self.coords = coords
@@ -590,6 +588,7 @@ class Point:
 		self.color = color
 		self.delay = delay
 		self.trajectory = trajectory
+		self.K = K
 
 		if delay == 0:
 			self.activity = 1
