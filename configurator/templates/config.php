@@ -2,10 +2,21 @@
 .cfg-check-item input:checked+span:after {
     background: url(<?php echo $server_url; ?>/construct/static/images/ch.svg) 50% no-repeat;
 }
-
 .cfg-select-inf-item .cfg-select:after {
     background: url(<?php echo $server_url; ?>/construct/static/images/arrow-down.svg) 50% no-repeat;
 }
+
+<?php for ($i = 1; $i <= 32; $i++) { ?>
+.cfg-table .cfg-color<?php echo $i; ?> {
+    background: linear-gradient(
+        <?php echo mt_rand(0, 360); ?>deg,
+        <?php echo sprintf('#%06X', mt_rand(0, 0xFFFFFF)); ?> 0%,
+        <?php echo sprintf('#%06X', mt_rand(0, 0xFFFFFF)); ?> 50%,
+        <?php echo sprintf('#%06X', mt_rand(0, 0xFFFFFF)); ?> 100%
+    );
+}
+<?php } ?>
+
 </style>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +25,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 <link rel="stylesheet" href="<?php echo $server_url; ?>/construct/static/css/config.css">
-<script type="text/javascript" src="<?php echo $server_url; ?>/construct/static/js/gen.js"></script>
+<script type="text/javascript" src="<?php echo $server_url; ?>/construct/static/js/boundle.js"></script>
 
 <div class="cfg-container" id="cfg-page-1">
     <div class="cfg-table-bx">
@@ -75,10 +86,10 @@
                 </div>
                 <div class="cfg-select">
                     <select required>
-                        <option value="" disabled selected hidden>Выберите</option>
+                        <option disabled selected hidden>Выберите</option>
                         <option value="1">Выберите размерность пространства</option>
                         <option value="2">Выберите размерность пространства</option>
-                    </select>
+                    </select required>
                 </div>
             </div>
             <div class="cfg-select-inf-item">
@@ -104,9 +115,9 @@
                     </div>
                     <div class="cfg-select">
                         <select required>
-                            <option value="" disabled selected hidden>Выберите</option>
+                            <option disabled selected hidden>Выберите</option>
                             <option value="1">Ед. Изм.</option>
-                        </select>
+                        </select required>
                     </div>
                 </div>
             </div>
@@ -168,53 +179,54 @@
 
             <div class="cfg-table-wrap">
                 <table class="cfg-table cfg-table-red">
-                    <tr>
-                        <td>Название</td>
-                        <td>Тип</td>
-                        <td>Состояние</td>
-                        <td>Цвет</td>
-                        <td></td>
-                    </tr>
-                    <tr class="cfg-filled">
-                        <td>Солнце</td>
-                        <td>Звезда</td>
-                        <td>Горячее</td>
-                        <td>
-                            <div class="cfg-color cfg-color1"></div>
-                        </td>
-                        <td>
-                            <div class="cfg-red cfg-pop-form-opener"><img
-                                    src="<?php echo $server_url; ?>/construct/static/images/red-bt.svg" alt=""></div>
-                        </td>
-                    </tr>
-                    <tr class="cfg-filled">
-                        <td>Солнце</td>
-                        <td>Звезда</td>
-                        <td>Горячее</td>
-                        <td>
-                            <div class="cfg-color cfg-color2"></div>
-                        </td>
-                        <td>
-                            <div class="cfg-red cfg-pop-form-opener"><img
-                                    src="<?php echo $server_url; ?>/construct/static/images/red-bt.svg" alt=""></div>
-                        </td>
-                    </tr>
-                    <tr class="cfg-filled">
-                        <td>Солнце</td>
-                        <td>Звезда</td>
-                        <td>Горячее</td>
-                        <td>
-                            <div class="cfg-color cfg-color3"></div>
-                        </td>
-                        <td>
-                            <div class="cfg-red cfg-pop-form-opener"><img
-                                    src="<?php echo $server_url; ?>/construct/static/images/red-bt.svg" alt=""></div>
-                        </td>
-                    </tr>
+                    <tbody id='cfg-table'>
+                        <tr>
+                            <td>Название</td>
+                            <td>Тип</td>
+                            <td>Состояние</td>
+                            <td>Цвет</td>
+                            <td></td>
+                        </tr>
+                        <tr class="cfg-filled">
+                            <td>Солнце</td>
+                            <td>Звезда</td>
+                            <td>Горячее</td>
+                            <td>
+                                <div class="cfg-color cfg-color1"></div>
+                            </td>
+                            <td>
+                                <div class="cfg-red cfg-pop-form-opener"><img
+                                        src="<?php echo $server_url; ?>/construct/static/images/red-bt.svg" alt=""></div>
+                            </td>
+                        </tr>
+                        <tr class="cfg-filled">
+                            <td>Солнце</td>
+                            <td>Звезда</td>
+                            <td>Горячее</td>
+                            <td>
+                                <div class="cfg-color cfg-color2"></div>
+                            </td>
+                            <td>
+                                <div class="cfg-red cfg-pop-form-opener"><img
+                                        src="<?php echo $server_url; ?>/construct/static/images/red-bt.svg" alt=""></div>
+                            </td>
+                        </tr>
+                        <tr class="cfg-filled">
+                            <td>Солнце</td>
+                            <td>Звезда</td>
+                            <td>Горячее</td>
+                            <td>
+                                <div class="cfg-color cfg-color3"></div>
+                            </td>
+                            <td>
+                                <div class="cfg-red cfg-pop-form-opener"><img
+                                        src="<?php echo $server_url; ?>/construct/static/images/red-bt.svg" alt=""></div>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
-            <a href="" class="cfg-plus-bt"><img src="<?php echo $server_url; ?>/construct/static/images/plus2.svg"
-                        alt=""></a>
+            <img class="cfg-plus-bt" src="<?php echo $server_url; ?>/construct/static/images/plus2.svg">
 
             <div class="cfg-back-bx">
                 <a href="#cfg-page-2" class="cfg-btn cfg-btn-framed">Назад</a>
@@ -255,7 +267,7 @@
                         <div class="cfg-frame">Всплывающая информация по данному полю</div>
                     </div>
                 </div>
-                <div class="color"></div>
+                <div class="cfg-color"></div>
                 <input type="text" value="#60C64D">
             </div>
         </div>
@@ -269,139 +281,141 @@
                 </div>
             </div>
             <div class="cfg-select">
-                <select>
-                    <option value="">Выберите</option>
+                <select required>
+                    <option disabled selected hidden>Выберите</option>
                     <option value="">Единичный объект</option>
-                </select>
+                </select required>
             </div>
         </div>
-        <div class="cfg-select-inf-item">
-            <div class="cfg-lbl">
-                Координаты центра
-                <div class="cfg-hint-bx">
-                    <div class="opener"><img src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg"
-                            alt=""></div>
-                    <div class="frame">Всплывающая информация по данному полю</div>
-                </div>
-            </div>
-            <div class="cfg-xyz-bx">
-                <div class="cfg-bx">
-                    <div class="cfg-let">X</div>
-                    <input type="text" placeholder="Число">
-                </div>
-                <div class="cfg-bx">
-                    <div class="cfg-let">Y</div>
-                    <input type="text" placeholder="Число">
-                </div>
-                <div class="cfg-bx">
-                    <div class="cfg-let">Z</div>
-                    <input type="text" placeholder="Число">
-                </div>
-            </div>
-        </div>
-
-        <div class="cfg-select-inf-item">
-            <div class="cfg-line-bx">
+        <div>
+            <div class="cfg-select-inf-item">
                 <div class="cfg-lbl">
-                    Ед. измерения
+                    Координаты центра
+                    <div class="cfg-hint-bx">
+                        <div class="cfg-opener"><img src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg"
+                                alt=""></div>
+                        <div class="cfg-frame">Всплывающая информация по данному полю</div>
+                    </div>
+                </div>
+                <div class="cfg-dim-bx">
+                    <div class="cfg-bx">
+                        <div class="cfg-let">X</div>
+                        <input type="text" placeholder="Число">
+                    </div>
+                    <div class="cfg-bx">
+                        <div class="cfg-let">Y</div>
+                        <input type="text" placeholder="Число">
+                    </div>
+                    <div class="cfg-bx">
+                        <div class="cfg-let">Z</div>
+                        <input type="text" placeholder="Число">
+                    </div>
+                </div>
+            </div>
+
+            <div class="cfg-select-inf-item">
+                <div class="cfg-line-bx">
+                    <div class="cfg-lbl">
+                        Ед. измерения
+                        <div class="cfg-hint-bx">
+                            <div class="cfg-opener"><img
+                                    src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt=""></div>
+                            <div class="cfg-frame">Всплывающая информация по данному полю</div>
+                        </div>
+                    </div>
+                    <div class="cfg-select">
+                        <select required>
+                            <option disabled selected hidden>Выберите</option>
+                            <option value="">Единичный объект</option>
+                        </select required>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="cfg-select-inf-item">
+                <div class="cfg-lbl">
+                    Заряд
                     <div class="cfg-hint-bx">
                         <div class="cfg-opener"><img
                                 src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt=""></div>
                         <div class="cfg-frame">Всплывающая информация по данному полю</div>
                     </div>
                 </div>
-                <div class="cfg-select">
-                    <select>
-                        <option value="">Выберите</option>
-                        <option value="">Единичный объект</option>
-                    </select>
+                <input type="text" placeholder="Число">
+                <div class="cfg-sel-over">
+                    <div class="cfg-lbl">
+                        Ед. изм.
+                        <div class="cfg-hint-bx">
+                            <div class="cfg-opener"><img
+                                    src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt=""></div>
+                            <div class="cfg-frame">Всплывающая информация по данному полю</div>
+                        </div>
+                    </div>
+                    <div class="cfg-select">
+                        <select required>
+                            <option disabled selected hidden>Выберите</option>
+                            <option value="">Ед. Изм.</option>
+                        </select required>
+                    </div>
                 </div>
             </div>
-        </div>
 
-
-        <div class="cfg-select-inf-item">
-            <div class="cfg-lbl">
-                Заряд
-                <div class="cfg-hint-bx">
-                    <div class="cfg-opener"><img
-                            src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt=""></div>
-                    <div class="cfg-frame">Всплывающая информация по данному полю</div>
-                </div>
-            </div>
-            <input type="text" placeholder="Число">
-            <div class="cfg-sel-over">
+            <div class="cfg-select-inf-item">
                 <div class="cfg-lbl">
-                    Ед. изм.
+                    Масса
                     <div class="cfg-hint-bx">
                         <div class="cfg-opener"><img
                                 src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt=""></div>
                         <div class="cfg-frame">Всплывающая информация по данному полю</div>
                     </div>
                 </div>
-                <div class="cfg-select">
-                    <select>
-                        <option value="">Выберите</option>
-                        <option value="">Ед. Изм.</option>
-                    </select>
+                <input type="text" placeholder="Число">
+                <div class="cfg-sel-over">
+                    <div class="cfg-lbl">
+                        Ед. изм.
+                        <div class="cfg-hint-bx">
+                            <div class="cfg-opener"><img
+                                    src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt=""></div>
+                            <div class="cfg-frame">Всплывающая информация по данному полю</div>
+                        </div>
+                    </div>
+                    <div class="cfg-select">
+                        <select required>
+                            <option disabled selected hidden>Выберите</option>
+                            <option value="">Ед. Изм.</option>
+                        </select required>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="cfg-select-inf-item">
-            <div class="cfg-lbl">
-                Масса
-                <div class="cfg-hint-bx">
-                    <div class="cfg-opener"><img
-                            src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt=""></div>
-                    <div class="cfg-frame">Всплывающая информация по данному полю</div>
-                </div>
-            </div>
-            <input type="text" placeholder="Число">
-            <div class="cfg-sel-over">
+            <div class="cfg-select-inf-item">
                 <div class="cfg-lbl">
-                    Ед. изм.
+                    Радиус
                     <div class="cfg-hint-bx">
                         <div class="cfg-opener"><img
                                 src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt=""></div>
                         <div class="cfg-frame">Всплывающая информация по данному полю</div>
                     </div>
                 </div>
-                <div class="cfg-select">
-                    <select>
-                        <option value="">Выберите</option>
-                        <option value="">Ед. Изм.</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <div class="cfg-select-inf-item">
-            <div class="cfg-lbl">
-                Радиус
-                <div class="cfg-hint-bx">
-                    <div class="cfg-opener"><img
-                            src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt=""></div>
-                    <div class="cfg-frame">Всплывающая информация по данному полю</div>
-                </div>
-            </div>
-            <input type="text" placeholder="Число">
-            <div class="cfg-sel-over">
-                <div class="cfg-lbl">
-                    Ед. изм.
-                    <div class="cfg-hint-bx">
-                        <div class="cfg-opener"><img
-                                src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt=""></div>
-                        <div class="cfg-frame">Всплывающая информация по данному полю</div>
+                <input type="text" placeholder="Число">
+                <div class="cfg-sel-over">
+                    <div class="cfg-lbl">
+                        Ед. изм.
+                        <div class="cfg-hint-bx">
+                            <div class="cfg-opener"><img
+                                    src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt=""></div>
+                            <div class="cfg-frame">Всплывающая информация по данному полю</div>
+                        </div>
+                    </div>
+                    <div class="cfg-select">
+                        <select required>
+                            <option disabled selected hidden>Выберите</option>
+                            <option value="">Ед. Изм.</option>
+                        </select required>
                     </div>
                 </div>
-                <div class="cfg-select">
-                    <select>
-                        <option value="">Выберите</option>
-                        <option value="">Ед. Изм.</option>
-                    </select>
-                </div>
             </div>
+
         </div>
 
         <div class="cfg-bt-wr">

@@ -359,20 +359,6 @@ textarea:focus:-ms-input-placeholder {
     height: 40px;
     border-radius: 5px;
 }
-.cfg-table .cfg-color1 {
-    background: linear-gradient(98.58deg, #ffd347 0%, #fff500 100%);
-}
-.cfg-table .cfg-color2 {
-    background: linear-gradient(
-        98.58deg,
-        #0d75ff 0%,
-        #96fbb2 46.75%,
-        #feffff 100%
-    );
-}
-.cfg-table .cfg-color3 {
-    background: linear-gradient(98.58deg, #ececec 0%, #feffff 100%);
-}
 .cfg-table .cfg-filled td {
     background: #eeeeee;
 }
@@ -491,16 +477,16 @@ textarea:focus:-ms-input-placeholder {
     margin: 20px auto 0;
     width: 85px;
 }
-.cfg-xyz-bx {
+.cfg-dim-bx {
     display: flex;
     margin-right: -25px;
 }
-.cfg-xyz-bx .cfg-bx {
+.cfg-dim-bx .cfg-bx {
     width: 100%;
     padding: 0 25px;
     position: relative;
 }
-.cfg-xyz-bx .cfg-bx .cfg-let {
+.cfg-dim-bx .cfg-bx .cfg-let {
     font-size: 36px;
     line-height: 80px;
     position: absolute;
@@ -615,14 +601,14 @@ textarea:focus:-ms-input-placeholder {
     .cfg-pop-form .cfg-lbl {
         font-size: 16px;
     }
-    .cfg-xyz-bx .cfg-bx .cfg-let {
+    .cfg-dim-bx .cfg-bx .cfg-let {
         font-size: 24px;
         line-height: 50px;
     }
-    .cfg-xyz-bx .cfg-bx {
+    .cfg-dim-bx .cfg-bx {
         padding: 0 15px;
     }
-    .cfg-xyz-bx {
+    .cfg-dim-bx {
         margin-right: -15px;
     }
 }
@@ -796,7 +782,7 @@ button {
 }
 
 .cfg-select-inf-item .cfg-select select:required:invalid {
-    color: gray;
+    color: #a5a5a5;
 }
 
 .cfg-select-inf-item .cfg-select option {
