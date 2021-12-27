@@ -403,20 +403,37 @@ class GlobalInteraction:
 							p2.velocity[i] = v_2[i]
 
 						if not K:
-							if p1.mass >= p2.mass:
+							if p1.destroy==False and p2.destroy==True:
 								p1.mass = p1.mass + p2.mass
 								p1.charge = p1.charge + p2.charge
 								p1.radius = (p1.radius**3 + p2.radius**3)**(1/3)
 								p2.mass = 0
 								p2.charge = 0
 								p2.radius = 0
-							else:
+							if p1.destroy==True and p2.destroy==False:
 								p2.mass = p1.mass + p2.mass
 								p2.charge = p1.charge + p2.charge
 								p2.radius = (p1.radius**3 + p2.radius**3)**(1/3)
 								p1.mass = 0
 								p1.charge = 0
 								p1.radius = 0
+							if p1.destroy==True and p2.destroy==True:
+								if p1.mass>=p2.mass:
+									p1.mass = p1.mass + p2.mass
+									p1.charge = p1.charge + p2.charge
+									p1.radius = (p1.radius**3 + p2.radius**3)**(1/3)
+									p2.mass = 0
+									p2.charge = 0
+									p2.radius = 0
+								else:
+									p2.mass = p1.mass + p2.mass
+									p2.charge = p1.charge + p2.charge
+									p2.radius = (p1.radius**3 + p2.radius**3)**(1/3)
+									p1.mass = 0
+									p1.charge = 0
+									p1.radius = 0
+
+
 
 	# Procedure which cleaning acceleration
 	# The name speaks for itself
@@ -576,7 +593,8 @@ class Point:
 
 	def __init__(self, coords, velocity, id=0,
 				 activity=1, delay=0, mass=1.0,
-				 charge=1.0, radius=0, trajectory=False, color=None, K=1):
+				 charge=1.0, radius=0, trajectory=False, color=None, K=1,
+				 destroy=False):
 
 		self.id = id
 		self.coords = coords
@@ -589,6 +607,7 @@ class Point:
 		self.delay = delay
 		self.trajectory = trajectory
 		self.K = K
+		self.destroy = destroy
 
 		if delay == 0:
 			self.activity = 1

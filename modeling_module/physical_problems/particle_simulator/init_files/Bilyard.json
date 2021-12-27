@@ -1,1 +1,24 @@
-{"OBJECTS":{"point_objects":[{"id":"enn-ief","index":1,"coords":{"units":"1","value":["-0.5","0","0"]},"speed":{"units":"1","value":["0.01","0","0"]},"mass":{"units":"1","value":"3"},"charge":{"units":"","value":""},"radius":{"units":"1","value":"0.1"},"delay":{"units":"","value":""},"K":"0.01","name":"ball_1","color":[190,240,70],"type":{"value":"point_objects","description":"Точечный объект"}},{"id":"jfs-xfb","index":2,"coords":{"units":"1","value":["0","0","0"]},"speed":{"units":"1","value":["0","0","0"]},"mass":{"units":"1","value":"1"},"charge":{"units":"","value":""},"radius":{"units":"1","value":"0.05"},"delay":{"units":"","value":""},"K":"0.01","name":"ball_2","color":[201,0,0],"type":{"value":"point_objects","description":"Точечный объект"}},{"id":"swn-unl","index":3,"coords":{"units":"1","value":["0.1","0","0"]},"speed":{"units":"1","value":["0","0","0"]},"mass":{"units":"1","value":"1"},"charge":{"units":"","value":""},"radius":{"units":"1","value":"0.05"},"delay":{"units":"","value":""},"K":"0.01","name":"ball_3","color":[194,0,0],"type":{"value":"point_objects","description":"Точечный объект"}}]},"GENERAL":{"dimensions":"2","output_graphics":"matplotlib","step":{"units":"1","value":"1"},"edge":{"units":"1","value":"1"},"name":"Бильярд","steps_number":"100","fps":"30","frames_gap":"1","scale_faktor":"1","gravity_point_interaction":"on"},"PROBLEM":"particle_simulator"}
+{"OBJECTS":
+  {"point_objects":
+    [{"id":"enn-ief","index":1,"coords":{"units":"1","value":["-0.5","0","0"]},
+    "speed":{"units":"1","value":["0.01","0","0"]},
+    "mass":{"units":"1","value":"3"},"charge":{"units":"","value":""},
+    "radius":{"units":"1","value":"0.1"},"delay":{"units":"","value":""},
+    "K":"0","destroy":"on","name":"ball_1","color":[190,240,70],
+    "type":{"value":"point_objects","description":"Точечный объект"}},
+    {"id":"jfs-xfb","index":2,"coords":{"units":"1","value":["0","0","0"]},
+    "speed":{"units":"1","value":["0","0","0"]},
+    "mass":{"units":"1","value":"1"},"charge":{"units":"","value":""},
+    "radius":{"units":"1","value":"0.05"},"delay":{"units":"","value":""},
+    "K":"0.5","destroy":"","name":"ball_2","color":[201,0,0],
+    "type":{"value":"point_objects","description":"Точечный объект"}},
+    {"id":"swn-unl","index":3,"coords":{"units":"1","value":["0.15","0","0"]},
+    "speed":{"units":"1","value":["0","0","0"]},
+    "mass":{"units":"1","value":"1"},"charge":{"units":"","value":""},
+    "radius":{"units":"1","value":"0.05"},"delay":{"units":"","value":""},
+    "K":"0","destroy":"","name":"ball_3","color":[194,0,0],"type":{"value":"point_objects","description":"Точечный объект"}}]},
+    "GENERAL":{"dimensions":"2","output_graphics":"matplotlib",
+      "step":{"units":"1","value":"1"},"edge":{"units":"1","value":"1"},
+      "name":"Бильярд","steps_number":"100","fps":"30","frames_gap":"1",
+      "scale_faktor":"1","gravity_point_interaction":"on"},
+      "PROBLEM":"particle_simulator"}
