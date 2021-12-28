@@ -17,7 +17,9 @@ function create_new_object() {
         "Горячее",
         "Звезда",
         "<div class='cfg-color cfg-color" + count + "'></div>",
-        "<div class='cfg-red cfg-pop-form-opener'><img src='https://off.ddns.net:8008/construct/static/images/red-bt.svg'></div>",
+        "<div class='cfg-red cfg-pop-form-opener'><img src='" +
+            server_url +
+            "/construct/static/images/red-bt.svg'></div>",
     ]) {
         let column = document.createElement("td");
         column.innerHTML = name;
@@ -47,16 +49,16 @@ $(document).ready(function ($) {
             $(".cfg-overlay, .cfg-popup-form").fadeIn();
         });
     });
+    $("#cfg-save").on("click", function (event) {
+        console.log("poop!");
+    });
 });
+
+let CONFIG = {};
 
 window.onload = () => {
     window.location.href = window.location.hash || "#cfg-page-1";
 };
-
-function generate_all(problem_name, config) {
-    console.log(problem_name);
-    console.log(config);
-}
 
 function generate_hint(slots) {
     let wrap = document.createElement("div");
@@ -66,8 +68,7 @@ function generate_hint(slots) {
     opener.className = "cfg-opener";
 
     let opener_icon = document.createElement("img");
-    opener_icon.src =
-        "<?php echo $server_url; ?>/construct/static/images/info-circle.svg";
+    opener_icon.src = server_url + "/construct/static/images/info-circle.svg";
 
     opener.appendChild(opener_icon);
 
@@ -105,7 +106,7 @@ function generate_select(cases) {
     placeholder.selected = true;
     placeholder.hidden = true;
     placeholder.disabled = true;
-    option.innerText = "Выберите";
+    placeholder.innerText = "Выберите";
 
     select.appendChild(placeholder);
 
@@ -129,6 +130,7 @@ function generate_basic_input(name, slots) {
     let label = generate_label(slots);
     wrap.appendChild(label);
 
+    let input = document.createElement("input");
     input.type = "text";
     input.placeholder = "Введите";
     input.setAttribute("data-config-key", name);
@@ -141,7 +143,11 @@ function generate_basic_input(name, slots) {
 function generate_unit_input(name, slots, units) {
     let basic = generate_basic_input(name, slots);
 
-    let dropdown = generate_dropdown(name + ".units", slots);
+    let dropdown = generate_dropdown(name + ".units", {
+        title: "Ед. изм.",
+        cases: units,
+        hint: undefined,
+    });
     dropdown.className = "cfg-sel-over";
 
     basic.appendChild(dropdown);
@@ -152,7 +158,7 @@ function generate_unit_input(name, slots, units) {
 function generate_dimensional_input(name, slots, units) {
     let basic = generate_basic_input(name, slots);
 
-    let dropdown = generate_dropdown(name + ".units", slots);
+    let dropdown = generate_dropdown(name + ".units", slots, units);
     dropdown.className = "cfg-sel-over";
 
     basic.appendChild(dropdown);
@@ -168,6 +174,7 @@ function generate_dropdown(name, slots) {
     wrap.appendChild(label);
 
     let select = generate_select(slots.cases);
+    select.className = "cfg-select";
     wrap.appendChild(select);
 
     return wrap;
@@ -197,4 +204,38 @@ function generate_checkbox(name, slots) {
     wrap.appendChild(hint);
 
     return wrap;
+}
+
+function generate_all(problem_name, config) {
+    if (config.OBJECTS) {
+        let save = document.getElementById("cfg-save");
+        let next = document.getElementById("cfg-next");
+        next.outerHTML = save.outerHTML;
+        document.getElementById("cfg-page-3").remove();
+    }
+    let general = document.getElementById("cfg-general");
+
+    for (let name of config.GENERAL) {
+        let slots = config.CASES[name];
+        name = "GENERAL." + name;
+
+        if (slots.class === "dropdown") {
+            let dropdown = generate_dropdown(name, slots);
+            general.appendChild(dropdown);
+        } else if (slots.class === "checkbox") {
+            let checkbox = generate_checkbox(name, slots);
+            general.appendChild(checkbox);
+        } else if (slots.dementional) {
+            let units = config.UNITS[slots.units];
+            let input = generate_dimensional_input(name, slots, units);
+            general.appendChild(input);
+        } else if (slots.units) {
+            let units = config.UNITS[slots.units];
+            let input = generate_unit_input(name, slots, units);
+            general.appendChild(input);
+        } else {
+            let input = generate_basic_input(name, slots);
+            general.appendChild(input);
+        }
+    }
 }

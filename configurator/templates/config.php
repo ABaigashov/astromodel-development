@@ -10,13 +10,12 @@
 .cfg-table .cfg-color<?php echo $i; ?> {
     background: linear-gradient(
         <?php echo mt_rand(0, 360); ?>deg,
-        <?php echo sprintf('#%06X', mt_rand(0, 0xFFFFFF)); ?> 0%,
-        <?php echo sprintf('#%06X', mt_rand(0, 0xFFFFFF)); ?> 50%,
-        <?php echo sprintf('#%06X', mt_rand(0, 0xFFFFFF)); ?> 100%
+        <?php echo sprintf("#%06X", mt_rand(0, 0xFFFFFF)); ?> 0%,
+        <?php echo sprintf("#%06X", mt_rand(0, 0xFFFFFF)); ?> 50%,
+        <?php echo sprintf("#%06X", mt_rand(0, 0xFFFFFF)); ?> 100%
     );
 }
 <?php } ?>
-
 </style>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,7 +44,9 @@
                     <div class="cfg-t1">Создайте новый файл</div>
                     <div class="cfg-t2">Создайте новый конфигурациооный файл (Формат JSON)</div>
                 </div>
-                <a href="#cfg-page-2" class="cfg-btn">Создать файл</a>
+                <a href="#cfg-page-2">
+                    <button  class="cfg-btn">Создать файл</button>
+                </a>
             </div>
             <div class="cfg-back-bx cfg-back-bx-cc">
                 <button class="cfg-btn cfg-btn-framed" onclick="history.back();">Назад</button>
@@ -58,9 +59,9 @@
 <div class="cfg-container" id="cfg-page-2">
     <div class="cfg-table-bx">
         <div class="cfg-h3">Создание нового конфигурационного файла</div>
+        <div class="cfg-h4">Шаг 1. Создание пространства моделирования</div>
 
-        <div class="cfg-step-bx">
-            <div class="cfg-h4">Шаг 1. Создание пространства моделирования</div>
+        <div class="cfg-step-bx" id="cfg-general">
 
             <div class="cfg-select-inf-item">
                 <div class="cfg-lbl">
@@ -89,7 +90,7 @@
                         <option disabled selected hidden>Выберите</option>
                         <option value="1">Выберите размерность пространства</option>
                         <option value="2">Выберите размерность пространства</option>
-                    </select required>
+                    </select>
                 </div>
             </div>
             <div class="cfg-select-inf-item">
@@ -117,7 +118,7 @@
                         <select required>
                             <option disabled selected hidden>Выберите</option>
                             <option value="1">Ед. Изм.</option>
-                        </select required>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -161,10 +162,11 @@
                 </div>
                 <input type="text" placeholder="Число">
             </div>
-            <div class="cfg-back-bx">
-                <a href="#cfg-page-1" class="cfg-btn cfg-btn-framed">Назад</a>
-                <a href="#cfg-page-3" class="cfg-btn cfg-btn-next">Далее</a>
-            </div>
+            <hr>
+        </div>
+        <div class="cfg-back-bx">
+            <a href="#cfg-page-1" class="cfg-btn cfg-btn-framed">Назад</a>
+            <a href="#cfg-page-3" class="cfg-btn" id="cfg-next">Далее</a>
         </div>
     </div>
 </div>
@@ -179,7 +181,7 @@
 
             <div class="cfg-table-wrap">
                 <table class="cfg-table cfg-table-red">
-                    <tbody id='cfg-table'>
+                    <tbody id="cfg-table">
                         <tr>
                             <td>Название</td>
                             <td>Тип</td>
@@ -229,8 +231,8 @@
             <img class="cfg-plus-bt" src="<?php echo $server_url; ?>/construct/static/images/plus2.svg">
 
             <div class="cfg-back-bx">
-                <a href="#cfg-page-2" class="cfg-btn cfg-btn-framed">Назад</a>
-                <button class="cfg-btn cfg-btn-next">Сохранить</button>
+                <button href="#cfg-page-2" class="cfg-btn cfg-btn-framed">Назад</button>
+                <button class="cfg-btn" id="cfg-save">Сохранить</button>
             </div>
         </div>
 
@@ -284,7 +286,7 @@
                 <select required>
                     <option disabled selected hidden>Выберите</option>
                     <option value="">Единичный объект</option>
-                </select required>
+                </select>
             </div>
         </div>
         <div>
@@ -327,7 +329,7 @@
                         <select required>
                             <option disabled selected hidden>Выберите</option>
                             <option value="">Единичный объект</option>
-                        </select required>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -356,7 +358,7 @@
                         <select required>
                             <option disabled selected hidden>Выберите</option>
                             <option value="">Ед. Изм.</option>
-                        </select required>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -384,7 +386,7 @@
                         <select required>
                             <option disabled selected hidden>Выберите</option>
                             <option value="">Ед. Изм.</option>
-                        </select required>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -411,7 +413,7 @@
                         <select required>
                             <option disabled selected hidden>Выберите</option>
                             <option value="">Ед. Изм.</option>
-                        </select required>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -419,7 +421,7 @@
         </div>
 
         <div class="cfg-bt-wr">
-            <a href="" class="cfg-btn cfg-btn-framed">Удалить</a>
+            <button class="cfg-btn cfg-btn-framed">Удалить</button>
             <input type="submit" class="cfg-btn" value="Сохранить">
         </div>
     </form>

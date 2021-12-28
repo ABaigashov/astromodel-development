@@ -4,34 +4,42 @@
     padding: max(15px, 5vh) 5vw;
     display: none;
 }
+
 .cfg-table-bx {
     font-family: "Open Sans", sans-serif;
     color: #131315;
     font-size: 24px;
     line-height: 1;
 }
+
 .cfg-table-bx .cfg-h3 {
     font-size: 36px;
-    margin-bottom: 35px;
+    margin-bottom: 20px;
 }
+
 .cfg-table-wrap {
     overflow: auto;
     width: 100%;
 }
+
 .cfg-table {
     width: 100%;
     border-collapse: collapse;
 }
+
 .cfg-table td {
     border: 1px solid #d2d2d2;
     padding: 25px 10px;
 }
+
 .cfg-table .cfg-open-res {
     cursor: pointer;
 }
+
 .cfg-table .cfg-open-res:hover {
     text-decoration: underline;
 }
+
 .cfg-overlay {
     position: fixed;
     background: rgba(0, 0, 0, 0.5);
@@ -42,6 +50,7 @@
     z-index: 10;
     display: none;
 }
+
 .cfg-popup {
     left: 50%;
     top: 50px;
@@ -56,28 +65,34 @@
     font-family: "Open Sans", sans-serif;
     display: none;
 }
+
 .cfg-popup .cfg-close {
     position: absolute;
     top: 30px;
     right: 30px;
 }
+
 .cfg-popup .cfg-close:hover {
     cursor: pointer;
 }
+
 .cfg-popup-video .cfg-vid-bx {
     border: 2px solid #d9d9d9;
     margin: 0 auto 30px;
     max-width: 600px;
 }
+
 .cfg-popup-video .cfg-vid-bx > img,
 .cfg-popup-video .cfg-vid-bx > iframe {
     max-width: 100%;
     display: block;
 }
+
 .cfg-popup-video .cfg-btn-wr {
     display: flex;
     justify-content: space-between;
 }
+
 .cfg-btn {
     text-align: center;
     background: #bb2028;
@@ -93,90 +108,112 @@
     color: #fff;
     transition: 0.3s all ease;
 }
+
 .cfg-btn:hover {
     border-color: #000;
     background: #000;
+    text-decoration: none;
 }
+
 .cfg-btn-framed {
     background: transparent;
     color: #bb2028;
 }
+
 .cfg-btn-framed:hover {
     border-color: #000;
     background: transparent;
     color: #000;
 }
+
 body {
     margin: 0;
 }
+
 .cfg-table-bx .cfg-h4 {
     margin-bottom: 35px;
     font-size: 24px;
 }
+
 .cfg-file-bx {
     background: #f4f4f4;
     border: 1px solid #d2d2d2;
     border-radius: 9px;
-    padding: 60px 10px;
+    padding: 50px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 30px;
 }
+
 .cfg-tt {
     margin-right: 20px;
 }
+
 .cfg-file-bx .cfg-tt .cfg-t1 {
     font-size: 36px;
 }
+
 .cfg-file-bx .cfg-tt .cfg-t2 {
     margin-top: 5px;
     font-size: 18px;
 }
+
 .cfg-file-bx-uploaded {
     padding: 10px;
 }
+
 .cfg-file-inf-bx {
     font-size: 18px;
     display: flex;
     align-items: center;
 }
+
 .cfg-file-inf-bx .cfg-ico {
     margin-right: 25px;
 }
+
 .cfg-file-inf-bx .cfg-line {
     border-left: 1px solid #d2d2d2;
     height: 70px;
     margin: 0 25px;
 }
+
 .cfg-file-bx .cfg-btn-wr {
     display: flex;
 }
+
 .cfg-file-bx .cfg-btn-framed {
     margin-right: 15px;
 }
+
 .cfg-back-bx {
     margin-top: 50px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
+
 .cfg-back-bx .cfg-tt {
     font-size: 24px;
     text-align: right;
     line-height: 25px;
 }
+
 .cfg-back-bx .cfg-tt a {
     color: #bb2028;
     text-decoration: none;
 }
+
 .cfg-back-bx .cfg-tt a:hover {
     text-decoration: underline;
 }
+
 .cfg-select-inf-item {
     position: relative;
     margin-bottom: 30px;
 }
+
 .cfg-select-inf-item select {
     width: 100%;
     border: 1px solid #d9d9d9;
@@ -187,17 +224,22 @@ body {
     font-size: 24px;
     padding: 0 10px;
     box-sizing: border-box;
-    -webkit-appearance: none; /* Chrome */
-    -moz-appearance: none; /* Firefox */
-    appearance: none; /* убираем дефолнтные стрелочки */
+    -webkit-appearance: none;
+    /* Chrome */
+    -moz-appearance: none;
+    /* Firefox */
+    appearance: none;
+    /* убираем дефолнтные стрелочки */
     color: #131313;
     background: transparent;
     position: relative;
     z-index: 1;
 }
+
 .cfg-select-inf-item .cfg-select {
     position: relative;
 }
+
 .cfg-select-inf-item .cfg-select:after {
     content: "";
     width: 20px;
@@ -207,6 +249,7 @@ body {
     top: 33px;
     z-index: 0;
 }
+
 .cfg-select-inf-item input[type="text"] {
     color: #131315;
     width: 100%;
@@ -220,88 +263,110 @@ body {
     box-sizing: border-box;
     background: #fff;
 }
+
 ::-webkit-input-placeholder {
     color: #a5a5a5;
 }
+
 :-moz-placeholder {
     color: #a5a5a5;
 }
+
 ::-moz-placeholder {
     color: #a5a5a5;
 }
+
 :-ms-input-placeholder {
     color: #a5a5a5;
 }
+
 input::-webkit-input-placeholder {
     opacity: 1;
     transition: opacity 0.3s ease;
 }
+
 input::-moz-placeholder {
     opacity: 1;
     transition: opacity 0.3s ease;
 }
+
 input:-moz-placeholder {
     opacity: 1;
     transition: opacity 0.3s ease;
 }
+
 input:-ms-input-placeholder {
     opacity: 1;
     transition: opacity 0.3s ease;
 }
+
 input:focus::-webkit-input-placeholder {
     opacity: 0;
     transition: opacity 0.3s ease;
 }
+
 input:focus::-moz-placeholder {
     opacity: 0;
     transition: opacity 0.3s ease;
 }
+
 input:focus:-moz-placeholder {
     opacity: 0;
     transition: opacity 0.3s ease;
 }
+
 input:focus:-ms-input-placeholder {
     opacity: 0;
     transition: opacity 0.3s ease;
 }
+
 textarea::-webkit-input-placeholder {
     opacity: 1;
     transition: opacity 0.3s ease;
 }
+
 textarea::-moz-placeholder {
     opacity: 1;
     transition: opacity 0.3s ease;
 }
+
 textarea:-moz-placeholder {
     opacity: 1;
     transition: opacity 0.3s ease;
 }
+
 textarea:-ms-input-placeholder {
     opacity: 1;
     transition: opacity 0.3s ease;
 }
+
 textarea:focus::-webkit-input-placeholder {
     opacity: 0;
     transition: opacity 0.3s ease;
 }
+
 textarea:focus::-moz-placeholder {
     opacity: 0;
     transition: opacity 0.3s ease;
 }
+
 textarea:focus:-moz-placeholder {
     opacity: 0;
     transition: opacity 0.3s ease;
 }
+
 textarea:focus:-ms-input-placeholder {
     opacity: 0;
     transition: opacity 0.3s ease;
 }
+
 .cfg-select-inf-item .cfg-sel-over {
     right: 0;
     top: 0;
     position: absolute;
     width: 350px;
 }
+
 .cfg-hint-bx {
     position: relative;
     z-index: 2;
@@ -309,14 +374,17 @@ textarea:focus:-ms-input-placeholder {
     vertical-align: middle;
     margin-left: 5px;
 }
+
 .cfg-hint-bx .cfg-opener {
     margin-left: 5px;
     cursor: pointer;
 }
+
 .cfg-hint-bx:hover .cfg-frame {
     visibility: visible;
     opacity: 1;
 }
+
 .cfg-hint-bx .cfg-frame {
     font-size: 24px;
     line-height: 1;
@@ -336,6 +404,7 @@ textarea:focus:-ms-input-placeholder {
     opacity: 0;
     transition: 0.3s all ease;
 }
+
 .cfg-hint-bx .cfg-frame:after {
     content: "▲";
     position: absolute;
@@ -350,57 +419,71 @@ textarea:focus:-ms-input-placeholder {
     height: 20px;
     clip-path: polygon(0 0%, 0 140%, 150% 140%, 150% 0);
 }
+
 .cfg-table-red td:nth-child(5),
 .cfg-table-red td:nth-child(6) {
     text-align: center;
 }
+
 .cfg-table .cfg-color {
     width: 40px;
     height: 40px;
     border-radius: 5px;
 }
+
 .cfg-table .cfg-filled td {
     background: #eeeeee;
 }
+
 .cfg-popup-form {
     top: 5%;
     max-height: 90%;
     overflow: auto;
 }
+
 .cfg-table .cfg-red {
     cursor: pointer;
 }
+
 .cfg-popup-form {
     width: 770px;
     padding: 50px 30px 30px;
     box-sizing: border-box;
     margin-left: -385px;
 }
+
 .cfg-popup-form .cfg-h4 {
     margin-bottom: 15px;
     font-size: 24px;
 }
+
 .cfg-popup-form .cfg-select-inf-item {
     margin-bottom: 15px;
 }
+
 .cfg-pop-form .cfg-h2 {
     text-align: center;
     font-size: 36px;
     margin-bottom: 30px;
 }
+
 .cfg-pop-form .cfg-wr {
     display: flex;
 }
+
 .cfg-pop-form .cfg-wr1 .cfg-bx1 {
     width: 444px;
     margin-right: 10px;
 }
+
 .cfg-pop-form .cfg-wr1 .cfg-bx2 {
     width: 255px;
 }
+
 .cfg-select-inf-item-color {
     position: relative;
 }
+
 .cfg-select-inf-item-color .cfg-color {
     width: 40px;
     height: 40px;
@@ -410,29 +493,36 @@ textarea:focus:-ms-input-placeholder {
     top: 65px;
     left: 10px;
 }
+
 .cfg-select-inf-item-color input[type="text"] {
     padding-left: 60px;
 }
+
 .cfg-pop-form .cfg-wr2 {
     margin-left: -5px;
     margin-right: -5px;
 }
+
 .cfg-pop-form .cfg-wr2 .cfg-bx {
     margin-left: 5px;
     margin-right: 5px;
 }
+
 .cfg-pop-form .cfg-wr2 .cfg-select-inf-item input[type="text"] {
     text-align: center;
 }
+
 .cfg-pop-form .cfg-bt-wr {
     display: flex;
     justify-content: space-between;
 }
+
 .cfg-pop-form .cfg-hint-bx .cfg-frame {
     padding: 15px;
     font-size: 18px;
     width: 200px;
 }
+
 .cfg-table-bx .cfg-lbl,
 .cfg-pop-form .cfg-lbl {
     font-size: 24px;
@@ -440,14 +530,17 @@ textarea:focus:-ms-input-placeholder {
     display: flex;
     align-items: center;
 }
+
 .cfg-check-item {
     cursor: pointer;
 }
+
 .cfg-check-item input {
     position: absolute;
     left: -999px;
     opacity: 0;
 }
+
 .cfg-check-item span {
     display: block;
     font-size: 24px;
@@ -456,6 +549,7 @@ textarea:focus:-ms-input-placeholder {
     padding-left: 50px;
     line-height: 40px;
 }
+
 .cfg-check-item span:after {
     content: "";
     width: 40px;
@@ -466,26 +560,31 @@ textarea:focus:-ms-input-placeholder {
     left: 0;
     border: 1px solid #d9d9d9;
 }
+
 .cfg-ch-group {
     padding-top: 10px;
     margin-bottom: 30px;
     display: flex;
     align-items: center;
 }
+
 .cfg-plus-bt {
     display: block;
     margin: 20px auto 0;
     width: 85px;
 }
+
 .cfg-dim-bx {
     display: flex;
     margin-right: -25px;
 }
+
 .cfg-dim-bx .cfg-bx {
     width: 100%;
     padding: 0 25px;
     position: relative;
 }
+
 .cfg-dim-bx .cfg-bx .cfg-let {
     font-size: 36px;
     line-height: 80px;
@@ -493,15 +592,18 @@ textarea:focus:-ms-input-placeholder {
     left: 0;
     top: 0;
 }
+
 .cfg-select-inf-item .cfg-line-bx {
     display: flex;
     align-items: center;
     justify-content: flex-end;
 }
+
 .cfg-select-inf-item .cfg-line-bx .cfg-select {
     margin-left: 20px;
     width: 55%;
 }
+
 .cfg-select-inf-item .cfg-line-bx .cfg-lbl {
     margin-bottom: 0;
 }
@@ -517,11 +619,12 @@ textarea:focus:-ms-input-placeholder {
         font-size: 30px;
     }
     .cfg-btn {
-        height: 60px;
+        padding: 15px 30px;
         min-width: unset;
         font-size: 18px;
     }
 }
+
 @media (max-width: 991px) {
     .cfg-container {
         max-width: 750px;
@@ -612,6 +715,7 @@ textarea:focus:-ms-input-placeholder {
         margin-right: -15px;
     }
 }
+
 @media (max-width: 767px) {
     .cfg-table-bx .cfg-h4 {
         font-size: 18px;
@@ -748,7 +852,7 @@ textarea:focus:-ms-input-placeholder {
         margin-bottom: 15px;
     }
     .cfg-file-bx .cfg-tt .cfg-t2 {
-        text-align: left;
+        text-align: center;
     }
     .cfg-select-inf-item .cfg-select:after {
         right: 15px;
@@ -771,10 +875,6 @@ textarea:focus:-ms-input-placeholder {
 
 button {
     cursor: pointer;
-}
-
-.cfg-btn:hover {
-    color: white;
 }
 
 .cfg-container:target {
