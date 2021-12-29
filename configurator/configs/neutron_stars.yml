@@ -1,0 +1,131 @@
+CASES:
+    eos_name:
+        title: Введите название уравнения состояния
+        default: EOS_1
+        type: str
+        class: text
+        dementional: false
+
+    eos_file:
+        title: Введите ссылку на файл с уравнением состояния
+        default: None
+        type: str
+        class: text
+        dementional: false
+
+    analytical:
+        title: Вид уравнения состояния
+        default: no
+        type: str
+        class: dropdown
+        cases:
+            Таблица: no
+            Функция: yes
+
+    units_of_representation:
+        title: Единицы представления результата
+        default: MeV/fm3
+        type: str
+        class: dropdown
+        cases:
+            МэВ/куб.фм.: MeV/fm3
+            г/куб.см.: g/cm3
+            эрг/куб.см.: erg/cm3
+        dementional: false
+
+    units_density:
+        title: Единицы измерения плотности
+        default: MeV/fm3
+        type: str
+        class: dropdown
+        cases:
+            МэВ/куб.фм.: MeV/fm3
+            г/куб.см.: g/cm3
+            эрг/куб.см.: erg/cm3
+        dementional: false
+
+    units_pressure:
+        title: Единицы измерения давления
+        default: MeV/fm3
+        type: str
+        class: dropdown
+        cases:
+            МэВ/куб.фм.: MeV/fm3
+            дин/кв.см.: erg/cm3
+        dementional: false
+
+    density_row:
+        title: Номер столбца в файле, соответствующий плотности
+        default: "1"
+        type: int
+        class: number
+        dementional: false
+
+    pressure_row:
+        title: Номер столбца в файле, соответствующий давлению
+        default: "2"
+        type: int
+        class: number
+        dementional: false
+
+    rho_min:
+        title: Минимальное значение центральной плотности в выбранных единицах
+        default: "500"
+        type: float
+        class: number
+        dementional: false
+
+    rho_max:
+        title: Максимальное значение центральной плотности в выбранных единицах
+        default: "600"
+        type: float
+        class: number
+        dementional: false
+
+    number_of_points:
+        title: Число точек, на которые будет разбит интервал плотностей
+        default: "50"
+        type: int
+        class: number
+        dementional: false
+
+    rho_i:
+        title: Значения центральной плотности
+        default: "500"
+        type: float
+        class: number
+        dementional: false
+
+    calculate_mass_in_interval:
+        title: Посчитать массы и радиусы нейтронных звезд в данном интервале плотностей
+        default: "True"
+        type: bool
+        class: checkbox
+        dementional: false
+
+    calculate_mass_profile:
+        title: Посчитать профили массы и плотности для заданных значений центральной плотности
+        default: "True"
+        type: bool
+        class: checkbox
+        dementional: false
+
+GENERAL:
+    - rho_min
+    - rho_max
+    - number_of_points
+    - rho_i
+    - units_of_representation
+    - calculate_mass_in_interval
+    - calculate_mass_profile
+
+OBJECTS:
+    EoS_parameters:
+        title: Уравнение состояния
+        cases:
+            - eos_name
+            - analytical
+            - units_density
+            - units_pressure
+            - density_row
+            - pressure_row

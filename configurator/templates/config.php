@@ -60,109 +60,8 @@
     <div class="cfg-table-bx">
         <div class="cfg-h3">Создание нового конфигурационного файла</div>
         <div class="cfg-h4">Шаг 1. Создание пространства моделирования</div>
-
         <div class="cfg-step-bx" id="cfg-general">
-
-            <div class="cfg-select-inf-item">
-                <div class="cfg-lbl">
-                    Название сценария
-                    <div class="cfg-hint-bx">
-                        <div class="cfg-opener"><img
-                                src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt="">
-                        </div>
-                        <div class="cfg-frame">Всплывающая информация по данному полю</div>
-                    </div>
-                </div>
-                <input type="text" placeholder="Текст">
-            </div>
-            <div class="cfg-select-inf-item">
-                <div class="cfg-lbl">
-                    Размерность пространства
-                    <div class="cfg-hint-bx">
-                        <div class="cfg-opener"><img
-                                src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt="">
-                        </div>
-                        <div class="cfg-frame">Всплывающая информация по данному полю</div>
-                    </div>
-                </div>
-                <div class="cfg-select">
-                    <select required>
-                        <option disabled selected hidden>Выберите</option>
-                        <option value="1">Выберите размерность пространства</option>
-                        <option value="2">Выберите размерность пространства</option>
-                    </select>
-                </div>
-            </div>
-            <div class="cfg-select-inf-item">
-                <div class="cfg-lbl">
-                    Границы пространства
-                    <div class="cfg-hint-bx">
-                        <div class="cfg-opener"><img
-                                src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt="">
-                        </div>
-                        <div class="cfg-frame">Всплывающая информация по данному полю</div>
-                    </div>
-                </div>
-                <input type="text" placeholder="Число">
-                <div class="cfg-sel-over">
-                    <div class="cfg-lbl">
-                        Ед. изм.
-                        <div class="cfg-hint-bx">
-                            <div class="cfg-opener"><img
-                                    src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt="">
-                            </div>
-                            <div class="cfg-frame">Всплывающая информация по данному полю</div>
-                        </div>
-                    </div>
-                    <div class="cfg-select">
-                        <select required>
-                            <option disabled selected hidden>Выберите</option>
-                            <option value="1">Ед. Изм.</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="cfg-ch-group">
-                <label class="cfg-check-item">
-                    <input type="checkbox">
-                    <span>
-                        Учитывать гравитационные взаимодействия
-                    </span>
-                </label>
-                <div class="cfg-hint-bx">
-                    <div class="cfg-opener"><img
-                            src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt="">
-                    </div>
-                    <div class="cfg-frame">Всплывающая информация по данному полю</div>
-                </div>
-            </div>
-            <div class="cfg-ch-group">
-                <label class="cfg-check-item">
-                    <input type="checkbox">
-                    <span>
-                        Учитывать мой стаж работы
-                    </span>
-                </label>
-                <div class="cfg-hint-bx">
-                    <div class="cfg-opener"><img
-                            src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt="">
-                    </div>
-                    <div class="cfg-frame">Всплывающая информация по данному полю</div>
-                </div>
-            </div>
-            <div class="cfg-select-inf-item">
-                <div class="cfg-lbl">
-                    Коэффицент восстановления
-                    <div class="cfg-hint-bx">
-                        <div class="cfg-opener"><img
-                                src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt="">
-                        </div>
-                        <div class="cfg-frame">Всплывающая информация по данному полю</div>
-                    </div>
-                </div>
-                <input type="text" placeholder="Число">
-            </div>
-            <hr>
+            <!-- general content here -->
         </div>
         <div class="cfg-back-bx">
             <a href="#cfg-page-1" class="cfg-btn cfg-btn-framed">Назад</a>
@@ -231,8 +130,8 @@
             <img class="cfg-plus-bt" src="<?php echo $server_url; ?>/construct/static/images/plus2.svg">
 
             <div class="cfg-back-bx">
-                <button href="#cfg-page-2" class="cfg-btn cfg-btn-framed">Назад</button>
-                <button class="cfg-btn" id="cfg-save">Сохранить</button>
+                <a href="#cfg-page-2" class="cfg-btn cfg-btn-framed">Назад</a>
+                <button class="cfg-btn" id="cfg-save">Cмоделировать</button>
             </div>
         </div>
 

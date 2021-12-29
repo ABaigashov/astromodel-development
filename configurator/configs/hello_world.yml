@@ -1,0 +1,257 @@
+# This is main problem configuration file. It has special
+# name 'config.yml' and you SHOULDN'T RENAME it. The file
+# contains all information about variables, which will be
+# used in current problem. To generate web from of this
+# problem you must to have this file in problem folder.
+# In this web form user can put his paremeters and run
+# solver of current problem. This file also is necessary
+# to parse incomming parameters from web form. You can
+# specify any web field to make parameters more flexable.
+#
+# This file has special structure. There are four special
+# keywords: ('UNITS', 'CASES', 'GENERAL', 'OBJECTS').
+# You must write it only in this order.
+#
+# keyword 'UNITS':
+#  Description:
+#      This group contains all types of units you need. If
+#      you don't need any units, just skip this keyword.
+#
+#      Name {unit} uses to 'CASES.{name}.units: {unit}' value
+#      (check 'CASES' keyword example). Names of units must
+#      consist of lowercase latin letters ONLY.
+#
+#      Names {unit} and {subunit} can consist of ANY characters
+#      like russian, spaces, slashes, dashes and other...
+#      This names will be displayed in web form as name of
+#      unit and it's derivatives.
+#
+#      Value {number} must be in special numeric sturcure
+#      like '(m)e±(n)', where 'm' and 'n' are mantissa
+#      and exponent respectively ('m' and 'n' belongs 'Z')
+#      Base is always 10, because structure of '(m)e±(n)'
+#      means m * 10^n.
+#
+#      Often subunit {number} is 3*k more/less than
+#      base unit exponent as derived unit, like kilo-, mega-,
+#      milli- and other... ('k' belongs 'Z').
+#
+#      BUT subunit value can be ANY number with '(m)e±(n)'
+#      structure (ex. 'time' unit can't have megaseconds,
+#      use days or hours, or other non-SI units).
+#
+#      OR you can write a number {number} WITHOUT '(m)e±(n)'
+#      structure. If you need this, add double quotes like "3.14159".
+#  Example:
+#
+# UNITS:
+#   {name}:
+#     {unit}: {number}
+#     {subunit}: {number}
+#     {subunit}: {number}
+#     ...
+#   ...
+#
+# keyword 'CASES':
+#  Description:
+#      This group contains all variables (cases) you need to
+#      solve problem. This cases never appears by themselves,
+#      because they are the parts of 'GENERAL' and 'OBJECTS'
+#      keyword structures.
+#
+#      Name of cases must consist of owercase latin letters ONLY.
+#      Name of cases uses for 'GENERAL' and 'OBJECTS' keywords
+#      (check 'GENERAL' and 'OBJECTS' description below).
+#
+#      Single case MUST contains this keys:
+#      ('title', 'default', 'type', 'class', 'dementional').
+#      Cases can also have optional keys:
+#      ('units', 'minimum', 'maximum', 'cases').
+#
+#      Key 'title' is a string and can
+#      consist of ANY characters like russian, spaces, slashes,
+#      dashes and other... This key will be displayed in web
+#      form as name of current case.
+#
+#      Key 'default' is a string with default value, which is
+#      necessary if something goes wrong while parsing. If
+#      'default' value is numeric, you MUST add double
+#      quotes like "2.71828".
+#
+#      Key 'type' must be one of next values: ('str', 'bool',
+#      'float', 'int', 'expr'). Parser gets this value to define
+#      python type of current variable.
+#
+#      Key 'class' must be one of next
+#      values: ('dropdown', 'checkbox', 'number', 'text'). This
+#      key is necessary to generate web form automaticly. This
+#      key defines the way, how currnet parameter will be
+#      entered by user.
+#
+#      Key 'dementional' is a boolean value
+#      which shows is this a vector or scalar variable
+#      ('true' or 'false' respectively).
+#
+#      Optional keys 'minimum' and 'maximum' are used only if
+#      'class: number'. Key 'minimum' is the lowerbound and
+#      key 'maximum' is the upperbound.
+#
+#      Optional key 'units' is used only if 'class: number'. This
+#      key must be one of the 'UNITS' varuables. If you use some
+#      unit system, you need to define this units in 'UNITS' group
+#      (check 'UNITS' description above).
+#
+#      Optional key 'cases' is used only if 'class: dropdown'. This
+#      key is necessary to create all possible options, which current
+#      variable can take.
+#      The {title} parameter inside of 'cases' key is the name,
+#      which will be displayed in web form as name of the current
+#      option.
+#      Parameter {value} is the option (state), which current
+#      case can take.
+#  Example:
+#
+# CASES:
+#   {name}:
+#     title: {title}
+#     default: {default}
+#     type: {str / bool / float / int / expr}
+#     class: {dropdown / checkbox / number / text}
+#     dementional: {true / false}
+#     [units]: {units}
+#     [minimum]: {number}
+#     [maximum]: {number}
+#     [cases]:
+#       {title}: {value}
+#       {title}: {value}
+#       ...
+#   ...
+#
+# keyword 'GENERAL':
+#  Description:
+#      This group contains some of the cases, which was written
+#      for general parameters (like time step or size of
+#      calculating area).
+#
+#      Every {case} parameter is the one of 'CASES' group names.
+#      In code you can get parsed case value by calling it's name
+#      (ex. 'variable = config.{name}').
+#  Example:
+#
+# GENERAL:
+#  - {case}
+#  - {case}
+#  - {case}
+# ...
+#
+# keyword 'OBJECTS':
+#  Description:
+#      This group contains object types, which you will use to
+#      solve your problem. Every object must have 'title' key and
+#      'cases' key.
+#
+#      Key 'title' will be displayed in web form as
+#      name of current object.
+#
+#      Key 'cases' contains names of 'CASES' exactly as in
+#      'GENERAL' group. In code you can call any of this cases
+#      (ex. 'array = [obj.{case} for obj in config.{name}]')
+#  Example:
+#
+# OBJECTS:
+#   {name}:
+#     title: {title}
+#     cases:
+#       - {case}
+#       - {case}
+#       - {case}
+#      ...
+#   ...
+
+UNITS:
+    time:
+        секунды: 1e+0
+        минуты: 6e+1
+        часы: 36e+2
+
+    mass:
+        килограммы: 1e+0
+        фунты: "2.20462"
+
+CASES:
+    rocket_name:
+        title: Название рокеты
+        default: Starship
+        type: str
+        class: text
+        dementional: false
+
+    ast_name:
+        title: Имя астронафта
+        default: Пётр
+        type: str
+        class: text
+        dementional: false
+
+    ast_age:
+        title: Возраст астронафта
+        default: "30"
+        type: int
+        class: number
+        dementional: false
+
+    ast_weight:
+        title: Вес астронафта
+        default: "70"
+        type: int
+        class: number
+        units: mass
+        dementional: false
+
+    ast_sex:
+        title: Пол астронафта
+        default: "?"
+        type: str
+        class: dropdown
+        cases:
+            Мужской: man
+            Женский: woman
+            Чёрт его знает: "?"
+        dementional: false
+
+    rocket_time:
+        title: Время до взлёта ракеты
+        default: "20"
+        type: int
+        class: number
+        units: time
+        dementional: false
+
+    jet_count:
+        title: Количество сопл
+        default: "4"
+        type: int
+        class: number
+        dementional: false
+
+    post_in_news:
+        title: Опубликовать в новостях
+        default: "True"
+        type: bool
+        class: checkbox
+        dementional: false
+
+GENERAL:
+    - rocket_name
+    - rocket_time
+    - jet_count
+    - post_in_news
+
+OBJECTS:
+    astronauts:
+        title: Астронафт
+        cases:
+            - ast_name
+            - ast_weight
+            - ast_age
+            - ast_sex
