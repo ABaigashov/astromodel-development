@@ -13,7 +13,7 @@
 }
 
 .cfg-table-bx .cfg-h3 {
-    font-size: 36px;
+    font-size: 30px;
     margin-bottom: 20px;
 }
 
@@ -94,13 +94,13 @@
 }
 
 .cfg-btn {
+    padding: 15px 20px;
     text-align: center;
     background: #bb2028;
     border-radius: 9px;
     border: 1px solid #bb2028;
-    font-size: 24px;
+    font-size: 20px;
     min-width: 270px;
-    height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -132,14 +132,14 @@ body {
 
 .cfg-table-bx .cfg-h4 {
     margin-bottom: 35px;
-    font-size: 24px;
+    font-size: 21px;
 }
 
 .cfg-file-bx {
     background: #f4f4f4;
     border: 1px solid #d2d2d2;
     border-radius: 9px;
-    padding: 50px 20px;
+    padding: 35px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -151,12 +151,12 @@ body {
 }
 
 .cfg-file-bx .cfg-tt .cfg-t1 {
-    font-size: 36px;
+    font-size: 30px;
 }
 
 .cfg-file-bx .cfg-tt .cfg-t2 {
     margin-top: 5px;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .cfg-file-bx-uploaded {
@@ -164,7 +164,7 @@ body {
 }
 
 .cfg-file-inf-bx {
-    font-size: 18px;
+    font-size: 16px;
     display: flex;
     align-items: center;
 }
@@ -195,7 +195,7 @@ body {
 }
 
 .cfg-back-bx .cfg-tt {
-    font-size: 24px;
+    font-size: 21px;
     text-align: right;
     line-height: 25px;
 }
@@ -219,10 +219,9 @@ body {
     border: 1px solid #d9d9d9;
     outline: 0;
     border-radius: 9px;
-    height: 80px;
     width: 100%;
-    font-size: 24px;
-    padding: 0 10px;
+    font-size: 18px;
+    padding: 15px;
     box-sizing: border-box;
     -webkit-appearance: none;
     /* Chrome */
@@ -246,11 +245,13 @@ body {
     height: 12px;
     position: absolute;
     right: 30px;
-    top: 33px;
+    top: 50%;
+    transform: translate(0, -50%);
     z-index: 0;
 }
 
-.cfg-select-inf-item input[type="text"] {
+.cfg-select-inf-item input[type="text"],
+.cfg-select-inf-item input[type="number"] {
     color: #131315;
     width: 100%;
     border: 1px solid #d9d9d9;
@@ -262,6 +263,13 @@ body {
     padding: 0 10px;
     box-sizing: border-box;
     background: #fff;
+    -moz-appearance: textfield;
+}
+
+.cfg-select-inf-item input[type="number"]::-webkit-outer-spin-button,
+.cfg-select-inf-item input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 ::-webkit-input-placeholder {
@@ -386,10 +394,10 @@ textarea:focus:-ms-input-placeholder {
 }
 
 .cfg-hint-bx .cfg-frame {
-    font-size: 24px;
+    font-size: 21px;
     line-height: 1;
     text-align: center;
-    padding: 30px;
+    padding: 15px;
     border: 2px solid #d9d9d9;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     background: #fff;
@@ -525,7 +533,7 @@ textarea:focus:-ms-input-placeholder {
 
 .cfg-table-bx .cfg-lbl,
 .cfg-pop-form .cfg-lbl {
-    font-size: 24px;
+    font-size: 21px;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
@@ -566,12 +574,6 @@ textarea:focus:-ms-input-placeholder {
     margin-bottom: 30px;
     display: flex;
     align-items: center;
-}
-
-.cfg-plus-bt {
-    display: block;
-    margin: 20px auto 0;
-    width: 85px;
 }
 
 .cfg-dim-bx {
@@ -669,7 +671,8 @@ textarea:focus:-ms-input-placeholder {
         font-size: 18px;
     }
     .cfg-select-inf-item select,
-    .cfg-select-inf-item input[type="text"] {
+    .cfg-select-inf-item input[type="text"],
+    .cfg-select-inf-item input[type="number"] {
         font-size: 16px;
         height: 50px;
     }
@@ -774,7 +777,8 @@ textarea:focus:-ms-input-placeholder {
         top: 0;
     }
     .cfg-select-inf-item select,
-    .cfg-select-inf-item input[type="text"] {
+    .cfg-select-inf-item input[type="text"],
+    .cfg-select-inf-item input[type="number"] {
         font-size: 12px;
     }
     .cfg-hint-bx {
@@ -833,7 +837,8 @@ textarea:focus:-ms-input-placeholder {
     .cfg-pop-form .cfg-select-inf-item select {
         background-position: 87% 50%;
     }
-    .cfg-pop-form .cfg-wr2 .cfg-select-inf-item input[type="text"] {
+    .cfg-pop-form .cfg-wr2 .cfg-select-inf-item input[type="text"],
+    .cfg-pop-form .cfg-wr2 .cfg-select-inf-item input[type="number"] {
         text-align: left;
     }
     .cfg-pop-form .cfg-bt-wr .cfg-btn {
