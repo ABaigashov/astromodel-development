@@ -12,15 +12,12 @@ $.ajax({
 });
 
 $(document).ready(($) => {
-    $(".cfg-pop-video").on("click", (event) => {
-        event.preventDefault();
-        $(".cfg-overlay, .cfg-popup-video").fadeIn();
-    });
     $(".cfg-pop-form-opener").on("click", (event) => {
         event.preventDefault();
         $(".cfg-overlay, .cfg-popup-form").fadeIn();
     });
     $(".cfg-popup .cfg-close").on("click", (event) => {
+        event.preventDefault();
         let children = [...document.getElementById("cfg-table").children].slice(
             1
         );
@@ -36,6 +33,7 @@ $(document).ready(($) => {
         $(".cfg-overlay, .cfg-popup").fadeOut();
     });
     $(".cfg-popup .cfg-btn-framed").on("click", (event) => {
+        event.preventDefault();
         let children = [...document.getElementById("cfg-table").children].slice(
             1
         );
@@ -64,11 +62,7 @@ $(document).ready(($) => {
         let reader = new FileReader();
         reader.readAsText(file, "UTF-8");
         reader.onload = (event) => {
-            let data = JSON.parse(event.target.result);
-            for (let selector of data._[0]) {
-                eval(selector);
-            }
-            window.location.href = "#cfg-page-2";
+            load_config(JSON.parse(event.target.result));
         };
     });
 });
@@ -76,7 +70,21 @@ $(document).ready(($) => {
 let OBJECTS = {};
 
 window.onload = () => {
-    window.location.href = window.location.hash || "#cfg-page-1";
+    if (
+        ["", "#", "#cfg-page-1", "#cfg-page-2", "#cfg-page-3"].includes(
+            window.location.hash
+        )
+    ) {
+        window.location.href = window.location.hash || "#cfg-page-1";
+    }
+    if (window.name) {
+        let name = window.name;
+        try {
+            load_config(JSON.parse(decodeURI(atob(name))));
+            console.log("Config loaded via terminal");
+            window.name = "";
+        } catch {}
+    }
 };
 
 function generate_hint(slots) {
@@ -105,6 +113,10 @@ function generate_label(slots) {
     let wrap = document.createElement("div");
     wrap.className = "cfg-lbl";
 
+    if (slots.short) {
+        wrap.classList.add("cfg-lbl-short");
+    }
+
     let label = document.createTextNode(slots.title);
     wrap.appendChild(label);
 
@@ -126,6 +138,7 @@ function generate_select(cases, name) {
     placeholder.selected = true;
     placeholder.hidden = true;
     placeholder.disabled = true;
+    placeholder.value = "";
     placeholder.innerText = "Выберите";
 
     select.appendChild(placeholder);
@@ -160,6 +173,7 @@ function generate_basic_input(name, slots) {
 }
 
 function generate_unit_input(name, slots, units) {
+    slots.short = true;
     let basic = generate_basic_input(name + ".value", slots);
 
     let input = basic.getElementsByTagName("input")[0];
@@ -446,50 +460,8 @@ function clear_inputs() {
     }
 }
 
-function new_obj() {
-    $(".cfg-overlay, .cfg-popup-form").fadeIn();
-
-    clear_inputs();
-
-    let table = document.getElementById("cfg-table");
-    let name = document.getElementById("cfg-obj-name");
-
-    let count = table.children.length;
-    name.value = "Объект_" + count;
-
-    let type = document.getElementById("cfg-object-type");
-    type.selectedIndex = 0;
-
+function update_hooks() {
     let objects = document.getElementById("cfg-objects-content");
-    for (let div of objects.children) {
-        div.style.display = "none";
-    }
-    let color = "#" + (((1 << 24) * Math.random()) | 0).toString(16);
-    jscolorPicker.fromString(color);
-
-    let row = document.createElement("tr");
-    row.className = "cfg-filled";
-
-    let cases = [
-        "",
-        '{"edit":true}',
-        name.value,
-        "",
-        "<div class='cfg-color' style='background-color:" + color + "'></div>",
-        "<div class='cfg-red cfg-pop-form-opener'><img src='" +
-            server_url +
-            "/construct/static/images/red-bt.svg'></div>",
-    ].entries();
-
-    for (let [index, name] of cases) {
-        let column = document.createElement("td");
-        if (index < 2) {
-            column.style.display = "none";
-        }
-        column.innerHTML = name;
-        row.appendChild(column);
-    }
-    table.appendChild(row);
 
     $(".cfg-pop-form-opener").on("click", function (event) {
         event.preventDefault();
@@ -514,6 +486,54 @@ function new_obj() {
             eval(selector);
         }
     });
+}
+
+function new_obj() {
+    $(".cfg-overlay, .cfg-popup-form").fadeIn();
+
+    clear_inputs();
+
+    let table = document.getElementById("cfg-table");
+    let name = document.getElementById("cfg-obj-name");
+
+    let count = table.children.length;
+    name.value = "Объект_" + count;
+
+    let type = document.getElementById("cfg-object-type");
+    type.selectedIndex = 0;
+
+    let objects = document.getElementById("cfg-objects-content");
+    for (let div of objects.children) {
+        div.style.display = "none";
+    }
+    let color = "#" + (((1 << 24) * Math.random()) | 0).toString(16);
+    jscolorPicker.fromString(color);
+
+    let row = document.createElement("tr");
+    row.className = "cfg-filled";
+
+    let cases = Object.entries([
+        "",
+        '{"edit":true}',
+        name.value,
+        "",
+        "<div class='cfg-color' style='background-color:" + color + "'></div>",
+        "<div class='cfg-red cfg-pop-form-opener'><img src='" +
+            server_url +
+            "/construct/static/images/red-bt.svg'></div>",
+    ]);
+
+    for (let [index, name] of cases) {
+        let column = document.createElement("td");
+        if (index < 2) {
+            column.style.display = "none";
+        }
+        column.innerHTML = name;
+        row.appendChild(column);
+    }
+    table.appendChild(row);
+
+    update_hooks();
 }
 
 function save_obj() {
@@ -549,11 +569,74 @@ function save_obj() {
     }
 }
 
+function load_config(data) {
+    for (let selector of data.SELECTORS[0]) {
+        eval(selector);
+    }
+    let selectors = {};
+
+    for (let [type, objects] of Object.entries(data.OBJECTS)) {
+        for (let obj of objects) {
+            let index = obj.index;
+            delete obj.index;
+            obj.type = type;
+            selectors[index] = {
+                selectors: data.SELECTORS[index + 1],
+                data: obj,
+            };
+        }
+    }
+
+    for (let obj of Object.values(selectors)) {
+        let table = document.getElementById("cfg-table");
+        let row = document.createElement("tr");
+        row.className = "cfg-filled";
+
+        let color =
+            "#" +
+            (
+                (1 << 24) +
+                (obj.data.color[0] << 16) +
+                (obj.data.color[1] << 8) +
+                obj.data.color[2]
+            )
+                .toString(16)
+                .slice(1);
+
+        let cases = Object.entries([
+            JSON.stringify(obj.selectors),
+            JSON.stringify(obj.data),
+            obj.data.name,
+            obj.data.type,
+            "<div class='cfg-color' style='background-color:" +
+                color +
+                "'></div>",
+            "<div class='cfg-red cfg-pop-form-opener'><img src='" +
+                server_url +
+                "/construct/static/images/red-bt.svg'></div>",
+        ]);
+
+        for (let [index, name] of cases) {
+            let column = document.createElement("td");
+            if (index < 2) {
+                column.style.display = "none";
+            }
+            column.innerHTML = name;
+            row.appendChild(column);
+        }
+        table.appendChild(row);
+    }
+
+    update_hooks();
+
+    window.location.href = "#cfg-page-2";
+}
+
 function save_config() {
     let general = document.getElementById("cfg-general");
     let [selectors, config] = gen_data_by_element(general, true);
 
-    config._ = [selectors];
+    config.SELECTORS = [selectors];
     config.PROBLEM = problem_name;
     config.OBJECTS = {};
     for (let type of Object.keys(STRUCTURE.OBJECTS)) {
@@ -564,14 +647,16 @@ function save_config() {
     let children = [...table.children].slice(1);
 
     for (let [index, child] of Object.entries(children)) {
-        selectors = JSON.parse(child.children[0].innerText);
         data = JSON.parse(child.children[1].innerText);
+        selectors = JSON.parse(child.children[0].innerText);
         let type = data.type;
         delete data.type;
         data.index = Number(index);
-        config._.push(selectors);
+        config.SELECTORS.push(selectors);
         config.OBJECTS[type].push(data);
     }
 
-    console.log(btoa(encodeURI(JSON.stringify(config))));
+    let enc = btoa(encodeURI(JSON.stringify(config)));
+    window.name = enc;
+    window.location.pathname = "/terminal/";
 }

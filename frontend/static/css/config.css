@@ -1,7 +1,7 @@
 .cfg-container {
     max-width: 1170px;
     margin: 0 auto;
-    padding: max(15px, 5vh) 5vw;
+    padding: 15px 3vw;
     display: none;
 }
 
@@ -13,8 +13,13 @@
 }
 
 .cfg-table-bx .cfg-h3 {
-    font-size: 30px;
-    margin-bottom: 20px;
+    font-size: 26px;
+    margin-bottom: 25px;
+}
+
+.cfg-plus-bt {
+    display: block;
+    margin: 10px auto 0;
 }
 
 .cfg-table-wrap {
@@ -28,8 +33,10 @@
 }
 
 .cfg-table td {
+    font-size: 18px;
+    text-align: center;
     border: 1px solid #d2d2d2;
-    padding: 25px 10px;
+    padding: 10px 5px;
 }
 
 .cfg-table .cfg-open-res {
@@ -77,9 +84,8 @@
 }
 
 .cfg-popup-video .cfg-vid-bx {
-    border: 2px solid #d9d9d9;
     margin: 0 auto 30px;
-    max-width: 600px;
+    max-width: 700px;
 }
 
 .cfg-popup-video .cfg-vid-bx > img,
@@ -93,14 +99,18 @@
     justify-content: space-between;
 }
 
+.cfg-btn-wr .cfg-btn:not(:last-child) {
+    margin-right: 20px;
+}
+
 .cfg-btn {
-    padding: 15px 20px;
+    padding: 15px;
     text-align: center;
     background: #bb2028;
     border-radius: 9px;
     border: 1px solid #bb2028;
-    font-size: 20px;
-    min-width: 270px;
+    font-size: 19px;
+    min-width: 250px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -126,13 +136,18 @@
     color: #000;
 }
 
+.cfg-btn-filled:hover {
+    border-color: #000;
+    color: #fff;
+}
+
 body {
     margin: 0;
 }
 
 .cfg-table-bx .cfg-h4 {
     margin-bottom: 35px;
-    font-size: 21px;
+    font-size: 19px;
 }
 
 .cfg-file-bx {
@@ -151,7 +166,7 @@ body {
 }
 
 .cfg-file-bx .cfg-tt .cfg-t1 {
-    font-size: 30px;
+    font-size: 26px;
 }
 
 .cfg-file-bx .cfg-tt .cfg-t2 {
@@ -195,7 +210,7 @@ body {
 }
 
 .cfg-back-bx .cfg-tt {
-    font-size: 21px;
+    font-size: 18px;
     text-align: right;
     line-height: 25px;
 }
@@ -257,10 +272,9 @@ body {
     border: 1px solid #d9d9d9;
     outline: 0;
     border-radius: 9px;
-    height: 80px;
     width: 100%;
-    font-size: 24px;
-    padding: 0 10px;
+    font-size: 18px;
+    padding: 15px;
     box-sizing: border-box;
     background: #fff;
     -moz-appearance: textfield;
@@ -370,7 +384,7 @@ textarea:focus:-ms-input-placeholder {
 
 .cfg-select-inf-item .cfg-sel-over {
     right: 0;
-    top: 0;
+    bottom: 0;
     position: absolute;
     width: 350px;
 }
@@ -384,7 +398,10 @@ textarea:focus:-ms-input-placeholder {
 }
 
 .cfg-hint-bx .cfg-opener {
+    min-width: 24px;
+    min-height: 24px;
     margin-left: 5px;
+    margin-right: 20px;
     cursor: pointer;
 }
 
@@ -402,7 +419,7 @@ textarea:focus:-ms-input-placeholder {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     background: #fff;
     z-index: 2;
-    right: -30px;
+    right: -10px;
     bottom: 50px;
     width: 300px;
     box-sizing: border-box;
@@ -434,9 +451,14 @@ textarea:focus:-ms-input-placeholder {
 }
 
 .cfg-table .cfg-color {
+    margin: 0 auto;
     width: 40px;
     height: 40px;
     border-radius: 5px;
+}
+
+.cfg-table .cfg-filled td {
+    background: #eeeeee;
 }
 
 .cfg-table .cfg-filled td {
@@ -447,6 +469,20 @@ textarea:focus:-ms-input-placeholder {
     top: 5%;
     max-height: 90%;
     overflow: auto;
+}
+
+.cfg-popup-form::-webkit-scrollbar {
+    width: 5px;
+}
+
+.cfg-popup-form::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.cfg-popup-form::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .cfg-table .cfg-red {
@@ -466,7 +502,7 @@ textarea:focus:-ms-input-placeholder {
 }
 
 .cfg-popup-form .cfg-select-inf-item {
-    margin-bottom: 15px;
+    margin-bottom: 25px;
 }
 
 .cfg-pop-form .cfg-h2 {
@@ -533,10 +569,22 @@ textarea:focus:-ms-input-placeholder {
 
 .cfg-table-bx .cfg-lbl,
 .cfg-pop-form .cfg-lbl {
-    font-size: 21px;
+    font-size: 19px;
     margin-bottom: 10px;
     display: flex;
     align-items: center;
+    max-width: 100%;
+}
+
+.cfg-table-bx .cfg-lbl-short,
+.cfg-pop-form .cfg-lbl-short {
+    max-width: 50%;
+}
+
+#cfg-table .cfg-del img {
+    min-width: 33px;
+    max-width: 33px;
+    height: auto;
 }
 
 .cfg-check-item {
@@ -551,7 +599,7 @@ textarea:focus:-ms-input-placeholder {
 
 .cfg-check-item span {
     display: block;
-    font-size: 24px;
+    font-size: 18px;
     color: #131315;
     position: relative;
     padding-left: 50px;
@@ -560,11 +608,12 @@ textarea:focus:-ms-input-placeholder {
 
 .cfg-check-item span:after {
     content: "";
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 9px;
     position: absolute;
-    top: 0;
+    top: 50%;
+    transform: translate(0, -50%);
     left: 0;
     border: 1px solid #d9d9d9;
 }
@@ -589,7 +638,6 @@ textarea:focus:-ms-input-placeholder {
 
 .cfg-dim-bx .cfg-bx .cfg-let {
     font-size: 36px;
-    line-height: 80px;
     position: absolute;
     left: 0;
     top: 0;
@@ -599,6 +647,7 @@ textarea:focus:-ms-input-placeholder {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    padding-top: 20px;
 }
 
 .cfg-select-inf-item .cfg-line-bx .cfg-select {
@@ -618,7 +667,7 @@ textarea:focus:-ms-input-placeholder {
         font-size: 18px;
     }
     .cfg-table-bx .cfg-h3 {
-        font-size: 30px;
+        font-size: 26px;
     }
     .cfg-btn {
         padding: 15px 30px;
@@ -683,9 +732,6 @@ textarea:focus:-ms-input-placeholder {
         padding: 15px;
         width: 200px;
         font-size: 16px;
-    }
-    .cfg-select-inf-item .cfg-select:after {
-        top: 18px;
     }
     .cfg-table-bx .cfg-lbl,
     .cfg-check-item span {
@@ -760,9 +806,6 @@ textarea:focus:-ms-input-placeholder {
     .cfg-table-bx .cfg-h3 {
         font-size: 24px;
     }
-    .cfg-table .cfg-del img {
-        width: 20px;
-    }
     .cfg-table {
         font-size: 14px;
     }
@@ -785,10 +828,7 @@ textarea:focus:-ms-input-placeholder {
         right: 5px;
     }
     .cfg-hint-bx .cfg-frame {
-        right: -15px;
-    }
-    .cfg-hint-bx .cfg-frame:after {
-        right: 15px;
+        right: 0px;
     }
     .cfg-select-inf-item select {
         background-position: 90% 50%;
@@ -807,7 +847,8 @@ textarea:focus:-ms-input-placeholder {
         width: 100%;
     }
     .cfg-table .cfg-red img {
-        width: 15px;
+        min-width: 30px;
+        min-height: 30px;
     }
     .cfg-table .cfg-color {
         width: 30px;
@@ -878,6 +919,17 @@ textarea:focus:-ms-input-placeholder {
     }
 }
 
+@media (max-width: 500px) {
+    .cfg-popup-video .cfg-btn-wr {
+        display: inline;
+    }
+
+    .cfg-popup-video .cfg-btn-wr .cfg-btn {
+        margin: 0 auto 20px;
+        width: 80%;
+    }
+}
+
 button {
     cursor: pointer;
 }
@@ -887,9 +939,13 @@ button {
 }
 
 .cfg-select-inf-item .cfg-select select:required:invalid {
-    color: #a5a5a5;
+    color: #ada5a5;
+}
+
+.cfg-select-inf-item .cfg-select option[value=""][disabled] {
+    display: none;
 }
 
 .cfg-select-inf-item .cfg-select option {
-    color: black;
+    color: #131315;
 }

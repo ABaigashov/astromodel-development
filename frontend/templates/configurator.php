@@ -5,21 +5,10 @@
 .cfg-select-inf-item .cfg-select:after {
     background: url(<?php echo $server_url; ?>/construct/static/images/arrow-down.svg) 50% no-repeat;
 }
-
-<?php for ($i = 1; $i <= 32; $i++) { ?>
-.cfg-table .cfg-color<?php echo $i; ?> {
-    background: linear-gradient(
-        <?php echo mt_rand(0, 360); ?>deg,
-        <?php echo sprintf("#%06X", mt_rand(0, 0xFFFFFF)); ?> 0%,
-        <?php echo sprintf("#%06X", mt_rand(0, 0xFFFFFF)); ?> 50%,
-        <?php echo sprintf("#%06X", mt_rand(0, 0xFFFFFF)); ?> 100%
-    );
-}
-<?php } ?>
 </style>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&amp;display=swap" rel="stylesheet">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
@@ -122,7 +111,7 @@
                         <div class="cfg-hint-bx">
                             <div class="cfg-opener"><img
                                     src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt=""></div>
-                            <div class="cfg-frame">Всплывающая информация по данному полю</div>
+                            <div class="cfg-frame">Пока ничего...</div>
                         </div>
                     </div>
                     <input type="text" placeholder="Текст" id="cfg-obj-name" data-config-key="name">
@@ -133,7 +122,7 @@
                         <div class="cfg-hint-bx">
                             <div class="cfg-opener"><img
                                     src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt=""></div>
-                            <div class="cfg-frame">Всплывающая информация по данному полю</div>
+                            <div class="cfg-frame">Пока ничего...</div>
                         </div>
                     </div>
                     <input type="text" id="cfg-obj-color" data-config-key="color">
@@ -150,7 +139,7 @@
                 </div>
                 <div class="cfg-select">
                     <select id="cfg-object-type" required>
-                        <option disabled selected hidden>Выберите</option>
+                        <option disabled selected hidden value="">Выберите</option>
 
                         <!-- objects types here -->
 
