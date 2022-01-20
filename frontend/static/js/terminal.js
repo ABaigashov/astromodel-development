@@ -312,6 +312,7 @@ api_request("user_register", { login, name: "" }, () => {
         if (window.name) {
             let name = window.name;
             try {
+                let cfg = JSON.parse(decodeURI(atob(name)));
                 let date = new Date();
                 let data = (
                     await $.ajax({
@@ -324,16 +325,23 @@ api_request("user_register", { login, name: "" }, () => {
                         dataType: "json",
                     })
                 ).answer.map((x) => x.name);
-                let title = 1;
-                while (data.includes("Задача_" + title)) {
-                    title += 1;
+
+                let filename;
+                if (cfg.GENERAL.name) {
+                    filename = cfg.GENERAL.name;
+                } else {
+                    filename = 1;
+                    while (data.includes("Задача_" + filename)) {
+                        filename += 1;
+                    }
+                    filename = "Задача_" + filename;
                 }
+
                 api_request(
                     "job_execute",
                     {
-                        config: JSON.parse(decodeURI(atob(name))),
-                        filename: "Задача_" + title,
-
+                        config: cfg,
+                        filename,
                         session,
                     },
                     () => {}

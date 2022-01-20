@@ -458,13 +458,8 @@ textarea:focus:-ms-input-placeholder {
 }
 
 .cfg-table .cfg-filled td {
-    background: #eeeeee;
+    background: #f5f5f5;
 }
-
-.cfg-table .cfg-filled td {
-    background: #eeeeee;
-}
-
 .cfg-popup-form {
     top: 5%;
     max-height: 90%;
@@ -948,4 +943,32 @@ button {
 
 .cfg-select-inf-item .cfg-select option {
     color: #131315;
+}
+
+.cfg-scale-bx {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.cfg-scale-bx .cfg-h3 {
+    margin: 0;
+}
+.cfg-scale-bx .cfg-tmp-bx {
+    margin: 0;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 500px) {
+    .cfg-scale-bx {
+        display: block;
+    }
+    .cfg-scale-bx .cfg-h3 {
+        margin-bottom: 15px;
+    }
+    .cfg-scale-bx .cfg-tmp-bx {
+        justify-content: flex-end;
+    }
 }

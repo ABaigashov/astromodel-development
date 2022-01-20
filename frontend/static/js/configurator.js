@@ -63,6 +63,7 @@ $(document).ready(($) => {
         reader.readAsText(file, "UTF-8");
         reader.onload = (event) => {
             load_config(JSON.parse(event.target.result));
+            setTimeout(() => window.scrollTo(0, 0), 1);
         };
     });
 });
@@ -79,10 +80,19 @@ window.onload = () => {
     }
     if (window.name) {
         let name = window.name;
+
         try {
-            load_config(JSON.parse(decodeURI(atob(name))));
-            console.log("Config loaded via terminal");
-            window.name = "";
+            let cfg = JSON.parse(decodeURI(atob(name)));
+            setTimeout(() => {
+                try {
+                    load_config(cfg);
+                    console.log("Config loaded via terminal");
+                } catch (e) {
+                    console.log(e);
+                }
+                window.name = "";
+                setTimeout(() => window.scrollTo(0, 0), 1);
+            }, 10);
         } catch {}
     }
 };
@@ -136,8 +146,6 @@ function generate_select(cases, name) {
 
     let placeholder = document.createElement("option");
     placeholder.selected = true;
-    placeholder.hidden = true;
-    placeholder.disabled = true;
     placeholder.value = "";
     placeholder.innerText = "Выберите";
 
@@ -628,7 +636,6 @@ function load_config(data) {
     }
 
     update_hooks();
-
     window.location.href = "#cfg-page-2";
 }
 
@@ -658,5 +665,5 @@ function save_config() {
 
     let enc = btoa(encodeURI(JSON.stringify(config)));
     window.name = enc;
-    window.location.pathname = "/terminal/";
+    window.location.href = window.location.origin + "/terminal/";
 }

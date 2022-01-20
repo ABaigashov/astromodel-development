@@ -20,23 +20,22 @@
     <div class="cfg-table-bx">
         <div class="cfg-h3">Загрузка конфигурационного файла</div>
         <div class="cfg-step-bx">
-            <div class="cfg-h4">Шаг 1. Создание пространства моделирования</div>
             <div class="cfg-file-bx">
                 <div class="cfg-tt">
                     <div class="cfg-t1">Загрузите свой файл</div>
-                    <div class="cfg-t2">Если у Вас уже есть конфигурациооный файл, то загрузите его (Форматы JSON, не
+                    <div class="cfg-t2">Если у Вас уже есть конфигурационый файл, то загрузите его (Форматы JSON, не
                         более 2 мб)</div>
                 </div>
                 <input type="file" id="cfg-file-input" style="display:none;" accept=".json" />
-                <button class="cfg-btn" onclick="$('#cfg-file-input').trigger('click');">Прикрепить файл</button>
+                <button class="cfg-btn" onclick="$('#cfg-file-input').trigger('click')">Прикрепить файл</button>
             </div>
             <div class="cfg-file-bx">
                 <div class="cfg-tt">
                     <div class="cfg-t1">Создайте новый файл</div>
-                    <div class="cfg-t2">Создайте новый конфигурациооный файл (Формат JSON)</div>
+                    <div class="cfg-t2">Создайте новый конфигурационый файл (Формат JSON)</div>
                 </div>
                 <a href="#cfg-page-2">
-                    <button  class="cfg-btn">Создать файл</button>
+                    <button class="cfg-btn" onclick="setTimeout(()=>window.scrollTo(0,0),1)">Создать файл</button>
                 </a>
             </div>
             <div class="cfg-back-bx cfg-back-bx-cc">
@@ -52,6 +51,21 @@
         <div class="cfg-h3">Создание нового конфигурационного файла</div>
         <div class="cfg-h4">Шаг 1. Создание пространства моделирования</div>
         <div class="cfg-step-bx" id="cfg-general">
+
+        <div class="cfg-select-inf-item">
+            <div class="cfg-lbl">
+                Название сценария
+                <div class="cfg-hint-bx">
+                    <div class="cfg-opener">
+                        <img src="https://off.ddns.net:8008/construct/static/images/info-circle.svg">
+                    </div>
+                    <div class="cfg-frame">
+                        Пока ничего...
+                    </div>
+                </div>
+            </div>
+            <input type="text" placeholder="Введите" data-config-key="GENERAL.name">
+        </div>
 
             <!-- general content here -->
 
@@ -134,12 +148,12 @@
                     <div class="cfg-hint-bx">
                         <div class="cfg-opener"><img
                                 src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt=""></div>
-                        <div class="cfg-frame">Всплывающая информация по данному полю</div>
+                        <div class="cfg-frame">Пока ничего...</div>
                     </div>
                 </div>
                 <div class="cfg-select">
                     <select id="cfg-object-type" required>
-                        <option disabled selected hidden value="">Выберите</option>
+                        <option selected value="">Выберите</option>
 
                         <!-- objects types here -->
 
