@@ -80,10 +80,9 @@ window.onload = () => {
     }
     if (window.name) {
         let name = window.name;
-
-        try {
-            let cfg = JSON.parse(decodeURI(atob(name)));
-            setTimeout(() => {
+        setTimeout(() => {
+            try {
+                let cfg = JSON.parse(decodeURI(atob(name)));
                 try {
                     load_config(cfg);
                     console.log("Config loaded via terminal");
@@ -92,8 +91,8 @@ window.onload = () => {
                 }
                 window.name = "";
                 setTimeout(() => window.scrollTo(0, 0), 1);
-            }, 10);
-        } catch {}
+            } catch {}
+        }, 100);
     }
 };
 
@@ -665,5 +664,7 @@ function save_config() {
 
     let enc = btoa(encodeURI(JSON.stringify(config)));
     window.name = enc;
-    window.location.href = window.location.origin + "/terminal/";
+    setTimeout(() => {
+        window.location.href = window.location.origin + "/terminal/";
+    });
 }

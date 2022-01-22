@@ -57,7 +57,7 @@
                 Название сценария
                 <div class="cfg-hint-bx">
                     <div class="cfg-opener">
-                        <img src="https://off.ddns.net:8008/construct/static/images/info-circle.svg">
+                        <img src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg">
                     </div>
                     <div class="cfg-frame">
                         Пока ничего...

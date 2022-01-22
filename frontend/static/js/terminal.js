@@ -23,9 +23,6 @@ const session = Array(64)
     .map((x) => "0123456789abcdef"[(16 * Math.random()) | 0])
     .join("");
 
-// var request_server = server_url
-var request_server = "https://off.ddns.net:8888";
-
 function api_request(url, data, callback) {
     let date = new Date();
     $.ajax({
@@ -231,7 +228,9 @@ function update_list() {
                     .then((res) => res.json())
                     .then((json) => {
                         window.name = btoa(encodeURI(JSON.stringify(json)));
-                        window.location.pathname = "/" + json.PROBLEM + "/";
+                        setTimeout(() => {
+                            window.location.pathname = "/" + json.PROBLEM + "/";
+                        }, 100);
                     });
             });
 
@@ -303,59 +302,6 @@ function update_list() {
     });
 }
 
-let login = document
-    .getElementsByClassName("user-snippet")[0]
-    .getAttribute("data-user-email");
-
-api_request("user_register", { login, name: "" }, () => {
-    api_request("user_authorize", { login, session }, async () => {
-        if (window.name) {
-            let name = window.name;
-            try {
-                let cfg = JSON.parse(decodeURI(atob(name)));
-                let date = new Date();
-                let data = (
-                    await $.ajax({
-                        method: "POST",
-                        url: request_server + "/api/job_list",
-                        data: JSON.stringify({
-                            timezone: date.getTimezoneOffset(),
-                            data: { session },
-                        }),
-                        dataType: "json",
-                    })
-                ).answer.map((x) => x.name);
-
-                let filename;
-                if (cfg.GENERAL.name) {
-                    filename = cfg.GENERAL.name;
-                } else {
-                    filename = 1;
-                    while (data.includes("Задача_" + filename)) {
-                        filename += 1;
-                    }
-                    filename = "Задача_" + filename;
-                }
-
-                api_request(
-                    "job_execute",
-                    {
-                        config: cfg,
-                        filename,
-                        session,
-                    },
-                    () => {}
-                );
-                console.log("Config loaded via configurator");
-                window.name = "";
-            } catch (e) {
-                console.log(e);
-            }
-        }
-        update_list();
-    });
-});
-
 function formatDate(timestamp, format) {
     if (timestamp == 0) {
         return "Никогда";
@@ -383,3 +329,82 @@ function formatDate(timestamp, format) {
     format = format.replace(/S/g, date[5]);
     return format;
 }
+
+try {
+    try {
+        request_server;
+    } catch (e) {
+        let article = document.getElementsByClassName("article")[0];
+        article.outerHTML = `<div style="background:white;width:100%;height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:'Ubuntu Mono',monospace;"><h1>Error -1</h1><h3>No server url</h3></div>`;
+        throw Error("");
+    }
+
+    fetch(request_server)
+        .then((result) => {
+            if (!result.ok) {
+                throw Error("");
+            }
+
+            let login = document
+                .getElementsByClassName("user-snippet")[0]
+                .getAttribute("data-user-email");
+
+            api_request("user_register", { login, name: "" }, () => {
+                api_request("user_authorize", { login, session }, async () => {
+                    if (window.name) {
+                        let name = window.name;
+                        try {
+                            let cfg = JSON.parse(decodeURI(atob(name)));
+                            let date = new Date();
+                            let data = (
+                                await $.ajax({
+                                    method: "POST",
+                                    url: request_server + "/api/job_list",
+                                    data: JSON.stringify({
+                                        timezone: date.getTimezoneOffset(),
+                                        data: { session },
+                                    }),
+                                    dataType: "json",
+                                })
+                            ).answer.map((x) => x.name);
+
+                            setTimeout(() => {
+                                let filename;
+
+                                if (cfg.GENERAL.name) {
+                                    filename = cfg.GENERAL.name;
+                                } else {
+                                    filename = 1;
+                                    while (
+                                        data.includes("Задача_" + filename)
+                                    ) {
+                                        filename += 1;
+                                    }
+                                    filename = "Задача_" + filename;
+                                }
+
+                                api_request(
+                                    "job_execute",
+                                    {
+                                        config: cfg,
+                                        filename,
+                                        session,
+                                    },
+                                    () => {}
+                                );
+                                console.log("Config loaded via configurator");
+                                window.name = "";
+                            }, 100);
+                        } catch (e) {
+                            console.log(e);
+                        }
+                    }
+                    update_list();
+                });
+            });
+        })
+        .catch(() => {
+            let article = document.getElementsByClassName("article")[0];
+            article.outerHTML = `<div style="background:white;width:100%;height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:'Ubuntu Mono',monospace;"><h1>Error -1</h1><h3>Wrong server url</h3></div>`;
+        });
+} catch {}
