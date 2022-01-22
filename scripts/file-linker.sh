@@ -1,7 +1,7 @@
 #!/bin/bash
 
 problems=$PWD/modeling_module/physical_problems
-configs=$PWD/configurator/configs
+configs=$PWD/frontend/configs
 requirements=$PWD/modeling_module/requirements
 setups=$PWD/modeling_module/setups
 server=$PWD/docker/server_config.yml
