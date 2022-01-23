@@ -146,38 +146,44 @@ function update_list() {
             let ext = responce.split(".").slice(-1)[0];
             let error = false;
 
-            if (ext === "mp4") {
-                rows +=
-                    '<video autoplay loop style="width:100%;max-height:65vh"><source src="' +
-                    responce +
-                    '" type="video/mp4"></video>';
-            } else if (["txt", ".log"].includes(ext)) {
-                try {
+            try {
+                if (ext === "mp4") {
+                    rows +=
+                        '<video autoplay loop style="width:100%;max-height:65vh"><source src="' +
+                        responce +
+                        '" type="video/mp4"></video>';
+                } else if (["txt", ".log"].includes(ext)) {
                     let text = await $.ajax({
                         method: "GET",
                         url: responce,
                     });
-                    rows += "<pre>" + text + "</pre>";
-                } catch {
-                    error = true;
                     rows +=
-                        '<pre style="line-height:20;text-align:center;margin:50px">Файл с логом ошибки отсутствует.</pre>';
-                }
-            } else if (ext == "json") {
-                let data = await $.ajax({
-                    method: "GET",
-                    url: responce,
-                    dataType: "json",
-                });
-                console.log(data);
-                rows += "<pre>check console</pre>";
-            } else {
-                rows +=
-                    '<pre style="line-height:20;text-align:center;margin:50px"white-space: -moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word;>Неизвестный формат данных ".' +
-                    ext +
-                    '"</pre>';
-            }
+                        "<pre style='height:70vh;overflow:auto;'>" +
+                        text +
+                        "</pre>";
+                } else if (ext == "json") {
+                    let data = await $.ajax({
+                        method: "GET",
+                        url: responce,
+                        dataType: "json",
+                    });
+                    data = JSON.stringify(data, null, 2);
 
+                    rows +=
+                        "<pre style='height:70vh;overflow:auto;'>" +
+                        data +
+                        "</pre>";
+                } else {
+                    rows +=
+                        '<pre style="line-height:20;text-align:center;margin:50px">Неизвестный формат данных ".' +
+                        ext +
+                        '"</pre>';
+                }
+            } catch {
+                error = true;
+                rows +=
+                    '<pre style="line-height:20;text-align:center;margin:50px">Файл с логом ошибки отсутствует.</pre>';
+            }
             rows += '</div><div class="cfg-btn-wr">';
             rows +=
                 '<a href="' +

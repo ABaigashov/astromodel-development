@@ -104,7 +104,7 @@ class JsonModel(BaseModel):
 			json.dump(data, f, indent=4)
 
 		# Return path to file
-		return self.output + '.json'
+		# return self.output + '.json'
 
 
 # Expanding base model with 'matplotlib' render

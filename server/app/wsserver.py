@@ -118,8 +118,8 @@ class AstroServer:
 							await Database.JobUpdate(job)
 
 							job_result = job.path + 'result' + job.extention
-							# if os.path.exists(job_result):
-							# 	os.rename(job_result, job.path + "error.txt")
+							if os.path.exists(job_result):
+								os.rename(job_result, job.path + "error.txt")
 
 							print("Job error: " + str(node.jobnode.progress))
 							request = {}

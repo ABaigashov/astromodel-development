@@ -62,7 +62,7 @@ class AstroNode:
 			return request.toJSON()
 		else:
 			self.update_state()
-			print('Update node status')
+			print('Update node status', file=sys.__stdout__)
 			request = Request("nodestatus", **self.jobnode.__dict__)
 			return request.toJSON()
 
@@ -79,7 +79,7 @@ class AstroNode:
 		#try:
 		self.executor_thread = None
 		async with websockets.connect(self.host, max_size=1048576*50) as websocket:
-			print('Connection established')
+			print('Connection established', file=sys.__stdout__)
 			self.connected = True
 			while self.connected:
 				if self.executor_thread is None:
@@ -104,7 +104,7 @@ class AstroNode:
 					file_result.close()
 
 					await websocket.send(data_result)
-					print('Job done')
+					print('Job done', file=sys.__stdout__)
 
 				elif self.job.progress == -1:
 					self.executor_thread.join()
@@ -123,7 +123,7 @@ class AstroNode:
 
 					file_result.close()
 					await websocket.send(data_result)
-					print('Job aborted')
+					print('Job aborted', file=sys.__stdout__)
 
 				message = await self.wsstatus()
 				await websocket.send(message)
@@ -137,7 +137,7 @@ class AstroNode:
 							self.jobnode = JobNode()
 							self.jobnode.FromData(**response["args"])
 							self.jobnode.problem = os.environ['PROBLEM']
-							print("JobNode has been registered")
+							print("JobNode has been registered", file=sys.__stdout__)
 						elif response["command"] == "execute":
 							if 'job' in response['args']:
 								self.job = Job()
@@ -153,7 +153,7 @@ class AstroNode:
 							else:
 								if os.path.exists(path_config):
 									os.remove(path_config)
-							print("Job has been accepted")
+							print("Job has been accepted", file=sys.__stdout__)
 						elif response["command"] == "release":
 							path_result = get_path(self.job)
 							if os.path.exists(path_result):
@@ -162,7 +162,7 @@ class AstroNode:
 							job_task = None
 							self.job = None
 							self.update_state()
-							print("JobNode has been released")
+							print("JobNode has been released", file=sys.__stdout__)
 		#except Exception as ex:
 		#    print(str(ex))
 	#        print('Connection failed')
@@ -180,4 +180,4 @@ try:
 	loop.run_until_complete(client.wsstart())
 	loop.run_forever()
 except KeyboardInterrupt:
-	print("Client is shuttong down...")
+	print("Client is shuttong down...", file=sys.__stdout__)
