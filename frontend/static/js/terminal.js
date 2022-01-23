@@ -146,31 +146,36 @@ function update_list() {
             let ext = responce.split(".").slice(-1)[0];
             let error = false;
 
-            switch (ext) {
-                case "mp4":
+            if (ext === "mp4") {
+                rows +=
+                    '<video autoplay loop style="width:100%;max-height:65vh"><source src="' +
+                    responce +
+                    '" type="video/mp4"></video>';
+            } else if (["txt", ".log"].includes(ext)) {
+                try {
+                    let text = await $.ajax({
+                        method: "GET",
+                        url: responce,
+                    });
+                    rows += "<pre>" + text + "</pre>";
+                } catch {
+                    error = true;
                     rows +=
-                        '<video autoplay loop style="width:100%;max-height:65vh"><source src="' +
-                        responce +
-                        '" type="video/mp4"></video>';
-                    break;
-                case "txt":
-                    try {
-                        let text = await $.ajax({
-                            method: "GET",
-                            url: responce,
-                        });
-                        rows += "<pre>" + text + "</pre>";
-                    } catch {
-                        error = true;
-                        rows +=
-                            '<pre style="line-height:20;text-align:center;margin:50px">Файл с логом ошибки отсутствует.</pre>';
-                    }
-                    break;
-                default:
-                    rows +=
-                        '<pre style="line-height:20;text-align:center;margin:50px"white-space: -moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word;>Неизвестный формат данных ".' +
-                        ext +
-                        '"</pre>';
+                        '<pre style="line-height:20;text-align:center;margin:50px">Файл с логом ошибки отсутствует.</pre>';
+                }
+            } else if (ext == "json") {
+                let data = await $.ajax({
+                    method: "GET",
+                    url: responce,
+                    dataType: "json",
+                });
+                console.log(data);
+                rows += "<pre>check console</pre>";
+            } else {
+                rows +=
+                    '<pre style="line-height:20;text-align:center;margin:50px"white-space: -moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word;>Неизвестный формат данных ".' +
+                    ext +
+                    '"</pre>';
             }
 
             rows += '</div><div class="cfg-btn-wr">';
@@ -350,50 +355,69 @@ try {
                 .getAttribute("data-user-email");
 
             api_request("user_register", { login, name: "" }, () => {
-                api_request("user_authorize", { login, session }, async () => {
+                api_request("user_authorize", { login, session }, () => {
                     if (window.name) {
-                        let name = window.name;
                         try {
-                            let cfg = JSON.parse(decodeURI(atob(name)));
-                            let date = new Date();
-                            let data = (
-                                await $.ajax({
-                                    method: "POST",
-                                    url: request_server + "/api/job_list",
-                                    data: JSON.stringify({
-                                        timezone: date.getTimezoneOffset(),
-                                        data: { session },
-                                    }),
-                                    dataType: "json",
-                                })
-                            ).answer.map((x) => x.name);
-
                             setTimeout(() => {
-                                let filename;
+                                let name = window.name;
+
+                                let cfg = JSON.parse(decodeURI(atob(name)));
 
                                 if (cfg.GENERAL.name) {
-                                    filename = cfg.GENERAL.name;
-                                } else {
-                                    filename = 1;
-                                    while (
-                                        data.includes("Задача_" + filename)
-                                    ) {
-                                        filename += 1;
-                                    }
-                                    filename = "Задача_" + filename;
-                                }
+                                    let filename = cfg.GENERAL.name;
 
-                                api_request(
-                                    "job_execute",
-                                    {
-                                        config: cfg,
-                                        filename,
-                                        session,
-                                    },
-                                    () => {}
-                                );
-                                console.log("Config loaded via configurator");
-                                window.name = "";
+                                    api_request(
+                                        "job_execute",
+                                        {
+                                            config: cfg,
+                                            filename,
+                                            session,
+                                        },
+                                        () => {}
+                                    );
+                                    console.log(
+                                        "Config loaded via configurator"
+                                    );
+                                    window.name = "";
+                                } else {
+                                    let date = new Date();
+
+                                    let data = $.ajax({
+                                        method: "POST",
+                                        url: request_server + "/api/job_list",
+                                        data: JSON.stringify({
+                                            timezone: date.getTimezoneOffset(),
+                                            data: { session },
+                                        }),
+                                        dataType: "json",
+                                    }).then((data) => {
+                                        let names = data.answer.map(
+                                            (x) => x.name
+                                        );
+
+                                        filename = 1;
+                                        while (
+                                            names.includes("Задача_" + filename)
+                                        ) {
+                                            filename += 1;
+                                        }
+                                        filename = "Задача_" + filename;
+
+                                        api_request(
+                                            "job_execute",
+                                            {
+                                                config: cfg,
+                                                filename,
+                                                session,
+                                            },
+                                            () => {}
+                                        );
+                                        console.log(
+                                            "Config loaded via configurator"
+                                        );
+                                        window.name = "";
+                                    });
+                                }
                             }, 100);
                         } catch (e) {
                             console.log(e);

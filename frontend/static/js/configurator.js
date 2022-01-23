@@ -87,7 +87,8 @@ window.onload = () => {
                     load_config(cfg);
                     console.log("Config loaded via terminal");
                 } catch (e) {
-                    console.log(e);
+                    console.log(cfg);
+                    console.error(e);
                 }
                 window.name = "";
                 setTimeout(() => window.scrollTo(0, 0), 1);

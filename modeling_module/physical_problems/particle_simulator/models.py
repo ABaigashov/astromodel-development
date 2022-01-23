@@ -78,8 +78,7 @@ class JsonModel(BaseModel):
 			"steps_number": str(self.config.steps_number),
 			"frames_gap": str(self.config.frames_gap),
 			"fps": str(self.config.fps),
-			"edge": str(self.edge),
-			"trajectory": str(self.config.trajectory),
+			"edge": str(self.edge)
 		}
 
 		# Loop throw every step
@@ -202,11 +201,11 @@ class Plot2DModel(PlotModel):
 			else:
 				self.all_trajectory[i] = np.append(self.all_trajectory[i], np.array([self.coords[i]]), axis=0)
 				# Drawing the trajectory of object
-			if self.trajectory[i]:
-				plt.plot(
-					*self.all_trajectory[i].T,
-					'.', ms=1, c=self.colors[i]
-				)
+				if self.trajectory[i]:
+					plt.plot(
+						*self.all_trajectory[i].T,
+						'.', ms=1, c=self.colors[i]
+					)
 
 
 # Creating 3D version of 'PlotModel'
@@ -256,20 +255,17 @@ class Plot3DModel(PlotModel):
 				c=self.colors[i]
 			)
 
-			# If the 'trajectory' parameter is turned on...
-			if self.config.trajectory:
-
 				# Saving current position to next iterations
-				if len(self.all_trajectory) == i:
-					self.all_trajectory.append(np.array([self.coords[i]]))
-				else:
-					self.all_trajectory[i] = np.append(self.all_trajectory[i], np.array([self.coords[i]]), axis=0)
-
+			if len(self.all_trajectory) == i:
+				self.all_trajectory.append(np.array([self.coords[i]]))
+			else:
+				self.all_trajectory[i] = np.append(self.all_trajectory[i], np.array([self.coords[i]]), axis=0)
 				# Drawing the trajectory of object
-				self.ax.plot(
-					*self.all_trajectory[i].T,
-					'.', ms=1, c=self.colors[i]
-				)
+				if self.trajectory[i]:
+					plt.plot(
+						*self.all_trajectory[i].T,
+						'.', ms=1, c=self.colors[i]
+					)
 
 
 # Function to get specified model
