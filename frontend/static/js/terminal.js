@@ -168,7 +168,7 @@ function update_list() {
                     break;
                 default:
                     rows +=
-                        '<pre style="line-height:20;text-align:center;margin:50px">Неизвестный формат данных ".' +
+                        '<pre style="line-height:20;text-align:center;margin:50px"white-space: -moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word;>Неизвестный формат данных ".' +
                         ext +
                         '"</pre>';
             }

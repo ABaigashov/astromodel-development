@@ -95,7 +95,6 @@ class AstroNode:
 					self.path_to_result = self.executor_thread.path_to_result
 					self.executor_thread = None
 					self.jobnode.extention = '.' + self.path_to_result.split('.')[-1]
-
 					message = await self.wsstatus()
 					await websocket.send(message)
 
@@ -110,11 +109,18 @@ class AstroNode:
 				elif self.job.progress == -1:
 					self.executor_thread.join()
 					self.path_to_result = self.executor_thread.path_to_result
+					
 					self.executor_thread = None
+					self.jobnode.extention = '.txt'
+
+					message = await self.wsstatus()
+					await websocket.send(message)
 
 					self.jobnode.state = 'failure'
 					file_result = open(self.path_to_result, "rb")
+
 					data_result = file_result.read()
+
 					file_result.close()
 					await websocket.send(data_result)
 					print('Job aborted')

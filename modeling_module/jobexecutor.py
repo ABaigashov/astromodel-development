@@ -31,8 +31,8 @@ class JobExecutor(Thread):
 
 	def run(self):
 		try:
-			with open(os.devnull, 'w') as devnull:
-				with redirect_stdout(devnull):
+			with open(self.path_to_result, 'w') as logfile:
+				with redirect_stdout(logfile):
 					self.path_to_result = self.model.run()
 			self.job.progress = 1
 			os.chmod(self.path_to_result, 0o666)
