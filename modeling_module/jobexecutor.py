@@ -42,6 +42,8 @@ class JobExecutor(Thread):
 			if not os.path.exists(result):
 				with open(self.path_to_result, 'wb') as logfile:
 					logfile.write(buffer.getvalue().encode())
+			else:
+				self.path_to_result = result
 			self.job.progress = 1
 		except:
 			print(format_exc())

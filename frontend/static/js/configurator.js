@@ -520,9 +520,11 @@ function new_obj() {
     let row = document.createElement("tr");
     row.className = "cfg-filled";
 
+    let id = GenRandomId(3);
+
     let cases = Object.entries([
         "",
-        '{"edit":true}',
+        `{"edit":true, "id":"${id}"}`,
         name.value,
         "",
         "<div class='cfg-color' style='background-color:" + color + "'></div>",
@@ -563,18 +565,65 @@ function save_obj() {
         let inner = JSON.parse(child.children[1].innerText);
         if (inner.edit) {
             delete inner.edit;
+
             data.type = types.value;
             child.children[0].innerText = JSON.stringify(selectors);
-            child.children[1].innerText = JSON.stringify(data);
+            child.children[1].innerText = JSON.stringify({
+                ...data,
+                id: inner.id,
+            });
 
-            child.children[2].innerHTML = data.name;
-            child.children[3].innerHTML = data.type;
+            child.children[2].innerText = data.name;
+            child.children[3].innerText = data.type;
             child.children[4].innerHTML =
                 "<div class='cfg-color' style='background-color:rgb(" +
                 data.color.join(", ") +
                 ")'></div>";
         }
     }
+}
+
+function GenRandomId(size) {
+    var characterSet = [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o",
+        "p",
+        "q",
+        "r",
+        "s",
+        "t",
+        "u",
+        "v",
+        "w",
+        "x",
+        "y",
+        "z",
+    ];
+    var id = "";
+    var index = 0;
+    for (var i = 0; i < size; i++) {
+        index = Math.floor(Math.random() * characterSet.length);
+        id += characterSet[index];
+    }
+    id += "-";
+    for (var i = 0; i < size; i++) {
+        index = Math.floor(Math.random() * characterSet.length);
+        id += characterSet[index];
+    }
+    return id;
 }
 
 function load_config(data) {
