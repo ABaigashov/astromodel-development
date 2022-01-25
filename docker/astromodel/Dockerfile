@@ -1,8 +1,6 @@
 FROM tiangolo/uvicorn-gunicorn-starlette:python3.7
+WORKDIR /app
 
-RUN pip install --upgrade pip
-RUN pip install --no-cache-dir aiopg
-RUN pip install --no-cache-dir psycopg2
-RUN pip install --no-cache-dir asyncio
-RUN pip install --no-cache-dir requests
+RUN pip install --no-cache-dir aiopg psycopg2 asyncio requests
 
+COPY ${PWD}/server/app /app

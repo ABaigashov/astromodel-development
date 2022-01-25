@@ -43,7 +43,7 @@ class GlobalInteraction:
 	# Method which calculating force for one point object
 	# Argument :point: instance of 'Point' object
 	# Returns 'result_force' vector
-	def force_calculation(self, point):
+	def force_calculation(self, point, time):
 
 		# Creating empty arrays with specific dimension
 		result_force = np.zeros(self.config.dimensions)
@@ -55,13 +55,13 @@ class GlobalInteraction:
 			if self.config.gravity_extended_interaction:
 
 				# Add this gravitational force
-				result_force += gravity_extended_interaction(self.config, point, field)
+				result_force += gravity_extended_interaction(self.config, point, field, time)
 
 			# If electricity extended interaction exsists
 			if self.config.electricity_extended_interaction:
 
 				# Add this electral force
-				result_force += electricity_extended_interaction(self.config, point, field)
+				result_force += electricity_extended_interaction(self.config, point, field, time)
 
 		# Loop through every point
 		for p in self.points:
@@ -113,7 +113,7 @@ class GlobalInteraction:
 
 				# Activate this & calculate starting force
 				p.activity = True
-				p.force = self.force_calculation(p)
+				p.force = self.force_calculation(p, time)
 
 			# If point is active
 			if p.activity:
@@ -140,7 +140,7 @@ class GlobalInteraction:
 			if p.activity:
 
 				# Сalculate force for this point
-				p.force = self.force_calculation(p)
+				p.force = self.force_calculation(p, time)
 
 				# Calculate acceleration
 				if p.mass:
@@ -161,7 +161,7 @@ class GlobalInteraction:
 			if p.activity:
 
 				# Сalculate force for this point
-				p.force = self.force_calculation(p)
+				p.force = self.force_calculation(p, time)
 
 				# Calculate acceleration
 				if p.mass:
@@ -182,7 +182,7 @@ class GlobalInteraction:
 			if p.activity:
 
 				# Сalculate force for this point
-				p.force = self.force_calculation(p)
+				p.force = self.force_calculation(p, time)
 
 				# Calculate acceleration
 				if p.mass:
@@ -504,8 +504,8 @@ def gravity_point_interaction(config, point1, point2, r):
 	return gravity_force
 
 
-def gravity_extended_interaction(config, point1, field):
-	components = field.get_fields(point1.coords)
+def gravity_extended_interaction(config, point1, field, time):
+	components = field.get_fields(point1.coords, time)
 	grav_force = np.zeros(config.dimensions)
 
 	if point1.mass:
@@ -528,9 +528,9 @@ def electricity_point_interaction(config, point1, point2, r):
 	return coulomb_force
 
 
-def electricity_extended_interaction(config, point1, field):
+def electricity_extended_interaction(config, point1, field, time):
 	lorentz_force = np.zeros(config.dimensions)
-	components = field.get_fields(point1.coords)
+	components = field.get_fields(point1.coords, time)
 
 	if point1.mass and config.dimensions == 3:
 		lorentz_force[0] = point1.velocity[1] * components[1][2] * point1.charge\
@@ -579,10 +579,13 @@ class Field:
 		self.grav[1] = -diff(phi, y)
 		self.grav[2] = -diff(phi, z)
 
-	def get_fields(self, coords):
+	def get_fields(self, coords, time):
 
-		x, y, z = symbols('x y z')
-		sub = [(x, coords[0]), (y, coords[1])]
+		x, y, z, t = symbols('x y z t')
+		if len(coords)==2:
+			sub = [(x, coords[0]), (y, coords[1]), (t, time)]
+		else:
+			sub = [(x, coords[0]), (y, coords[1]), (z, coords[2]), (t, time)]
 		electric_field = self.Em.subs(sub)
 		magnetic_field = self.Hm.subs(sub)
 		grav_field = self.grav.subs(sub)
