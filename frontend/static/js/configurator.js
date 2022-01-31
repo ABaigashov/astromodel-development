@@ -235,7 +235,7 @@ function generate_dimensional_input(name, slots, units) {
     let dropdown = generate_dropdown(name + ".units", {
         title: "Ед. изм.",
         cases: units,
-        hint: undefined,
+        hint: slots.hint,
     });
     dropdown.className = "cfg-line-bx";
 
