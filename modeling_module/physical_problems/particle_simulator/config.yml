@@ -236,25 +236,15 @@ CASES:
             Трехмерное пространство: "3"
         dementional: false
 
-    K:
-        title: Коэффициент восстановления (для столкновений)
-        default: "1"
-        type: int
-        class: dropdown
-        cases:
-            Упругие столкновения: "1"
-            Неупругие столкновения: "0"
-        dementional: false
-
     output_graphics:
         title: Графический вид анимации
         default: matplotlib
         type: str
         class: dropdown
         cases:
-            Сырые данные: json
-            Научный: matplotlib
-            Визуальный: vispy
+            Научный (matplotlib): matplotlib
+            Визуальный (vispy): vispy
+            Числовые данные (json): json
         dementional: false
 
     gravity_point_interaction:
@@ -391,6 +381,21 @@ CASES:
         class: checkbox
         dementional: false
 
+    K:
+        title: Коэффициент упругости
+        default: "1"
+        type: float
+        class: number
+        minimum: "0"
+        dementional: false
+
+    destroy:
+        title: Возможность разрушения объекта при столкновении
+        default: "False"
+        type: bool
+        class: checkbox
+        dementional: false
+
     ####################### EM_fields #######################
     electricity:
         title: Компоненты электрического поля
@@ -434,14 +439,14 @@ CASES:
         dementional: true
 
     equation_X:
-        title: Параметрическое уравнение границы
+        title: Параметрическое уравнение границы x = f(u)
         default: "0"
         type: expr
         class: text
         dementional: false
 
     equation_Y:
-        title: Параметрическое уравнение границы
+        title: Параметрическое уравнение границы y = f(u)
         default: "0"
         type: expr
         class: text
@@ -616,7 +621,6 @@ CASES:
 
 GENERAL:
     - dimensions
-    - K
     - output_graphics
     - gravity_point_interaction
     - gravity_extended_interaction
@@ -633,13 +637,15 @@ OBJECTS:
     point_objects:
         title: Точечный объект
         cases:
+            - trajectory
+            - destroy
             - coords
             - speed
             - mass
             - charge
             - radius
             - delay
-            - trajectory
+            - K
 
     EM_fields:
         title: Электромагнитное поле
@@ -674,6 +680,7 @@ OBJECTS:
         cases:
             - particals_number
             - trajectory
+            - destroy
             - equal_parameters
             - radius_scale
             - mass_scale
@@ -681,12 +688,15 @@ OBJECTS:
             - delay_scale
             - coordinate_scale
             - velocity_scale
+            - K
+            - destroy
 
     ring_generator:
         title: Генератор кругового распределения объектов
         cases:
             - particals_number
             - trajectory
+            - destroy
             - equal_parameters
             - radius_scale
             - mass_scale
@@ -697,12 +707,15 @@ OBJECTS:
             - speed_center
             - ring_radius
             - point_velocity
+            - K
+
 
     ellipse_generators:
         title: Генератор эллиптического распределения объектов
         cases:
             - particals_number
             - trajectory
+            - destroy
             - equal_parameters
             - radius_scale
             - mass_scale
@@ -715,3 +728,5 @@ OBJECTS:
             - exentricity
             - focus
             - apside_angle
+            - K
+            - destroy

@@ -4,7 +4,7 @@ import numpy as np
 
 
 def _to_float(value):
-	value = value.replace(',', '.')
+	value = str(value).replace(',', '.')
 	# some other stuff to do
 	return float(eval(value))
 

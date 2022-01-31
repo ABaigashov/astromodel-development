@@ -27,12 +27,14 @@ services:
 
     astromodel:
         build:
-            context: ${PWD}/docker/astromodel
+            context: ${PWD}
+            dockerfile: ${PWD}/docker/astromodel/Dockerfile
         container_name: astromodel
 
     wsserver:
         build:
-            context: ${PWD}/docker/wsserver
+            context: ${PWD}
+            dockerfile: ${PWD}/docker/wsserver/Dockerfile
         container_name: wsserver
 
     nginx:

@@ -43,13 +43,10 @@ class GlobalInteraction:
 	# Method which calculating force for one point object
 	# Argument :point: instance of 'Point' object
 	# Returns 'result_force' vector
-	def force_calculation(self, point):
+	def force_calculation(self, point, time):
 
 		# Creating empty arrays with specific dimension
 		result_force = np.zeros(self.config.dimensions)
-
-		# Storing 'config.K' parameter as short variable
-		K = self.config.K
 
 		# Loop through every field
 		for field in self.fields:
@@ -58,13 +55,13 @@ class GlobalInteraction:
 			if self.config.gravity_extended_interaction:
 
 				# Add this gravitational force
-				result_force += gravity_extended_interaction(self.config, point, field)
+				result_force += gravity_extended_interaction(self.config, point, field, time)
 
 			# If electricity extended interaction exsists
 			if self.config.electricity_extended_interaction:
 
 				# Add this electral force
-				result_force += electricity_extended_interaction(self.config, point, field)
+				result_force += electricity_extended_interaction(self.config, point, field, time)
 
 		# Loop through every point
 		for p in self.points:
@@ -102,7 +99,7 @@ class GlobalInteraction:
 		self.clean_acceleration()
 
 		# Storing 'config.K' parameter as short variable
-		K = self.config.K
+		#K = self.config.K
 
 		# Loop through every point
 		for p in self.points:
@@ -116,7 +113,7 @@ class GlobalInteraction:
 
 				# Activate this & calculate starting force
 				p.activity = True
-				p.force = self.force_calculation(p)
+				p.force = self.force_calculation(p, time)
 
 			# If point is active
 			if p.activity:
@@ -143,7 +140,7 @@ class GlobalInteraction:
 			if p.activity:
 
 				# Сalculate force for this point
-				p.force = self.force_calculation(p)
+				p.force = self.force_calculation(p, time)
 
 				# Calculate acceleration
 				if p.mass:
@@ -164,7 +161,7 @@ class GlobalInteraction:
 			if p.activity:
 
 				# Сalculate force for this point
-				p.force = self.force_calculation(p)
+				p.force = self.force_calculation(p, time)
 
 				# Calculate acceleration
 				if p.mass:
@@ -185,7 +182,7 @@ class GlobalInteraction:
 			if p.activity:
 
 				# Сalculate force for this point
-				p.force = self.force_calculation(p)
+				p.force = self.force_calculation(p, time)
 
 				# Calculate acceleration
 				if p.mass:
@@ -233,6 +230,7 @@ class GlobalInteraction:
 					# Calculating previous and current distances
 					distance0 = np.linalg.norm(p1.prev_pos - p2.prev_pos, ord=2)
 					distance = np.linalg.norm(p1.coords - p2.coords, ord=2)
+					K = p1.K * p2.K
 
 					# If no collision found
 					if (distance <= p1.radius + p2.radius and distance0 >= p1.radius + p2.radius) or (distance0 < p1.radius + p2.radius and distance<distance0):
@@ -405,20 +403,37 @@ class GlobalInteraction:
 							p2.velocity[i] = v_2[i]
 
 						if not K:
-							if p1.mass >= p2.mass:
+							if p1.destroy==False and p2.destroy==True:
 								p1.mass = p1.mass + p2.mass
 								p1.charge = p1.charge + p2.charge
 								p1.radius = (p1.radius**3 + p2.radius**3)**(1/3)
 								p2.mass = 0
 								p2.charge = 0
 								p2.radius = 0
-							else:
+							if p1.destroy==True and p2.destroy==False:
 								p2.mass = p1.mass + p2.mass
 								p2.charge = p1.charge + p2.charge
 								p2.radius = (p1.radius**3 + p2.radius**3)**(1/3)
 								p1.mass = 0
 								p1.charge = 0
 								p1.radius = 0
+							if p1.destroy==True and p2.destroy==True:
+								if p1.mass>=p2.mass:
+									p1.mass = p1.mass + p2.mass
+									p1.charge = p1.charge + p2.charge
+									p1.radius = (p1.radius**3 + p2.radius**3)**(1/3)
+									p2.mass = 0
+									p2.charge = 0
+									p2.radius = 0
+								else:
+									p2.mass = p1.mass + p2.mass
+									p2.charge = p1.charge + p2.charge
+									p2.radius = (p1.radius**3 + p2.radius**3)**(1/3)
+									p1.mass = 0
+									p1.charge = 0
+									p1.radius = 0
+
+
 
 	# Procedure which cleaning acceleration
 	# The name speaks for itself
@@ -489,8 +504,8 @@ def gravity_point_interaction(config, point1, point2, r):
 	return gravity_force
 
 
-def gravity_extended_interaction(config, point1, field):
-	components = field.get_fields(point1.coords)
+def gravity_extended_interaction(config, point1, field, time):
+	components = field.get_fields(point1.coords, time)
 	grav_force = np.zeros(config.dimensions)
 
 	if point1.mass:
@@ -513,9 +528,9 @@ def electricity_point_interaction(config, point1, point2, r):
 	return coulomb_force
 
 
-def electricity_extended_interaction(config, point1, field):
+def electricity_extended_interaction(config, point1, field, time):
 	lorentz_force = np.zeros(config.dimensions)
-	components = field.get_fields(point1.coords)
+	components = field.get_fields(point1.coords, time)
 
 	if point1.mass and config.dimensions == 3:
 		lorentz_force[0] = point1.velocity[1] * components[1][2] * point1.charge\
@@ -564,10 +579,13 @@ class Field:
 		self.grav[1] = -diff(phi, y)
 		self.grav[2] = -diff(phi, z)
 
-	def get_fields(self, coords):
+	def get_fields(self, coords, time):
 
-		x, y, z = symbols('x y z')
-		sub = [(x, coords[0]), (y, coords[1])]
+		x, y, z, t = symbols('x y z t')
+		if len(coords)==2:
+			sub = [(x, coords[0]), (y, coords[1]), (t, time)]
+		else:
+			sub = [(x, coords[0]), (y, coords[1]), (z, coords[2]), (t, time)]
 		electric_field = self.Em.subs(sub)
 		magnetic_field = self.Hm.subs(sub)
 		grav_field = self.grav.subs(sub)
@@ -578,7 +596,8 @@ class Point:
 
 	def __init__(self, coords, velocity, id=0,
 				 activity=1, delay=0, mass=1.0,
-				 charge=1.0, radius=0, trajectory=False, color=None):
+				 charge=1.0, radius=0, trajectory=False, color=None, K=1,
+				 destroy=False):
 
 		self.id = id
 		self.coords = coords
@@ -590,6 +609,8 @@ class Point:
 		self.color = color
 		self.delay = delay
 		self.trajectory = trajectory
+		self.K = K
+		self.destroy = destroy
 
 		if delay == 0:
 			self.activity = 1
