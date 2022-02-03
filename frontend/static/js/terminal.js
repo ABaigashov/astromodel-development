@@ -152,7 +152,7 @@ function update_list() {
                         '<video autoplay loop style="width:100%;max-height:65vh"><source src="' +
                         responce +
                         '" type="video/mp4"></video>';
-                } else if (["txt", ".log"].includes(ext)) {
+                } else if (["txt", "log"].includes(ext)) {
                     let text = await $.ajax({
                         method: "GET",
                         url: responce,
