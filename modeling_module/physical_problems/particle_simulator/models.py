@@ -234,6 +234,8 @@ class Plot2DModel(PlotModel):
 					plt.plot(*self.all_trajectory[i].T,
 						'.', ms=1, c=self.colors[i]
 					)
+					
+		self.logger.save(self.output + '.txt')
 
 
 # Creating 3D version of 'PlotModel'
