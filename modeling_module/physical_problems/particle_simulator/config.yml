@@ -250,41 +250,11 @@ CASES:
 
     grid:
         title: Отображение сетки
-        default: False
-        type: str
-        class: dropdown
-        cases:
-            Отображать сетку: True
-            Не отображать сетку: False
-        dementional: false
-
-    gravity_point_interaction:
-        title: Гравитационное взаимодействие точечных объектов
-        default: "True"
-        type: bool
-        class: checkbox
-        dementional: false
-
-    gravity_extended_interaction:
-        title: Внешнее гравитационное поле
         default: "False"
         type: bool
         class: checkbox
         dementional: false
-
-    electricity_point_interaction:
-        title: Кулоновское взаимодействие
-        default: "False"
-        type: bool
-        class: checkbox
-        dementional: false
-
-    electricity_extended_interaction:
-        title: Внешнее электромагнитное поле
-        default: "False"
-        type: bool
-        class: checkbox
-        dementional: false
+        hint: Сетка рисуется произвольным образом
 
     step:
         title: Шаг по времени моделирования
@@ -334,6 +304,34 @@ CASES:
         type: float
         class: number
         minimum: "0"
+        dementional: false
+
+    gravity_point_interaction:
+        title: Гравитационное взаимодействие точечных объектов
+        default: "True"
+        type: bool
+        class: checkbox
+        dementional: false
+
+    gravity_extended_interaction:
+        title: Внешнее гравитационное поле
+        default: "False"
+        type: bool
+        class: checkbox
+        dementional: false
+
+    electricity_point_interaction:
+        title: Кулоновское взаимодействие
+        default: "False"
+        type: bool
+        class: checkbox
+        dementional: false
+
+    electricity_extended_interaction:
+        title: Внешнее электромагнитное поле
+        default: "False"
+        type: bool
+        class: checkbox
         dementional: false
 
     ####################### point_objects #######################
@@ -634,16 +632,16 @@ GENERAL:
     - dimensions
     - output_graphics
     - grid
-    - gravity_point_interaction
-    - gravity_extended_interaction
-    - electricity_point_interaction
-    - electricity_extended_interaction
     - step
     - steps_number
     - fps
     - frames_gap
     - edge
     - scale_faktor
+    - gravity_point_interaction
+    - gravity_extended_interaction
+    - electricity_point_interaction
+    - electricity_extended_interaction
 
 OBJECTS:
     point_objects:
