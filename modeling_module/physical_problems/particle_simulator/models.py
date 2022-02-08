@@ -174,8 +174,9 @@ class Plot2DModel(PlotModel):
 		plt.xlabel(self.label)
 		plt.ylabel(self.label)
 
-		plt.grid(which='major', linewidth=1)
-		plt.grid(which='minor', linewidth=0.5)
+		if self.config.grid:
+			plt.grid(which='major', linewidth=1)
+			plt.grid(which='minor', linewidth=0.5)
 
 		plt.axis([-self.edge, self.edge] * 2)
 
@@ -184,7 +185,7 @@ class Plot2DModel(PlotModel):
 		#
 		for s in range(len(self.coords_walls[0])):
 			plt.plot([float(self.coords_walls[0][s,0]),float(self.coords_walls[1][s,0])],
-				  [float(self.coords_walls[0][s,1]),float(self.coords_walls[1][s,1])],'-k')
+			[float(self.coords_walls[0][s,1]),float(self.coords_walls[1][s,1])],'-k')
 		#
 		for i in range(self.coords.shape[0]):
 
@@ -202,8 +203,7 @@ class Plot2DModel(PlotModel):
 				self.all_trajectory[i] = np.append(self.all_trajectory[i], np.array([self.coords[i]]), axis=0)
 				# Drawing the trajectory of object
 				if self.trajectory[i]:
-					plt.plot(
-						*self.all_trajectory[i].T,
+					plt.plot(*self.all_trajectory[i].T,
 						'.', ms=1, c=self.colors[i]
 					)
 

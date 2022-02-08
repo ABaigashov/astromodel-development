@@ -248,6 +248,16 @@ CASES:
             Числовые данные (json): json
         dementional: false
 
+    grid:
+        title: Отображение сетки
+        default: False
+        type: str
+        class: dropdown
+        cases:
+            Отображать сетку: True
+            Не отображать сетку: False
+        dementional: false
+
     gravity_point_interaction:
         title: Гравитационное взаимодействие точечных объектов
         default: "True"
@@ -392,7 +402,7 @@ CASES:
 
     destroy:
         title: Возможность разрушения объекта при столкновении
-        default: "False"
+        default: false
         type: bool
         class: checkbox
         dementional: false
