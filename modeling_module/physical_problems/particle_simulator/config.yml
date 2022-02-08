@@ -633,6 +633,7 @@ CASES:
 GENERAL:
     - dimensions
     - output_graphics
+    - grid
     - gravity_point_interaction
     - gravity_extended_interaction
     - electricity_point_interaction
