@@ -15,32 +15,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import json
 
-# crating some example logger class
-class Logger:
-
-	# some inicialization
-	def __init__(self):
-
-		# creating output buffer
-		self.output = ''
-
-	# log method (same as print)
-	def log(self, *strings, sep=' ', end='\n'):
-
-		# saving all stuff to the buffer
-		self.output += sep.join(map(str, strings)) + end
-
-	# save method (save and return)
-	def save(self, path):
-
-		# opening log file
-		with open(path, 'w') as logfile:
-
-			# write all output suff
-			logfile.write(self.output)
-
-		# returning path to the file
-		return path
 
 # Crating base model representation
 class BaseModel:
@@ -53,7 +27,6 @@ class BaseModel:
 		self.config = config
 		self.output = output
 		self.job = job
-		self.logger = Logger()
 
 		# Loading point objects and fields by
 		# functions in 'utils' help file
@@ -201,7 +174,6 @@ class Plot2DModel(PlotModel):
 		plt.xlabel(self.label)
 		plt.ylabel(self.label)
 
-		self.logger.log(f'self.config.grid: {self.config.grid}')
 		if self.config.grid:
 			plt.grid(which='major', linewidth=1)
 			plt.grid(which='minor', linewidth=0.5)
@@ -234,8 +206,6 @@ class Plot2DModel(PlotModel):
 					plt.plot(*self.all_trajectory[i].T,
 						'.', ms=1, c=self.colors[i]
 					)
-					
-		self.logger.save(self.output + '.txt')
 
 
 # Creating 3D version of 'PlotModel'

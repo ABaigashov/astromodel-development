@@ -51,13 +51,13 @@ class ABS_RecursiveContainer:
 class Configurator:
 
 	def __init__(self, configuration):
-		
+
 		with open(configuration, 'rb') as f:
 			parameters = json.load(f)
-		
+
 		problem = parameters['PROBLEM']
 		config_path = os.path.join('.', 'modeling_module', 'physical_problems', problem, 'config.yml')
-		
+
 		with open(config_path, 'rb') as f:
 			config = yaml.safe_load(f)
 
@@ -72,7 +72,7 @@ class Configurator:
 		if case['type'] == 'str':
 			return value
 		elif case['type'] == 'bool':
-			return value.lower() in ['true', '1', 'on', 'y']
+			return str(value).lower() in ['true', '1', 'on', 'y']
 		elif case['type'] == 'float':
 			return _to_float(value)
 		elif case['type'] == 'int':
