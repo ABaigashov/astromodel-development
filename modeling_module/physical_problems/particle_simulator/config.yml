@@ -307,7 +307,7 @@ CASES:
 
     gravity_point_interaction:
         title: Гравитационное взаимодействие точечных объектов
-        default: "True"
+        default: "False"
         type: bool
         class: checkbox
         dementional: false
