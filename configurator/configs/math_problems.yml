@@ -1,0 +1,74 @@
+CASES:
+
+  task_name:
+    title: Выберите уравнение
+    default: "Poisson"
+    type: str
+    class: dropdown
+    cases:
+      Уравнение Пуассона: "Poisson"
+      Уравнение теплопроводности: "Heat"
+    dementional: false
+
+  mesh_name:
+    title: Введите имя файла с сеткой
+    default: "mesh_name.xml"
+    type: str
+    class: text
+    dementional: false
+
+  source:
+    title: Функция источника
+    default: "0"
+    type: str
+    class: text
+    dementional: false
+
+  condition_type:
+    title: Тип граничного условия
+    default: "Dirichlet"
+    type: str
+    class: dropdown
+    cases:
+      Дирихле: "Dirichlet"
+      Неймана: "Neumann"
+    dementional: false
+
+  description:
+    title: Описание границы
+    default: "on_boundary"
+    type: str
+    class: text
+    dementional: false
+
+  condition:
+    title: Граничное условие
+    default: "0"
+    type: str
+    class: text
+    dementional: false
+
+  notation:
+    title: Синтаксис граничного условия
+    default: "EXPR"
+    type: str
+    class: dropdown
+    cases:
+      выражение: "EXPR"
+      sympy: "SYM"
+    dementional: false
+
+GENERAL:
+  - task_name
+  - source
+  - mesh_name
+
+OBJECTS:
+
+  scalar_functions:
+    title: Граница и условие на ней
+    cases:
+      - condition_type
+      - description
+      - condition
+      - notation
