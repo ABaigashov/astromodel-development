@@ -24,7 +24,8 @@ class GeneralGenerators:
                         "color": generator.color,
                         "mass": generator.mass_scale * random.random(),
                         "radius": generator.radius_scale * random.random(),
-                        "trajectory": generator.trajectory
+                        "trajectory": generator.trajectory,
+                        "K": generator.K
                         }
                     point_parametrs.append(point_object)
             else:
@@ -39,7 +40,8 @@ class GeneralGenerators:
                         "mass": generator.mass_scale,
                         "radius": generator.radius_scale,
                         "radius": generator.radius_scale,
-                        "trajectory": generator.trajectory
+                        "trajectory": generator.trajectory,
+                        "K": generator.K
                         }
                     point_parametrs.append(point_object)
 
