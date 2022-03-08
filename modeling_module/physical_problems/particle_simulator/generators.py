@@ -25,7 +25,8 @@ class GeneralGenerators:
                         "mass": generator.mass_scale * random.random(),
                         "radius": generator.radius_scale * random.random(),
                         "trajectory": generator.trajectory,
-                        "K": generator.K
+                        "K": generator.K,
+                        "destroy": generator.destroy
                         }
                     point_parametrs.append(point_object)
             else:
@@ -41,7 +42,8 @@ class GeneralGenerators:
                         "radius": generator.radius_scale,
                         "radius": generator.radius_scale,
                         "trajectory": generator.trajectory,
-                        "K": generator.K
+                        "K": generator.K,
+                        "destroy": generator.destroy
                         }
                     point_parametrs.append(point_object)
 
