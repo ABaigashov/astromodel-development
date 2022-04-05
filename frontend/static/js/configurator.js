@@ -161,7 +161,6 @@ function generate_select(cases, name, _default) {
     }
 
     select.appendChild(placeholder);
-    console.log(cases, _default);
     for (let [key, value] of Object.entries(cases)) {
         if (_default !== undefined && key !== _default) {
             let option = document.createElement("option");
@@ -172,6 +171,7 @@ function generate_select(cases, name, _default) {
             select.appendChild(option);
         }
     }
+    console.log(select);
     wrap.appendChild(select);
 
     return wrap;
@@ -733,6 +733,7 @@ function __get_config() {
         config.SELECTORS.push(selectors);
         config.OBJECTS[type].push(data);
     }
+    config.CFG_REF = window.location.href;
     return config;
 }
 
@@ -755,6 +756,6 @@ function model_config() {
     let enc = btoa(encodeURI(JSON.stringify(config)));
     window.name = enc;
     setTimeout(() => {
-        window.location.href = window.location.origin + "/terminal/";
+        window.location.href = window.location.origin + terminal_url;
     }, 10);
 }

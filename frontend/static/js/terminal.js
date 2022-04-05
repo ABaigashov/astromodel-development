@@ -240,7 +240,7 @@ function update_list() {
                     .then((json) => {
                         window.name = btoa(encodeURI(JSON.stringify(json)));
                         setTimeout(() => {
-                            window.location.pathname = "/" + json.PROBLEM + "/";
+                            window.location.href = json.CFG_REF;
                         }, 100);
                     });
             });
