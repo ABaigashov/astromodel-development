@@ -13,6 +13,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.4.5/jscolor.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
 <link rel="stylesheet" href="<?php echo $server_url; ?>/construct/static/css/config.css">
 <script type="text/javascript" src="<?php echo $server_url; ?>/construct/static/js/configurator.js"></script>
 
@@ -60,7 +61,7 @@
                         <img src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg">
                     </div>
                     <div class="cfg-frame">
-                        Пока ничего...
+                        Обязательное поле
                     </div>
                 </div>
             </div>
@@ -101,7 +102,8 @@
 
             <div class="cfg-back-bx">
                 <a href="#cfg-page-2" class="cfg-btn cfg-btn-framed">Назад</a>
-                <button class="cfg-btn" id="cfg-save">Cмоделировать</button>
+                <button class="cfg-btn" id="cfg-save">Сохранить</button>
+                <button class="cfg-btn" id="cfg-model">Cмоделировать</button>
             </div>
         </div>
 
@@ -125,7 +127,7 @@
                         <div class="cfg-hint-bx">
                             <div class="cfg-opener"><img
                                     src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt=""></div>
-                            <div class="cfg-frame">Пока ничего...</div>
+                            <div class="cfg-frame">Обязательное поле</div>
                         </div>
                     </div>
                     <input type="text" placeholder="Текст" id="cfg-obj-name" data-config-key="name">
@@ -136,7 +138,7 @@
                         <div class="cfg-hint-bx">
                             <div class="cfg-opener"><img
                                     src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt=""></div>
-                            <div class="cfg-frame">Пока ничего...</div>
+                            <div class="cfg-frame">Обязательное поле</div>
                         </div>
                     </div>
                     <input type="text" id="cfg-obj-color" data-config-key="color">
@@ -148,7 +150,7 @@
                     <div class="cfg-hint-bx">
                         <div class="cfg-opener"><img
                                 src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg" alt=""></div>
-                        <div class="cfg-frame">Пока ничего...</div>
+                        <div class="cfg-frame">Обязательное поле</div>
                     </div>
                 </div>
                 <div class="cfg-select">

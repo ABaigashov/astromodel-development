@@ -52,6 +52,10 @@ $(document).ready(($) => {
         event.preventDefault();
         save_config();
     });
+    $("#cfg-model").on("click", (event) => {
+        event.preventDefault();
+        model_config();
+    });
     $("#cfg-save-obj").on("click", (event) => {
         event.preventDefault();
         save_obj();
@@ -136,7 +140,7 @@ function generate_label(slots) {
     return wrap;
 }
 
-function generate_select(cases, name) {
+function generate_select(cases, name, _default) {
     let wrap = document.createElement("div");
     wrap.className = "cfg-hint-bx";
 
@@ -145,18 +149,28 @@ function generate_select(cases, name) {
     select.setAttribute("data-config-key", name);
 
     let placeholder = document.createElement("option");
-    placeholder.selected = true;
-    placeholder.value = "";
-    placeholder.innerText = "Выберите";
+
+    if (_default === undefined) {
+        placeholder.selected = true;
+        placeholder.value = "";
+        placeholder.innerText = "Выберите";
+    } else {
+        placeholder.selected = true;
+        placeholder.value = cases[_default];
+        placeholder.innerText = _default;
+    }
 
     select.appendChild(placeholder);
+    console.log(cases, _default);
     for (let [key, value] of Object.entries(cases)) {
-        let option = document.createElement("option");
+        if (_default !== undefined && key !== _default) {
+            let option = document.createElement("option");
 
-        option.value = value;
-        option.innerText = key;
+            option.value = value;
+            option.innerText = key;
 
-        select.appendChild(option);
+            select.appendChild(option);
+        }
     }
     wrap.appendChild(select);
 
@@ -189,11 +203,15 @@ function generate_unit_input(name, slots, units) {
     input.type = "number";
     input.placeholder = "Число";
 
-    let dropdown = generate_dropdown(name + ".units", {
-        title: "Ед. изм.",
-        cases: units,
-        hint: undefined,
-    });
+    let dropdown = generate_dropdown(
+        name + ".units",
+        {
+            title: "Ед. изм.",
+            cases: units.values,
+            hint: units.hint,
+        },
+        units.default
+    );
     dropdown.className = "cfg-sel-over";
 
     basic.appendChild(dropdown);
@@ -232,11 +250,15 @@ function generate_dimensional_input(name, slots, units) {
     }
     wrap.appendChild(dim);
 
-    let dropdown = generate_dropdown(name + ".units", {
-        title: "Ед. изм.",
-        cases: units,
-        hint: slots.hint,
-    });
+    let dropdown = generate_dropdown(
+        name + ".units",
+        {
+            title: "Ед. изм.",
+            cases: units.values,
+            hint: units.hint,
+        },
+        units.default
+    );
     dropdown.className = "cfg-line-bx";
 
     wrap.appendChild(dropdown);
@@ -244,14 +266,14 @@ function generate_dimensional_input(name, slots, units) {
     return wrap;
 }
 
-function generate_dropdown(name, slots) {
+function generate_dropdown(name, slots, _default) {
     let wrap = document.createElement("div");
     wrap.className = "cfg-select-inf-item";
 
     let label = generate_label(slots);
     wrap.appendChild(label);
 
-    let select = generate_select(slots.cases, name);
+    let select = generate_select(slots.cases, name, _default);
     select.className = "cfg-select";
     wrap.appendChild(select);
 
@@ -688,7 +710,7 @@ function load_config(data) {
     window.location.href = "#cfg-page-2";
 }
 
-function save_config() {
+function __get_config() {
     let general = document.getElementById("cfg-general");
     let [selectors, config] = gen_data_by_element(general, true);
 
@@ -711,6 +733,24 @@ function save_config() {
         config.SELECTORS.push(selectors);
         config.OBJECTS[type].push(data);
     }
+    return config;
+}
+
+function save_config() {
+    let config = __get_config();
+
+    let blob = new Blob([JSON.stringify(config)], {
+        type: "application/json",
+    });
+    let filename = "config";
+    if (config.GENERAL.name) {
+        filename = cfg.GENERAL.name;
+    }
+    window.saveAs(blob, filename + ".json");
+}
+
+function model_config() {
+    let config = __get_config();
 
     let enc = btoa(encodeURI(JSON.stringify(config)));
     window.name = enc;
