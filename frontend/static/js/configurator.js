@@ -162,7 +162,7 @@ function generate_select(cases, name, _default) {
 
     select.appendChild(placeholder);
     for (let [key, value] of Object.entries(cases)) {
-        if (_default !== undefined && key !== _default) {
+        if (_default === undefined || key !== _default) {
             let option = document.createElement("option");
 
             option.value = value;
@@ -171,7 +171,6 @@ function generate_select(cases, name, _default) {
             select.appendChild(option);
         }
     }
-    console.log(select);
     wrap.appendChild(select);
 
     return wrap;
