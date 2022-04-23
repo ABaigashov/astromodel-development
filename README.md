@@ -86,7 +86,7 @@ to test some configs or solve single problem.<br>
 # Run local problem solver:
 $ sudo ./scripts/boot/solver.sh <problem-name> <parameters.json>
 # For example:
-$ sudo ./scripts/boot/solver.sh particle_simulator 3d.json
+$ sudo ./scripts/boot/solver.sh hello_world test.json
 ```
 
 <br>
