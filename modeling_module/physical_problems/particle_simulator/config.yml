@@ -683,7 +683,7 @@ GENERAL:
 
 OBJECTS:
     point_objects:
-        title: Точечный объект
+        title: Единичный объект
         cases:
             - trajectory
             - destroy
@@ -737,7 +737,6 @@ OBJECTS:
             - coordinate_scale
             - velocity_scale
             - K
-            - destroy
 
     ring_generator:
         title: Генератор кругового распределения объектов
@@ -776,4 +775,3 @@ OBJECTS:
             - focus
             - apside_angle
             - K
-            - destroy
