@@ -214,6 +214,9 @@ UNITS:
             миликулон: 1e-3
             кулон: 1e+0
             килокулон: 1e+3
+            мегакулон: 1e+6
+            гигакулон: 1e+9
+            теракулон: 1e+12
 
     mass:
         hint: Еденицы измерения массы
@@ -224,11 +227,14 @@ UNITS:
             граммы: 1e-3
             килограммы: 1e+0
             тонны: 1e+3
+            килотонны: 1e+6
+            мегатонны: 1e+9
+            гигатонны: 1e+12
             массы астероида: 1e+20
-            массы Луны: 1e+22
-            массы Земли: 1e+24
-            массы Юпитера: 1e+27
-            массы Солнца: 1e+30
+            массы Луны: 736e+20
+            массы Земли: 5972e+21
+            массы Юпитера: 1898e+24
+            массы Солнца: 198892e+25
 
     electricity:
         hint: Еденицы измерения напряжённости электрического поля
@@ -263,7 +269,7 @@ CASES:
             Двумерное пространство: "2"
             Трехмерное пространство: "3"
         dementional: false
-        hint: Обязательное поле
+        hint: По умолчанию установлена размерность "2"
 
     output_graphics:
         title: Представление результатов
@@ -271,10 +277,11 @@ CASES:
         type: str
         class: dropdown
         cases:
-            Графическая анимация: matplotlib
+            Расчетная анимация: matplotlib
+            Графическая анимация: vispy
             Данные в виде таблицы: json
         dementional: false
-        hint: Обязательное поле, определяющее формат представления расчетов
+        hint: Поле, определяющее формат представления расчетов. По умолчанию установлена "Графическая анимация"
 
     grid:
         title: Отображение сетки
@@ -282,7 +289,7 @@ CASES:
         type: bool
         class: checkbox
         dementional: false
-        hint: Необязательное поле, при выборе которого в файле анимации будет отображаться координатная сетка
+        hint: Поле, при выборе которого в файле анимации будет отображаться координатная сетка. По умолчанию сетка отключена
 
     step:
         title: Шаг по времени моделирования
@@ -292,7 +299,7 @@ CASES:
         minimum: "0"
         units: time
         dementional: false
-        hint: Обязательное поле. Значение шага по времени, которое будет использовано при решении уравнений движения
+        hint: Значение шага по времени, которое будет использовано при решении уравнений движения. По умолчанию установлено значение "1 секунда"
 
     steps_number:
         title: Количество шагов / временной интервал
@@ -301,7 +308,7 @@ CASES:
         class: number
         minimum: "1"
         dementional: false
-        hint: Обязательное поле. Значение времени, до которого будет произведен расчет (начальное значение считается за нулевой момент времени)
+        hint: Значение времени, до которого будет произведен расчет (начальное значение считается за нулевой момент времени). По умолчанию установлено значение "10 секунд"
 
     fps:
         title: Количество кадров в секунду анимации / FPS
@@ -310,7 +317,7 @@ CASES:
         class: number
         minimum: "1"
         dementional: false
-        hint: Обязательное поле
+        hint: По умолчанию установлено значение "30"
 
     frames_gap:
         title: Кадровый прыжок
@@ -319,7 +326,7 @@ CASES:
         class: number
         minimum: "1"
         dementional: false
-        hint: Необязательное поле. Значение, определяющее, какой кадр по счету записывается в видеофайл. По умолчанию значение равно 1
+        hint: Значение, определяющее, какой кадр по счету записывается в видеофайл. По умолчанию установлено значение "1"
 
     edge:
         title: Границы пространства моделирования
@@ -329,7 +336,7 @@ CASES:
         minimum: "0"
         units: distance
         dementional: false
-        hint: Обязательное поле. Значение, определяющее размер области в форме квадрата (два измерения) или куба (три измерения), которая отображается при в анимации
+        hint: Значение, определяющее размер области в форме квадрата (два измерения) или куба (три измерения), которая отображается при в анимации. По умолчанию установлено значение "1 метр"
 
     scale_faktor:
         title: Масштабный фактор
@@ -338,7 +345,7 @@ CASES:
         class: number
         minimum: "0"
         dementional: false
-        hint: Необязательное поле. Значение, определяющее во сколько раз будут увеличены размеры объектов при анимации
+        hint: Значение, определяющее во сколько раз будут увеличены размеры объектов при анимации. По умолчанию установлено значение "1"
 
     gravity_point_interaction:
         title: Гравитационное взаимодействие точечных объектов
@@ -380,6 +387,7 @@ CASES:
         class: number
         units: distance
         dementional: true
+        hint: По умолчанию установлено значение "0 м, 0 м, 0 м"
 
     speed:
         title: Начальная скорость
@@ -388,6 +396,7 @@ CASES:
         class: number
         units: velosity
         dementional: true
+        hint: По умолчанию установлено значение "0 м/с, 0 м/с, 0 м/с"
 
     mass:
         title: Масса
@@ -396,6 +405,7 @@ CASES:
         class: number
         units: mass
         dementional: false
+        hint: По умолчанию установлено значение "0 кг"
 
     charge:
         title: Заряд
@@ -404,6 +414,7 @@ CASES:
         class: number
         units: charge
         dementional: false
+        hint: По умолчанию установлено значение "0 Кл"
 
     radius:
         title: Радиус
@@ -412,6 +423,7 @@ CASES:
         class: number
         units: distance
         dementional: false
+        hint: По умолчанию установлено значение "0 м"
 
     delay:
         title: Время появления
@@ -420,13 +432,15 @@ CASES:
         class: number
         units: time
         dementional: false
+        hint: По умолчанию установлено значение "0 с"
 
     trajectory:
-        title: Отображать траекторию частицы
+        title: Отображать траекторию объекта
         default: "False"
         type: bool
         class: checkbox
         dementional: false
+        hint: Пошаговое отображение траектории
 
     K:
         title: Коэффициент упругости
@@ -435,6 +449,7 @@ CASES:
         class: number
         minimum: "0"
         dementional: false
+        hint: По умолчанию установлено значение "1"
 
     destroy:
         title: Возможность разрушения объекта при столкновении
@@ -442,154 +457,26 @@ CASES:
         type: bool
         class: checkbox
         dementional: false
-
-    ####################### EM_fields #######################
-    electricity:
-        title: Компоненты электрического поля
-        default: "0"
-        type: expr
-        class: text
-        units: electricity
-        dementional: true
-
-    magnetic:
-        title: Компоненты магнитного поля
-        default: "0"
-        type: expr
-        class: text
-        units: magnetic
-        dementional: true
-
-    ####################### G_fields #######################
-    gravity:
-        title: Потенциал гравитационного поля
-        default: "0"
-        type: expr
-        class: text
-        dementional: false
-
-    ####################### walls #######################
-    coords_1:
-        title: Координаты начала стенки
-        default: "0"
-        type: float
-        class: number
-        units: distance
-        dementional: true
-
-    coords_2:
-        title: Координаты конца стенки
-        default: "0"
-        type: float
-        class: number
-        units: distance
-        dementional: true
-
-    equation_X:
-        title: Параметрическое уравнение границы x = f(u)
-        default: "0"
-        type: expr
-        class: text
-        dementional: false
-
-    equation_Y:
-        title: Параметрическое уравнение границы y = f(u)
-        default: "0"
-        type: expr
-        class: text
-        dementional: false
-
-    u_s:
-        title: Начальное значение параметра
-        default: "0"
-        type: float
-        class: number
-        dementinal: false
-
-    u_f:
-        title: Конечное значение параметра
-        default: "0"
-        type: float
-        class: number
-        dementinal: false
-
-    number_of_divisions:
-        title: Число разбиений интервала изменения параметра
-        default: "1"
-        type: int
-        class: number
-        dementinal: false
-
-    elasticity:
-        title: Коэффициент эластичности стенки
-        default: "1"
-        type: float
-        class: number
-        dementional: false
-
-    ####################### general generators #######################
-    particals_number:
-        title: Количество точек
-        default: "0"
-        type: int
-        class: number
-        dementional: false
-
-    equal_parameters:
-        title: Сделать все объекты одинаковыми
-        default: "True"
-        type: bool
-        class: checkbox
-        dementional: false
-
-    radius_scale:
-        title: Масштабы радиусов точек
-        default: "1"
-        type: float
-        class: number
-        units: distance
-        dementional: false
-
-    mass_scale:
-        title: Масштаб масс точек
-        default: "1"
-        type: float
-        class: number
-        units: mass
-        dementional: false
-
-    charge_scale:
-        title: Масштаб зарядов точек
-        default: "1"
-        type: float
-        class: number
-        units: charge
-        dementional: false
-
-    delay_scale:
-        title: Масштаб задержки возникновения точек
-        default: "1"
-        type: float
-        class: number
-        units: time
-        dementional: false
+        hint: В случае столкновения объекта с другим объектом или стенокой возможно полное его полное разрушение
 
     ####################### random_generators #######################
     coordinate_scale:
-        title: Масштаб координат точек
+        title: Масштаб координат объектов
         default: "1"
         type: float
         class: number
         units: distance
         dementional: false
+        hint: По умолчанию установлено значение "0 м, 0 м, 0 м"
 
     velocity_scale:
-        title: Масштаб скоростей точек
+        title: Масштаб скоростей объектов
         default: "1"
         type: float
         class: number
         units: velosity
         dementional: false
+        hint: По умолчанию установлено значение "0 м/с, 0 м/с, 0 м/с"
 
     ####################### ring_generator #######################
     mass_center:
@@ -599,6 +486,7 @@ CASES:
         class: number
         units: mass
         dementional: false
+        hint: По умолчанию установлено значение "0 кг"
 
     coords_center:
         title: Координаты центрального тела
@@ -607,6 +495,7 @@ CASES:
         class: number
         units: distance
         dementional: true
+        hint: По умолчанию установлено значение "0 м, 0 м, 0 м"
 
     speed_center:
         title: Компоненты скорости центрального тела
@@ -615,6 +504,7 @@ CASES:
         class: number
         units: velosity
         dementional: true
+        hint: По умолчанию установлено значение "0 м/с, 0 м/с, 0 м/с"
 
     ring_radius:
         title: Радиус кольца
@@ -623,14 +513,16 @@ CASES:
         class: number
         units: distance
         dementional: false
+        hint: По умолчанию установлено значение "0 м"
 
     point_velocity:
-        title: Модуль скорости точек
+        title: Модуль скорости объектов
         default: "0"
         type: float
         class: number
         units: velosity
         dementional: false
+        hint: По умолчанию установлено значение "0 м/с, 0 м/с, 0 м/с"
 
     ####################### ellipse_generators #######################
     major_axis:
@@ -640,6 +532,7 @@ CASES:
         class: number
         units: distance
         dementional: false
+        hint: По умолчанию установлено значение "0 м"
 
     exentricity:
         title: Эксцентриситет
@@ -647,6 +540,7 @@ CASES:
         type: float
         class: number
         dementional: false
+        hint: По умолчанию установлено значение "0"
 
     focus:
         title: Положение фокуса
@@ -657,6 +551,7 @@ CASES:
             Правый: "-1"
             Левый: "1"
         dementional: false
+        hint: В случае совпадения большой полуоси эллипса и оси абсцисс, положение центрального тела можно определить в левом или правом фокусе относительно начала системы координат
 
     apside_angle:
         title: Угол поворота линии апсид эллипса относительно оси Ох
@@ -664,7 +559,156 @@ CASES:
         type: float
         class: number
         units: angle
+        dementional: False
+        hint: По умолчанию установлено значение "0"
+
+    ####################### general generators #######################
+    particals_number:
+        title: Количество объектов
+        default: "0"
+        type: int
+        class: number
         dementional: false
+        hint: По умолчанию установлено значение "0"
+
+    equal_parameters:
+        title: Сделать все объекты одинаковыми
+        default: "True"
+        type: bool
+        class: checkbox
+        dementional: false
+        hint: Не учитывать масштабирование
+
+    radius_scale:
+        title: Масштабы радиусов объектов
+        default: "1"
+        type: float
+        class: number
+        units: distance
+        dementional: false
+        hint: По умолчанию установлено значение "1 м"
+
+    mass_scale:
+        title: Масштаб масс объектов
+        default: "1"
+        type: float
+        class: number
+        units: mass
+        dementional: false
+        hint: По умолчанию установлено значение "1 кг"
+
+    charge_scale:
+        title: Масштаб зарядов объектов
+        default: "1"
+        type: float
+        class: number
+        units: charge
+        dementional: false
+        hint: По умолчанию установлено значение "1 Кл"
+
+    delay_scale:
+        title: Масштаб задержки возникновения объектов
+        default: "0"
+        type: float
+        class: number
+        units: time
+        dementional: false
+        hint: По умолчанию установлено значение "0 с"
+
+    ####################### walls #######################
+    coords_1:
+        title: Координаты начала стенки
+        default: "0"
+        type: float
+        class: number
+        units: distance
+        dementional: true
+        hint: По умолчанию установлено значение "0 м, 0 м, 0 м"
+
+    coords_2:
+        title: Координаты конца стенки
+        default: "0"
+        type: float
+        class: number
+        units: distance
+        dementional: true
+        hint: По умолчанию установлено значение "0 м, 0 м, 0 м"
+
+    equation_X:
+        title: Параметрическое уравнение границы x = f(u)
+        default: "0"
+        type: expr
+        class: text
+        dementional: false
+        hint: По умолчанию установлено значение "0"
+
+    equation_Y:
+        title: Параметрическое уравнение границы y = f(u)
+        default: "0"
+        type: expr
+        class: text
+        dementional: false
+        hint: По умолчанию установлено значение "0"
+
+    u_s:
+        title: Начальное значение параметра
+        default: "0"
+        type: float
+        class: number
+        dementinal: false
+        hint: По умолчанию установлено значение "0"
+
+    u_f:
+        title: Конечное значение параметра
+        default: "0"
+        type: float
+        class: number
+        dementinal: false
+        hint: По умолчанию установлено значение "0"
+
+    number_of_divisions:
+        title: Число разбиений интервала изменения параметра
+        default: "1"
+        type: int
+        class: number
+        dementinal: false
+        hint: По умолчанию установлено значение "1"
+
+    elasticity:
+        title: Коэффициент эластичности стенки
+        default: "1"
+        type: float
+        class: number
+        dementional: false
+        hint: По умолчанию установлено значение "1"
+
+    ####################### EM_fields #######################
+    electricity:
+        title: Компоненты электрического поля
+        default: "0"
+        type: expr
+        class: text
+        units: electricity
+        dementional: true
+        hint: По умолчанию установлено значение "0 Тл"
+
+    magnetic:
+        title: Компоненты магнитного поля
+        default: "0"
+        type: expr
+        class: text
+        units: magnetic
+        dementional: true
+        hint: По умолчанию установлено значение "0 В"
+
+    ####################### G_fields #######################
+    gravity:
+        title: Потенциал гравитационного поля
+        default: "0"
+        type: expr
+        class: text
+        dementional: false
+        hint: По умолчанию установлено значение "0 Дж/кг"
 
 GENERAL:
     - dimensions
@@ -694,34 +738,6 @@ OBJECTS:
             - radius
             - delay
             - K
-
-    EM_fields:
-        title: Электромагнитное поле
-        cases:
-            - electricity
-            - magnetic
-
-    G_fields:
-        title: Гравитационное поле
-        cases:
-            - gravity
-
-    wall_objects:
-        title: Стенка
-        cases:
-            - coords_1
-            - coords_2
-            - elasticity
-
-    complex_wall:
-        title: Сложная стенка
-        cases:
-            - equation_X
-            - equation_Y
-            - u_s
-            - u_f
-            - number_of_divisions
-            - elasticity
 
     random_generators:
         title: Генератор произвольного распределения объектов
@@ -775,3 +791,31 @@ OBJECTS:
             - focus
             - apside_angle
             - K
+
+    wall_objects:
+        title: Прямая стенка
+        cases:
+            - coords_1
+            - coords_2
+            - elasticity
+
+    complex_wall:
+        title: Сложная стенка
+        cases:
+            - equation_X
+            - equation_Y
+            - u_s
+            - u_f
+            - number_of_divisions
+            - elasticity
+
+    EM_fields:
+        title: Электромагнитное поле
+        cases:
+            - electricity
+            - magnetic
+
+    G_fields:
+        title: Гравитационное поле
+        cases:
+            - gravity
