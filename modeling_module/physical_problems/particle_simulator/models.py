@@ -15,6 +15,40 @@ import matplotlib.pyplot as plt
 import numpy as np
 import json
 
+class Logger:
+
+	def __init__(self, config, astro_object, output, job):
+		self.astro_object = astro_object
+		self.config = config
+		self.output = output
+		self.job = job
+
+		self.output = ''
+
+	def error_tester(self):
+
+		if self.config.output_graphics == 'json':
+			self.output += '\n \n Данное представление реузультата \n находится в разработке. \n Ожидайте :)'
+		elif self.config.output_graphics == 'vispy':
+			self.output += '\n \n Данное представление реузультата \n находится в разработке. \n Ожидайте :)'
+		else:
+			self.output += '\n \n Вы не указали в каком виде \n хотите получить данные моделирования. \n Пожалуйста, вернитесь в редактирование конфигурационного файла \n и заполните поле "Представление результатов"'
+
+	def log(self, path):
+
+		self.error_tester()
+
+		# opening log file
+		with open(path, 'w') as logfile:
+
+			# write all output suff
+			logfile.write(self.output)
+
+		# returning path to the file
+		return path
+
+	def render(self):
+		return self.log(self.output + '.txt')
 
 # Crating base model representation
 class BaseModel:
@@ -65,11 +99,11 @@ class BaseModel:
 
 
 # Expanding base model
-class JsonModel(BaseModel):
+class JsonModel(BaseModel, Logger):
 
 	# Render method to render current problem
 	# Returns: Full path to rendered file
-	def render(self):
+	def output_file(self):
 
 		# Set global problem settings
 		data = {
@@ -267,6 +301,9 @@ class Plot3DModel(PlotModel):
 						'.', ms=1, c=self.colors[i]
 					)
 
+class Vispy(BaseModel, Logger):
+	pass
+
 
 # Function to get specified model
 # Arguments :config: instance of 'Configuration' object
@@ -280,8 +317,12 @@ def _model_from_config(config, astro_object, output, job):
 			model = Plot3DModel
 		else:
 			model = Plot2DModel
-	else:
+	elif config.output_graphics == 'json':
 		model = JsonModel
+	elif config.output_graphics == 'vispy':
+		model = Vispy
+	else:
+		model = Logger
 
 	# Returning specified model
 	return model(config, astro_object, output, job)
