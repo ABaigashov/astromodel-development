@@ -1,3 +1,10 @@
+<?php
+if (php_sapi_name() !== 'apache2handler') {
+    $problem_name='test';
+}
+?>
+
+
 <style>
 .cfg-check-item input:checked+span:after {
     background: url(<?php echo $server_url; ?>/construct/static/images/ch.svg) 50% no-repeat;
@@ -18,6 +25,7 @@
 <script type="text/javascript" src="<?php echo $server_url; ?>/construct/static/js/configurator.js"></script>
 
 <div class="cfg-container" id="cfg-page-1">
+    <p><?php echo $problem_name; ?></p>
     <div class="cfg-table-bx">
         <div class="cfg-h3">Загрузка конфигурационного файла</div>
         <div class="cfg-step-bx">
