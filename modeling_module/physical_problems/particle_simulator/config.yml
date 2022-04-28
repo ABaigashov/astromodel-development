@@ -728,6 +728,7 @@ GENERAL:
 OBJECTS:
     point_objects:
         title: Единичный объект
+        color: true
         cases:
             - trajectory
             - destroy
@@ -741,6 +742,7 @@ OBJECTS:
 
     random_generators:
         title: Генератор произвольного распределения объектов
+        color: true
         cases:
             - particals_number
             - trajectory
@@ -756,6 +758,7 @@ OBJECTS:
 
     ring_generator:
         title: Генератор кругового распределения объектов
+        color: true
         cases:
             - particals_number
             - trajectory
@@ -774,6 +777,7 @@ OBJECTS:
 
     ellipse_generators:
         title: Генератор эллиптического распределения объектов
+        color: true
         cases:
             - particals_number
             - trajectory
@@ -793,6 +797,7 @@ OBJECTS:
             - K
 
     wall_objects:
+        color: false
         title: Прямая стенка
         cases:
             - coords_1
@@ -800,6 +805,7 @@ OBJECTS:
             - elasticity
 
     complex_wall:
+        color: false
         title: Сложная стенка
         cases:
             - equation_X
@@ -810,12 +816,14 @@ OBJECTS:
             - elasticity
 
     EM_fields:
+        color: false
         title: Электромагнитное поле
         cases:
             - electricity
             - magnetic
 
     G_fields:
+        color: false
         title: Гравитационное поле
         cases:
             - gravity

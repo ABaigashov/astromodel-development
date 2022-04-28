@@ -16,7 +16,7 @@ $(document).ready(($) => {
         event.preventDefault();
         $(".cfg-overlay, .cfg-popup-form").fadeIn();
     });
-    $(".cfg-popup .cfg-close").on("click", (event) => {
+    $(".cfg-popup .cfg-close, .cfg-overlay").on("click", (event) => {
         event.preventDefault();
         let children = [...document.getElementById("cfg-table").children].slice(
             1
@@ -375,6 +375,17 @@ function generate_all() {
         }
         document.getElementById("cfg-obj-" + event.target.value).style.display =
             "block";
+        if (STRUCTURE.OBJECTS[event.target.value]) {
+            if (STRUCTURE.OBJECTS[event.target.value].color) {
+                document.getElementsByClassName(
+                    "cfg-select-inf-item-color"
+                )[0].style.display = "block";
+            } else {
+                document.getElementsByClassName(
+                    "cfg-select-inf-item-color"
+                )[0].style.display = "none";
+            }
+        }
     });
 
     let color_input = $("#cfg-obj-color")[0];
@@ -413,17 +424,16 @@ function get_all_dataed(element) {
     return data;
 }
 
-function gen_data_by_element(element, exclude) {
+function gen_data_by_element(element, useColor) {
     let data = {};
     let selectors = [];
 
     let elements = get_all_dataed(element);
-    if (exclude === undefined) {
+    if (useColor !== undefined) {
         elements = elements.concat(
             get_all_dataed(document.getElementById("cfg-objects-every"))
         );
     }
-
     for (let element of elements) {
         let name = element.getAttribute("data-config-key").split(".");
         for (let i = 0; i < name.length - 1; i++) {
@@ -439,7 +449,7 @@ function gen_data_by_element(element, exclude) {
                     element.checked
             );
             value = element.checked;
-        } else if (element.id === "cfg-obj-color") {
+        } else if (element.id === "cfg-obj-color" && useColor !== false) {
             selectors.push("jscolorPicker.fromString('" + value + "')");
             value = parseInt(value.slice(1), 16);
             value = [(value >> 16) & 255, (value >> 8) & 255, value & 255];
@@ -468,7 +478,9 @@ function gen_data_by_element(element, exclude) {
             let ex = "data." + name.join(".").slice(0, -2);
             eval(ex + " = (" + ex + " || []).concat(value)");
         } else {
-            eval("data." + name.join(".") + " = value");
+            if (!(name == "color" && useColor === false)) {
+                eval("data." + name.join(".") + " = value");
+            }
         }
     }
 
@@ -503,6 +515,8 @@ function update_hooks() {
         $(".cfg-overlay, .cfg-popup-form").fadeIn();
 
         clear_inputs();
+        let color = "#" + (((1 << 24) * Math.random()) | 0).toString(16);
+        jscolorPicker.fromString(color);
 
         document.getElementById("cfg-object-type").value = data.type;
 
@@ -548,7 +562,7 @@ function new_obj() {
         `{"edit":true, "id":"${id}"}`,
         name.value,
         "",
-        "<div class='cfg-color' style='background-color:" + color + "'></div>",
+        "",
         "<div class='cfg-red cfg-pop-form-opener'><img src='" +
             server_url +
             "/construct/static/images/red-bt.svg'></div>",
@@ -574,7 +588,8 @@ function save_obj() {
         return;
     }
     let [selectors, data] = gen_data_by_element(
-        document.getElementById("cfg-obj-" + types.value)
+        document.getElementById("cfg-obj-" + types.value),
+        STRUCTURE.OBJECTS[types.value].color
     );
 
     $(".cfg-overlay, .cfg-popup-form").fadeOut();
@@ -595,11 +610,17 @@ function save_obj() {
             });
 
             child.children[2].innerText = data.name;
-            child.children[3].innerText = data.type;
-            child.children[4].innerHTML =
-                "<div class='cfg-color' style='background-color:rgb(" +
-                data.color.join(", ") +
-                ")'></div>";
+            child.children[3].innerText = STRUCTURE.OBJECTS[data.type].title;
+            let color;
+            if (data.color) {
+                color =
+                    "<div class='cfg-color' style='background-color:rgb(" +
+                    data.color.join(", ") +
+                    ")'></div>";
+            } else {
+                color = "<div>~</div>";
+            }
+            child.children[4].innerHTML = color;
         }
     }
 }
@@ -670,25 +691,32 @@ function load_config(data) {
         let row = document.createElement("tr");
         row.className = "cfg-filled";
 
-        let color =
-            "#" +
-            (
-                (1 << 24) +
-                (obj.data.color[0] << 16) +
-                (obj.data.color[1] << 8) +
-                obj.data.color[2]
-            )
-                .toString(16)
-                .slice(1);
+        let color;
 
+        if (obj.data.color) {
+            color =
+                "#" +
+                (
+                    (1 << 24) +
+                    (obj.data.color[0] << 16) +
+                    (obj.data.color[1] << 8) +
+                    obj.data.color[2]
+                )
+                    .toString(16)
+                    .slice(1);
+            color =
+                "<div class='cfg-color' style='background-color:" +
+                color +
+                "'></div>";
+        } else {
+            color = "<div>~</div>";
+        }
         let cases = Object.entries([
             JSON.stringify(obj.selectors),
             JSON.stringify(obj.data),
             obj.data.name,
-            obj.data.type,
-            "<div class='cfg-color' style='background-color:" +
-                color +
-                "'></div>",
+            STRUCTURE.OBJECTS[obj.data.type].title,
+            color,
             "<div class='cfg-red cfg-pop-form-opener'><img src='" +
                 server_url +
                 "/construct/static/images/red-bt.svg'></div>",
@@ -711,7 +739,7 @@ function load_config(data) {
 
 function __get_config() {
     let general = document.getElementById("cfg-general");
-    let [selectors, config] = gen_data_by_element(general, true);
+    let [selectors, config] = gen_data_by_element(general);
 
     config.SELECTORS = [selectors];
     config.PROBLEM = problem_name;

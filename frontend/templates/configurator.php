@@ -27,7 +27,7 @@ if (php_sapi_name() !== 'apache2handler') {
 <div class="cfg-container" id="cfg-page-1">
     <p><?php echo $problem_name; ?></p>
     <div class="cfg-table-bx">
-        <div class="cfg-h3">Загрузка конфигурационного файла</div>
+        <div class="cfg-h3">Настройка конфигурационного файла</div>
         <div class="cfg-step-bx">
             <div class="cfg-file-bx">
                 <div class="cfg-tt">
@@ -58,23 +58,21 @@ if (php_sapi_name() !== 'apache2handler') {
 <div class="cfg-container" id="cfg-page-2">
     <div class="cfg-table-bx">
         <div class="cfg-h3">Создание нового конфигурационного файла</div>
-        <div class="cfg-h4">Шаг 1. Создание пространства моделирования</div>
         <div class="cfg-step-bx" id="cfg-general">
-
-        <div class="cfg-select-inf-item">
-            <div class="cfg-lbl">
-                Название сценария
-                <div class="cfg-hint-bx">
-                    <div class="cfg-opener">
-                        <img src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg">
-                    </div>
-                    <div class="cfg-frame">
-                        Обязательное поле
+            <div class="cfg-select-inf-item">
+                <div class="cfg-lbl">
+                    Название сценария
+                    <div class="cfg-hint-bx">
+                        <div class="cfg-opener">
+                            <img src="<?php echo $server_url; ?>/construct/static/images/info-circle.svg">
+                        </div>
+                        <div class="cfg-frame">
+                            Обязательное поле
+                        </div>
                     </div>
                 </div>
+                <input type="text" placeholder="Введите" data-config-key="GENERAL.name">
             </div>
-            <input type="text" placeholder="Введите" data-config-key="GENERAL.name">
-        </div>
 
             <!-- general content here -->
 

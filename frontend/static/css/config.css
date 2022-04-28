@@ -9,7 +9,7 @@
     font-family: "Open Sans", sans-serif;
     color: #131315;
     font-size: 24px;
-    line-height: 1;
+    line-height: 20px;
 }
 
 .cfg-table-bx .cfg-h3 {
@@ -386,7 +386,7 @@ textarea:focus:-ms-input-placeholder {
     right: 0;
     bottom: 0;
     position: absolute;
-    width: 350px;
+    width: min(280px, 45%);
 }
 
 .cfg-hint-bx {
@@ -401,7 +401,6 @@ textarea:focus:-ms-input-placeholder {
     min-width: 24px;
     min-height: 24px;
     margin-left: 5px;
-    margin-right: 20px;
     cursor: pointer;
 }
 
@@ -419,7 +418,7 @@ textarea:focus:-ms-input-placeholder {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     background: #fff;
     z-index: 2;
-    right: -10px;
+    right: -126px;
     bottom: 50px;
     width: 300px;
     box-sizing: border-box;
@@ -439,7 +438,7 @@ textarea:focus:-ms-input-placeholder {
     color: white;
     text-shadow: 0px -2px 10px rgb(0 0 0 / 45%);
     font-size: 32px;
-    right: 24px;
+    right: 120px;
     width: 20px;
     height: 20px;
     clip-path: polygon(0 0%, 0 140%, 150% 140%, 150% 0);
@@ -464,6 +463,7 @@ textarea:focus:-ms-input-placeholder {
     top: 5%;
     max-height: 90%;
     overflow: auto;
+    overflow-x: hidden;
 }
 
 .cfg-popup-form::-webkit-scrollbar {
@@ -511,7 +511,7 @@ textarea:focus:-ms-input-placeholder {
 }
 
 .cfg-pop-form .cfg-wr1 .cfg-bx1 {
-    width: 444px;
+    width: 100%;
     margin-right: 10px;
 }
 
@@ -721,7 +721,7 @@ textarea:focus:-ms-input-placeholder {
         height: 50px;
     }
     .cfg-select-inf-item .cfg-sel-over {
-        width: 190px;
+        width: min(190px, 45%);
     }
     .cfg-hint-bx .cfg-frame {
         padding: 15px;
@@ -772,9 +772,6 @@ textarea:focus:-ms-input-placeholder {
     }
     .cfg-file-bx .cfg-btn-wr {
         display: block;
-    }
-    .cfg-back-bx .cfg-btn {
-        width: 180px;
     }
     .cfg-file-bx {
         display: block;
@@ -828,11 +825,8 @@ textarea:focus:-ms-input-placeholder {
     .cfg-select-inf-item select {
         background-position: 90% 50%;
     }
-    .cfg-select-inf-item .cfg-sel-over {
-        width: 124px;
-    }
     .cfg-back-bx .cfg-btn {
-        width: 45%;
+        width: 31%;
     }
     .cfg-back-bx-cc {
         display: block;
@@ -922,6 +916,15 @@ textarea:focus:-ms-input-placeholder {
     .cfg-popup-video .cfg-btn-wr .cfg-btn {
         margin: 0 auto 20px;
         width: 80%;
+    }
+
+    .cfg-back-bx {
+        display: block;
+    }
+
+    .cfg-back-bx .cfg-btn {
+        margin: 10px auto;
+        width: min(100%, 250px);
     }
 }
 
