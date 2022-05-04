@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sympy as sym
 import os
+from urllib import request
 
 
 # from mpl_toolkits.mplot3d import *
@@ -35,7 +36,11 @@ class Task_maker():
         self.N = 1
 
         if self.config.mesh_name:
-             self.mesh = path + 'mesh/' + self.config.mesh_name
+             #self.mesh = path + 'mesh/' + self.config.mesh_name
+             remote_url = self.config.mesh_name
+             self.mesh = f"{self.output}/mesh.xml"
+             request.urlretrieve(remote_url, self.mesh)
+
 
         if self.config.source:
             self.source = self.config.source
