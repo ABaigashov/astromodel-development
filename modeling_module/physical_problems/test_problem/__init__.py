@@ -6,7 +6,7 @@
 
 # Import LOCAL python files with 'GlobalInteraction' object
 # and specifiend models representation of problem solution.
-from mesh_creator import MeshCreator
+from solver import SomeRocketModel
 
 
 # This is the main class. It has special name and
@@ -22,11 +22,11 @@ class Model:
 	def init(self, config, output, job):
 
 		# saving current problem model with incomming parameters
-		self.model = MeshCreator(config, output, job)
+		self.model = SomeRocketModel(config, output, job)
 
 	# run method
 	# must ALWAYS return path to rendered file
 	def run(self):
-		self.model.create_mesh()
+
 		# render file and return path
-		return 0
+		return self.model.saver()

@@ -1,8 +1,0 @@
-{"OBJECTS":
-  {"scalar_functions":
-    [{"id":"xbi-mmu","index":1,"condition_type":"Dirichlet",
-      "notation":"EXPR","description":"on_boundary",
-      "condition":"0","name":"Новый объект","color":[52,154,106],
-      "type":{"value":"scalar_functions","description":"Граница и условие на ней"}}]},
-      "GENERAL":{"task_name":"Poisson","name":"test_1","source":"-2*exp(-pow(0.5, 2)*(pow(x[0], 2) + pow(x[1], 2)))",
-        "mesh_name":"mesh_circle.xml"},"PROBLEM":"poisson_problem"}
