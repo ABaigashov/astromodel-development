@@ -146,7 +146,6 @@ body {
 }
 
 .cfg-table-bx .cfg-h4 {
-    margin-bottom: 35px;
     font-size: 19px;
 }
 
@@ -385,7 +384,6 @@ textarea:focus:-ms-input-placeholder {
 .cfg-select-inf-item .cfg-sel-over {
     right: 0;
     bottom: 0;
-    position: absolute;
     width: min(280px, 45%);
 }
 
@@ -418,9 +416,9 @@ textarea:focus:-ms-input-placeholder {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     background: #fff;
     z-index: 2;
-    right: -126px;
+    right: -115px;
     bottom: 50px;
-    width: 300px;
+    width: 250px;
     box-sizing: border-box;
     position: absolute;
     border-radius: 10px;
@@ -438,7 +436,7 @@ textarea:focus:-ms-input-placeholder {
     color: white;
     text-shadow: 0px -2px 10px rgb(0 0 0 / 45%);
     font-size: 32px;
-    right: 120px;
+    right: 109px;
     width: 20px;
     height: 20px;
     clip-path: polygon(0 0%, 0 140%, 150% 140%, 150% 0);
@@ -492,7 +490,6 @@ textarea:focus:-ms-input-placeholder {
 }
 
 .cfg-popup-form .cfg-h4 {
-    margin-bottom: 15px;
     font-size: 24px;
 }
 
@@ -573,7 +570,7 @@ textarea:focus:-ms-input-placeholder {
 
 .cfg-table-bx .cfg-lbl-short,
 .cfg-pop-form .cfg-lbl-short {
-    max-width: 50%;
+    align-items: end;
 }
 
 #cfg-table .cfg-del img {
@@ -974,4 +971,28 @@ button {
     .cfg-scale-bx .cfg-tmp-bx {
         justify-content: flex-end;
     }
+}
+
+.article hr {
+    margin: 10px auto 30px;
+    border-color: #fff;
+    background-color: #fff;
+}
+
+.cfg-select-inf-item .cfg-sel-over select {
+    border-radius: 0 9px 9px 0;
+}
+
+.cfg-select-inf-item .cfg-sel-pre input {
+    border-radius: 9px 0 0 9px;
+    border-right: none;
+}
+
+.cfg-sel-pre {
+    flex-grow: 1;
+}
+
+.cfg-select-flex-item {
+    display: flex;
+    align-items: end;
 }

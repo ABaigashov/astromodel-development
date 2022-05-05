@@ -711,15 +711,19 @@ CASES:
         hint: По умолчанию установлено значение "0 Дж/кг"
 
 GENERAL:
+    - topic: THIS IS A TOPIC
+    -
     - dimensions
     - output_graphics
     - grid
+    -
     - step
     - steps_number
     - fps
     - frames_gap
     - edge
     - scale_faktor
+    -
     - gravity_point_interaction
     - gravity_extended_interaction
     - electricity_point_interaction

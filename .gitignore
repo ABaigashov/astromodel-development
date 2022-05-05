@@ -1,7 +1,10 @@
 *.pyc
 */__pycache__
 frontend/configs/*
+frontend/configs
 modeling_module/requirements/*
+modeling_module/requirements
 modeling_module/setups/*
+modeling_module/setups
 *.DS_Store
 docker/docker-compose.yml

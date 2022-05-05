@@ -131,7 +131,8 @@ function generate_label(slots) {
         wrap.classList.add("cfg-lbl-short");
     }
 
-    let label = document.createTextNode(slots.title);
+    let label = document.createElement("span");
+    label.innerText = slots.title;
     wrap.appendChild(label);
 
     let hint = generate_hint(slots);
@@ -195,12 +196,18 @@ function generate_basic_input(name, slots) {
 
 function generate_unit_input(name, slots, units) {
     slots.short = true;
+    let wrap = document.createElement("div");
+    wrap.className = "cfg-select-inf-item cfg-select-flex-item";
+
     let basic = generate_basic_input(name + ".value", slots);
+    basic.className = "cfg-sel-pre";
 
     let input = basic.getElementsByTagName("input")[0];
 
     input.type = "number";
     input.placeholder = "Число";
+
+    wrap.appendChild(basic);
 
     let dropdown = generate_dropdown(
         name + ".units",
@@ -213,9 +220,9 @@ function generate_unit_input(name, slots, units) {
     );
     dropdown.className = "cfg-sel-over";
 
-    basic.appendChild(dropdown);
+    wrap.appendChild(dropdown);
 
-    return basic;
+    return wrap;
 }
 
 function generate_dimensional_input(name, slots, units) {
@@ -305,8 +312,16 @@ function generate_checkbox(name, slots) {
     return wrap;
 }
 
-function general_field(wrap, name, slots) {
-    if (slots.class === "dropdown") {
+function generate_field(wrap, name, slots) {
+    if (slots === null) {
+        let hr = document.createElement("hr");
+        wrap.appendChild(hr);
+    } else if (slots.topic !== undefined) {
+        let topic = document.createElement("div");
+        topic.innerText = slots.topic;
+        topic.className = "cfg-h4";
+        wrap.appendChild(topic);
+    } else if (slots.class === "dropdown") {
         let dropdown = generate_dropdown(name, slots);
         wrap.appendChild(dropdown);
     } else if (slots.class === "checkbox") {
@@ -328,7 +343,7 @@ function general_field(wrap, name, slots) {
 
 function generate_object(wrap, cases) {
     for (let name of cases) {
-        general_field(wrap, name, STRUCTURE.CASES[name]);
+        generate_field(wrap, name, STRUCTURE.CASES[name] || name);
     }
 }
 
@@ -336,7 +351,11 @@ function generate_all() {
     let general = document.getElementById("cfg-general");
 
     for (let name of STRUCTURE.GENERAL) {
-        general_field(general, "GENERAL." + name, STRUCTURE.CASES[name]);
+        generate_field(
+            general,
+            "GENERAL." + name,
+            STRUCTURE.CASES[name] || name
+        );
     }
 
     if (!STRUCTURE.OBJECTS) {
