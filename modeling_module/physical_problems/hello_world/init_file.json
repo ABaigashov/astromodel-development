@@ -1,0 +1,16 @@
+{
+  "obj_1": {
+      "mass": 1.99e30,
+      "electric_charge": 0,
+      "coords": [0, 0],
+      "vx": 0,
+      "vy": 0
+            },
+  "obj_2": {
+    "mass": 5.97e24,
+    "electric_charge": 0,
+    "coords": [149e9, 0],
+    "vx": 0,
+    "vy": -27890
+           }
+}

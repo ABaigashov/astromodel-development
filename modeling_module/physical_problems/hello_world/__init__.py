@@ -6,7 +6,8 @@
 
 # Import LOCAL python files with 'GlobalInteraction' object
 # and specifiend models representation of problem solution.
-from some_help_file import SomeRocketModel
+from interaction_creator import GlobalInteraction
+from models import _model_from_config
 
 
 # This is the main class. It has special name and
@@ -20,13 +21,16 @@ class Model:
 	#         :output: string with output path (without extention)
 	#            :job: job instance (uses for 'job.process' monipulations)
 	def init(self, config, output, job):
-		
+
+		# creating object of 'GlobalInteraction' class
+		astro_object = GlobalInteraction(config)
+
 		# saving current problem model with incomming parameters
-		self.model = SomeRocketModel(config, output, job)
+		self.model = _model_from_config(config, astro_object, output, job)
 
 	# run method
 	# must ALWAYS return path to rendered file
 	def run(self):
 
 		# render file and return path
-		return self.model.launch_rocket()
+		return self.model.render()

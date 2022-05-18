@@ -5,5 +5,10 @@
     "weight":"30","age":"40","color":[160,249,35],
     "type":{"value":"astronauts","description":"Астронафт"}}]},
     "GENERAL":{"rocket_time":{"units":"1","value":"10"},"name":"test",
+
     "rocket_name":"PupaLupa","jet_count":"5","post_in_news":"on"},
+
     "PROBLEM":"hello_world"}
+
+
+
