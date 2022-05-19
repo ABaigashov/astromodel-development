@@ -446,6 +446,7 @@ GENERAL:
 
 OBJECTS:
     rectangles:
+        color: true
         title: Прямоугольник
         cases:
             - invert
@@ -458,6 +459,7 @@ OBJECTS:
             - rot_point_y
 
     circles:
+        color: true
         title: Круг
         cases:
             - invert
@@ -469,6 +471,7 @@ OBJECTS:
             - rot_point_y
 
     ellipses:
+        color: true
         title: Эллипс
         cases:
             - invert
@@ -481,6 +484,7 @@ OBJECTS:
             - rot_point_y
 
     ellipsoides:
+        color: true
         title: Эллипсоид
         cases:
             - invert
@@ -492,6 +496,7 @@ OBJECTS:
             - sphere_c
 
     parallelepipeds:
+        color: true
         title: Параллелепипед
         cases:
             - invert
@@ -503,6 +508,7 @@ OBJECTS:
             - parall_z1
 
     cylinders:
+        color: true
         title: Цилиндр
         cases:
             - invert
@@ -516,6 +522,7 @@ OBJECTS:
             - cyl_radius1
 
     cones:
+        color: true
         title: Конус
         cases:
             - invert
@@ -528,11 +535,13 @@ OBJECTS:
             - cone_radius
 
     unitintervalmesh:
+        color: false
         title: Интервал (0,1)
         cases:
             - number_of_cells_in_an_interval
 
     unitsquaremesh:
+        color: false
         title: Треугольная сетка двумерного единичного квадрата
         cases:
             - number_of_cells_in_x_direction
@@ -540,6 +549,7 @@ OBJECTS:
             - direction_of_the_diagonals
 
     rectanglemesh:
+        color: false
         title: Треугольная сетка двумерного прямоугольника
         cases:
             - parall_x0
@@ -551,6 +561,7 @@ OBJECTS:
             - direction_of_the_diagonals
 
     unitcubemesh:
+        color: false
         title: Тетраэдральная сетка трехмерного единичного куба
         cases:
             - number_of_cells_in_x_direction
@@ -558,6 +569,7 @@ OBJECTS:
             - number_of_cells_in_z_direction
 
     boxmesh:
+        color: false
         title: Тетраэдрическая сетка трехмерной прямоугольной призмы
         cases:
             - parall_x0

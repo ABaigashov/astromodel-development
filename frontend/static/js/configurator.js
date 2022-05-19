@@ -791,7 +791,7 @@ function save_config() {
     });
     let filename = "config";
     if (config.GENERAL.name) {
-        filename = cfg.GENERAL.name;
+        filename = config.GENERAL.name;
     }
     window.saveAs(blob, filename + ".json");
 }
