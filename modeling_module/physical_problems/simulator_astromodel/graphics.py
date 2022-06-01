@@ -49,6 +49,7 @@ class Graphics(Solver, Logger):
                           "  ___) | |_| |  __/| |___|  _ <  \n"
                           " |____/ \___/|_|   |_____|_| \_\  \n ")
         ani = FuncAnimation(self.fig, self.animate, frames=self.frames, interval=50)
-        plt.show()
+		ani.save(self.output + '.gif')
 
-
+		# Return path to file
+		return self.output + '.gif'

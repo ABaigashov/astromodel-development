@@ -1,0 +1,503 @@
+# This is main problem configuration file. It has special
+# name 'config.yml' and you SHOULDN'T RENAME it. The file
+# contains all information about variables, which will be
+# used in current problem. To generate web from of this
+# problem you must to have this file in problem folder.
+# In this web form user can put his paremeters and run
+# solver of current problem. This file also is necessary
+# to parse incomming parameters from web form. You can
+# specify any web field to make parameters more flexable.
+#
+# This file has special structure. There are four special
+# keywords: ('UNITS', 'CASES', 'GENERAL', 'OBJECTS').
+# You must write it only in this order.
+#
+# keyword 'UNITS':
+#  Description:
+#      This group contains all types of units you need. If
+#      you don't need any units, just skip this keyword.
+#
+#      Name {unit} uses to 'CASES.{name}.units: {unit}' value
+#      (check 'CASES' keyword example). Names of units must
+#      consist of lowercase latin letters ONLY.
+#
+#      Names {unit} and {subunit} can consist of ANY characters
+#      like russian, spaces, slashes, dashes and other...
+#      This names will be displayed in web form as name of
+#      unit and it's derivatives.
+#
+#      Value {number} must be in special numeric sturcure
+#      like '(m)e±(n)', where 'm' and 'n' are mantissa
+#      and exponent respectively ('m' and 'n' belongs 'Z')
+#      Base is always 10, because structure of '(m)e±(n)'
+#      means m * 10^n.
+#
+#      Often subunit {number} is 3*k more/less than
+#      base unit exponent as derived unit, like kilo-, mega-,
+#      milli- and other... ('k' belongs 'Z').
+#
+#      BUT subunit value can be ANY number with '(m)e±(n)'
+#      structure (ex. 'time' unit can't have megaseconds,
+#      use days or hours, or other non-SI units).
+#
+#      OR you can write a number {number} WITHOUT '(m)e±(n)'
+#      structure. If you need this, add double quotes like "3.14159".
+#  Example:
+#
+# UNITS:
+#   {name}:
+#     {unit}: {number}
+#     {subunit}: {number}
+#     {subunit}: {number}
+#     ...
+#   ...
+#
+# keyword 'CASES':
+#  Description:
+#      This group contains all variables (cases) you need to
+#      solve problem. This cases never appears by themselves,
+#      because they are the parts of 'GENERAL' and 'OBJECTS'
+#      keyword structures.
+#
+#      Name of cases must consist of owercase latin letters ONLY.
+#      Name of cases uses for 'GENERAL' and 'OBJECTS' keywords
+#      (check 'GENERAL' and 'OBJECTS' description below).
+#
+#      Single case MUST contains this keys:
+#      ('title', 'default', 'type', 'class', 'dementional').
+#      Cases can also have optional keys:
+#      ('units', 'minimum', 'maximum', 'cases').
+#
+#      Key 'title' is a string and can
+#      consist of ANY characters like russian, spaces, slashes,
+#      dashes and other... This key will be displayed in web
+#      form as name of current case.
+#
+#      Key 'default' is a string with default value, which is
+#      necessary if something goes wrong while parsing. If
+#      'default' value is numeric, you MUST add double
+#      quotes like "2.71828".
+#
+#      Key 'type' must be one of next values: ('str', 'bool',
+#      'float', 'int', 'expr'). Parser gets this value to define
+#      python type of current variable.
+#
+#      Key 'class' must be one of next
+#      values: ('dropdown', 'checkbox', 'number', 'text'). This
+#      key is necessary to generate web form automaticly. This
+#      key defines the way, how currnet parameter will be
+#      entered by user.
+#
+#      Key 'dementional' is a boolean value
+#      which shows is this a vector or scalar variable
+#      ('true' or 'false' respectively).
+#
+#      Optional keys 'minimum' and 'maximum' are used only if
+#      'class: number'. Key 'minimum' is the lowerbound and
+#      key 'maximum' is the upperbound.
+#
+#      Optional key 'units' is used only if 'class: number'. This
+#      key must be one of the 'UNITS' varuables. If you use some
+#      unit system, you need to define this units in 'UNITS' group
+#      (check 'UNITS' description above).
+#
+#      Optional key 'cases' is used only if 'class: dropdown'. This
+#      key is necessary to create all possible options, which current
+#      variable can take.
+#      The {title} parameter inside of 'cases' key is the name,
+#      which will be displayed in web form as name of the current
+#      option.
+#      Parameter {value} is the option (state), which current
+#      case can take.
+#  Example:
+#
+# CASES:
+#   {name}:
+#     title: {title}
+#     default: {default}
+#     type: {str / bool / float / int / expr}
+#     class: {dropdown / checkbox / number / text}
+#     dementional: {true / false}
+#     [units]: {units}
+#     [minimum]: {number}
+#     [maximum]: {number}
+#     [cases]:
+#       {title}: {value}
+#       {title}: {value}
+#       ...
+#   ...
+#
+# keyword 'GENERAL':
+#  Description:
+#      This group contains some of the cases, which was written
+#      for general parameters (like time step or size of
+#      calculating area).
+#
+#      Every {case} parameter is the one of 'CASES' group names.
+#      In code you can get parsed case value by calling it's name
+#      (ex. 'variable = config.{name}').
+#  Example:
+#
+# GENERAL:
+#  - {case}
+#  - {case}
+#  - {case}
+# ...
+#
+# keyword 'OBJECTS':
+#  Description:
+#      This group contains object types, which you will use to
+#      solve your problem. Every object must have 'title' key and
+#      'cases' key.
+#
+#      Key 'title' will be displayed in web form as
+#      name of current object.
+#
+#      Key 'cases' contains names of 'CASES' exactly as in
+#      'GENERAL' group. In code you can call any of this cases
+#      (ex. 'array = [obj.{case} for obj in config.{name}]')
+#  Example:
+#
+# OBJECTS:
+#   {name}:
+#     title: {title}
+#     cases:
+#       - {case}
+#       - {case}
+#       - {case}
+#      ...
+#   ...
+
+UNITS:
+    distance:
+        hint: Еденицы измерения расстояния
+        default: метры
+        values:
+            микрометры: 1e-6
+            милиметры: 1e-3
+            метры: 1e+0
+            километры: 1e+3
+            aстрономические единицы: 1495978707e+2
+            световые года: 94607304725808e+2
+            парсеки: 30856776e+9
+            мегапарсеки: 30856776e+15
+
+    time:
+        hint: Еденицы измерения времени
+        default: секунды
+        values:
+            микросекунды: 1e-6
+            милисекунды: 1e-3
+            секунды: 1e+0
+            минуты: 6e+1
+            часы: 36e+2
+            дни: 864e+2
+            годы: 31536e+3
+            столетя: 31536e+5
+            тысячилетия: 31536e+6
+
+    velosity:
+        hint: Еденицы измерения скорости
+        default: м / с
+        values:
+            мкм / c: 1e-6
+            мм / с: 1e-3
+            м / с: 1e+0
+            км / с: 1e+3
+            скорости света: 299792458e+0
+
+    charge:
+        hint: Еденицы измерения заряда
+        default: кулон
+        values:
+            микрокулон: 1e-6
+            миликулон: 1e-3
+            кулон: 1e+0
+            килокулон: 1e+3
+            мегакулон: 1e+6
+            гигакулон: 1e+9
+            теракулон: 1e+12
+
+    mass:
+        hint: Еденицы измерения массы
+        default: килограммы
+        values:
+            микрограммы: 1e-9
+            милиграммы: 1e-6
+            граммы: 1e-3
+            килограммы: 1e+0
+            тонны: 1e+3
+            килотонны: 1e+6
+            мегатонны: 1e+9
+            гигатонны: 1e+12
+            массы астероида: 1e+20
+            массы Луны: 736e+20
+            массы Земли: 5972e+21
+            массы Юпитера: 1898e+24
+            массы Солнца: 198892e+25
+
+
+CASES:
+    ####################### GENERAL #######################
+    dimensions:
+        title: Размерность пространства моделирования
+        default: "2"
+        type: int
+        class: dropdown
+        cases:
+            Двумерное пространство: "2"
+            Трехмерное пространство: "3"
+        dementional: false
+        hint: По умолчанию установлена размерность "2"
+
+    output_graphics:
+        title: Представление результатов
+        default: matplotlib
+        type: str
+        class: dropdown
+        cases:
+            Расчетная анимация: matplotlib
+            Графическая анимация: vispy
+            Данные в виде таблицы: json
+        dementional: false
+        hint: Поле, определяющее формат представления расчетов. По умолчанию установлена "Графическая анимация"
+
+    grid:
+        title: Отображение сетки
+        default: "False"
+        type: bool
+        class: checkbox
+        dementional: false
+        hint: Поле, при выборе которого в файле анимации будет отображаться координатная сетка. По умолчанию сетка отключена
+
+    step:
+        title: Шаг по времени моделирования
+        default: "1"
+        type: float
+        class: number
+        minimum: "0"
+        units: time
+        dementional: false
+        hint: Значение шага по времени, которое будет использовано при решении уравнений движения. По умолчанию установлено значение "1 секунда"
+
+    steps_number:
+        title: Количество шагов / временной интервал
+        default: "10"
+        type: int
+        class: number
+        minimum: "1"
+        dementional: false
+        hint: Значение времени, до которого будет произведен расчет (начальное значение считается за нулевой момент времени). По умолчанию установлено значение "10 секунд"
+
+    fps:
+        title: Количество кадров в секунду анимации / FPS
+        default: "30"
+        type: int
+        class: number
+        minimum: "1"
+        dementional: false
+        hint: По умолчанию установлено значение "30"
+
+    frames_gap:
+        title: Кадровый прыжок
+        default: "1"
+        type: int
+        class: number
+        minimum: "1"
+        dementional: false
+        hint: Значение, определяющее, какой кадр по счету записывается в видеофайл. По умолчанию установлено значение "1"
+
+    edge:
+        title: Границы пространства моделирования
+        default: "1"
+        type: float
+        class: number
+        minimum: "0"
+        units: distance
+        dementional: false
+        hint: Значение, определяющее размер области в форме квадрата (два измерения) или куба (три измерения), которая отображается при в анимации. По умолчанию установлено значение "1 метр"
+
+    scale_faktor:
+        title: Масштабный фактор
+        default: "1"
+        type: float
+        class: number
+        minimum: "0"
+        dementional: false
+        hint: Значение, определяющее во сколько раз будут увеличены размеры объектов при анимации. По умолчанию установлено значение "1"
+
+    gravity_point_interaction:
+        title: Гравитационное взаимодействие точечных объектов
+        default: "False"
+        type: bool
+        class: checkbox
+        dementional: false
+        hint: Моделируется в рамках закона Всемирного тяготения
+
+    gravity_extended_interaction:
+        title: Внешнее гравитационное поле
+        default: "False"
+        type: bool
+        class: checkbox
+        dementional: false
+        hint: Задается гравитационным потенциалом
+
+    electricity_point_interaction:
+        title: Кулоновское взаимодействие
+        default: "False"
+        type: bool
+        class: checkbox
+        dementional: false
+        hint: Моделируется в рамках закона Кулона
+
+    electricity_extended_interaction:
+        title: Внешнее электромагнитное поле
+        default: "False"
+        type: bool
+        class: checkbox
+        dementional: false
+        hint: Задается компонентами электрического и магнитного полей
+
+    ####################### point_objects #######################
+    coords:
+        title: Координаты центра
+        default: "0"
+        type: float
+        class: number
+        units: distance
+        dementional: true
+        hint: По умолчанию установлено значение "0 м, 0 м, 0 м"
+
+    speed:
+        title: Начальная скорость
+        default: "0"
+        type: float
+        class: number
+        units: velosity
+        dementional: true
+        hint: По умолчанию установлено значение "0 м/с, 0 м/с, 0 м/с"
+
+    mass:
+        title: Масса
+        default: "0"
+        type: float
+        class: number
+        units: mass
+        dementional: false
+        hint: По умолчанию установлено значение "0 кг"
+
+    charge:
+        title: Заряд
+        default: "0"
+        type: float
+        class: number
+        units: charge
+        dementional: false
+        hint: По умолчанию установлено значение "0 Кл"
+
+    radius:
+        title: Радиус
+        default: "0"
+        type: float
+        class: number
+        units: distance
+        dementional: false
+        hint: По умолчанию установлено значение "0 м"
+
+    delay:
+        title: Время появления
+        default: "0"
+        type: float
+        class: number
+        units: time
+        dementional: false
+        hint: По умолчанию установлено значение "0 с"
+
+    trajectory:
+        title: Отображать траекторию объекта
+        default: "False"
+        type: bool
+        class: checkbox
+        dementional: false
+        hint: Пошаговое отображение траектории
+
+    K:
+        title: Коэффициент упругости
+        default: "1"
+        type: float
+        class: number
+        minimum: "0"
+        dementional: false
+        hint: По умолчанию установлено значение "1"
+
+    destroy:
+        title: Возможность разрушения объекта при столкновении
+        default: false
+        type: bool
+        class: checkbox
+        dementional: false
+        hint: В случае столкновения объекта с другим объектом или стенокой возможно полное его полное разрушение
+
+    ####################### walls #######################
+    coords_1:
+        title: Координаты начала стенки
+        default: "0"
+        type: float
+        class: number
+        units: distance
+        dementional: true
+        hint: По умолчанию установлено значение "0 м, 0 м, 0 м"
+
+    coords_2:
+        title: Координаты конца стенки
+        default: "0"
+        type: float
+        class: number
+        units: distance
+        dementional: true
+        hint: По умолчанию установлено значение "0 м, 0 м, 0 м"
+
+
+    number_of_divisions:
+        title: Число разбиений интервала изменения параметра
+        default: "1"
+        type: int
+        class: number
+        dementinal: false
+        hint: По умолчанию установлено значение "1"
+
+
+GENERAL:
+    - dimensions
+    - output_graphics
+    - grid
+    - step
+    - steps_number
+    - fps
+    - frames_gap
+    - edge
+    - scale_faktor
+    - gravity_point_interaction
+    - gravity_extended_interaction
+    - electricity_point_interaction
+    - electricity_extended_interaction
+
+OBJECTS:
+    point_objects:
+        title: Единичный объект
+        cases:
+            - trajectory
+            - destroy
+            - coords
+            - speed
+            - mass
+            - charge
+            - radius
+            - delay
+            - K
+
+    wall_objects:
+        title: Прямая стенка
+        cases:
+            - coords_1
+            - coords_2
