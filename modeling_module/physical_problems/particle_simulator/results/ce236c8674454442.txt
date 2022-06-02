@@ -1,0 +1,1 @@
+2022-06-02 23:37:17,882 - [DEBUG] - my_logger - (models.py).__init__(28) - Solving

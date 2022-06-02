@@ -8,7 +8,7 @@
 # Import LOCAL python files with 'GlobalInteraction' object
 # and specifiend models representation of problem solution.
 from interaction_creator import GlobalInteraction
-from models import _model_from_config
+from models import _model_from_config, _log_from_config
 
 
 # This is the main class. It has special name and
@@ -27,11 +27,12 @@ class Model:
 		astro_object = GlobalInteraction(config)
 
 		# saving current problem model with incomming parameters
-		self.model = _model_from_config(config, astro_object, output, job)
+		#self.model = _model_from_config(config, astro_object, output, job)
 		self.log = _log_from_config(config, astro_object, output, job)
 	# run method
 	# must ALWAYS return path to rendered file
 	def run(self):
 
 		# render file and return path
-		return self.model.render(), self.log.render()
+		#return self.model.render(), self.log.render()
+		return  self.log.render()
