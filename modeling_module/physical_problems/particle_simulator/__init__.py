@@ -28,10 +28,10 @@ class Model:
 
 		# saving current problem model with incomming parameters
 		self.model = _model_from_config(config, astro_object, output, job)
-
+		self.log = _log_from_config(config, astro_object, output, job)
 	# run method
 	# must ALWAYS return path to rendered file
 	def run(self):
 
 		# render file and return path
-		return self.model.render()
+		return self.model.render(), self.log.render()

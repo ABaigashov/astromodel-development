@@ -11,7 +11,6 @@ logger = logging.getLogger('my_logger')
 
 class Solver:
     def __init__(self):
-        super().__init__()
         self.logger = logger
         self.logger.debug('Solving')
         try:
