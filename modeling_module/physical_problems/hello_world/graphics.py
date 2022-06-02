@@ -2,10 +2,9 @@ from solver import Solver
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
-from logger import Logger
 
 
-class Graphics(Solver, Logger):
+class Graphics(Solver):
     def __init__(self):
         super().__init__()
         self.logger.debug('Start drawing')
@@ -50,5 +49,3 @@ class Graphics(Solver, Logger):
                           " |____/ \___/|_|   |_____|_| \_\  \n ")
         ani = FuncAnimation(self.fig, self.animate, frames=self.frames, interval=50)
         plt.show()
-
-

@@ -2,13 +2,17 @@ import numpy as np
 from unpacking import Parser
 import json
 import time
-from logger import Logger
+import logging.config
+import logging
+from logging_config import LOGGING_CONFIG
 
+logging.config.dictConfig(LOGGING_CONFIG)
+logger = logging.getLogger('my_logger')
 
-
-class Solver(Logger):
+class Solver:
     def __init__(self):
         super().__init__()
+        self.logger = logger
         self.logger.debug('Solving')
         try:
             self.f = open('init_file.json', )
@@ -16,7 +20,7 @@ class Solver(Logger):
         except Exception as e:
             self.logger.error(f"Error in json file: {e} ")
             raise
-        self.parser = Parser(self.data)
+        self.parser = Parser(self.data, logger)
         self.parser.objects_parse()
         self.objects = self.parser.objects
         self.N = len(self.objects)

@@ -1,10 +1,9 @@
 from constants import constants
-from logger import Logger
 
 
-class Parser(Logger):
-    def __init__(self, data):
-        super().__init__()
+class Parser:
+    def __init__(self, data, logger):
+        self.logger = logger
         self.logger.debug('Start unpacking')
         self.data = data
         self.objects = []
