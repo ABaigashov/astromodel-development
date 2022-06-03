@@ -109,7 +109,8 @@ class Configurator:
 	@classmethod
 	def parse_general(cls, defaults, parameters, config):
 		raw = {}
-		for name in set(parameters['GENERAL']) | set(config['GENERAL']):
+		cfg_general = filter(lambda x: isinstance(x, str), config['GENERAL'])
+		for name in set(parameters['GENERAL']) | set(cfg_general):
 			if name in defaults:
 				raw[name] = cls.fill_defaults(name, parameters['GENERAL'].get(name), defaults, parameters, config)
 			else:
