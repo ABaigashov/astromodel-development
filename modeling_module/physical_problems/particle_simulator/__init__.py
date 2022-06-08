@@ -8,7 +8,8 @@
 # Import LOCAL python files with 'GlobalInteraction' object
 # and specifiend models representation of problem solution.
 from interaction_creator import GlobalInteraction
-from models import _model_from_config, _log_from_config
+from models import _model_from_config
+from checker import _log_from_config
 
 
 # This is the main class. It has special name and

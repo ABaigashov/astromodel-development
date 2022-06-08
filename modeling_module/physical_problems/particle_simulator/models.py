@@ -12,51 +12,6 @@ from mpl_toolkits.mplot3d.axes3d import Axes3D
 from moviepy.editor import VideoClip
 import matplotlib.pyplot as plt
 import numpy as np
-import logging
-
-logger = logging.getLogger('my_logger')
-_log_format = f"%(asctime)s - [%(levelname)s] - %(name)s - (%(filename)s).%(funcName)s(%(lineno)d) - %(message)s"
-
-
-class Checker:
-	def __init__(self, config, astro_object, output, job):
-		self.astro_object = astro_object
-		self.config = config
-		self.output = output
-		self.job = job
-		self.logger = self.get_logger('my_logger')
-		self.logger.debug('Solving')
-
-	def get_file_handler(self):
-		self.file_handler = logging.FileHandler(self.output + '.txt')
-		self.file_handler.setLevel(logging.DEBUG)
-		self.file_handler.setFormatter(logging.Formatter(_log_format))
-
-		return self.file_handler
-
-	def get_stream_handler(self):
-		stream_handler = logging.StreamHandler()
-		stream_handler.setLevel(logging.DEBUG)
-		stream_handler.setFormatter(logging.Formatter(_log_format))
-		return stream_handler
-
-	def get_logger(self, name):
-		my_logger = logging.getLogger(name)
-		logger.setLevel(logging.DEBUG)
-		logger.addHandler(self.get_file_handler())
-		logger.addHandler(self.get_stream_handler())
-		return my_logger
-
-	def error_tester(self):
-		if self.config.output_graphics == 'json':
-			self.logger.info( '\n \n Данное представление реузультата \n находится в разработке. \n Ожидайте :)')
-		elif self.config.output_graphics == 'vispy':
-			self.logger.info ('\n \n Данное представление реузультата \n находится в разработке. \n Ожидайте :)')
-		else:
-			self.logger.info('\n \n Вы не указали в каком виде \n хотите получить данные моделирования. \n Пожалуйста, вернитесь в редактирование конфигурационного файла \n и заполните поле "Представление результатов"')
-
-	def render(self):
-		return self.output + '.txt'
 
 
 # Crating base model representation
@@ -333,8 +288,4 @@ def _model_from_config(config, astro_object, output, job):
 	# Returning specified model
 	return model(config, astro_object, output, job)
 
-def _log_from_config(config, astro_object, output, job):
 
-	log = Checker
-	# Returning log
-	return log(config, astro_object, output, job)
