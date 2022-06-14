@@ -711,18 +711,18 @@ CASES:
         hint: По умолчанию установлено значение "0 Дж/кг"
 
 GENERAL:
-    - topic: THIS IS A TOPIC
+    - topic: Общие настройки сцены
     -
     - dimensions
     - output_graphics
     - grid
-    -
     - step
     - steps_number
     - fps
     - frames_gap
     - edge
     - scale_faktor
+    - topic: Настройки взаимодействий
     -
     - gravity_point_interaction
     - gravity_extended_interaction
@@ -734,6 +734,7 @@ OBJECTS:
         title: Единичный объект
         color: true
         cases:
+            -
             - trajectory
             - destroy
             - coords
