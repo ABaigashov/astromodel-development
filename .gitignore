@@ -2,6 +2,7 @@
 */__pycache__
 frontend/configs/*
 frontend/configs
+.idea
 modeling_module/requirements/*
 modeling_module/requirements
 modeling_module/setups/*
