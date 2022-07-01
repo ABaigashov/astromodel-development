@@ -10,4 +10,5 @@ modeling_module/setups
 *.DS_Store
 *.pvd
 *.vtu
+*.gif
 docker/docker-compose.yml
