@@ -4,6 +4,7 @@
 # contains main solver object.
 
 
+
 # Import LOCAL python files with 'GlobalInteraction' object
 # and specifiend models representation of problem solution.
 from some_help_file import BallModel
