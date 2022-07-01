@@ -9,6 +9,8 @@ class BallModel:
         self.output = output
         self.job = job
 
+        self.test(slef.config)
+
     def start(self):
         fig, ax = plt.subplots()
 
