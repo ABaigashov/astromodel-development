@@ -12,3 +12,4 @@ modeling_module/setups
 *.vtu
 *.gif
 docker/docker-compose.yml
+*.gif
