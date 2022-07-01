@@ -170,13 +170,36 @@
 
 UNITS:
     time:
-        секунды: 1e+0
-        минуты: 6e+1
-        часы: 36e+2
+        hint: Еденицы измерения времени
+        default: секунды
+        values:
+            микросекунды: 1e-6
+            милисекунды: 1e-3
+            секунды: 1e+0
+            минуты: 6e+1
+            часы: 36e+2
+            дни: 864e+2
+            годы: 31536e+3
+            столетя: 31536e+5
+            тысячилетия: 31536e+6
 
     mass:
-        килограммы: 1e+0
-        фунты: "2.20462"
+        hint: Еденицы измерения массы
+        default: килограммы
+        values:
+            микрограммы: 1e-9
+            милиграммы: 1e-6
+            граммы: 1e-3
+            килограммы: 1e+0
+            тонны: 1e+3
+            килотонны: 1e+6
+            мегатонны: 1e+9
+            гигатонны: 1e+12
+            массы астероида: 1e+20
+            массы Луны: 736e+20
+            массы Земли: 5972e+21
+            массы Юпитера: 1898e+24
+            массы Солнца: 198892e+25
 
 CASES:
     marker:
@@ -221,21 +244,21 @@ CASES:
         type: int
         class: number
         dementional: false
-    
+
     edge:
-      title: Размер поля
-      default: "3"
-      type: int
-      class: number
-      dementional: false
-    
+        title: Размер поля
+        default: "3"
+        type: int
+        class: number
+        dementional: false
+
 GENERAL:
     - edge
 
 OBJECTS:
     balls:
         title: Шарик
+        color: true
         cases:
             - label
             - vy0
-
