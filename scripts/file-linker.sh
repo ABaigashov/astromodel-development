@@ -6,6 +6,8 @@ requirements=$PWD/modeling_module/requirements
 setups=$PWD/modeling_module/setups
 server=$PWD/docker/server_config.yml
 
+rm -rf $configs
+
 
 for check in $configs $requirements $setups; do
 	echo Creating $check
@@ -52,14 +54,16 @@ else
 	tmp_IFS=$IFS
 	IFS=$'\n'
 
+	for problem in $(ls $problems); do
+		link $problem
+	done
+
 	for j in $(cat $server); do
 
 		IFS=": "
 		q=($j)
 		problem=${q[0]}
 		size=${q[1]}
-
-		link $problem
 
 		if [ -f $problems/$problem/config.yml ]; then
 			echo ""                                                  >> $PWD/docker/docker-compose.yml
