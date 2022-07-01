@@ -3,4 +3,4 @@ mesh_generator: 1
 neutron_stars: 1
 cosmology: 1
 poisson_problem: 1
-testing_libs: 1
+hello_world: 1
