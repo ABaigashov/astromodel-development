@@ -8,3 +8,4 @@ modeling_module/setups/*
 modeling_module/setups
 *.DS_Store
 docker/docker-compose.yml
+*.gif
