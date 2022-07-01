@@ -265,9 +265,11 @@ CASES:
         dementional: false
 
 GENERAL:
+    - topic: Сегмент про ракету
     - rocket_name
     - rocket_time
     - jet_count
+    - topic: Сегмент про новости
     - post_in_news
 
 OBJECTS:

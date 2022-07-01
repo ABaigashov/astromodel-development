@@ -712,7 +712,6 @@ CASES:
 
 GENERAL:
     - topic: Общие настройки сцены
-    -
     - dimensions
     - output_graphics
     - grid
@@ -723,7 +722,6 @@ GENERAL:
     - edge
     - scale_faktor
     - topic: Настройки взаимодействий
-    -
     - gravity_point_interaction
     - gravity_extended_interaction
     - electricity_point_interaction

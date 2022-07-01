@@ -13,6 +13,8 @@
 }
 
 .cfg-table-bx .cfg-h3 {
+    text-align: center;
+    font-weight: bold;
     font-size: 26px;
     margin-bottom: 25px;
 }
@@ -146,7 +148,11 @@ body {
 }
 
 .cfg-table-bx .cfg-h4 {
-    font-size: 19px;
+    font-size: 22px;
+    text-align: center;
+    height: 1px;
+    position: relative;
+    top: 40px;
 }
 
 .cfg-file-bx {
@@ -500,6 +506,7 @@ textarea:focus:-ms-input-placeholder {
 .cfg-pop-form .cfg-h2 {
     text-align: center;
     font-size: 36px;
+    font-weight: bold;
     margin-bottom: 30px;
 }
 
@@ -974,7 +981,7 @@ button {
 }
 
 .article hr {
-    margin: 10px auto 30px;
+    margin: 80px auto 30px;
     border-color: #fff;
     background-color: #fff;
 }

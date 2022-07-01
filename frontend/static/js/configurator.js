@@ -314,13 +314,13 @@ function generate_checkbox(name, slots) {
 
 function generate_field(wrap, name, slots) {
     if (slots === null) {
-        let hr = document.createElement("hr");
-        wrap.appendChild(hr);
+        wrap.appendChild(document.createElement("hr"));
     } else if (slots.topic !== undefined) {
         let topic = document.createElement("div");
         topic.innerText = slots.topic;
         topic.className = "cfg-h4";
         wrap.appendChild(topic);
+        wrap.appendChild(document.createElement("hr"));
     } else if (slots.class === "dropdown") {
         let dropdown = generate_dropdown(name, slots);
         wrap.appendChild(dropdown);
