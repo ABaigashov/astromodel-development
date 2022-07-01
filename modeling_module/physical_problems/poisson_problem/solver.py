@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 import sympy as sym
 import os
 
-
 # from mpl_toolkits.mplot3d import *
 # from matplotlib import cm
 # import matplotlib.animation as animation
@@ -14,6 +13,8 @@ import os
 #####УРАВНЕНИЕ ПУАССОНА#####
 ############################
 path = 'modeling_module/physical_problems/poisson_problem/'
+
+
 class Task_maker():
 
     def __init__(self, config):
@@ -35,7 +36,7 @@ class Task_maker():
         self.N = 1
 
         if self.config.mesh_name:
-             self.mesh = path + 'mesh/' + self.config.mesh_name
+            self.mesh = path + 'mesh/' + self.config.mesh_name
 
         if self.config.source:
             self.source = self.config.source
@@ -46,7 +47,7 @@ class Task_maker():
         if self.config.task_name:
             self.task_name = self.config.task_name
 
-        if config.task_name=="Heat":
+        if config.task_name == "Heat":
             if self.config.t_0:
                 self.t_0 = float(self.config.t_0)
 
@@ -58,8 +59,6 @@ class Task_maker():
 
             if self.config.N:
                 self.N = int(self.config.N)
-
-
 
         # if self.config.vector_functions:
         #     self.conditions = self.config.vector_functions
@@ -102,42 +101,39 @@ class BVP_solver():
 
         os.mkdir(self.output)
 
-
-        #объявление искомых функций и пробных функций. Они являются частью V.
+        # объявление искомых функций и пробных функций. Они являются частью V.
 
         self.boundary_parts = MeshFunction('size_t', self.mesh, self.mesh.topology().dim() - 1)
-
 
     def Solving_eq(self, task):
         V = FunctionSpace(self.mesh, 'P', 1)
 
         u = Function(V)
         v = TestFunction(V)
-        ds = Measure('ds', domain = self.mesh, subdomain_data = self.boundary_parts)
+        ds = Measure('ds', domain=self.mesh, subdomain_data=self.boundary_parts)
         Dc = []
         Nc = []
         bx = []
 
-
         if task.task_name == "Heat":
             u_0 = Expression(task.ics, degree=2)
-            dt=(self.t_f - self.t_0)/self.number_of_steps
+            dt = (self.t_f - self.t_0) / self.number_of_steps
             u_n = interpolate(u_0, V)
 
         if task.task_name == "Poisson":
             self.number_of_steps = 1
-            dt=0
+            dt = 0
 
         for n in range(self.number_of_steps):
 
-            k=0
-            m=0
+            k = 0
+            m = 0
             for i in task.name_scalar:
-                if task.type_scalar[k]=="Dirichlet":
-                    if task.notation_scalar[k]=="SYM":
+                if task.type_scalar[k] == "Dirichlet":
+                    if task.notation_scalar[k] == "SYM":
                         u_0 = sym.sympify(task.scalar_condition[k])
                         x, y, z, t = sym.symbols('x[0], x[1], x[2], t')
-                        sub = [('x',x),('y',y),('z',z),('t',self.t_0)]
+                        sub = [('x', x), ('y', y), ('z', z), ('t', self.t_0)]
                         u_D0 = u_0.subs(sub)
                         u_code = sym.printing.ccode(u_D0)
                         u_D = Expression(u_code, degree=2)
@@ -145,11 +141,11 @@ class BVP_solver():
                         u_D = Expression(task.scalar_condition[k], degree=2)
                     DC = DirichletBC(V, u_D, task.description_scalar[k])
                     Dc.append(DC)
-                if task.type_scalar[k]=="Neumann":
-                    if task.notation_scalar[k]=="SYM":
+                if task.type_scalar[k] == "Neumann":
+                    if task.notation_scalar[k] == "SYM":
                         g_N = sym.sympify(task.scalar_condition[k])
                         x, y, z, t = sym.symbols('x[0], x[1], x[2], t')
-                        sub = [('x',x),('y',y),('z',z),('t',self.t_0)]
+                        sub = [('x', x), ('y', y), ('z', z), ('t', self.t_0)]
                         g_N = g_N.subs(sub)
                         g_code = sym.printing.ccode(g_N)
                         g = Expression(g_code, degree=2)
@@ -158,25 +154,23 @@ class BVP_solver():
                     bx1 = CompiledSubDomain(task.description_scalar[k])
                     bx.append(bx1)
                     bx[m].mark(self.boundary_parts, m)
-                    Nc.append(g*v*ds(m))
-                    m = m+1
-                k = k+1
+                    Nc.append(g * v * ds(m))
+                    m = m + 1
+                k = k + 1
 
-                #источник в правой части уравнения Пуассона
+                # источник в правой части уравнения Пуассона
             f = Expression(task.source, degree=2, t=self.t_0, u=u)
 
-            kappa1 = Expression(task.kappa, degree=2,t=self.t_0, u=u)
+            kappa1 = Expression(task.kappa, degree=2, t=self.t_0, u=u)
 
             if task.task_name == "Poisson":
-                F = kappa1*dot(grad(u), grad(v))*dx - f*v*dx - sum(Nc)
+                F = kappa1 * dot(grad(u), grad(v)) * dx - f * v * dx - sum(Nc)
                 solve(F == 0, u, Dc)
 
             if task.task_name == "Heat":
-                F = (u - u_n)*v*dx + kappa1*dt*dot(grad(u), grad(v))*dx - dt*f*v*dx - sum(Nc)
+                F = (u - u_n) * v * dx + kappa1 * dt * dot(grad(u), grad(v)) * dx - dt * f * v * dx - sum(Nc)
                 solve(F == 0, u, Dc)
                 u_n.assign(u)
-
-
 
             # Save solution to file in VTK format
             vtkfile = File(f"{self.output}/solution.{format(n)}.pvd")
@@ -190,8 +184,8 @@ class BVP_solver():
             Nc = []
             bx = []
 
-
         return f"{self.output}/solution.{format(n)}.pvd"
+
 
 class PointsPotential:
 
@@ -204,15 +198,15 @@ class PointsPotential:
     def start(self):
 
         self.parameters = self.config.mass_object
-        #-------------Create DOLPHIN mesh and define function space----------
-        ae = 1.496 * 10**11
-        G = 6.67408 * 10**(-11)
+        # -------------Create DOLPHIN mesh and define function space----------
+        ae = 1.496 * 10 ** 11
+        G = 6.67408 * 10 ** (-11)
         tol = 1E-14
         self.edge = 100
         self.ncells = 256
 
-        domain =  Rectangle(Point(-self.edge, -self.edge),
-                            Point(self.edge, self.edge))
+        domain = Rectangle(Point(-self.edge, -self.edge),
+                           Point(self.edge, self.edge))
 
         # generate mesh and determination of the Function Space
         mesh = generate_mesh(domain, self.ncells)
@@ -228,29 +222,29 @@ class PointsPotential:
         ex_B = ''
 
         for p in self.parameters:
-        	if p.y >= 0 and p.x >= 0:
-        		ex_L += f'- G * {p.mass_obj} / pow(pow(x[1]-{p.y}, 2) + pow(-{self.edge}-{p.x}, 2), 0.5)'
-        		ex_R += f'- G * {p.mass_obj} / pow(pow(x[1]-{p.y}, 2) + pow({self.edge}-{p.x}, 2), 0.5)'
-        		ex_H += f'- G * {p.mass_obj} / pow(pow(x[0]-{p.x}, 2) + pow({self.edge}-{p.y}, 2), 0.5)'
-        		ex_B += f'- G * {p.mass_obj} / pow(pow(x[0]-{p.x}, 2) + pow(-{self.edge}-{p.y}, 2), 0.5)'
+            if p.y >= 0 and p.x >= 0:
+                ex_L += f'- G * {p.mass_obj} / pow(pow(x[1]-{p.y}, 2) + pow(-{self.edge}-{p.x}, 2), 0.5)'
+                ex_R += f'- G * {p.mass_obj} / pow(pow(x[1]-{p.y}, 2) + pow({self.edge}-{p.x}, 2), 0.5)'
+                ex_H += f'- G * {p.mass_obj} / pow(pow(x[0]-{p.x}, 2) + pow({self.edge}-{p.y}, 2), 0.5)'
+                ex_B += f'- G * {p.mass_obj} / pow(pow(x[0]-{p.x}, 2) + pow(-{self.edge}-{p.y}, 2), 0.5)'
 
-        	elif y_obj[i] < 0 and x_obj[i] >= 0:
-        		ex_L += f'- G * {p.mass_obj} / pow(pow(x[1]+{-p.y}, 2) + pow(-{self.edge}-{p.x}, 2), 0.5)'
-        		ex_R += f'- G * {p.mass_obj} / pow(pow(x[1]+{-p.y}, 2) + pow({self.edge}-{p.x}, 2), 0.5)'
-        		ex_H += f'- G * {p.mass_obj} / pow(pow(x[0]-{p.x}, 2) + pow({self.edge}+{-p.y}, 2), 0.5)'
-        		ex_B += f'- G * {p.mass_obj} / pow(pow(x[0]-{p.x}, 2) + pow(-{self.edge}+{-p.y}, 2), 0.5)'
+            elif y_obj[i] < 0 and x_obj[i] >= 0:
+                ex_L += f'- G * {p.mass_obj} / pow(pow(x[1]+{-p.y}, 2) + pow(-{self.edge}-{p.x}, 2), 0.5)'
+                ex_R += f'- G * {p.mass_obj} / pow(pow(x[1]+{-p.y}, 2) + pow({self.edge}-{p.x}, 2), 0.5)'
+                ex_H += f'- G * {p.mass_obj} / pow(pow(x[0]-{p.x}, 2) + pow({self.edge}+{-p.y}, 2), 0.5)'
+                ex_B += f'- G * {p.mass_obj} / pow(pow(x[0]-{p.x}, 2) + pow(-{self.edge}+{-p.y}, 2), 0.5)'
 
-        	elif y_obj[i] >= 0 and x_obj[i] < 0:
-        		ex_L += f'- G * {p.mass_obj} / pow(pow(x[1]-{p.y}, 2) + pow(-{self.edge}+{-p.x}, 2), 0.5)'
-        		ex_R += f'- G * {p.mass_obj} / pow(pow(x[1]-{p.y}, 2) + pow({self.edge}+{-p.x}, 2), 0.5)'
-        		ex_H += f'- G * {p.mass_obj} / pow(pow(x[0]+{-p.x}, 2) + pow({self.edge}-{p.y}, 2), 0.5)'
-        		ex_B += f'- G * {p.mass_obj} / pow(pow(x[0]+{-p.x}, 2) + pow(-{self.edge}-{p.y}, 2), 0.5)'
+            elif y_obj[i] >= 0 and x_obj[i] < 0:
+                ex_L += f'- G * {p.mass_obj} / pow(pow(x[1]-{p.y}, 2) + pow(-{self.edge}+{-p.x}, 2), 0.5)'
+                ex_R += f'- G * {p.mass_obj} / pow(pow(x[1]-{p.y}, 2) + pow({self.edge}+{-p.x}, 2), 0.5)'
+                ex_H += f'- G * {p.mass_obj} / pow(pow(x[0]+{-p.x}, 2) + pow({self.edge}-{p.y}, 2), 0.5)'
+                ex_B += f'- G * {p.mass_obj} / pow(pow(x[0]+{-p.x}, 2) + pow(-{self.edge}-{p.y}, 2), 0.5)'
 
-        	elif y_obj[i] < 0 and x_obj[i] < 0:
-        		ex_L += f'- G * {p.mass_obj} / pow(pow(x[1]+{-p.y}, 2) + pow(-{self.edge}+{-p.x}, 2), 0.5)'
-        		ex_R += f'- G * {p.mass_obj} / pow(pow(x[1]+{-p.y}, 2) + pow({self.edge}+{-xp.x}, 2), 0.5)'
-        		ex_H += f'- G * {p.mass_obj} / pow(pow(x[0]+{-p.x}, 2) + pow({self.edge}+{-p.y}, 2), 0.5)'
-        		ex_B += f'- G * {p.mass_obj} / pow(pow(x[0]+{-p.x}, 2) + pow(-{self.edge}+{-p.y}, 2), 0.5)'
+            elif y_obj[i] < 0 and x_obj[i] < 0:
+                ex_L += f'- G * {p.mass_obj} / pow(pow(x[1]+{-p.y}, 2) + pow(-{self.edge}+{-p.x}, 2), 0.5)'
+                ex_R += f'- G * {p.mass_obj} / pow(pow(x[1]+{-p.y}, 2) + pow({self.edge}+{-xp.x}, 2), 0.5)'
+                ex_H += f'- G * {p.mass_obj} / pow(pow(x[0]+{-p.x}, 2) + pow({self.edge}+{-p.y}, 2), 0.5)'
+                ex_B += f'- G * {p.mass_obj} / pow(pow(x[0]+{-p.x}, 2) + pow(-{self.edge}+{-p.y}, 2), 0.5)'
 
         # -------------Define boundary condition------------
         phi_L = Expression(ex_L, G=G, degree=2)
@@ -259,13 +253,16 @@ class PointsPotential:
         phi_B = Expression(ex_B, G=G, degree=2)
 
         def boundary_L(x, on_boundary):
-        	return on_boundary and near(x[0], -self.edge, tol)
+            return on_boundary and near(x[0], -self.edge, tol)
+
         def boundary_R(x, on_boundary):
-        	return on_boundary and near(x[0], self.edge, tol)
+            return on_boundary and near(x[0], self.edge, tol)
+
         def boundary_H(x, on_boundary):
-        	return on_boundary and near(x[1], self.edge, tol)
+            return on_boundary and near(x[1], self.edge, tol)
+
         def boundary_B(x, on_boundary):
-        	return on_boundary and near(x[1], -self.edge, tol)
+            return on_boundary and near(x[1], -self.edge, tol)
 
         bc_L = DirichletBC(V, phi_L, boundary_L)
         bc_R = DirichletBC(V, phi_R, boundary_R)
@@ -281,24 +278,23 @@ class PointsPotential:
         rho = []
         rho_sum = Expression('0', degree=2)
         for p in self.parameters:
-        	condition = f'pow(pow(x[0] - {p.x}, 2) + pow(x[1] - {p.y}, 2), 0.5) <= {p.r} ? 3 * {p.mass_obj} / (4 * pi * pow({p.r}, 3)): 0'
-        	rho_i = Expression(condition, degree=2, pi=np.pi)
-        	rho.append(rho_i)
-        	rho_sum += rho_i
-
+            condition = f'pow(pow(x[0] - {p.x}, 2) + pow(x[1] - {p.y}, 2), 0.5) <= {p.r} ? 3 * {p.mass_obj} / (4 * pi * pow({p.r}, 3)): 0'
+            rho_i = Expression(condition, degree=2, pi=np.pi)
+            rho.append(rho_i)
+            rho_sum += rho_i
 
         J = Expression('pow(x[0]*x[0] + x[1]*x[1], 0.5)', degree=2)
 
-        Func = (J*phi.dx(0)*v.dx(0) + J*phi.dx(1)*v.dx(1) - J*4*np.pi*rho_sum*v)*dx
+        Func = (J * phi.dx(0) * v.dx(0) + J * phi.dx(1) * v.dx(1) - J * 4 * np.pi * rho_sum * v) * dx
 
-        #---------------------Compute solution---------------------
+        # ---------------------Compute solution---------------------
         solve(Func == 0, phi, bc)
 
-        #--------------------------Ploting------------------------
-        #get array componets and triangulation :
+        # --------------------------Ploting------------------------
+        # get array componets and triangulation :
         v = phi.compute_vertex_values(mesh)
-        x = mesh.coordinates()[:,0]
-        y = mesh.coordinates()[:,1]
+        x = mesh.coordinates()[:, 0]
+        y = mesh.coordinates()[:, 1]
         t = mesh.cells()
 
         ax = plt.axes()
@@ -311,14 +307,12 @@ class PointsPotential:
         plt.ylim(-self.edge, self.edge)
         plt.axis('equal')
 
-        #-----------Output in the file-------------------
+        # -----------Output in the file-------------------
         plt.savefig(f"{self.output}/potential_func.png")
 
         return f"{self.output}/potential_func.png"
 
-
-
-#пример задания граничных условий через привычные переменные x,y на языке Python
+# пример задания граничных условий через привычные переменные x,y на языке Python
 # x, y = sym.symbols('x[0], x[1]')
 # u_D = 1 + x + 2*y
 #

@@ -8,4 +8,6 @@ modeling_module/requirements
 modeling_module/setups/*
 modeling_module/setups
 *.DS_Store
+*.pvd
+*.vtu
 docker/docker-compose.yml
