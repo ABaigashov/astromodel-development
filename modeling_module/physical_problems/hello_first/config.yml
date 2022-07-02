@@ -262,3 +262,7 @@ OBJECTS:
         cases:
             - label
             - vy0
+            - vx0
+            - radius
+            - ball_color
+            - marker
