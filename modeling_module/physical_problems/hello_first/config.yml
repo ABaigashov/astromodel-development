@@ -235,7 +235,6 @@ CASES:
         default: "1"
         type: int
         class: number
-        units: mass
         dementional: false
 
     vy0:

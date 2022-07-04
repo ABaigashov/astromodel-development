@@ -66,7 +66,6 @@ class Configurator:
 		objects = self.parse_objects(defaults, parameters, config)
 
 		self._CFG_RAW_DATA = dict(general=general, objects=objects)
-
 	@staticmethod
 	def to_type(value, case):
 		if case['type'] == 'str':

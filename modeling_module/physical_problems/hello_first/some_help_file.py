@@ -1,22 +1,23 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.animation import FuncAnimation
-
+from checker import Tester, Logger
 
 class BallModel:
     def __init__(self, config, output, job):
         self.config = config
         self.output = output
         self.job = job
-
-        self.test(slef.config)
+        
+        self.test = Tester(config)
+        
 
     def start(self):
         fig, ax = plt.subplots()
 
         for b in self.config.balls:
-            self.ball, = plt.plot([], [], self.config.b.marker, color=self.config.b.ball_color,
-                                  label=self.config.b.label, lw=2)
+            self.b = b
+            self.ball, = plt.plot([], [], b.marker, color=b.ball_color, lw=2)
 
         edge = self.config.edge
         plt.axis('equal')
@@ -40,4 +41,4 @@ class BallModel:
         return x, y
 
     def animate(self, i):
-        self.ball.set_data(self.circle_move(R=self.config.b.radius, vx0=self.config.b.vx0, vy0=self.config.b.vy0, time=i))
+        self.ball.set_data(self.circle_move(R=self.b.radius, vx0=self.b.vx0, vy0=self.b.vy0, time=i))

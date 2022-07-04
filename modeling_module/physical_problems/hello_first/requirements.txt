@@ -16,5 +16,5 @@
 # in command line "pip freeze > requirements.txt"
 # and have a nice day!
 
-matplotlib==3.3.2
+matplotlib==3.5.2
 numpy==1.19.3
