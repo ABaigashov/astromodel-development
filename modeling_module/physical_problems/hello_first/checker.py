@@ -31,7 +31,7 @@ class Tester:
                 value = general[field]['value']
             value = general[field]
 
-            if test_empty(value):
+            if cls.test_empty(value):
                 result += [{'field': field, 'error': 'empty value'}]
             
             
