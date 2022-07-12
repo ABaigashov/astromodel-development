@@ -802,7 +802,6 @@ OBJECTS:
         color: false
         title: Прямая стенка
         cases:
-            -
             - coords_1
             - coords_2
             - elasticity
