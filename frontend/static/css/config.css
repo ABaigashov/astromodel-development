@@ -238,17 +238,15 @@ body {
     width: 100%;
     border: 1px solid #d9d9d9;
     outline: 0;
+    height: 55px;
     border-radius: 9px;
     width: 100%;
     font-size: 18px;
     padding: 15px;
     box-sizing: border-box;
     -webkit-appearance: none;
-    /* Chrome */
     -moz-appearance: none;
-    /* Firefox */
     appearance: none;
-    /* убираем дефолнтные стрелочки */
     color: #131313;
     background: transparent;
     position: relative;
@@ -274,6 +272,7 @@ body {
 .cfg-select-inf-item input[type="number"] {
     color: #131315;
     width: 100%;
+    height: 55px;
     border: 1px solid #d9d9d9;
     outline: 0;
     border-radius: 9px;
