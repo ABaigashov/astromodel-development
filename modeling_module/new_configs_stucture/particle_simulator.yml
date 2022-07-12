@@ -1,0 +1,929 @@
+VERSION: 1.0
+
+UNITS:
+  - name: distance
+    hint: Еденицы измерения расстояния
+    default: метры
+    values:
+      - name: микрометры
+        value: 0.000001
+      - name: милиметры
+        value: 0.001
+      - name: метры
+        value: 1
+      - name: километры
+        value: 1000
+      - name: aстрономические единицы
+        value: 149597870700
+      - name: световые года
+        value: 9460730472580800
+      - name: парсеки
+        value: 30856776000000000
+      - name: мегапарсеки
+        value: 30856776000000000000000
+
+  - name: time
+    hint: Еденицы измерения времени
+    default: секунды
+    values:
+      - name: микросекунды
+        value: 0.000001
+      - name: милисекунды
+        value: 0.001
+      - name: секунды
+        value: 1
+      - name: минуты
+        value: 60
+      - name: часы
+        value: 3600
+      - name: дни
+        value: 86400
+      - name: годы
+        value: 31536000
+      - name: столетя
+        value: 31536000000
+      - name: тысячилетия
+        value: 315360000000
+
+  - name: velosity
+    hint: Еденицы измерения скорости
+    default: м / с
+    values:
+      - name: мкм / c
+        value: 0.000001
+      - name: мм / с
+        value: 0.001
+      - name: м / с
+        value: 1
+      - name: км / с
+        value: 1000
+      - name: скорости света
+        value: 299792458e+0
+
+  - name: charge
+    hint: Еденицы измерения заряда
+    default: кулон
+    values:
+      - name: микрокулон
+        value: 0.000001
+      - name: миликулон
+        value: 0.001
+      - name: кулон
+        value: 1
+      - name: килокулон
+        value: 1000
+      - name: мегакулон
+        value: 1000000
+      - name: гигакулон
+        value: 1000000000
+      - name: теракулон
+        value: 1000000000000
+
+  - name: mass
+    hint: Еденицы измерения массы
+    default: килограммы
+    values:
+      - name: микрограммы
+        value: 0.000000001
+      - name: милиграммы
+        value: 0.000001
+      - name: граммы
+        value: 0.001
+      - name: килограммы
+        value: 1
+      - name: тонны
+        value: 1000
+      - name: килотонны
+        value: 1000000
+      - name: мегатонны
+        value: 1000000000
+      - name: гигатонны
+        value: 1000000000000
+      - name: массы астероида
+        value: 100000000000000000000
+      - name: массы Луны
+        value: 73600000000000000000000
+      - name: массы Земли
+        value: 5972000000000000000000000
+      - name: массы Юпитера
+        value: 1898000000000000000000000000
+      - name: массы Солнца
+        value: 1988920000000000000000000000000
+
+  - name: electricity
+    hint: Еденицы измерения напряжённости электрического поля
+    default: мВ / см
+    values:
+      - name: мкВ / см
+        value: 0.0001
+      - name: мВ / см
+        value: 0.1
+
+  - name: magnetic
+    hint: Еденицы измерения напряжённости магнитного поля
+    default: T
+    values:
+      - name: мкT
+        value: 0.000001
+      - name: мT
+        value: 0.001
+      - name: T
+        value: 1
+
+  - name: angle
+    hint: Еденицы измерения угла
+    default: радианы
+    values:
+      - name: градусы
+        value: 0.017453292519943295
+      - name: радианы
+        value: 1
+
+CASES:
+
+  ####################### GENERAL #######################
+
+  - name: dimensions
+    title: Размерность пространства моделирования
+    type: int
+    render:
+      type: dropdown
+      cases:
+        - name: Двумерное пространство
+          value: 2
+        - name: Трехмерное пространство
+          value: 3
+
+  - name: output_graphics
+    title: Представление результатов
+    type: str
+    render:
+      type: dropdown
+      cases:
+        - name: Расчетная анимация
+          value: matplotlib
+        - name: Графическая анимация
+          value: vispy
+        - name: Данные в виде таблицы
+          value: json
+    hint: Поле, определяющее формат представления расчетов
+
+  - name: grid
+    title: Отображение сетки
+    type: bool
+    render:
+      class: checkbox
+    hint: Поле, при выборе которого в файле анимации будет отображаться координатная сетка
+
+  - name: step
+    title: Шаг по времени моделирования
+    type: float
+    render:
+      type: number
+      options:
+        - min: 0
+    units: time
+    hint: Значение шага по времени, которое будет использовано при решении уравнений движения
+
+  - name: steps_number
+    title: Количество шагов / временной интервал
+    type: int
+    render:
+      type: number
+      options:
+        - min: 1
+    hint: >
+      Значение времени, до которого будет произведен расчет
+      (начальное значение считается за нулевой момент времени)
+
+  - name: fps
+    title: Количество кадров в секунду анимации / FPS
+    type: int
+    render:
+      type: number
+      options:
+        - min: 1
+    default: 30
+    hint: По умолчанию установлено значение 30
+
+  - name: frames_gap
+    title: Кадровый прыжок
+    type: int
+    render:
+      type: number
+      options:
+        - min: 1
+    default: 1
+    hint: >
+      Значение, определяющее, какой кадр по счету записывается в видеофайл.
+      По умолчанию установлено значение 1
+
+  - name: edge
+    title: Границы пространства моделирования
+    type: float
+    render:
+      type: number
+      options:
+        - min: 0.01
+    units: distance
+    hint: >
+      Значение, определяющее размер области в форме квадрата (два измерения)
+      или куба (три измерения), которая отображается при в анимации
+
+  - name: scale_faktor
+    title: Масштабный фактор
+    type: float
+    render:
+      type: number
+      options:
+        - min: 0.01
+    default: 1
+    hint: >
+      Значение, определяющее во сколько раз будут увеличены размеры
+      объектов при анимации. По умолчанию установлено значение 1
+
+  - name: gravity_point_interaction
+    title: Гравитационное взаимодействие точечных объектов
+    type: bool
+    render:
+      class: checkbox
+    hint: Моделируется в рамках закона Всемирного тяготения
+
+  - name: gravity_extended_interaction
+    title: Внешнее гравитационное поле
+    type: bool
+    render:
+      class: checkbox
+    hint: Задается гравитационным потенциалом
+
+  - name: electricity_point_interaction
+    title: Кулоновское взаимодействие
+    type: bool
+    render:
+      class: checkbox
+    hint: Моделируется в рамках закона Кулона
+
+  - name: electricity_extended_interaction
+    title: Внешнее электромагнитное поле
+    type: bool
+    render:
+      class: checkbox
+    hint: Задается компонентами электрического и магнитного полей
+
+
+  ####################### point_objects #######################
+
+  - name: coords
+    title: Координаты центра
+    type: float
+    render:
+      type: number
+      prefixes:
+        - X
+        - Y
+    units: distance
+    hint: По умолчанию установлено значение 0 м, 0 м
+    if: (dimensions == 2)
+  
+  - name: coords
+    title: Координаты центра
+    type: float
+    render:
+      type: number
+      prefixes:
+        - X
+        - Y
+        - Z
+    units: distance
+    hint: По умолчанию установлено значение 0 м, 0 м, 0 м
+    if: (dimensions == 3)
+
+  - name: speed
+    title: Начальная скорость
+    type: float
+    render:
+      type: number
+      prefixes:
+        - X
+        - Y
+    units: velosity
+    if: (dimensions == 2)
+
+  - name: speed
+    title: Начальная скорость
+    type: float
+    render:
+      type: number
+      prefixes:
+        - X
+        - Y
+        - Z
+    units: velosity
+    if: (dimensions == 3)
+
+  - name: mass
+    title: Масса
+    type: float
+    render:
+      type: number
+      options:
+        - min: 0
+    units: mass
+
+  - name: charge
+    title: Заряд
+    type: float
+    render:
+      type: number
+    units: charge
+    default: 0
+    if: >
+      (electricity_point_interaction == true)
+      OR
+      (electricity_extended_interaction == true)
+
+  - name: radius
+    title: Радиус
+    type: float
+    render:
+      type: number
+      options:
+        - min: 0.1
+    units: distance
+
+  - name: delay
+    title: Время появления
+    type: float
+    render:
+      type: number
+      options:
+        - min: 0
+    units: time
+    default: 0
+    hint: По умолчанию установлено значение 0 с
+
+  - name: trajectory
+    title: Отображать траекторию объекта
+    type: bool
+    render:
+      type: checkbox
+    hint: Пошаговое отображение траектории
+
+  - name: K
+    title: Коэффициент упругости
+    type: float
+    render:
+      type: number
+      options:
+        - min: 0
+        - maxmum: 1
+
+  - name: destroy
+    title: Возможность разрушения объекта при столкновении
+    type: bool
+    render:
+      type: checkbox
+    hint: >
+      В случае столкновения объекта с другим объектом
+      или стенокой возможно полное его полное разрушение
+
+
+  ####################### random_generators #######################
+
+  - name: coordinate_scale
+    title: Масштаб координат объектов
+    type: float
+    render:
+      type: number
+      options:
+        - min: 0.1
+        - max: 100
+    units: distance
+    hint: По умолчанию установлено значение 1 м, 1 м
+    default: 1
+    if: (dimensions == 2)
+
+  - name: coordinate_scale
+    title: Масштаб координат объектов
+    type: float
+    render:
+      type: number
+      options:
+        - min: 0.1
+        - max: 100
+    units: distance
+    hint: По умолчанию установлено значение 1 м, 1 м, 1 м
+    default: 1
+    if: (dimensions == 3)
+
+  - name: velocity_scale
+    title: Масштаб скоростей объектов
+    type: float
+    render:
+      type: number
+      options:
+        - min: 0.1
+        - max: 100
+    units: velosity
+    default: 1
+
+
+  ####################### ring_generator #######################
+
+  - name: mass_center
+    title: Масса центрального тела
+    type: float
+    render:
+      type: number
+      options:
+        - min: 0.1
+    units: mass
+    default: 0
+    hint: По умолчанию установлено значение 0 кг
+
+  - name: coords_center
+    title: Координаты центрального тела
+    type: float
+    render:
+      type: number
+      prefixes:
+        - X
+        - Y
+    units: distance
+    default: 0
+    hint: По умолчанию установлено значение 0 м, 0 м
+    if: (dimensions == 2)
+
+  - name: coords_center
+    title: Координаты центрального тела
+    type: float
+    render:
+      type: number
+      prefixes:
+        - X
+        - Y
+        - Z
+    units: distance
+    default: 0
+    hint: По умолчанию установлено значение 0 м, 0 м, 0 м
+    if: (dimensions == 3)
+
+  - name: speed_center
+    title: Компоненты скорости центрального тела
+    type: float
+    render:
+      type: number
+      prefixes:
+        - X
+        - Y
+    units: velosity
+    default: 0
+    hint: По умолчанию установлено значение 0 м/с, 0 м/с
+    if: (dimensions == 2)
+
+  - name: speed_center
+    title: Компоненты скорости центрального тела
+    type: float
+    render:
+      type: number
+      prefixes:
+        - X
+        - Y
+        - Z
+    units: velosity
+    default: 0
+    hint: По умолчанию установлено значение 0 м/с, 0 м/с, 0 м/с
+    if: (dimensions == 3)
+
+  - name: ring_radius
+    title: Радиус кольца
+    type: float
+    render:
+      type: number
+    units: distance
+    default: 1
+    hint: По умолчанию установлено значение 1 м
+
+  - name: point_velocity
+    title: Модуль скорости объектов
+    type: float
+    render:
+      type: number
+    units: velosity
+    default: 0
+
+
+  ####################### ellipse_generators #######################
+
+  - name: major_axis
+    title: Бóльшая полуось эллипса
+    type: float
+    render:
+      type: number
+    units: distance
+    default: 1
+    hint: По умолчанию установлено значение 1 м
+
+  - name: exentricity
+    title: Эксцентриситет
+    type: float
+    render:
+      type: number
+      options:
+        - min: 0
+        - max: 0.999
+    default: 0
+    hint: По умолчанию установлено значение 0
+
+  - name: focus
+    title: Положение фокуса
+    type: int
+    render:
+      type: dropdown
+      cases:
+        - name: Правый
+          value: -1
+        - name: Левый
+          value: 1
+    default: 1
+    hint: >
+      В случае совпадения большой полуоси эллипса и оси абсцисс,
+      положение центрального тела можно определить в левом или
+      правом фокусе относительно начала системы координат
+    if: (exentricity != 0)
+
+  - name: apside_angle
+    title: Угол поворота линии апсид эллипса относительно оси Ох
+    type: float
+    render:
+      type: number
+    units: angle
+    default: 0
+    hint: По умолчанию установлено значение 0
+
+  
+  ####################### general generators #######################
+
+  - name: particals_number
+    title: Количество объектов
+    type: int
+    render:
+      type: number
+
+  - name: equal_parameters
+    title: Сделать все объекты одинаковыми
+    type: bool
+    render:
+      type: checkbox
+    hint: Не учитывать масштабирование
+
+  - name: radius_scale
+    title: Масштабы радиусов объектов
+    type: float
+    render:
+      type: number
+      options:
+        - min: 0.01
+        - max: 100
+    units: distance
+    default: 1
+    hint: По умолчанию установлено значение 1 м
+
+  - name: mass_scale
+    title: Масштаб масс объектов
+    type: float
+    render:
+      type: number
+      options:
+        - min: 0.01
+        - max: 100
+    units: mass
+    default: 1
+    hint: По умолчанию установлено значение 1 кг
+
+  - name: charge_scale
+    title: Масштаб зарядов объектов
+    type: float
+    render:
+      type: number
+      options:
+        - min: 0.01
+        - max: 100
+    units: charge
+    default: 1
+    hint: По умолчанию установлено значение 1 Кл
+    if: >
+      (electricity_point_interaction == true)
+      OR
+      (electricity_extended_interaction == true)
+
+
+  - name: delay_scale
+    title: Масштаб задержки возникновения объектов
+    type: float
+    render:
+      type: number
+    units: time
+    default: 0
+    hint: По умолчанию установлено значение 0 с
+
+
+  ####################### walls #######################
+
+  - name: coords_start
+    title: Координаты начала стенки
+    type: float
+    render:
+      type: number
+      prefixes:
+        - X
+        - Y
+    units: distance
+    default: 0
+    if: (dimensions == 2)
+
+  - name: coords_start
+    title: Координаты начала стенки
+    type: float
+    render:
+      type: number
+      prefixes:
+        - X
+        - Y
+        - Z
+    units: distance
+    default: 0
+    if: (dimensions == 3)
+
+  - name: coords_end
+    title: Координаты конца стенки
+    type: float
+    render:
+      type: number
+      prefixes:
+        - X
+        - Y
+    units: distance
+    default: 0
+    if: (dimensions == 2)
+
+  - name: coords_end
+    title: Координаты конца стенки
+    type: float
+    render:
+      type: number
+      prefixes:
+        - X
+        - Y
+        - Z
+    units: distance
+    default: 0
+    if: (dimensions == 3)
+
+  - name: equation_X
+    title: Параметрическое уравнение границы x = f(u)
+    type: str
+    render:
+      type: text
+    default: 0
+    hint: По умолчанию установлено значение 0
+
+  - name: equation_Y
+    title: Параметрическое уравнение границы y = f(u)
+    type: str
+    render:
+      type: text
+    default: 0
+    hint: По умолчанию установлено значение 0
+
+  - name: value_start
+    title: Начальное значение параметра u
+    type: float
+    render:
+      type: number
+
+  - name: value_end
+    title: Конечное значение параметра u
+    type: float
+    render:
+      type: number
+    default: 0
+    hint: По умолчанию установлено значение 0
+
+  - name: number_of_divisions
+    title: Число разбиений интервала изменения параметра
+    type: int
+    render:
+      type: number
+      options:
+        - min: 1
+    default: 1
+    hint: По умолчанию установлено значение 1
+
+  - name: elasticity
+    title: Коэффициент эластичности стенки
+    type: float
+    render:
+      type: number
+      options:
+        - min: 0
+        - max: 1
+    default: 1
+    hint: По умолчанию установлено значение 1
+
+
+  ####################### EM_fields #######################
+
+  - name: electricity
+    title: Компоненты электрического поля
+    type: str
+    render:
+      type: text
+      prefixes:
+        - X
+        - Y
+    units: electricity
+    default: 0
+    hint: По умолчанию установлено значение 0 Тл
+    if: (dimensions == 2)
+
+  - name: electricity
+    title: Компоненты электрического поля
+    type: str
+    render:
+      type: text
+      prefixes:
+        - X
+        - Y
+        - Z
+    units: electricity
+    default: 0
+    hint: По умолчанию установлено значение 0 Тл
+    if: (dimensions == 3)
+
+  - name: magnetic
+    title: Компоненты магнитного поля
+    type: str
+    render:
+      type: text
+      prefixes:
+        - X
+        - Y
+    units: magnetic
+    default: 0
+    hint: По умолчанию установлено значение 0 В
+    if: (dimensions == 2)
+
+  - name: magnetic
+    title: Компоненты магнитного поля
+    type: str
+    render:
+      type: text
+      prefixes:
+        - X
+        - Y
+        - Z
+    units: magnetic
+    default: 0
+    hint: По умолчанию установлено значение 0 В
+    if: (dimensions == 3)
+
+
+  ####################### G_fields #######################
+
+  - name: gravity
+    title: Потенциал гравитационного поля
+    type: str
+    render:
+      type: text
+    default: 0
+    hint: По умолчанию установлено значение 0 Дж/кг
+
+
+GENERAL:
+
+  - topic: Общие настройки сцены
+
+  - dimensions
+  - output_graphics
+  - grid
+  - step
+  - steps_number
+  - fps
+  - frames_gap
+  - edge
+  - scale_faktor
+
+  - topic: Настройки взаимодействий
+
+  - gravity_point_interaction
+  - gravity_extended_interaction
+  - electricity_point_interaction
+  - electricity_extended_interaction
+
+
+OBJECTS:
+
+  - name: point_objects
+    title: Единичный объект
+    color: true
+    cases:
+      - trajectory
+      - destroy
+      - coords
+      - speed
+      - mass
+      - charge
+      - radius
+      - delay
+      - K
+
+  - name: random_generators
+    title: Генератор произвольного распределения объектов
+    color: true
+    cases:
+      - particals_number
+      - trajectory
+      - destroy
+      - equal_parameters
+      - radius_scale
+      - mass_scale
+      - charge_scale
+      - delay_scale
+      - coordinate_scale
+      - velocity_scale
+      - K
+
+  - name: ring_generator
+    title: Генератор кругового распределения объектов
+    color: true
+    cases:
+      - particals_number
+      - trajectory
+      - destroy
+      - equal_parameters
+      - radius_scale
+      - mass_scale
+      - charge_scale
+      - delay_scale
+      - mass_center
+      - coords_center
+      - speed_center
+      - ring_radius
+      - point_velocity
+      - K
+
+  - name: ellipse_generators
+    title: Генератор эллиптического распределения объектов
+    color: true
+    cases:
+      - particals_number
+      - trajectory
+      - destroy
+      - equal_parameters
+      - radius_scale
+      - mass_scale
+      - charge_scale
+      - delay_scale
+      - mass_center
+      - coords_center
+      - speed_center
+      - major_axis
+      - exentricity
+      - focus
+      - apside_angle
+      - K
+
+  - name: wall_objects
+    color: false
+    title: Прямая стенка
+    cases:
+      - coords_start
+      - coords_end
+      - elasticity
+
+  - name: complex_wall
+    color: false
+    title: Сложная стенка
+    cases:
+      - equation_X
+      - equation_Y
+      - u_start
+      - u_end
+      - number_of_divisions
+      - elasticity
+
+  - name: EM_fields
+    color: false
+    title: Электромагнитное поле
+    cases:
+      - electricity
+      - magnetic
+    if: (electricity_extended_interaction == true)
+
+  - name: G_fields
+    color: false
+    title: Гравитационное поле
+    cases:
+      - gravity
+    if: (gravity_extended_interaction == true)

@@ -1,0 +1,77 @@
+VERSION: 1.0
+
+
+UNITS:
+  - name: <name>
+    default: <value_name>
+    hint?: <hint>
+    values:
+    - name: <name_1>
+      value: <value_1>
+    - name: <name_2>
+      value: <value_2>
+    - name: <name_3>
+      value: <value_3>
+
+FIELDS:
+  - name: <field_1>
+    title: <title>
+    type: int | str | float | bool
+    render:
+      type: text | file | number | dropdown | checkbox | color
+      prefixes?:
+        - <prefix_1>
+        - <prefix_2>
+        - <prefix_3>
+      options?:
+        - <html-option_1>: <html-value_1>
+        - <html-option_2>: <html-value_2>
+        - <html-option_3>: <html-value_3>
+        - <html-single-option>
+      cases?: 
+        - name: <name_1>
+          value: <value_1>
+        - name: <name_2>
+          value: <value_2>
+        - name: <name_3>
+          value: <value_3>
+    units?: <units_N>
+    hint?: <hint>
+    default?: <value>
+    if?: >
+      (<field_A> = <value_A>)
+      OR
+      (
+        (<field_B> = <value_B>)
+        AND
+        (<field_C> = <value_C>)
+      )
+
+GENERAL:
+  - topic: <topic-name_1>
+  - <field_A>
+  - <field_B>
+  - # this is a separator
+  - <field_C>
+  - <field_D>
+  - topic: <topic-name_2>
+  - <field_E>
+  - <field_F>
+  - <field_G>
+
+
+OBJECTS:
+  - name: <name_1>
+    title: <title>
+    fields:
+      - topic: <topic-name_1>
+      - <field_A>
+      - <field_B>
+      - # this is a separator
+      - <field_C>
+      - <field_D>
+      - topic: <topic-name_2>
+      - <field_E>
+      - <field_F>
+      - <field_G>
+    if?: (<field_N> = <value_N>)
