@@ -732,7 +732,6 @@ OBJECTS:
         title: Единичный объект
         color: true
         cases:
-            -
             - trajectory
             - destroy
             - coords
@@ -747,7 +746,6 @@ OBJECTS:
         title: Генератор произвольного распределения объектов
         color: true
         cases:
-            -
             - particals_number
             - trajectory
             - destroy
@@ -764,7 +762,6 @@ OBJECTS:
         title: Генератор кругового распределения объектов
         color: true
         cases:
-            -
             - particals_number
             - trajectory
             - destroy
@@ -784,7 +781,6 @@ OBJECTS:
         title: Генератор эллиптического распределения объектов
         color: true
         cases:
-            -
             - particals_number
             - trajectory
             - destroy
@@ -815,7 +811,6 @@ OBJECTS:
         color: false
         title: Сложная стенка
         cases:
-            -
             - equation_X
             - equation_Y
             - u_s
@@ -827,7 +822,6 @@ OBJECTS:
         color: false
         title: Электромагнитное поле
         cases:
-            -
             - electricity
             - magnetic
 
@@ -835,5 +829,4 @@ OBJECTS:
         color: false
         title: Гравитационное поле
         cases:
-            -
             - gravity
