@@ -13,3 +13,4 @@ modeling_module/setups
 *.gif
 docker/docker-compose.yml
 *.gif
+.idea
