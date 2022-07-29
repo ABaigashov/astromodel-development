@@ -1,10 +1,15 @@
 <?php
 if (php_sapi_name() !== 'apache2handler') {
-    $problem_name='test';
+    $problem_name='particle_simulator';
+    $server_url='http://localhost:8888';
+    $terminal='/terminal';
 }
 ?>
-
-
+<script>
+    var problem_name = `<?php echo $problem_name; ?>`;
+    var server_url = `<?php echo $server_url; ?>`;
+    var terminal_url = `<?php echo $terminal_url; ?>`;
+</script>
 <style>
 .cfg-check-item input:checked+span:after {
     background: url(<?php echo $server_url; ?>/construct/static/images/ch.svg) 50% no-repeat;

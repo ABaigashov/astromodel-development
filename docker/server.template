@@ -45,6 +45,15 @@ services:
             - 8888:8888
         depends_on:
             - wsserver
+            - php-fpm
         volumes:
             - /var/astromodel/data:/data
         container_name: nginx
+        links:
+            - php-fpm
+    
+    php-fpm:
+        build:
+            context: ${PWD}
+            dockerfile: ${PWD}/docker/php/Dockerfile
+        container_name: php-fpm

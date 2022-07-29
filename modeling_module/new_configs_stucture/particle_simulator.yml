@@ -139,7 +139,7 @@ UNITS:
       - name: радианы
         value: 1
 
-CASES:
+FIELDS:
 
   ####################### GENERAL #######################
 
@@ -172,7 +172,7 @@ CASES:
     title: Отображение сетки
     type: bool
     render:
-      class: checkbox
+      type: checkbox
     hint: Поле, при выборе которого в файле анимации будет отображаться координатная сетка
 
   - name: step
@@ -246,28 +246,28 @@ CASES:
     title: Гравитационное взаимодействие точечных объектов
     type: bool
     render:
-      class: checkbox
+      type: checkbox
     hint: Моделируется в рамках закона Всемирного тяготения
 
   - name: gravity_extended_interaction
     title: Внешнее гравитационное поле
     type: bool
     render:
-      class: checkbox
+      type: checkbox
     hint: Задается гравитационным потенциалом
 
   - name: electricity_point_interaction
     title: Кулоновское взаимодействие
     type: bool
     render:
-      class: checkbox
+      type: checkbox
     hint: Моделируется в рамках закона Кулона
 
   - name: electricity_extended_interaction
     title: Внешнее электромагнитное поле
     type: bool
     render:
-      class: checkbox
+      type: checkbox
     hint: Задается компонентами электрического и магнитного полей
 
 
@@ -376,7 +376,7 @@ CASES:
       type: number
       options:
         - min: 0
-        - maxmum: 1
+        - max: 1
 
   - name: destroy
     title: Возможность разрушения объекта при столкновении
@@ -827,7 +827,7 @@ OBJECTS:
   - name: point_objects
     title: Единичный объект
     color: true
-    cases:
+    fields:
       - trajectory
       - destroy
       - coords
@@ -841,7 +841,7 @@ OBJECTS:
   - name: random_generators
     title: Генератор произвольного распределения объектов
     color: true
-    cases:
+    fields:
       - particals_number
       - trajectory
       - destroy
@@ -857,7 +857,7 @@ OBJECTS:
   - name: ring_generator
     title: Генератор кругового распределения объектов
     color: true
-    cases:
+    fields:
       - particals_number
       - trajectory
       - destroy
@@ -876,7 +876,7 @@ OBJECTS:
   - name: ellipse_generators
     title: Генератор эллиптического распределения объектов
     color: true
-    cases:
+    fields:
       - particals_number
       - trajectory
       - destroy
@@ -897,7 +897,7 @@ OBJECTS:
   - name: wall_objects
     color: false
     title: Прямая стенка
-    cases:
+    fields:
       - coords_start
       - coords_end
       - elasticity
@@ -905,7 +905,7 @@ OBJECTS:
   - name: complex_wall
     color: false
     title: Сложная стенка
-    cases:
+    fields:
       - equation_X
       - equation_Y
       - u_start
@@ -916,7 +916,7 @@ OBJECTS:
   - name: EM_fields
     color: false
     title: Электромагнитное поле
-    cases:
+    fields:
       - electricity
       - magnetic
     if: (electricity_extended_interaction == true)
@@ -924,6 +924,6 @@ OBJECTS:
   - name: G_fields
     color: false
     title: Гравитационное поле
-    cases:
+    fields:
       - gravity
     if: (gravity_extended_interaction == true)
