@@ -1,7 +1,6 @@
 
 VERSION: 1.0
 
-
 UNITS:
   - name: <name>
     default: <value_name>
