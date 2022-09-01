@@ -333,7 +333,7 @@ class PointsPotential:
 # bc = DirichletBC(V, u_D, boundary)
 #
 # f = Expression(f_code, degree=1)
-# F = q(u)*dot(grad(u), grad(v))*dx - f*v*dx
+# F = q(u)*dot(grad(u), grad(velosity_field))*dx - f*velosity_field*dx
 #
 # solve(F == 0, u, bc)
 #
