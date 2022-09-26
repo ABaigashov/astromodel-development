@@ -60,16 +60,6 @@ $(document).ready(($) => {
         event.preventDefault();
         save_obj();
     });
-    $("#cfg-file-input").on("change", (event) => {
-        event.preventDefault();
-        let file = $("#cfg-file-input").prop("files")[0];
-        let reader = new FileReader();
-        reader.readAsText(file, "UTF-8");
-        reader.onload = (event) => {
-            load_config(JSON.parse(event.target.result));
-            setTimeout(() => window.scrollTo(0, 0), 1);
-        };
-    });
 });
 
 let OBJECTS = {};

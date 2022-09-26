@@ -11,12 +11,7 @@
 
 	<div class="cfg-table-bx">
 		<div class="cfg-scale-bx">
-			<div class="cfg-h3">Список задач</div>
-			<input type="file" id="cfg-file-input" style="display:none;" accept=".json" />
-			<div class="cfg-tmp-bx">
-				<div class="cfg-h4" style="margin:0;margin-right:10px;width:140px;text-align:right;">Добавить конфигурацию</div>
-				<img class="cfg-plus-bt"  style="margin:0;" onclick="$('#cfg-file-input').trigger('click');" src="<?php echo $server_url; ?>/construct/static/images/plus2.svg">
-			</div>
+			<div class="cfg-h3" style="display:block;">Список задач</div>
 		</div>
 		<div class="cfg-table-wrap">
 			<table class="cfg-table" id="cfg-table">
