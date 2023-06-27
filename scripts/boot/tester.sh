@@ -26,6 +26,6 @@ docker-compose \
 docker-compose \
 	-p astromodel \
 	-f ./docker/boot/tester.yml \
-	up --no-log-prefix
+	up
 
 unset FOLDER

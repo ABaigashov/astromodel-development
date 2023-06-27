@@ -28,7 +28,7 @@ docker-compose \
 docker-compose \
 	-p astromodel \
 	-f ./docker/boot/solver.yml \
-	up --no-log-prefix
+	up
 
 unset PROBLEM
 unset SEED

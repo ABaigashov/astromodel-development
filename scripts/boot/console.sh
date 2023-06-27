@@ -22,7 +22,7 @@ docker-compose \
 docker-compose \
 	-p astromodel \
 	-f ./docker/boot/console.yml \
-	up -d --no-log-prefix
+	up -d
 
 docker exec -it console-${SEED} python3
 
