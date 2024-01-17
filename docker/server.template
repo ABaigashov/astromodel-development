@@ -2,8 +2,8 @@ version: "3.8"
 
 networks:
     default:
-        external:
-            name: astro-net
+        external: true
+        name: astro-net
 
 services:
     postgres:

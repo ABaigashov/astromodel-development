@@ -35,7 +35,7 @@ else
 fi
 
 # -f ./docker/wsclient/docker-compose.yml \
-docker-compose \
+docker compose \
 	-p astromodel \
 	-f ./docker/astromodel/docker-compose.yml \
 	-f ./docker/wsserver/docker-compose.yml \

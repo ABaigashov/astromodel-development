@@ -25,5 +25,5 @@ services:
 
 networks:
     default:
-        external:
-            name: astro-net
+        external: true
+        name: astro-net
