@@ -31,15 +31,6 @@ if (php_sapi_name() !== 'apache2handler') {
         <div class="cfg-step-bx">
             <div class="cfg-file-bx">
                 <div class="cfg-tt">
-                    <div class="cfg-t1">Загрузите свой файл</div>
-                    <div class="cfg-t2">Если у Вас уже есть конфигурационый файл, то загрузите его (Форматы JSON, не
-                        более 2 мб)</div>
-                </div>
-                <input type="file" id="cfg-file-input" style="display:none;" accept=".json" />
-                <button class="cfg-btn" onclick="$('#cfg-file-input').trigger('click')">Прикрепить файл</button>
-            </div>
-            <div class="cfg-file-bx">
-                <div class="cfg-tt">
                     <div class="cfg-t1">Создайте новый файл</div>
                     <div class="cfg-t2">Создайте новый конфигурационый файл (Формат JSON)</div>
                 </div>

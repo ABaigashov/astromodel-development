@@ -1,0 +1,20 @@
+{"GENERAL":{"name":"Name","case_one":"Case 1","case_two":true},
+"PROBLEM":"test_simulator",
+"OBJECTS":{"objects_one":[{
+    "param_one":{
+        "value":[1,1,1],"units":1},
+        "param_two":{"value":1,"units":1},
+        "name":"Obj_1","color":[0,0,0],
+        "id":"ous-hak",
+        "index":0
+        }],
+    "objects_three":[{
+        "param_three":true,
+        "param_four":"-1",
+        "name":"Obj_2",
+        "color":[85,41,141],
+        "id":"vft-voj",
+        "index":1
+        }]
+    }
+}
